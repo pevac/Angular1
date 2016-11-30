@@ -1,5 +1,6 @@
 // NAVBAR
 
+
 .navbar{
   border: none;
   margin-bottom: 0;
@@ -7,9 +8,9 @@
   position: relative;
 }
 
-.navbar-default{
+.navbar-header{
   background-color: $navbar-bg;
-
+  width: 100%;
 
   h1{
     margin: 0;
@@ -52,23 +53,63 @@
   }
 }
 
+
 .navbar-default.sidebar {
-  position: fixed;
-  width: $sidebar-width;
-  left: 0;
-  bottom: 0;
-  top: $navbar-top-height;
+  position: absolute;
+  width: 100%;
   z-index: 1;
   background-color: $sidebar-bg;
 
+  .sidebar-nav{
+    padding: 25px 0 0 0;
+    overflow: hidden;
+    margin: 0 0 25px 0;
+    border: none;
+    position: static;
+    ul{
+      position: static;
+      border: none;
+      float: none;
+    }
+
+    .dropdown-menu {
+      background-color: $sidebar-bg;
+    }
+  }
+
+  //.nav {
+  //  .open > a {
+  //    &,
+  //    &:hover,
+  //    &:focus {
+  //      background-color: $brown-light-color;
+  //      border-color: $brown-light-color;
+  //    }
+  //  }
+  //}
+
+
   .nav-main {
-    margin-top: 15px;
+    margin: 0;
+
+
+    li> a:focus,
+    li> a:active{
+      background-color: $navbar-li-main-bg-hover;
+      & .arrow{
+        transform: rotate(0deg);
+      }
+    }
+
     li {
       a {
         font-size: 18px;
         color: $navbar-link-color;
         position: relative;
       }
+
+
+
 
       span {
         vertical-align: middle;
@@ -101,23 +142,21 @@
       }
     }
 
-    li.active a,
-    li.active a:hover,
-    a:hover,
-    a:focus,
-    a:active {
-      background-color: $navbar-li-main-bg-hover;
-    }
-
-    li.active a,
-    li.active a:hover{
-      background-color: $navbar-li-main-bg-hover;
+    li.active>a,
+    li.active>a:hover
+    {
       & .arrow{
         transform: rotate(0deg);
       }
     }
 
+    a:hover,
+    a:focus,
+    a:active{
+    background-color:$navbar-li-main-bg-hover;}
+
     .nav-second{
+      margin: 0;
       li{
         padding: 0;
         margin: 0;
@@ -125,7 +164,7 @@
         a{
           font-size: 14px;
           color: $navbar-link-color;
-          padding: 5px 10px 5px 45px;
+          padding: 10px 10px 10px 45px;
         }
 
         span{
@@ -136,12 +175,30 @@
 
       li.active a,
       li.active a:hover,
+      li.active a:focus,
       a:hover,
       a:focus,
       a:active{
         color: $navbar-link-color;
+        background-color: $navbar-li-main-bg-hover;
       }
     }
+  }
+}
+
+@media(max-width: 768px){
+  h1{
+     width: 100%;
+    .navbar-brand{
+      background-size: 80%;
+    }
+  }
+}
+
+@media(min-width: 768px){
+  .navbar-default.sidebar{
+    margin-top: $navbar-top-height;
+    width: $sidebar-width;
   }
 }
 

@@ -47,7 +47,7 @@ var path = {
         script: {
         app: [ SOURCE_BASE_DIR + '/app/**/*.js' ],
         vendor: ["./src/assets/lib/angular/angular.js",
-        "./src/assets/lib/angular-bootstrap/ui-bootstrap.js",
+        "./src/assets/lib/angular-bootstrap/ui-bootstrap-tpls.js",
         "./src/assets/lib/angular-ui-router/release/angular-ui-router.js",
         ]
         },

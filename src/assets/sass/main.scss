@@ -29,6 +29,7 @@
 // @import "../lib/bootstrap-sass/assets/stylesheets/bootstrap/input-groups";
 @import "../lib/bootstrap-sass/assets/stylesheets/bootstrap/navs";
 @import "../lib/bootstrap-sass/assets/stylesheets/bootstrap/navbar";
+@import "./partials/sidebar";
 // @import "../lib/bootstrap-sass/assets/stylesheets/bootstrap/breadcrumbs";
 // @import "../lib/bootstrap-sass/assets/stylesheets/bootstrap/pagination";
 // @import "../lib/bootstrap-sass/assets/stylesheets/bootstrap/pager";
@@ -57,4 +58,4 @@
 
 // added by me
 @import "./partials/login";
-@import "./partials/sidebar";
+@import "./partials/common";
