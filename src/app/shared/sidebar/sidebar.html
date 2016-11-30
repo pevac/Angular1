@@ -1,75 +1,124 @@
 <!-- NAVBAR -->
-<header>
-		<div class="brand-sect clearfix">
-			<h1></h1>
-			<div class="account">
-				<span>Anton Veles</span>
+<nav class="navbar navbar-default navbar-fixed-top" ng-controller="SidebarController">
+	<!-- Brand and toggle get grouped for better mobile display -->
+	<div class="navbar-header">
+		<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar" aria-expanded="false">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</button>
+	</div>
+
+	<div class="brand-sect">
+		<h1><span class="navbar-brand"></span></h1>
+		<div class="account navbar-right">
+			<span class="user-name">Anton Veles</span>
 				<div class="photo">
-					<img  src="img/admin.jpg" alt="">
+					<img src="img/admin.jpg" alt="">
 				</div>
-			</div>
 		</div>
-</header>
+	</div>
 
-
-<nav class="navbar navbar-default sidebar" ng-controller="SidebarController">
-			<!--Цей клас і ID class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" під Mobile Bootstrap якшо не треба удали-->
-			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-				<ul class="nav nav-main ">
-					<li>
-						<a ui-sref="home">
-							<img src="/img/icon-Home.png" alt="">
-							<span>Home</span>
-						</a>
-					</li>
-					<li >
-						<a ui-sref="home" ng-click="toggled1(status.isopen1)">
-							<img src="/img/icon-DevStudio.png" alt="">
-							<span>Dev Studio</span>
-							<span class="arrow"><img src="/img/arrow.png" alt=""></span>
-						</a>
-						<ul class="nav nav-second " ng-show="status.isopen1"   uib-dropdown-menu role="menu" >
-							<li role="menuitem">
-								<a ui-sref=".devportfolio">
-									<span>Портфоліо</span>
-								</a>
-							</li>
-							<li role="menuitem">
-								<a ui-sref=".ordercustomer">
-									<span>Заявки клієнтів</span>
-								</a>
-							</li>
-							<li role="menuitem">
-								<a ui-sref=".vacancies">
-									<span>Вакансії</span>
-								</a>
-							</li>
-						</ul>
-					</li>
-					<li>
-						<a ui-sref="home" ng-click="toggled2(status.isopen2)">
-							<img src="/img/icon-Interrnship.png" alt="">
-							<span>Internship</span>
-							<span class="arrow"><img src="/imgarrow.png" alt=""></span>
-						</a>
-						<ul class="nav nav-second" ng-show="status.isopen2" uib-dropdown-menu role="menu">
-							<li>
-								<a ui-sref=".portfolio">
-									<span>Портфоліо</span>
-								</a>
-							</li>
-							<li>
-								<a ui-sref=".reviews">
-									<span>Відгуки</span>
-								</a>
-							</li>
-							<li>
-								<a ui-sref=".training">
-									<span>Навчальна частина</span>
-								</a>
-							</li>
-						</ul>
-					</li>
-				</ul>
+	<!-- Collect the nav links, forms, and other content for toggling -->
+	<div class="navbar-default sidebar">
+		<div class="sidebar-nav navbar-collapse" >
+			<ul class="nav nav-main">
+				<li>
+					<a ui-sref="home">
+						<span class="icon home-icon"></span>
+						<span>Home</span>
+					</a>
+				</li>
+				<li>
+					<a>
+						<span class="icon dev-studio-icon"></span>
+						<span>Dev Studio</span>
+						<span class="arrow"></span>
+					</a>
+					<ul class="nav nav-second">
+						<li><a ui-sref=".devportfolio"><span>Портфоліо</span></a></li>
+						<li><a ui-sref=".ordercustomer"><span>Заявки клієнтів</span></a></li>
+						<li><a ui-sref=".vacancies"><span>Вакансії</span></a></li>
+					</ul>
+				</li>
+				<li>
+					<a>
+						<span class="icon internship-icon"></span>
+						<span>Internship</span>
+						<span class="arrow"></span>
+					</a>
+					<ul class="nav nav-second">
+						<li><a ui-sref=".portfolio"><span>Портфоліо</span></a></li>
+						<li><a ui-sref=".reviews"><span>Відгуки</span></a></li>
+						<li><a ui-sref=".training"><span>Навчальна частина</span></a>
+						</li>
+					</ul>
+				</li>
+			</ul>
 		</div>
+	</div>
 </nav>
+
+
+<!--<nav class="navbar navbar-default sidebar" ng-controller="SidebarController">-->
+			<!--&lt;!&ndash;Цей клас і ID class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" під Mobile Bootstrap якшо не треба удали&ndash;&gt;-->
+			<!--<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">-->
+				<!--<ul class="nav nav-main ">-->
+					<!--<li>-->
+						<!--<a ui-sref="home">-->
+							<!--<img src="/img/icon-Home.png" alt="">-->
+							<!--<span>Home</span>-->
+						<!--</a>-->
+					<!--</li>-->
+					<!--<li >-->
+						<!--<a ui-sref="home" ng-click="toggled1(status.isopen1)">-->
+							<!--<img src="/img/icon-DevStudio.png" alt="">-->
+							<!--<span>Dev Studio</span>-->
+							<!--<span class="arrow"><img src="/img/arrow.png" alt=""></span>-->
+						<!--</a>-->
+						<!--<ul class="nav nav-second " ng-show="status.isopen1"   uib-dropdown-menu role="menu" >-->
+							<!--<li role="menuitem">-->
+								<!--<a ui-sref=".devportfolio">-->
+									<!--<span>Портфоліо</span>-->
+								<!--</a>-->
+							<!--</li>-->
+							<!--<li role="menuitem">-->
+								<!--<a ui-sref=".ordercustomer">-->
+									<!--<span>Заявки клієнтів</span>-->
+								<!--</a>-->
+							<!--</li>-->
+							<!--<li role="menuitem">-->
+								<!--<a ui-sref=".vacancies">-->
+									<!--<span>Вакансії</span>-->
+								<!--</a>-->
+							<!--</li>-->
+						<!--</ul>-->
+					<!--</li>-->
+					<!--<li>-->
+						<!--<a ui-sref="home" ng-click="toggled2(status.isopen2)">-->
+							<!--<img src="/img/icon-Interrnship.png" alt="">-->
+							<!--<span>Internship</span>-->
+							<!--<span class="arrow"><img src="/imgarrow.png" alt=""></span>-->
+						<!--</a>-->
+						<!--<ul class="nav nav-second" ng-show="status.isopen2" uib-dropdown-menu role="menu">-->
+							<!--<li>-->
+								<!--<a ui-sref=".portfolio">-->
+									<!--<span>Портфоліо</span>-->
+								<!--</a>-->
+							<!--</li>-->
+							<!--<li>-->
+								<!--<a ui-sref=".reviews">-->
+									<!--<span>Відгуки</span>-->
+								<!--</a>-->
+							<!--</li>-->
+							<!--<li>-->
+								<!--<a ui-sref=".training">-->
+									<!--<span>Навчальна частина</span>-->
+								<!--</a>-->
+							<!--</li>-->
+						<!--</ul>-->
+					<!--</li>-->
+				<!--</ul>-->
+		<!--</div>-->
+<!--</nav>-->

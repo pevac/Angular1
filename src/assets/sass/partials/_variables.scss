@@ -5,40 +5,30 @@ $dark-base-color: #2a2d33;
 $biruza-base-color: #8cb2d8;
 $blue-base-color: #0a6db1;
 $light-base-color: #ffffff;
+$brown-light-color: #656c7e;
 
-$header-height: 135px;
-$logo-width: 280px;
-
-
-
-// Colors
-$color-primary-dark-1: #171d3e;
-$color-primary-dark-2: #212955;
-$color-primary-mid-1: #0086b5;
-$color-primary-mid-2: #d1cfcf;
-$color-primary-light-1: #fff;
-$color-primary-light-2: #f7c008;
-
-$color-secondary-light-1: #fefdfd;
-$color-secondary-mid-1: #0f7492;
-$color-secondary-mid-2: #848381;
-
-// Colors
-$color-primary-dark-1: #2a2d33;
-$color-primary-dark-2: #0a6db1;
-$color-primary-mid-1: #8cb2d8;
-$color-primary-light-1: #ebebeb;
-$color-primary-light-2: #fff;
-
-$color-secondary-mid-1: #666769;
+// common
+$body-bg:$gray-base-color;
 
 
+//navbar
+$navbar-top-height: 60px;
+$sidebar-width: 230px;
+$navbar-brand-width: $sidebar-width;
+$navbar-brand-height:$navbar-top-height;
 
-// Fonts
-$font-text-1: ProximaNovaRegular, "Helvetica Neue", Helvetica, Arial, sans-serif;
-$font-text-2: ProximaNovaThin, "Helvetica Neue", Helvetica, Arial, sans-serif;
-$font-h-1: ProximaNovaBold, "Helvetica Neue", Helvetica, Arial, sans-serif;
-$font-h-2: ProximaNovaSemibold, "Helvetica Neue", Helvetica, Arial, sans-serif;
+//nav background
+$navbar-bg: $light-base-color;
+$sidebar-bg:$dark-base-color;
 
-$navbar-brand-height: 135px;
-$navbar-left-width: 280px;
+//color nav
+$navbar-link-color:$light-base-color;
+$navbar-link-color-hover:  $light-base-color;
+
+$navbar-li-main-bg: $dark-base-color;
+$navbar-li-main-bg-hover: $brown-light-color;
+
+$navbar-li-second-bg: $dark-base-color;
+$navbar-li-second-bg-hover: $brown-light-color;
+
+
