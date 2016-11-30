@@ -1,5 +1,10 @@
-body{
+body, html{
   background-color: $body-bg;
+  height: 100%;
+}
+
+.main-view{
+  height: 100%;
 }
 
 .page-wrapper{

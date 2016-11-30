@@ -1,0 +1,59 @@
+.flex-container{
+  width: 100%;
+  margin: 0;
+  height: 100%;
+  padding: 0;
+  background: $biruza-base-color;
+  background: linear-gradient($biruza-base-color, $dark-base-color);
+  display: flex;
+}
+
+.form-block{
+  padding: 30px;
+  max-width: 350px;
+  width: 35%;
+  margin: auto;
+  background-color: $light-base-color;
+
+  h2{
+    margin: 60px 0;
+    font-size: 20px;
+    color: $biruza-base-color;
+    text-align: center;
+  }
+
+  input, textarea{
+    border-radius: 0;
+    border: 1px solid $black-base-color;
+    box-shadow: none;
+
+    &:focus{
+      box-shadow: none;
+      border: 1px solid $black-base-color;
+    }
+  }
+
+  .form-group{
+    margin-bottom: 30px;
+  }
+
+ .form-actions{
+   text-align: center;
+ }
+
+
+  .btn-login {
+    background-color: $black-base-color;
+    color:$light-base-color;
+    border-radius: 0;
+    border: none;
+    width: 70%;
+    font-size: 18px;
+    margin: 35px 0  35px 0;
+
+     &:hover{
+       background-color: $biruza-base-color;
+     }
+  }
+}
+
