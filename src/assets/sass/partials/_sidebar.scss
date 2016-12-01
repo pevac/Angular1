@@ -11,7 +11,7 @@
 .navbar-header{
   background-color: $navbar-bg;
   width: 100%;
-
+.brand-sect{
   h1{
     margin: 0;
     background-color: $biruza-base-color;
@@ -23,6 +23,8 @@
       background-size: 80%;
     }
   }
+}
+
 
   .account{
     font-size: 16px;
@@ -76,18 +78,6 @@
       background-color: $sidebar-bg;
     }
   }
-
-  //.nav {
-  //  .open > a {
-  //    &,
-  //    &:hover,
-  //    &:focus {
-  //      background-color: $brown-light-color;
-  //      border-color: $brown-light-color;
-  //    }
-  //  }
-  //}
-
 
   .nav-main {
     margin: 0;
@@ -187,10 +177,12 @@
 }
 
 @media(max-width: 768px){
-  h1{
-     width: 100%;
-    .navbar-brand{
-      background-size: 80%;
+  .brand-sect{
+    h1{
+      width: 100%;
+      .navbar-brand{
+        background-size: 80%;
+      }
     }
   }
 }

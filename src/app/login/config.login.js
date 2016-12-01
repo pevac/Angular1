@@ -1,21 +1,38 @@
-angular.module("angularApp").run(function ($rootScope, $location, AuthenticationService) {
+angular.module("angularApp").run(function ($rootScope, AUTH_EVENTS, AuthService, $location) {
+  $rootScope.$on('$stateChangeStart', function (event, next) {
+    var authorizedRoles = next.data.authorizedRoles;
+    if (!AuthService.isAuthorized(authorizedRoles)) {
 
-  // enumerate routes that don't need authentication
-  var routesThatDontRequireAuth = ['/login'];
+      if (AuthService.isAuthenticated()) {
+        // user is not allowed
+        $rootScope.$broadcast(AUTH_EVENTS.notAuthorized);
+      } else {
+        // user is not logged in
 
-  // check if current location matches route  
-//   var routeClean = function (route) {
-//     return _.find(routesThatDontRequireAuth,
-//       function (noAuthRoute) {
-//         return _.str.startsWith(route, noAuthRoute);
-//       });
-//   };
-//!routeClean($location.url())&&
-  $rootScope.$on('$stateChangeStart', function (ev, to, toParams, from, fromParams) {
-    // if route requires auth and user is not logged in
-    if (false && !AuthenticationService.isLoggedIn()) {
-      // redirect back to login
-      $location.path('/login');
+        $rootScope.$broadcast(AUTH_EVENTS.notAuthenticated);
+        $location.path('/login');
+      }
+
+      // event.preventDefault();
     }
   });
+})
+
+
+angular.module("angularApp").constant('AUTH_EVENTS', {
+  loginSuccess: 'auth-login-success',
+  loginFailed: 'auth-login-failed',
+  logoutSuccess: 'auth-logout-success',
+  sessionTimeout: 'auth-session-timeout',
+  notAuthenticated: 'auth-not-authenticated',
+  notAuthorized: 'auth-not-authorized'
+})
+
+angular.module("angularApp").constant('USER_ROLES', {
+  all: '*',
+  admin: 'admin',
+  editor: 'editor',
+  guest: 'guest'
 });
+
+

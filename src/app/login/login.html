@@ -1,14 +1,17 @@
 <div class="flex-container">
-    <div class="form-block">
-        <div ng-class="{ 'alert': loggin, 'alert-success': loggin.type === 'success', 'alert-danger': loggin.type === 'error' }" ng-if="loggin" ng-bind="loggin.message"></div>
+    <h1><span class="navbar-brand"></span></h1>
+    <div class="form-block" ng-controller="LoginController">
+        <!--<div ng-class="{ 'alert': loggin, 'alert-success': loggin.type === 'success', 'alert-danger': loggin.type === 'error' }" ng-if="loggin" ng-bind="loggin.message"></div>-->
         <h2>Hi! Please sign in)</h2>
-        <form name="form" ng-submit="login()" role="form">
+        <form name="loginForm"   method="post" ng-submit="login(credentials)" role="form" novalidate >
             <div class="form-group" ng-class="{ 'has-error': form.login.$dirty && form.login.$error.required }">
-                <input type="text" name="login" id="login" class="form-control" ng-model="login" required placeholder="login"/>
+                <span class="smile-icon icon"></span>
+                <input type="text" name="login" id="login" class="form-control" ng-model="credentials.login" required placeholder="login"/>
                 <span ng-show="form.login.$dirty && form.login.$error.required" class="help-block">Це поле обов'язкове</span>
             </div>
             <div class="form-group" ng-class="{ 'has-error': form.password.$dirty && form.password.$error.required }">
-                <input type="password" name="password" id="password" class="form-control"  placeholder="password" ng-model="password"  required  />
+                <span class="lock-icon icon"></span>
+                <input type="password" name="password" id="password" class="form-control"  placeholder="password" ng-model="credentials.password" required/>
                 <span ng-show="form.password.$dirty && form.password.$error.required" class="help-block">Це поле обов'язкове</span>
             </div>
             <div class="form-actions">

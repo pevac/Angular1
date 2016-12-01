@@ -1,4 +1,4 @@
-angular.module("angularApp").config(function($stateProvider, $urlRouterProvider) {
+angular.module("angularApp").config(function($stateProvider, $urlRouterProvider, USER_ROLES) {
     
     $urlRouterProvider.otherwise('/');
     
@@ -6,15 +6,36 @@ angular.module("angularApp").config(function($stateProvider, $urlRouterProvider)
         .state("login", {
             url: "/login",
             templateUrl: "login/login.html",
+            controller: 'LoginController',
+            data: {
+                authorizedRoles: [USER_ROLES.admin, USER_ROLES.editor]
+            }
         })
         .state("home", {
             abstract: false,
             url: "/",
-            templateUrl: "components/home/home.html" 
+            templateUrl: "components/home/home.html",
+            controller: 'homeCtrl',
+            data: {
+                authorizedRoles: [USER_ROLES.admin, USER_ROLES.editor]
+            },
+            resolve: {
+                auth: function resolveAuthentication(AuthResolver) {
+                    return AuthResolver.resolve();
+                }
+            }
         })
         .state("home.devportfolio", {
             url: "devportfolio",
-           templateUrl:"devstudio/devportfolio/devportfolio.html"
+            templateUrl:"devstudio/devportfolio/devportfolio.html",
+            data: {
+                authorizedRoles: [USER_ROLES.editor]
+            },
+            resolve: {
+                auth: function resolveAuthentication(AuthResolver) {
+                    return AuthResolver.resolve();
+                }
+            }
         })
         .state("home.ordercustomer", {
             url: "ordercustomer",
