@@ -1,6 +1,6 @@
  angular.module("angularApp", ["ui.bootstrap", "ui.router"]);
 
- angular.module("angularApp").controller("appController", function ($scope,$rootScope, USER_ROLES,AuthService, $location) {
+ angular.module("angularApp").controller("appController", function ($scope,$rootScope, USER_ROLES,AuthService) {
    $scope.currentUser = null;
    $scope.userRoles = USER_ROLES;
    $scope.isAuthorized = AuthService.isAuthorized;

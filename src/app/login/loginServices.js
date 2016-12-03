@@ -1,29 +1,15 @@
 angular.module("angularApp").factory('AuthService', function ($http, Session) {
     var authService = {};
 
-    //develop
     authService.login = function (credentials) {
-        return function () {
-            var cred = credentials;
-            if(credentials.login === "login" && credentials.password === "password") {
-                Session.create(5, 4, "admin");
-                return  {id: 4, role:  "admin", name: "Vasay"};
-            }
-            return null;
-
-        };
+        return $http
+            .post('http://localhost:8080/api/login', credentials)
+            .then(function (res) {
+                console.log(res);
+                Session.create(res.data.id, res.data.user.id, res.data.user.role);
+                return res.data.user;
+           });
     };
-
-// normal
-    // authService.login = function (credentials) {
-    //     return $http
-    //         .post('/api/login', credentials)
-    //         .then(function (res) {
-    //             Session.create(res.data.id, res.data.user.id,
-    //                 res.data.user.role);
-    //             return res.data.user;
-    //         });
-    // };
 
     authService.isAuthenticated = function () {
         return !!Session.userId;
@@ -87,7 +73,7 @@ angular.module("angularApp").factory('AuthResolver', function ($q, $rootScope, $
                         deferred.resolve(currentUser);
                     } else {
                         deferred.reject();
-                        $state.go('login');
+                        $state.go('/api/login');
                     }
                     unwatch();
                 }
@@ -96,6 +82,24 @@ angular.module("angularApp").factory('AuthResolver', function ($q, $rootScope, $
         }
     };
 })
+
+angular.module("angularApp").factory('user', function() {
+    var cookieSet;
+
+    var addCookie = function(val) {
+        cookieSet=val;
+    }
+
+    var getCookie = function(){
+        return cookieSet;
+    }
+
+    return {
+        addCookie : addCookie,
+        getCookie : getCookie
+    };
+
+});
 
 
 

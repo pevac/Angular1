@@ -10,7 +10,7 @@ angular.module("angularApp").run(function ($rootScope, AUTH_EVENTS, AuthService,
         // user is not logged in
 
         $rootScope.$broadcast(AUTH_EVENTS.notAuthenticated);
-        $location.path('/login');
+        $location.path('/api/login');
       }
 
       // event.preventDefault();

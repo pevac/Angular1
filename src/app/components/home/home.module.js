@@ -1,7 +1,7 @@
-// angular.module("homeApp", []);
-
-angular.module("angularApp").controller("homeCtrl", function ($scope) {
-
+angular.module("angularApp").controller("HomeController", function ($scope,$rootScope, USER_ROLES,AuthService) {
+    $scope.currentUser = $rootScope.currentUser;
+    $scope.userRoles = USER_ROLES;
+    $scope.isAuthorized = AuthService.isAuthorized;
 });
 
 
