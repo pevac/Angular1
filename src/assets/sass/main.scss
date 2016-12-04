@@ -33,7 +33,7 @@
 // @import "../lib/bootstrap-sass/assets/stylesheets/bootstrap/breadcrumbs";
 // @import "../lib/bootstrap-sass/assets/stylesheets/bootstrap/pagination";
 // @import "../lib/bootstrap-sass/assets/stylesheets/bootstrap/pager";
-// @import "../lib/bootstrap-sass/assets/stylesheets/bootstrap/labels";
+ @import "../lib/bootstrap-sass/assets/stylesheets/bootstrap/labels";
 // @import "../lib/bootstrap-sass/assets/stylesheets/bootstrap/badges";
 // @import "../lib/bootstrap-sass/assets/stylesheets/bootstrap/jumbotron";
 // @import "../lib/bootstrap-sass/assets/stylesheets/bootstrap/thumbnails";
@@ -58,5 +58,6 @@
 
 // added by me
 @import "./partials/login";
-@import "./partials/menu";
+@import "./partials/toolbar";
+@import "./partials/vacancies";
 @import "./partials/common";

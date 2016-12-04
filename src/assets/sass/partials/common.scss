@@ -1,6 +1,7 @@
 body, html{
   background-color: $body-bg;
   height: 100%;
+  font-family: "Proxima Nova Regular";
 }
 
 .main-view{
@@ -20,4 +21,26 @@ body, html{
   .page-wrapper {
        margin: 0 0 0 230px;
   }
+}
+
+@font-face {
+  font-family: 'Proxima Nova Regular';
+  src: url('../fonts/ProximaNova/Proxima Nova Regular.otf')  format('opentype'),
+}
+@font-face {
+  font-family: 'Proxima Nova Thin';
+  src: url('../fonts/ProximaNova/Proxima Nova Thin.otf')  format('opentype'),
+}
+@font-face {
+  font-family: 'Proxima Nova Bold';
+  src: url('../fonts/ProximaNova/Proxima Nova Bold.otf')  format('opentype'),
+}
+@font-face {
+  font-family: 'Proxima Nova Semibold';
+  src: url('../fonts/ProximaNova/Proxima Nova Semibold.otf')  format('opentype'),
+}
+
+@font-face {
+  font-family: 'Proxima Nova Thin Italic';
+  src: url('../fonts/ProximaNova/Proxima Nova Thin Italic.otf')  format('opentype'),
 }

@@ -1,0 +1,146 @@
+.vacancies_view {
+  .search_container {
+    text-align: right;
+    position: relative;
+    margin-bottom: 32px;
+    margin-top: 8px;
+
+    input[type="search"] {
+      background-color: $light-base-color;
+      font-size: 14px;
+      padding-left: 16px;
+      padding-right: 30px;
+      border: 1px solid $black-base-color;
+      width: 270px;
+      height: 26px;
+      outline: none;
+
+      &::-webkit-input-placeholder {
+        color: $biruza-base-color;
+      }
+      &::-moz-placeholder {
+        color: $biruza-base-color;
+      }
+      &:-ms-input-placeholder {
+        color: $biruza-base-color;
+      }
+      &:-moz-placeholder {
+        color: $biruza-base-color;
+      }
+
+      &:focus {
+        border: 1px solid $black-base-color;
+        box-shadow: none;
+      }
+    }
+
+    input[type="button"] {
+      outline: none;
+      width: 28px;
+      height: 18px;
+      background: url("../img/search-icon.png") no-repeat;
+      border: none;
+      position: absolute;
+      top: 50%;
+      margin-top: -9px;
+      display: block;
+      right: 0;
+    }
+  }
+
+  .table_container {
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+
+      //.tr-open_vacation {
+      //  color: $black-base-color;
+      //  td {
+      //    border-color: $black-base-color;
+      //  }
+      //}
+      .date-sort {
+        border: none;
+        background-color: $gray-base-color;
+        text-align: right;
+        padding-right: 20px;
+
+        a {
+          font-size: 14px;
+          font-weight: normal;
+          color: $biruza-base-color;
+          &:hover {
+            text-decoration: none;
+          }
+        }
+      }
+
+      .vacancy-status {
+        border: none;
+        text-align: right;
+        padding-right: 20px;
+        width: 22%;
+        background-color: $gray-base-color;
+        span{
+          background: url("../img/vacancy-open-icon.png") no-repeat center;
+          background-size: contain;
+          height: 20px;
+          width: 35px;
+          display: inline-block;
+        }
+      }
+
+      th {
+        font-size: 16px;
+      }
+
+      th, td {
+        padding: 25px 0;
+        border: 2px solid;
+        width: 19.5%;
+        text-align: center;
+        background-color:$light-base-color;
+      }
+    }
+  }
+
+  .title{
+    margin-top: 25px;
+ }
+  .title h1 {
+    font-size: 28px;
+    margin-top: 30px;
+    margin-bottom: 24px;
+    color: $blue-base-color;
+    text-transform: uppercase;
+    font-size: 28px;
+    font-family: "Proxima Nova Bold";
+  }
+  .create_new {
+    font-size: 28px;
+    line-height: 71px;
+    color: #000;
+    position: relative;
+    display: block;
+    margin-left: 20px;
+    float: left;
+
+    span {
+      display: inline-block;
+      margin-left: 71px;
+      font-weight: 600;
+
+
+      &:before {
+        content: '';
+        display: inline-block;
+        position: absolute;
+        left: 0px;
+        width: 59px;
+        height: 71px;
+        background: url(../img/create-icon.png) no-repeat;
+      }
+    }
+  }
+}
