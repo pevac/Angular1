@@ -1,20 +1,19 @@
 .top-nav-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-  top: $navbar-top-height;
-  left: $sidebar-width;
-
+  background-color: $dark-base-color;
+  height: 50px;
+  position: fixed;
+  left:0;
+  right:0;
+  top:2*$navbar-top-height;;
 }
 
 .top-nav {
-  margin: 0;
   padding: 0;
   list-style: none;
-  //position: fixed;
-  top: $navbar-top-height;
-  z-index: 1000;
+  margin: auto;
+  display: flex;
+  justify-content: space-around;
+
 
   ul{
     margin: 0;
@@ -22,50 +21,76 @@
   }
 
   li {
-    margin: 0 50px;
     display: inline-block;
+    margin: 0 20px;
 
 
     .btn-container {
       position: relative;
+      display: flex;
+      justify-content: center;
+      height: 100%;
     }
 
-    .btn-name {
-      position: absolute;
-      top: -30px;
-      z-index: 1005;
+     span.tool-name {
+       font-size: 10px;
+       position: absolute;
+       top: -20px;
+       width: 120px;
+       z-index: 1005;
+       color: $biruza-base-color;
+       word-wrap:normal;
+       display: none;
+       text-align: center;
     }
 
-     span {
-      font-size: 14px;
-    }
-
-    a {
+    span.icon{
+      background-size: 70%;
       padding: 0;
       margin: 0;
       display: block;
-      //width: 64px;
-      position: relative;
+      height: 50px;
+      width: 50px;
+    }
 
-      //img {
-      //  position: absolute;
-      //  top: 0;
-      //  left: 0;
-      //  right: 0;
-      //  bottom: 0;
-      //  margin: auto;
-      //  display: block;
-      //  max-width: 64px;
-      //  height: auto;
-      //}
+    .prior-icon{
+      background: url("../img/prior-icon.png") no-repeat center;
+    }
+    .hide-icon{
+      background: url("../img/hide-icon.png") no-repeat center;
+    }
+    .arh-icon{
+      background: url("../img/arh-icon.png") no-repeat center;
+    }
+    .prev-icon{
+      background: url("../img/prev-icon.png") no-repeat center;
     }
   }
 
-  li.active a,
-  li.active a:hover,
-  a:hover,
-  a:focus,
-  a:active {
-    background-color: indianred;
+  li.active,
+  li.active:hover, li:hover{
+    background-color: $brown-light-color;
+  & span.tool-name{
+    display: block;
+  }
   }
 }
+
+@media(min-width: 768px){
+  .toolbar-menu{
+    .top-nav{
+      width: 70%;
+    }
+  }
+
+  .top-nav-container {
+    height: 50px;
+
+    top: $navbar-top-height;
+    z-index: 1000;
+    left: $sidebar-width;
+    right:0;
+  }
+
+}
+
