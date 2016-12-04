@@ -2,6 +2,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 1000;
+  top: $navbar-top-height;
+  left: $sidebar-width;
 
 }
 
@@ -9,6 +12,9 @@
   margin: 0;
   padding: 0;
   list-style: none;
+  //position: fixed;
+  top: $navbar-top-height;
+  z-index: 1000;
 
   ul{
     margin: 0;
@@ -16,7 +22,7 @@
   }
 
   li {
-    margin: 25px 50px;
+    margin: 0 50px;
     display: inline-block;
 
 
@@ -27,18 +33,10 @@
     .btn-name {
       position: absolute;
       top: -30px;
-      z-index: 1000;
+      z-index: 1005;
     }
 
-    .btn-name-text {
-      position: relative;
-      //width: 180px;
-      //right: 50%;
-      //display: flex;
-      //justify-content: center;
-    }
-
-    span {
+     span {
       font-size: 14px;
     }
 
@@ -49,17 +47,17 @@
       //width: 64px;
       position: relative;
 
-      img {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        margin: auto;
-        display: block;
-        max-width: 64px;
-        height: auto;
-      }
+      //img {
+      //  position: absolute;
+      //  top: 0;
+      //  left: 0;
+      //  right: 0;
+      //  bottom: 0;
+      //  margin: auto;
+      //  display: block;
+      //  max-width: 64px;
+      //  height: auto;
+      //}
     }
   }
 
