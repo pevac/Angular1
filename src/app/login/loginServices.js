@@ -66,14 +66,14 @@ angular.module("angularApp").factory('AuthResolver', function ($q, $rootScope, $
     return {
         resolve: function () {
             var deferred = $q.defer();
-            console.log($rootScope.currentUser);
             var unwatch = $rootScope.$watch('currentUser', function (currentUser) {
                 if (angular.isDefined(currentUser)) {
                     if (currentUser) {
                         deferred.resolve(currentUser);
+
                     } else {
                         deferred.reject();
-                        $state.go('/api/login');
+                        $state.go('login');
                     }
                     unwatch();
                 }
@@ -83,23 +83,23 @@ angular.module("angularApp").factory('AuthResolver', function ($q, $rootScope, $
     };
 })
 
-angular.module("angularApp").factory('user', function() {
-    var cookieSet;
-
-    var addCookie = function(val) {
-        cookieSet=val;
-    }
-
-    var getCookie = function(){
-        return cookieSet;
-    }
-
-    return {
-        addCookie : addCookie,
-        getCookie : getCookie
-    };
-
-});
+// angular.module("angularApp").factory('user', function() {
+//     var cookieSet;
+//
+//     var addCookie = function(val) {
+//         cookieSet=val;
+//     }
+//
+//     var getCookie = function(){
+//         return cookieSet;
+//     }
+//
+//     return {
+//         addCookie : addCookie,
+//         getCookie : getCookie
+//     };
+//
+// });
 
 
 

@@ -1,3 +1,4 @@
-/**
- * Created by pevac on 04.12.2016.
- */
+angular.module("angularApp").component("toolbar", {
+    // controller: "SidebarController",
+    templateUrl: "components/menu/menu.html"
+});

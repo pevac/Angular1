@@ -8,7 +8,7 @@ angular.module("angularApp").controller('LoginController', function ($scope, $ro
         AuthService.login(credentials).then(function (user) {
             $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
             $rootScope.currentUser = user;
-            $location.path("/api/home")
+            $location.path("/")
         }, function () {
             $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
         });

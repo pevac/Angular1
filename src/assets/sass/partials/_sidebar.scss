@@ -57,17 +57,18 @@
 
 
 .navbar-default.sidebar {
-  position: absolute;
+
   width: 100%;
   z-index: 1;
-  background-color: $sidebar-bg;
+
 
   .sidebar-nav{
+
+    background-color: $sidebar-bg;
     padding: 25px 0 0 0;
     overflow: hidden;
     margin: 0 0 25px 0;
     border: none;
-    position: static;
     ul{
       position: static;
       border: none;
@@ -97,9 +98,6 @@
         color: $navbar-link-color;
         position: relative;
       }
-
-
-
 
       span {
         vertical-align: middle;
@@ -188,7 +186,7 @@
 }
 
 @media(min-width: 768px){
-  .navbar-default.sidebar{
+ .sidebar .sidebar-nav{
     margin-top: $navbar-top-height;
     width: $sidebar-width;
   }
