@@ -27,16 +27,23 @@
 
     .btn-container {
       position: relative;
+      text-align: center;
+      width:100%;
       display: flex;
+      flex-wrap: wrap;
       justify-content: center;
+      flex-direction: column;
       height: 100%;
+      align-items: center;
     }
 
      span.tool-name {
-       font-size: 10px;
+       font-size: 12px;
        position: absolute;
        top: -20px;
-       width: 120px;
+       left: 0;
+       right: 0;
+       width: 100%;
        z-index: 1005;
        color: $biruza-base-color;
        word-wrap:normal;
@@ -45,12 +52,12 @@
     }
 
     span.icon{
-      background-size: 70%;
+      background-size: 30%;
       padding: 0;
       margin: 0;
       display: block;
       height: 50px;
-      width: 50px;
+      width: 140px;
     }
 
     .prior-icon{

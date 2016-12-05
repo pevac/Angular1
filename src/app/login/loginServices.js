@@ -70,7 +70,6 @@ angular.module("angularApp").factory('AuthResolver', function ($q, $rootScope, $
                 if (angular.isDefined(currentUser)) {
                     if (currentUser) {
                         deferred.resolve(currentUser);
-
                     } else {
                         deferred.reject();
                         $state.go('login');

@@ -1,7 +1,7 @@
-<div class="vacancies_view sect-header-all">
+<div class="vacancies_view sect-header-all" ng-controller="vacancyController">
         <div class="row">
             <div class="col-md-12 title">
-                <a class="create_new"><span>Додати вакансію</span></a>
+                <a class="create_new" ui-sref="home.addvacancy"><span>Додати вакансію</span></a>
                 <h1 class="text-center">Вакансії</h1>
             </div>
         </div>
@@ -27,32 +27,11 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr >
-                                    <td class="vacancy-status"><span></span></td>
-                                    <td>21.12.2016</td>
-                                    <td>Dev Java</td>
-                                    <td>CRM</td>
-                                    <td>Петро Петренко</td>
-                                </tr>
-                                <tr>
-                                    <td class="vacancy-status"></td>
-                                    <td>21.12.2016</td>
-                                    <td>Dev Java</td>
-                                    <td>CRM</td>
-                                    <td>Петро Петренко</td>
-                                </tr>
-                                <tr>
-                                    <td class="vacancy-status"></td>
-                                    <td>21.12.2016</td>
-                                    <td>Dev Java</td>
-                                    <td>CRM</td>
-                                    <td>Петро Петренко</td>
-                                </tr>
-                                <tr>
-                                    <td class="vacancy-status"></td>
-                                    <td>21.12.2016</td>
-                                    <td>Dev Java</td>
-                                    <td>CRM</td>
+                                <tr ng-repeat="vacancy in vacancies" ng-class="{ 'show-status': vacancy.showStatus}">
+                                    <td class="vacancy-status"><span class="show-status-text">Вакансія відкрита</span><span  class="icon-status"></span></td>
+                                    <td>{{vacancy.dataRegist}}</td>
+                                    <td>{{vacancy.jobName}}</td>
+                                    <td>{{vacancy.projectName}}</td>
                                     <td>Петро Петренко</td>
                                 </tr>
                             </tbody>
