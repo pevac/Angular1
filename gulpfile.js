@@ -40,16 +40,16 @@ var path = {
         dir : BUILD_BASE_DIR + "/js",
         name : "templates.js",
         rootPath : ""
-  },
+        }
     },
     src: { 
         templates: [ SOURCE_BASE_DIR + '/app/**/*.html' ],
         script: {
-        app: [ SOURCE_BASE_DIR + '/app/**/*.js' ],
-        vendor: ["./src/assets/lib/angular/angular.js",
-        "./src/assets/lib/angular-bootstrap/ui-bootstrap.js",
-        "./src/assets/lib/angular-ui-router/release/angular-ui-router.js",
-        ]
+            app: [ SOURCE_BASE_DIR + '/app/**/*.js' ],
+            vendor: ["./src/assets/lib/angular/angular.js",
+            "./src/assets/lib/angular-bootstrap/ui-bootstrap.js",
+            "./src/assets/lib/angular-ui-router/release/angular-ui-router.js",
+            ]
         },
         styles: SOURCE_BASE_DIR + "/assets/sass/*.scss",
         fonts: SOURCE_BASE_DIR + "/assets/fonts/**/*.*",
