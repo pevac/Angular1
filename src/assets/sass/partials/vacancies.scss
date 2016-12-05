@@ -117,6 +117,8 @@
     font-size: 28px;
     font-family: "Proxima Nova Bold";
   }
+
+
   .create_new {
     font-size: 28px;
     line-height: 71px;
@@ -125,6 +127,10 @@
     display: block;
     margin-left: 20px;
     float: left;
+
+    &:hover{
+      text-decoration: underline;
+    }
 
     span {
       display: inline-block;
@@ -136,7 +142,7 @@
         content: '';
         display: inline-block;
         position: absolute;
-        left: 0px;
+        left: -5px;
         width: 59px;
         height: 71px;
         background: url(../img/create-icon.png) no-repeat;

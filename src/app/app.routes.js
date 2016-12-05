@@ -27,15 +27,7 @@ angular.module("angularApp").config(function($stateProvider, $urlRouterProvider,
         })
         .state("home.devportfolio", {
             url: "devportfolio",
-            templateUrl:"devstudio/devportfolio/devportfolio.html",
-            data: {
-                authorizedRoles: [USER_ROLES.editor]
-            },
-            resolve: {
-                auth: function resolveAuthentication(AuthResolver) {
-                    return AuthResolver.resolve();
-                }
-            }
+            templateUrl:"devstudio/devportfolio/devportfolio.html"
         })
         .state("home.ordercustomer", {
             url: "ordercustomer",
@@ -43,7 +35,15 @@ angular.module("angularApp").config(function($stateProvider, $urlRouterProvider,
         })
         .state("home.vacancies", {
             url: "vacancies",
-            templateUrl:"devstudio/vacancies/vacancies.html"
+            templateUrl:"devstudio/vacancies/vacancies.html",
+            data: {
+                authorizedRoles: [USER_ROLES.admin, USER_ROLES.editor]
+            },
+            resolve: {
+                auth: function resolveAuthentication(AuthResolver) {
+                    return AuthResolver.resolve();
+                }
+            }
         })
           .state("home.portfolio", {
             url: "portfolio",
@@ -54,8 +54,12 @@ angular.module("angularApp").config(function($stateProvider, $urlRouterProvider,
             templateUrl:"internship/reviews/reviews.html"
         })
         .state("home.training", {
-            url: "training",
-            templateUrl:"internship/training/training.html"
+        url: "training",
+        templateUrl:"internship/training/training.html"
+        })
+        .state("home.addvacancy", {
+            url: "addvacancy",
+            templateUrl:"devstudio/vacancies/addVacancy.html"
         })
    
 });
