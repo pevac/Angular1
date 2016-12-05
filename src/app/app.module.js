@@ -1,21 +1,3 @@
- angular.module("angularApp", ["ui.bootstrap", "ui.router", "vacancyApp"]);
+ angular.module("angularApp", ["ui.bootstrap", "ui.router", "vacancyApp", 'serverApi']);
 
- angular.module("angularApp").controller("appController", function ($scope,$rootScope, USER_ROLES,AuthService) {
-   $scope.currentUser = null;
-   $scope.userRoles = USER_ROLES;
-   $scope.isAuthorized = AuthService.isAuthorized;
-
-   $scope.setCurrentUser = function (user) {
-
-    $scope.currentUser = user;
-       $rootScope.currentUser = user;
-
-       console.log($rootScope.currentUser);
-
-   }
-
-   $scope.alertfn= function () {
-       console.log("hello");
-   }
- });
 
