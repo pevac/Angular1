@@ -209,6 +209,9 @@
   margin: auto;
   padding-top: 32px;
 }
+.white_div_portfolio:hover button{
+  visibility: visible;
+}
 h2{
   padding: 10px;
 }
@@ -227,6 +230,7 @@ h4{
   border-radius: 10px;
   border: 1px solid $brown-light-color;
   background-color: $light-base-color;
+  visibility: hidden;
   
 }
 .btnreview{
@@ -237,31 +241,17 @@ h4{
   border: inherit;
   background-color: $biruza-base-color;
   margin-left: 10px;
+  visibility: hidden;
 }
 
 .plustriangl{
-  background-color: #ff5f6b;
-  color: $light-base-color;
   padding: 4px;
   position: absolute;
   top: 60px;
   right: 20px;
 }
 
-.plustriangl::before{
-  width: 0;
-  height: 0;
-  border: 50px solid transparent;
-  border-color: #ff5f6b;
-  border-left: 0;
-  position: relative;
-  top:  1000px;
-  z-index: 1050;
-}
-
 .plusstar{
-  background-color: $blue-base-color;
-  color: $light-base-color;
   padding: 4px;
   position: absolute;
   top: 60px;
