@@ -4,12 +4,22 @@ angular.module("angularApp").controller('LoginController', function ($scope, $ro
         password: ""
     };
 
+    $scope.loginStatus = {
+        type:null,
+        message: ""
+    }
+
+
+
     $scope.login = function (credentials) {
         AuthService.login(credentials).then(function (user) {
             $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
             $rootScope.currentUser = user;
-            $location.path("/")
-        }, function () {
+            $location.path("/");
+        }, function (response) {
+            var a = response;
+            $scope.loginStatus.type = AUTH_EVENTS.loginFailed;
+            $scope.loginStatus.message = "sdfasdfdasf";
             $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
         });
     };

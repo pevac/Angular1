@@ -1,4 +1,4 @@
- angular.module("angularApp", ["ui.bootstrap", "ui.router"]);
+ angular.module("angularApp", ["ui.bootstrap", "ui.router", "vacancyApp"]);
 
  angular.module("angularApp").controller("appController", function ($scope,$rootScope, USER_ROLES,AuthService) {
    $scope.currentUser = null;
