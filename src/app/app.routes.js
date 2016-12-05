@@ -27,6 +27,7 @@ angular.module("angularApp").config(function($stateProvider, $urlRouterProvider,
         })
         .state("home.devportfolio", {
             url: "devportfolio",
+            controller: 'devPortfolioCtrl',
             templateUrl:"devstudio/devportfolio/devportfolio.html"
         })
         .state("home.ordercustomer", {
