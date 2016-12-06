@@ -28,15 +28,15 @@ angular.module("angularApp").config(function($stateProvider, $urlRouterProvider,
         .state("home.devportfolio", {
             url: "devportfolio",
             controller: 'devPortfolioCtrl',
-            templateUrl:"devstudio/devportfolio/devportfolio.html"
+            templateUrl:"devstudio/devportfolio/devportfolio.tmpl.html"
         })
         .state("home.ordercustomer", {
             url: "ordercustomer",
-            templateUrl:"devstudio/order/orderCustomers.html"
+            templateUrl:"devstudio/order/orderCustomers.tmpl.html"
         })
         .state("home.vacancies", {
             url: "vacancies",
-            templateUrl:"devstudio/vacancies/vacancies.html",
+            templateUrl:"devstudio/vacancies/vacancies.tmpl.html",
             data: {
                 authorizedRoles: [USER_ROLES.admin, USER_ROLES.editor]
             },
@@ -48,7 +48,7 @@ angular.module("angularApp").config(function($stateProvider, $urlRouterProvider,
         })
           .state("home.portfolio", {
             url: "portfolio",
-           templateUrl:"internship/portfolio/portfolio.html"
+           templateUrl:"internship/portfolio/intPortfolio.tmpl.html"
         })
         .state("home.reviews", {
             url: "reviews",
@@ -60,7 +60,7 @@ angular.module("angularApp").config(function($stateProvider, $urlRouterProvider,
         })
         .state("home.addvacancy", {
             url: "addvacancy",
-            templateUrl:"devstudio/vacancies/addVacancy.html"
+            templateUrl:"devstudio/vacancies/addVacancy.tmpl.html"
         })
    
 });

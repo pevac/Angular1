@@ -10,10 +10,14 @@ angular
 function getData($http, serverApiConstant){
     var projects =[{name: "First", company : 'Luxoft', isNew : 'false', isDraft : 'false'},{name: 'second', company: 'Epam',isNew : 'false', isDraft : 'false'},{name: 'second2', company: 'Epam3', isNew : 'false', isDraft : 'false'},{name: 'second3', company: 'Epam4', isNew : 'false', isDraft : 'true'},{name: 'second4', company: 'Epam2', isNew : 'true', isDraft : 'false'}]
     return{
-        getProjects: function(){
+        getDevProjects: function(){
             console.log('here');
             return projects;
             },
+        getIntProjects: function(){
+            console.log('here');
+            return projects;
+        },
         getVacancies:function(successFunction){
                 $http({
                     method: "GET",
