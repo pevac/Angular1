@@ -46,17 +46,18 @@ angular.module("angularApp").config(function($stateProvider, $urlRouterProvider,
                 }
             }
         })
-          .state("home.portfolio", {
-            url: "portfolio",
-           templateUrl:"internship/portfolio/intPortfolio.tmpl.html"
+        .state("home.intportfolio", {
+            url: "internship-portfolio",
+            templateUrl:"internship/portfolio/intPortfolio.tmpl.html",
+            controller: 'intPortfolioCtrl'
         })
         .state("home.reviews", {
             url: "reviews",
             templateUrl:"internship/reviews/reviews.html"
         })
         .state("home.training", {
-        url: "training",
-        templateUrl:"internship/training/training.html"
+            url: "training",
+            templateUrl:"internship/training/training.html"
         })
         .state("home.addvacancy", {
             url: "addvacancy",

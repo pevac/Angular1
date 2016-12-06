@@ -8,7 +8,12 @@ angular
 
 
 function getData($http, serverApiConstant){
-    var projects =[{name: "First", company : 'Luxoft', isNew : 'false', isDraft : 'false'},{name: 'second', company: 'Epam',isNew : 'false', isDraft : 'false'},{name: 'second2', company: 'Epam3', isNew : 'false', isDraft : 'false'},{name: 'second3', company: 'Epam4', isNew : 'false', isDraft : 'true'},{name: 'second4', company: 'Epam2', isNew : 'true', isDraft : 'false'}]
+    var projects =[{name: "First", company : 'Luxoft', year: '2016', isNew : true, isDraft : false},
+        {name: 'second', company: 'Epam',year: '2016',isNew : false, isDraft : false},
+        {name: 'second2', company: 'Epam3', year: '2016', isNew : false, isDraft : false},
+        {name: 'second3', company: 'Epam4', year: '2016', isNew : false, isDraft : true},
+        {name: 'second4', company: 'Epam2', year: '2016', isNew : true, isDraft : false}];
+
     return{
         getDevProjects: function(){
             console.log('here');
