@@ -1,0 +1,114 @@
+<div class="add-vacancy">
+    <h1 class="title text-center">Вакансія</h1>
+    <div class="form-container">
+        <form class="form-horizontal" name="form" role="form"  id="formValidate">
+            <div class="form-group text-left">
+                <label for="inputJobPosition" class="col-sm-3   control-label">Позиція</label>
+                <div class="col-sm-9">
+                    <span class="arrow"></span>
+                    <select id="inputJobPosition" name="jobPosition"  class="form-control">
+                    <option value="Front-end Developer">Front-end Developer1</option>
+                    <option value="Front-end Developer">Front-end Developer2</option>
+                    <option value="Front-end Developer">Front-end Developer3</option>
+                    <option value="Front-end Developer">Front-end Developer4</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputProject" class="col-sm-3  control-label">Проект</label>
+                <div class="col-sm-9">
+                    <span class="arrow"></span>
+                    <select id="inputProject" name="project"  class="form-control">
+                        <option value="Front-end Developer">CRM</option>
+                        <option value="Front-end Developer">CRM</option>
+                        <option value="Front-end Developer">CRM</option>
+                        <option value="Front-end Developer">CRM</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label  class="col-sm-3 control-label">Опис вакансії</label>
+                <div class="col-sm-9">
+                    <trix-editor  angular-trix ng-model="foo" class="trix-content"></trix-editor>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputEmployment" class="col-sm-3  control-label">Зайнятість</label>
+                <div class="col-sm-9">
+                    <input   type="text" name="employment"  class="form-control" id="inputEmployment">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputInfo" class="col-sm-3  control-label">Дод.інф-ція</label>
+                <div class="col-sm-9">
+                    <input   type="text" name="info"  class="form-control" id="inputInfo">
+                </div>
+            </div>
+
+
+
+            <div class="form-group">
+                <div class="text-center">
+                    <button type="submit"  id="sendBtn" class="btn btn-primary btn-save">Опублікувати</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<!--<div class="vacancies_create sect-header-all sect-create_new">-->
+    <!--<div class="container">-->
+        <!--<div class="row">-->
+            <!--<div class="col-sm-12">-->
+                <!--<div class="title_container">-->
+                    <!--<h1 class="title text-center">Вакансії</h1>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="row">-->
+            <!--<div class="col-sm-12">-->
+                <!--<div class="form_create_item">-->
+                    <!--<form >-->
+                        <!--<label class="input_cont">-->
+                            <!--<span class="label_item">Позиція</span>-->
+                            <!--<select>-->
+                                <!--<option value="Front-end Developer">Front-end Developer1</option>-->
+                                <!--<option value="Front-end Developer">Front-end Developer2</option>-->
+                                <!--<option value="Front-end Developer">Front-end Developer3</option>-->
+                                <!--<option value="Front-end Developer">Front-end Developer4</option>-->
+                            <!--</select>-->
+                        <!--</label>-->
+                        <!--<label class="input_cont">-->
+                            <!--<span class="label_item">Проект</span>-->
+                            <!--<select>-->
+                                <!--<option value="Front-end Developer">Front-end Developer1</option>-->
+                                <!--<option value="Front-end Developer">Front-end Developer2</option>-->
+                                <!--<option value="Front-end Developer">Front-end Developer3</option>-->
+                                <!--<option value="Front-end Developer">Front-end Developer4</option>-->
+                            <!--</select>-->
+                        <!--</label>-->
+                        <!--<label class="input_cont">-->
+                            <!--<span class="label_item" >Опис вакансії</span>-->
+                            <!--<div class="input_description">-->
+
+                                <!--<textarea class="input_item" name="" ></textarea>-->
+                            <!--</div>-->
+                        <!--</label>-->
+                        <!--<label class="input_cont">-->
+                            <!--<span class="label_item">Зайнятість</span>-->
+                            <!--<input class="input_item input_short" type="text" name="">-->
+                        <!--</label>-->
+                        <!--<label class="input_cont">-->
+                            <!--<span class="label_item">Дод. Інф-ція</span>-->
+                            <!--<input class="input_item input_short" type="text" name="">-->
+                        <!--</label>-->
+                        <!--<div class="save">-->
+                            <!--<input type="button" value="Зберегти чорновик" class="btn-save">-->
+                        <!--</div>-->
+                    <!--</form>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->

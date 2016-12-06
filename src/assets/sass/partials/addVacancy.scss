@@ -1,0 +1,242 @@
+
+
+
+.add-vacancy{
+    .title {
+        font-size: 24px;
+        margin-top: 30px;
+        margin-bottom: 24px;
+        text-transform: uppercase;
+        color: $blue-base-color;
+        font-weight: 700;
+    }
+
+    .arrow{
+        width: 20px;
+        height: 20px;
+        display: inline-block;
+        position: absolute;
+        height: 34px;
+        background: url("../img/icon-arrow-select.png") center no-repeat;
+
+    }
+
+    .trix-content{
+        height: 100px;
+        width: 100%;
+        border-radius: 0;
+        border: 1px solid $input-border-color;
+
+        &:focus{
+            border: 1px solid $input-border-focus-color;
+        }
+    }
+
+    .button_row{
+        width: 100%;
+        flex-wrap: wrap;
+
+        .button_group{
+            margin-bottom: 0;
+        }
+
+        button.icon{
+            width: 19px;
+            height:auto;
+        }
+
+        button{
+            border-radius: 0;
+        }
+
+        .button_group span.block_tools{
+            width: 49%;
+        }
+        .button_group span.text_tools{
+            width: 28%;
+        }
+        .button_group span.history_tools{
+            width: 14%;
+        }
+    }
+
+
+
+
+
+    .form-container{
+        width: 70%;
+        margin: auto;
+        background-color: $light-base-color;
+        padding: 35px;
+    }
+
+        input, select, textarea{
+            margin-bottom: 25px;
+            border-radius: 0;
+            border: 1px solid $input-border-color;
+            outline: none !important;
+
+
+            &:focus{
+                box-shadow: none;
+                border: 1px solid $input-border-focus-color;
+            }
+        }
+
+        textarea{
+            resize: none;
+            word-wrap: break-word;
+            transition: 0.05s;
+            overflow: hidden;
+        }
+
+        .control-label{
+            text-align: left;
+        }
+
+        .btn-save {
+            color: $light-base-color;
+            background-color: $biruza-base-color;
+            border: none;
+            padding: 5px 22px;
+            font-size: 16px;
+
+            &:hover {
+                background-color:$blue-base-color;
+            }
+        }
+
+        select{
+            text-indent: 0.01px;
+            text-overflow: '';
+            appearance: none !important;
+            padding-left: 25px;
+        }
+
+}
+
+
+
+
+
+//.sect-create_new {
+//    form{
+//        padding:25px;
+//    }
+//
+//    .form_create_item {
+//        margin: 0 auto;
+//        width: 484px;
+//
+//        .input_cont {
+//            display: block;
+//            margin-bottom: 29px;
+//        }
+//
+//        .input_description {
+//            display: inline-block;
+//
+//            textarea {
+//                resize: none;
+//                height: 100px;
+//            }
+//
+//            .input_item {
+//                font-size: 10px;
+//                font-weight: normal;
+//                text-align: left;
+//            }
+//        }
+//
+//        .label_item {
+//            display: inline-block;
+//            width: 140px;
+//            vertical-align: top;
+//            font-size: 16px;
+//        }
+//
+//        .input_item {
+//            width: 266px;
+//            font-size: 16px;
+//            text-align: center;
+//            height: 26px;
+//            border: 1px solid $gray-base-color;
+//
+//            &:focus,
+//            &:active {
+//                border: 1px solid $blue-base-color;
+//            }
+//        }
+//
+//        .save {
+//            margin-top: 110px;
+//
+//            .btn-save {
+//                margin: 0 auto;
+//                display: block;
+//                color: $light-base-color;
+//                background-color: $biruza-base-color;
+//                border-radius: 9px;
+//                border: none;
+//                padding: 5px 22px;
+//                font-size: 16px;
+//
+//                &:hover {
+//                    background-color:$blue-base-color;
+//                }
+//            }
+//        }
+//    }
+//}
+//
+//
+//.vacancies_create.sect-create_new {
+//
+//
+//    .title {
+//        font-size: 24px;
+//        margin-top: 30px;
+//        margin-bottom: 24px;
+//        text-transform: uppercase;
+//        color: $blue-base-color;
+//        font-weight: 700;
+//    }
+//
+//
+//    .form_create_item {
+//    background-color: white;
+//
+//.input_item.input_short {
+//    width: 142px;
+//    text-align: left;
+//    padding-left: 20px;
+//    padding-right: 20px;
+//}
+//
+//select {
+//    height: 26px;
+//    width: 266px;
+//    font-size: 16px;
+//    border: 1px solid $gray-base-color;
+//    background: url('../img/arrow.png') 10px center no-repeat;
+//    padding-left: 35px;
+//    padding-right: 3px;
+//
+//&:focus,
+//&:active {
+//     border: 1px solid $blue-base-color;
+// }
+//
+///*for WebKit*/
+//-webkit-appearance: none;
+///* for FF */
+//-moz-appearance: none;
+//text-indent: 0.01px;
+//text-overflow: '';
+///* for IE */
+//-ms-appearance: none;
+//appearance: none!important;
+//}
+//}
+//}

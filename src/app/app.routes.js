@@ -60,7 +60,7 @@ angular.module("angularApp").config(function($stateProvider, $urlRouterProvider,
         })
         .state("home.addvacancy", {
             url: "addvacancy",
-            templateUrl:"devstudio/vacancies/addVacancy.html"
+            templateUrl:"devstudio/addVacancy/addVacancy.html"
         })
    
 });

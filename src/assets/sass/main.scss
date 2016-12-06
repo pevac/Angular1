@@ -57,7 +57,10 @@
 @import "../lib/bootstrap-sass/assets/stylesheets/bootstrap/responsive-utilities";
 
 // added by me
+@import "./partials/common";
 @import "./partials/login";
 @import "./partials/toolbar";
 @import "./partials/vacancies";
-@import "./partials/common";
+@import "../lib/trix/dist/trix";
+@import "./partials/addVacancy";
+
