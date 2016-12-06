@@ -28,15 +28,15 @@ angular.module("angularApp").config(function($stateProvider, $urlRouterProvider,
         .state("home.devportfolio", {
             url: "devportfolio",
             controller: 'devPortfolioCtrl',
-            templateUrl:"devstudio/devportfolio/devportfolio.html"
+            templateUrl:"devstudio/devportfolio/devportfolio.tmpl.html"
         })
         .state("home.ordercustomer", {
             url: "ordercustomer",
-            templateUrl:"devstudio/order/orderCustomers.html"
+            templateUrl:"devstudio/order/orderCustomers.tmpl.html"
         })
         .state("home.vacancies", {
             url: "vacancies",
-            templateUrl:"devstudio/vacancies/vacancies.html",
+            templateUrl:"devstudio/vacancies/vacancies.tmpl.html",
             data: {
                 authorizedRoles: [USER_ROLES.admin, USER_ROLES.editor]
             },
@@ -46,17 +46,18 @@ angular.module("angularApp").config(function($stateProvider, $urlRouterProvider,
                 }
             }
         })
-          .state("home.portfolio", {
-            url: "portfolio",
-           templateUrl:"internship/portfolio/portfolio.html"
+        .state("home.intportfolio", {
+            url: "internship-portfolio",
+            templateUrl:"internship/portfolio/intPortfolio.tmpl.html",
+            controller: 'intPortfolioCtrl'
         })
         .state("home.reviews", {
             url: "reviews",
             templateUrl:"internship/reviews/reviews.html"
         })
         .state("home.training", {
-        url: "training",
-        templateUrl:"internship/training/training.html"
+            url: "training",
+            templateUrl:"internship/training/training.html"
         })
         .state("home.addvacancy", {
             url: "addvacancy",
