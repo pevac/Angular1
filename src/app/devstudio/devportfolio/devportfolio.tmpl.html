@@ -6,58 +6,16 @@
     <!--<p>This page demonstrates <span class="text-danger">nested</span> views.</p>-->
     <div class="container-fluid">
 	    <div class="row">
-	    	<div class="col-md-4">
-	    		<h3>2016</h3>
-	    		<div class="white_div_portfolio">
-	    			<span class="plustriangl"><img src="/img/draft.png" alt="draft"></span><!--DRAFT-->
-	    			<h2>Назва проекту</h2>
-	    			<h4>Bionic University</h4>
-	    			<button class="btnedit">Редагувати</button><button class="btnreview">Переглянути</button>
-	    		</div>
-	    	</div>
-	    	<div class="col-md-4">
-	    		<h3>2016</h3>
-	    		<div class="white_div_portfolio">
-	    			<span class="plusstar"><img src="/img/new.png" alt="new"></span><!--NEW-->
-	    			<h2>Назва проекту</h2>
-	    			<h4>Softserve</h4>
-	    			<button class="btnedit">Редагувати</button><button class="btnreview">Переглянути</button>
-	    		</div>
-	    	</div>
-	    	<div class="col-md-4">
-	    		<h3>2015</h3>
-	    		<div class="white_div_portfolio">
-	    			<h2>Назва проекту</h2>
-	    			<h4>Luxoft</h4>
-	    			<button class="btnedit">Редагувати</button><button class="btnreview">Переглянути</button>
-	    		</div>
-	    	</div>
-	    </div>
-	    <div class="row">
-	    	<div class="col-md-4">
-	    		<h3>2015</h3>
-	    		<div class="white_div_portfolio">
-	    			<h2>Назва проекту</h2>
-	    			<h4>Epam</h4>
-	    			<button class="btnedit">Редагувати</button><button class="btnreview">Переглянути</button>
-	    		</div>
-	    	</div>
-	    	<div class="col-md-4">
-	    		<h3>2015</h3>
-	    		<div class="white_div_portfolio">
-	    			<h2>Назва проекту</h2>
-	    			<h4>Tallium</h4>
-	    			<button class="btnedit">Редагувати</button><button class="btnreview">Переглянути</button>
-	    		</div>
-	    	</div>
-	    	<div class="col-md-4">
-	    		<h3>2015</h3>
-	    		<div class="white_div_portfolio">
-	    			<h2>Назва проекту</h2>
-	    			<h4>Cap</h4>
-	    			<button class="btnedit">Редагувати</button><button class="btnreview">Переглянути</button>
-	    		</div>
-	    	</div>
+			<div class="col-md-4" ng-repeat="project in projects">
+				<h3>{{project.year}}</h3>
+				<div class="white_div_portfolio">
+					<span class="plustriangl" ng-if="project.isDraft"><img src="img/draft.png" alt="draft"></span><!--DRAFT-->
+					<span class="plusstar" ng-if="project.isNew"><img src="img/new.png" alt="new"></span><!--DRAFT-->
+					<h2>{{project.name}}</h2>
+					<h4>{{project.company}}</h4>
+					<button class="btnedit">Редагувати</button><button class="btnreview">Переглянути</button>
+				</div>
+			</div>
 	    </div>
     </div>
 	</div>
