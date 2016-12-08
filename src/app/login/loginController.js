@@ -11,16 +11,27 @@ angular.module("angularApp").controller('LoginController', function ($scope, $ro
 
 
 
+    // $scope.login = function (credentials) {
+    //     AuthService.login(credentials).then(function (user) {
+    //         $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+    //         $rootScope.currentUser = user;
+    //         $location.path("/");
+    //     }, function (response) {
+    //         var a = response;
+    //         $scope.loginStatus.type = AUTH_EVENTS.loginFailed;
+    //         $scope.loginStatus.message = "sdfasdfdasf";
+    //         $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
+    //     });
+    // };
+
     $scope.login = function (credentials) {
-        AuthService.login(credentials).then(function (user) {
             $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
-            $rootScope.currentUser = user;
+            $rootScope.currentUser = {
+                id: 23,
+                role: "admin",
+                userName: "vasyl",
+                avatar: "img/admin.jpg"
+            };
             $location.path("/");
-        }, function (response) {
-            var a = response;
-            $scope.loginStatus.type = AUTH_EVENTS.loginFailed;
-            $scope.loginStatus.message = "sdfasdfdasf";
-            $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
-        });
     };
 });

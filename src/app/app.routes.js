@@ -37,14 +37,6 @@ angular.module("angularApp").config(function($stateProvider, $urlRouterProvider,
         .state("home.vacancies", {
             url: "vacancies",
             templateUrl:"devstudio/vacancies/vacancies.tmpl.html",
-            data: {
-                authorizedRoles: [USER_ROLES.admin, USER_ROLES.editor]
-            },
-            resolve: {
-                auth: function resolveAuthentication(AuthResolver) {
-                    return AuthResolver.resolve();
-                }
-            }
         })
         .state("home.intportfolio", {
             url: "internship-portfolio",
