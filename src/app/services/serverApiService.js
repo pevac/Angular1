@@ -45,15 +45,21 @@ function getData($http, serverApiConstant){
 
 function setData($http, serverApiConstant){
     return{
-        addVacancy: function(data, successFunction){
-            $http({
+        addVacancy: function(data){
+          return  $http({
                 method: "POST",
-                url: serverApiConstant.url+'',
-                data:''
+                url: serverApiConstant.url+'/addvacancy',
+                data: data
             })
-                .success(function () {
-                    successFunction();
-                });
+
+        },
+        addReview: function(data){
+            return  $http({
+                method: "POST",
+                url: serverApiConstant.url+'/addreview',
+                data: data
+            })
+
         }
     }
 }

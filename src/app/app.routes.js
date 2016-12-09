@@ -55,6 +55,10 @@ angular.module("angularApp").config(function($stateProvider, $urlRouterProvider,
             url: "addvacancy",
             templateUrl:"devstudio/addVacancy/addVacancy.tmpl.html"
         })
+        .state("home.addreview", {
+            url: "addreview",
+            templateUrl:"internship/addReview/addreview.tmpl.html"
+        })
    
 });
 

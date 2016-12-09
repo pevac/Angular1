@@ -1,56 +1,30 @@
-<div class="add-review">
+<div class="add-review" ng-app="addReviewModule" ng-controller="addReviewCtrl">
     <h1 class="title text-center">Відгук</h1>
     <div class="form-container">
-        <form class="form-horizontal" name="form" role="form"  id="formValidate">
-            <div class="form-group text-left">
-                <label for="inputJobPosition" class="col-sm-3   control-label">Позиція</label>
+        <form class="form-horizontal" name="form" role="form" ng-submit="addReview()"  id="formValidate">
+            <div class="form-group">
+                <label for="inputName" class="col-sm-3  control-label">Ім'я</label>
                 <div class="col-sm-9">
-                    <span class="arrow"></span>
-                    <select id="inputJobPosition" name="jobPosition"  class="form-control">
-                        <option value="Front-end Developer">Front-end Developer1</option>
-                        <option value="Front-end Developer">Front-end Developer2</option>
-                        <option value="Front-end Developer">Front-end Developer3</option>
-                        <option value="Front-end Developer">Front-end Developer4</option>
-                    </select>
+                    <input   type="text" name="name" ng-model="newReview.name"  class="form-control" id="inputName" required>
                 </div>
             </div>
             <div class="form-group">
-                <label for="inputProject" class="col-sm-3  control-label">Проект</label>
+                <label for="inputPhoto" class="col-sm-3  control-label">Фото</label>
                 <div class="col-sm-9">
-                    <span class="arrow"></span>
-                    <select id="inputProject" name="project"  class="form-control">
-                        <option value="Front-end Developer">CRM</option>
-                        <option value="Front-end Developer">CRM</option>
-                        <option value="Front-end Developer">CRM</option>
-                        <option value="Front-end Developer">CRM</option>
-                    </select>
+                    <input   class="file" type="file" name="photo" ng-model="newReview.photo"  id="inputPhoto">
+                    <span class="custom-file-control"></span>
                 </div>
             </div>
             <div class="form-group">
-                <label  class="col-sm-3 control-label">Опис вакансії</label>
+                <label  class="col-sm-3 control-label">Відгук</label>
                 <div class="col-sm-9">
-                    <trix-editor  angular-trix ng-model="foo" class="trix-content"></trix-editor>
+                    <trix-editor  angular-trix ng-model="newReview.review" class="trix-content" required></trix-editor>
                 </div>
             </div>
-            <div class="form-group">
-                <label for="inputEmployment" class="col-sm-3  control-label">Зайнятість</label>
-                <div class="col-sm-9">
-                    <span class="arrow"></span>
-                    <select id="inputEmployment" name="project"  class="form-control">
-                        <option value="Front-end Developer">full time</option>
-                        <option value="Front-end Developer">part time</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="inputInfo" class="col-sm-3  control-label">Дод.інф-ція</label>
-                <div class="col-sm-9">
-                    <input   type="text" name="info"  class="form-control" id="inputInfo">
-                </div>
-            </div>
+
             <div class="form-group">
                 <div class="text-center">
-                    <button type="submit"  id="sendBtn" class="btn btn-primary btn-save">Опублікувати</button>
+                    <button type="submit"  id="sendBtn" class="btn btn-primary btn-save">Зберегти чорновик</button>
                 </div>
             </div>
         </form>

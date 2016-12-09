@@ -1,16 +1,17 @@
-<div class="add-vacancy">
+<div class="add-vacancy" ng-app="addVacancyModule" ng-controller="addVacancyCtrl">
     <h1 class="title text-center">Вакансія</h1>
     <div class="form-container">
-        <form class="form-horizontal" name="form" role="form"  id="formValidate">
+        <form class="form-horizontal" name="form" role="form" ng-submit="addVacancy()"  id="formValidate">
             <div class="form-group text-left">
                 <label for="inputJobPosition" class="col-sm-3   control-label">Позиція</label>
                 <div class="col-sm-9">
                     <span class="arrow"></span>
-                    <select id="inputJobPosition" name="jobPosition"  class="form-control">
-                    <option value="Front-end Developer">Front-end Developer1</option>
-                    <option value="Front-end Developer">Front-end Developer2</option>
-                    <option value="Front-end Developer">Front-end Developer3</option>
-                    <option value="Front-end Developer">Front-end Developer4</option>
+                    <select id="inputJobPosition" name="jobPosition" ng-model="newVacancy.jobPosition"  class="form-control" required>
+                        <option value="">none</option>
+                        <option value="Front-end Developer">Front-end Developer1</option>
+                        <option value="Front-end Developer">Front-end Developer2</option>
+                        <option value="Front-end Developer">Front-end Developer3</option>
+                        <option value="Front-end Developer">Front-end Developer4</option>
                     </select>
                 </div>
             </div>
@@ -18,25 +19,27 @@
                 <label for="inputProject" class="col-sm-3  control-label">Проект</label>
                 <div class="col-sm-9">
                     <span class="arrow"></span>
-                    <select id="inputProject" name="project"  class="form-control">
-                        <option value="Front-end Developer">CRM</option>
-                        <option value="Front-end Developer">CRM</option>
-                        <option value="Front-end Developer">CRM</option>
-                        <option value="Front-end Developer">CRM</option>
+                    <select id="inputProject" name="projectName" ng-model="newVacancy.projectName"   class="form-control" required>
+                        <option value="">none</option>
+                        <option value="CRM">CRM</option>
+                        <option value="CRM">CRM</option>
+                        <option value="CRM">CRM</option>
+                        <option value="CRM">CRM</option>
                     </select>
                 </div>
             </div>
             <div class="form-group">
                 <label  class="col-sm-3 control-label">Опис вакансії</label>
                 <div class="col-sm-9">
-                    <trix-editor  angular-trix ng-model="foo" class="trix-content"></trix-editor>
+                    <trix-editor  angular-trix  ng-model="newVacancy.description" class="trix-content"  ></trix-editor>
                 </div>
             </div>
             <div class="form-group">
                 <label for="inputEmployment" class="col-sm-3  control-label">Зайнятість</label>
                 <div class="col-sm-9">
                     <span class="arrow"></span>
-                    <select id="inputEmployment" name="project"  class="form-control">
+                    <select id="inputEmployment" name="busyHour" ng-model="newVacancy.busyHour"   class="form-control" required>
+                        <option value="">none</option>
                         <option value="Front-end Developer">full time</option>
                         <option value="Front-end Developer">part time</option>
                     </select>
@@ -45,7 +48,7 @@
             <div class="form-group">
                 <label for="inputInfo" class="col-sm-3  control-label">Дод.інф-ція</label>
                 <div class="col-sm-9">
-                    <input   type="text" name="info"  class="form-control" id="inputInfo">
+                    <input   type="text" name="addDescription" ng-model="newVacancy.addDescription"   class="form-control" id="inputInfo" required>
                 </div>
             </div>
             <div class="form-group">

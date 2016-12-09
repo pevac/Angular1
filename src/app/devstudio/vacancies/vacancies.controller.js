@@ -1,16 +1,18 @@
-(function () {
     'use strict'
-    angular.module('vacancyApp', [])
-    .controller('vacanciesController', function($scope, serverDataService) {
+    angular.module('vacancyModule', [])
+        .controller('vacanciesController',vacanciesController);
+
+
+    function vacanciesController($scope, serverDataService) {
         var self = this;
-        self.getVacancies = function(){
+        $scope.getVacancies = function(){
             serverDataService.getVacancies().then(function (data) {
-                self.vacancies = data;
+                $scope.vacancies = data;
             });
         };
 
         (function(){
-            self.getVacancies();
+            $scope.getVacancies();
         })()
-    });
-})();
+    }
+

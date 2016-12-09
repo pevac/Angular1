@@ -10,3 +10,4 @@ function devPortfolioCtrl($scope, serverDataService){
         $scope.getProjects();
     })()
 }
+
