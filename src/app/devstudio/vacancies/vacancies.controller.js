@@ -1,7 +1,16 @@
-var app = angular.module('vacancyApp', []);
-app.controller('vacancyController', function($scope, $http) {
-    $http.get("http://localhost:8080/api/vacancies")
-        .then(function(response) {
-            $scope.vacancies = response.data;
-        });
-});
+(function () {
+    'use strict'
+    angular.module('vacancyApp', [])
+    .controller('vacanciesController', function($scope, serverDataService) {
+        var self = this;
+        self.getVacancies = function(){
+            serverDataService.getVacancies().then(function (data) {
+                self.vacancies = data;
+            });
+        };
+
+        (function(){
+            self.getVacancies();
+        })()
+    });
+})();

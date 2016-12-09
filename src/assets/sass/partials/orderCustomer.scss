@@ -1,0 +1,77 @@
+.customers_statement {
+
+  .title_container {
+    text-align: right;
+    margin-bottom: 100px;
+
+    .dwl-table {
+      position: relative;
+      height: 81px;
+      display: inline-block;
+
+      &:hover {
+        text-decoration: none;
+      }
+
+      span {
+        display: inline-block;
+        margin-right: 80px;
+        &:after {
+          content: '';
+          display: inline-block;
+          width: 73px;
+          height: 81px;
+          background: url(../img/icon-xls.png) no-repeat;
+          background-size: contain;
+        }
+      }
+    }
+  }
+
+  .sort_container {
+    margin-bottom: 30px;
+    .btn-sort {
+      display: inline-block;
+      margin-left: 50px;
+      //color: $color-primary-mid-1;
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+
+  .table_container {
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+
+      .th-check {
+        border: none;
+        //background-color: $color-primary-light-1;
+        width: 50px;
+      }
+
+      .td-check {
+        border: none;
+        //background-color: $color-primary-light-1;
+        text-align: left;
+        padding-right: 20px;
+        width: 50px;
+      }
+
+      th {
+        font-size: 16px;
+        /*font-family: $font-h-1;*/
+      }
+
+      th, td {
+        padding: 23px 3px 23px 3px;
+        border: 1px solid;
+        text-align: center;
+        /*background-color: $color-primary-light-2;*/
+      }
+    }
+  }
+}

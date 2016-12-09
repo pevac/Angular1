@@ -1,30 +1,6 @@
-angular.module("angularApp").factory('AuthService', function ($http, Session) {
-    var authService = {};
+angular.module("angularApp").factory('AuthService', AuthService );
 
-    authService.login = function (credentials) {
-        return $http
-            .post('http://localhost:8080/api/login', credentials)
-            .then(function (res) {
-                console.log(res);
-                Session.create(res.data.id, res.data.user.id, res.data.user.role);
-                return res.data.user;
-           });
-    };
 
-    authService.isAuthenticated = function () {
-        return !!Session.userId;
-    };
-
-    authService.isAuthorized = function (authorizedRoles) {
-        if (!angular.isArray(authorizedRoles)) {
-            authorizedRoles = [authorizedRoles];
-        }
-        return (authService.isAuthenticated() &&
-        authorizedRoles.indexOf(Session.userRole) !== -1);
-    };
-
-    return authService;
-});
 
 angular.module("angularApp").service('Session', function () {
     this.create = function (sessionId, userId, userRole) {
@@ -53,14 +29,7 @@ angular.module("angularApp").factory('AuthInterceptor', function ($rootScope, $q
     };
 })
 
-angular.module("angularApp").config(function ($httpProvider) {
-    $httpProvider.interceptors.push([
-        '$injector',
-        function ($injector) {
-            return $injector.get('AuthInterceptor');
-        }
-    ]);
-})
+
 
 angular.module("angularApp").factory('AuthResolver', function ($q, $rootScope, $state) {
     return {
@@ -81,6 +50,43 @@ angular.module("angularApp").factory('AuthResolver', function ($q, $rootScope, $
         }
     };
 })
+
+angular.module("angularApp").config(function ($httpProvider) {
+    $httpProvider.interceptors.push([
+        '$injector',
+        function ($injector) {
+            return $injector.get('AuthInterceptor');
+        }
+    ]);
+})
+
+function AuthService($http, Session) {
+    var authService = {};
+
+    authService.login = function (credentials) {
+        return $http
+            .post('http://localhost:8080/api/login', credentials)
+            .then(function (res) {
+                console.log(res);
+                Session.create(res.data.id, res.data.user.id, res.data.user.role);
+                return res.data.user;
+            });
+    };
+
+    authService.isAuthenticated = function () {
+        return !!Session.userId;
+    };
+
+    authService.isAuthorized = function (authorizedRoles) {
+        if (!angular.isArray(authorizedRoles)) {
+            authorizedRoles = [authorizedRoles];
+        }
+        return (authService.isAuthenticated() &&
+        authorizedRoles.indexOf(Session.userRole) !== -1);
+    };
+
+    return authService;
+};
 
 // angular.module("angularApp").factory('user', function() {
 //     var cookieSet;
