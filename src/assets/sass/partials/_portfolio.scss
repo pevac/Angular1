@@ -88,3 +88,18 @@ h4{
   left: -60px;
   z-index: 1000;
 }
+
+.addLogo{
+  padding: 4px 10px;
+  border: 1px solid $gray-base-color;
+  color: $biruza-base-color;
+  margin: 0;
+}
+
+.addLogo:hover{
+  cursor: pointer;
+}
+.formka > .form-control{
+  display: inline;
+  
+}
