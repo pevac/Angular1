@@ -57,6 +57,7 @@
 @import "../lib/bootstrap-sass/assets/stylesheets/bootstrap/responsive-utilities";
 
 // added by me
+//------------------------------
 @import "./partials/common";
 @import "./partials/login";
 @import "./partials/toolbar";
@@ -65,5 +66,7 @@
 @import "./partials/addVacancy";
 @import "./partials/addReview";
 @import "./partials/orderCustomer";
-@import "./partials/_portfolio"
+//-------------------------------
+@import "./partials/_portfolio";
+@import "./partials/_addToPortfolio";
 
