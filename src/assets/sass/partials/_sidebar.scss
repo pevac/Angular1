@@ -59,13 +59,13 @@
   position: fixed;
   margin-top: 2*$navbar-top-height;
   width: 100%;
-  z-index: 1;
+  z-index: 1000;
 
   background-color: $sidebar-bg;
 
   .sidebar-nav{
     padding: 25px 0 0 0;
-    overflow: hidden;
+    /*overflow: hidden;*/
     margin: 0 0 25px 0;
     border: none;
     position: static;

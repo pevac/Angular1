@@ -32,11 +32,14 @@ angular.module("angularApp").config(function($stateProvider, $urlRouterProvider,
         })
         .state("home.ordercustomer", {
             url: "ordercustomer",
-            templateUrl:"devstudio/order/orderCustomers.tmpl.html"
+            templateUrl:"devstudio/order/orderCustomers.tmpl.html",
+            controller: "orderCustomerCtrl"
+            
         })
         .state("home.vacancies", {
             url: "vacancies",
             templateUrl:"devstudio/vacancies/vacancies.tmpl.html",
+
         })
         .state("home.intportfolio", {
             url: "internship-portfolio",

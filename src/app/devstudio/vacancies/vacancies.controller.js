@@ -11,8 +11,8 @@
             });
         };
 
-        (function(){
-            $scope.getVacancies();
-        })()
+        // (function(){
+        //     $scope.getVacancies();
+        // })()
     }
 

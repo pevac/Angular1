@@ -8,10 +8,8 @@
                     <span class="arrow"></span>
                     <select id="inputJobPosition" name="jobPosition" ng-model="newVacancy.jobPosition"  class="form-control" required>
                         <option value="">none</option>
-                        <option value="Front-end Developer">Front-end Developer1</option>
-                        <option value="Front-end Developer">Front-end Developer2</option>
-                        <option value="Front-end Developer">Front-end Developer3</option>
-                        <option value="Front-end Developer">Front-end Developer4</option>
+                        <option ng-repeat="jobPosition in jobPositions" value="jobPosition.id">{{jobPosition.jobName}}</option>
+                     
                     </select>
                 </div>
             </div>
@@ -21,10 +19,8 @@
                     <span class="arrow"></span>
                     <select id="inputProject" name="projectName" ng-model="newVacancy.projectName"   class="form-control" required>
                         <option value="">none</option>
-                        <option value="CRM">CRM</option>
-                        <option value="CRM">CRM</option>
-                        <option value="CRM">CRM</option>
-                        <option value="CRM">CRM</option>
+                        <option ng-repeat="project in projects" value="project.id">{{project.projectName}}</option>
+                       
                     </select>
                 </div>
             </div>
