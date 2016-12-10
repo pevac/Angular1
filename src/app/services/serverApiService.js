@@ -56,7 +56,7 @@ function getData($http, serverApiConstant){
         getCustomers:function(){
               return    $http({
                 method: "GET",
-                url: serverApiConstant.url+"/customerrequest/"
+                url: serverApiConstant.url+"customerrequest/"
             })
                 .then(function (response) {
                     return response.data;
