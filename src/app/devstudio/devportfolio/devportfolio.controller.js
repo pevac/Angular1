@@ -3,7 +3,10 @@ angular.module('devPortfolioModule',[])
 
 function devPortfolioCtrl($scope, serverDataService){
     $scope.getProjects = function(){
-        $scope.projects = serverDataService.getDevProjects();
+            serverDataService.getDevProjects().then(function (data) {
+                console.log(data);
+                $scope.projects = data;
+            });
     };
 
     (function(){

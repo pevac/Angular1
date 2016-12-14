@@ -3,7 +3,7 @@ angular
     .factory('serverDataService', getData)
     .factory('serverActService', setData)
     .constant('serverApiConstant',{
-        url : 'http://localhost:8080/api'
+        url : 'http://128.0.169.5:8888/dev-studio/api/'
     });
 
 
@@ -20,8 +20,14 @@ function getData($http, serverApiConstant){
 
     return{
         getDevProjects: function(){
-            console.log('here');
-            return projects;
+             return    $http({
+                method: "GET",
+                url:serverApiConstant.url + "project/"
+            })
+                .then(function (response) {
+                    console.log(response.data);
+                    return response.data;
+                })
             },
         getIntProjects: function(){
             console.log('here');
@@ -32,12 +38,32 @@ function getData($http, serverApiConstant){
         getVacancies:function(){
             return    $http({
                 method: "GET",
-                url: serverApiConstant.url+"/vacancies"
+                url: serverApiConstant.url+"vacancies/"
+            })
+                .then(function (response) {
+                    return response.data;
+                })
+        },
+        getJobPositions:function(){
+              return    $http({
+                method: "GET",
+                url: serverApiConstant.url+"jobpositions/"
+            })
+                .then(function (response) {
+                    return response.data;
+                })
+        },
+        getCustomers:function(){
+              return    $http({
+                method: "GET",
+                url: serverApiConstant.url+"customerrequest/"
             })
                 .then(function (response) {
                     return response.data;
                 })
         }
+
+
     }
 
 
@@ -48,7 +74,7 @@ function setData($http, serverApiConstant){
         addVacancy: function(data){
           return  $http({
                 method: "POST",
-                url: serverApiConstant.url+'/addvacancy',
+                url: serverApiConstant.url+'addvacancy',
                 data: data
             })
 
@@ -56,10 +82,11 @@ function setData($http, serverApiConstant){
         addReview: function(data){
             return  $http({
                 method: "POST",
-                url: serverApiConstant.url+'/addreview',
+                url: serverApiConstant.url+'addreview',
                 data: data
             })
-
         }
+
+
     }
 }

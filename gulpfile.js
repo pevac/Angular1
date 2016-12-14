@@ -54,7 +54,7 @@ var path = {
         ]
         },
         styles: SOURCE_BASE_DIR + "/assets/sass/*.scss",
-        fonts: SOURCE_BASE_DIR + "/assets/fonts/**/*.*",
+        fonts: [SOURCE_BASE_DIR + "/assets/fonts/**/*.*", "./src/assets/lib/bootstrap-sass/assets/fonts/**/*.*"],
         img: SOURCE_BASE_DIR + "/assets/img/**/*.*",
         index : SOURCE_BASE_DIR + "/index.html"
   

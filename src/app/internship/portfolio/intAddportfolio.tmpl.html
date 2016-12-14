@@ -1,0 +1,54 @@
+<div class="add-portfolio" ng-app="" ng-controller="">
+    <h1 class="title text-center">Портфоліо</h1>
+    <div class="form-container">
+        <form class="form-horizontal" name="form" role="form" ng-submit="addVacancy()"  id="formValidate">
+            <div class="form-group text-left">
+                <label for="inputJobPosition" class="col-sm-3">Назва проекту</label>
+                <div class="col-sm-9">
+                    <input type="text" id="projectsName" class="form-control">                
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputProject" class="col-sm-3  control-label">Клієнт</label>
+                <div class="col-sm-9">
+                    <input type="text" id="inputProject" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="sth" class="col-sm-3">Лого проекту</label>
+                <div class="col-sm-9">
+                    <!--<span class="arrow"></span>-->
+                    <input type="text" id="inputImg" class="form-control">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label  class="col-sm-3 control-label">Опис</label>
+                <div class="col-sm-9">
+                    <trix-editor  angular-trix  ng-model="newVacancy.description" class="trix-content"  ></trix-editor>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputEmployment" class="col-sm-3  control-label">Посилання</label>
+                <div class="col-sm-3 formka">
+                    <span class="arrow"></span>
+                    <input type="text" class="form-control col-sm-3 col-md-3">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputInfo" class="col-sm-3  control-label">Галерея</label>
+                <div class="col-sm-9">
+                    <div class="col-md-3"><span class="addLogo"><!--<img src="" alt="">-->+</span></div>
+                    <div class="col-md-3"><span class="addLogo"><!--<img src="" alt="">-->+</span></div>
+                    <div class="col-md-3"><span class="addLogo"><!--<img src="" alt="">-->+</span></div>
+                    <div class="col-md-3"><span class="addLogo"><!--<img src="" alt="">-->+</span></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="text-center">
+                    <button type="submit"  id="sendBtn" class="btn btn-primary btn-save">Зберегти чорновик</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,9 +1,9 @@
-<div class="customers_statement">
+<div class="customers_statement" ng-app="orderCustomerModule" ng-controller="orderCustomerCtrl">
         <div class="row">
             <div class="col-md-12">
-                <div class="title_container">
+                <!--<div class="title_container">
                     <a class="dwl-table"><span>Завантажити таблицю</span></a>
-                </div>
+                </div>-->
             </div>
         </div>
             <div class="row">
@@ -23,13 +23,13 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr >
+                                <tr ng-repeat="customer in customers">
                                     <td class="td-check"></td>
-                                    <td>21.12.2016</td>
-                                    <td>Петро Петренко</td>
-                                    <td>097 000 0000</td>
-                                    <td>pepe@gmail.com</td>
-                                    <td>Softserve</td>
+                                    <td>{{customer.data_regist}}</td>
+                                    <td>{{customer.full_name}}</td>
+                                    <td>{{customer.phone}}</td>
+                                    <td>{{customer.mail}}</td>
+                                    <td>{{customer.name_company}}</td>
                                     <td><a href="">link</a></td>
                                 </tr>
                             </tbody>

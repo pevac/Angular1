@@ -1,0 +1,105 @@
+
+/*--------*/
+.devportfolio{
+  border: inherit;
+  border-radius: 0;
+  padding-top: 50px;
+}
+
+.white_div_portfolio{
+  width: 100%;
+  height: 210px;
+  background-color: $light-base-color;
+  margin: auto;
+  padding-top: 32px;
+}
+.white_div_portfolio:hover button{
+  visibility: visible;
+}
+h2{
+  padding: 10px;
+}
+.h2{
+  color: $blue-base-color;
+}
+h4{
+  color: $biruza-base-color;
+  margin-bottom: 32px;
+}
+
+.btnedit{
+  width: 100px;
+  height: 26px;
+  color: $black-base-color;
+  border-radius: 10px;
+  border: 1px solid $brown-light-color;
+  background-color: $light-base-color;
+  visibility: hidden;
+  
+}
+.btnreview{
+  width: 100px;
+  height: 26px;
+  color: $light-base-color;
+  border-radius: 10px;
+  border: inherit;
+  background-color: $biruza-base-color;
+  margin-left: 10px;
+  visibility: hidden;
+}
+
+.plustriangl{
+  padding: 4px;
+  position: absolute;
+  top: 60px;
+  right: 20px;
+}
+
+.plusstar{
+  padding: 4px;
+  position: absolute;
+  top: 60px;
+  left: 20px;
+}
+
+.btnreview:hover{
+  background-color: $blue-base-color;
+}
+
+.btnedit:hover{
+  background-color: $brown-light-color;
+}
+
+.add{
+  position: absolute;
+  top: 60px;
+  left: 120px;
+  /*z-index: 100;*/
+}
+
+.add a {
+  color: $dark-base-color;
+}
+
+.add::before{
+  content: url(/img/add.png);
+  position: absolute;
+  top: 0;
+  left: -60px;
+  /*z-index: 100;*/
+}
+
+.addLogo{
+  padding: 4px 10px;
+  border: 1px solid $gray-base-color;
+  color: $biruza-base-color;
+  margin: 0;
+}
+
+.addLogo:hover{
+  cursor: pointer;
+}
+.formka > .form-control{
+  display: inline;
+  
+}
