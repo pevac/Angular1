@@ -25,20 +25,25 @@ function getData($http, serverApiConstant){
                 url:serverApiConstant.url + "project/"
             })
                 .then(function (response) {
-                    console.log(response.data);
                     return response.data;
                 })
-            },
+        },
+
         getIntProjects: function(){
-            console.log('here');
-            return projects;
+            return    $http({
+                method: "GET",
+                url:serverApiConstant.url + "project/"
+            })
+                .then(function (response) {
+                    return response.data;
+                })
         },
 
 
         getVacancies:function(){
             return    $http({
                 method: "GET",
-                url: serverApiConstant.url+"vacancies/"
+                url: serverApiConstant.url+"jobpositions/"
             })
                 .then(function (response) {
                     return response.data;
@@ -53,6 +58,7 @@ function getData($http, serverApiConstant){
                     return response.data;
                 })
         },
+
         getCustomers:function(){
               return    $http({
                 method: "GET",
@@ -61,8 +67,17 @@ function getData($http, serverApiConstant){
                 .then(function (response) {
                     return response.data;
                 })
-        }
+        },
 
+        getCustomerItem:function(id){
+            return    $http({
+                method: "GET",
+                url: serverApiConstant.url+"customerrequest?" +id + "/"
+            })
+                .then(function (response) {
+                    return response.data;
+                })
+        }
 
     }
 
