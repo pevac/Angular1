@@ -18,6 +18,7 @@
     "angular-ui-router": "~0.3.2",
     "angular-trix": "^1.0.2",
     "trix": "0.10.0",
-    "bootstrap-table": "^1.11.0"
+    "bootstrap-table": "^1.11.0",
+    "wizValidation": "wiz-validation#^1.2.1"
   }
 }

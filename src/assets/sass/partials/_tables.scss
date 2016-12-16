@@ -1,0 +1,20 @@
+.table_container {
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+
+
+    th {
+      font-size: 16px;
+    }
+
+    th, td {
+      padding: 5px 10px;
+      border: 1px solid;
+      text-align: center;
+      background-color: $light-base-color;
+    }
+  }
+}
+

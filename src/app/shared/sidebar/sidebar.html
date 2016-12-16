@@ -36,9 +36,10 @@
 								<span class="arrow"></span>
 							</a>
 							<ul class="nav nav-second"  uib-collapse="isDevStudioOpen">
-								<li ng-class="{ 'active': isActive('/devportfolio')}" ><a  ui-sref=".devportfolio"><span>Портфоліо</span></a></li>
-								<li ng-class="{ 'active': isActive('/ordercustomer')}"><a  ui-sref=".ordercustomer"><span>Заявки клієнтів</span></a></li>
-								<li ng-class="{ 'active': isActive('/vacancies')}"><a  ui-sref=".vacancies"><span>Вакансії</span></a></li>
+								<li ng-class="{ 'active': isActive('/devportfolio')}" ><a  ui-sref=".devportfolio.list"><span>Портфоліо</span></a></li>
+								<li ng-class="{ 'active': isActive('/ordercustomer')}"><a  ui-sref=".ordercustomer.list"><span>Заявки клієнтів</span></a></li>
+								<li ng-class="{ 'active': isActive('/vacancies')}"><a  ui-sref=".vacancies.list"><span>Вакансії</span></a></li>
+								<li ng-class="{ 'active': isActive('/review')}"><a  ui-sref=".vacancies.review"><span>Відгуки на вакансії</span></a></li>
 							</ul>
 					</li>
 					<li ng-class='{"active": !isInternshipOpen}'>
@@ -48,8 +49,8 @@
 							<span class="arrow"></span>
 						</a>
 						<ul class="nav nav-second"  uib-collapse="isInternshipOpen">
-							<li ng-class="{ 'active': isActive('/intportfolio')}"><a ui-sref=".intportfolio"><span>Портфоліо</span></a></li>
-							<li ng-class="{ 'active': isActive('/reviews')}"><a ui-sref=".reviews"><span>Відгуки</span></a></li>
+							<li ng-class="{ 'active': isActive('/intportfolio')}"><a ui-sref=".intportfolio.list"><span>Портфоліо</span></a></li>
+							<li ng-class="{ 'active': isActive('/reviews')}"><a ui-sref=".reviews.list"><span>Відгуки</span></a></li>
 							<li ng-class="{ 'active': isActive('/training')}"><a ui-sref=".training"><span>Навчальна частина</span></a>
 							</li>
 						</ul>

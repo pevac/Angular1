@@ -1,4 +1,4 @@
- angular.module("angularApp", ["ui.bootstrap", "ui.router",  'serverApi','devPortfolioModule','intPortfolioModule','angularTrix','vacancyModule', 'orderCustomerModule', 'addVacancyModule', 'addReviewModule']);
+ angular.module("angularApp", ['ui.bootstrap',  'ui.router', 'angularTrix',  'serverApi', 'wiz.validation', 'devPortfolioModule','intPortfolioModule', 'orderCustomerModule', 'vacancyModule',   'reviewsModule']);
 
 
 

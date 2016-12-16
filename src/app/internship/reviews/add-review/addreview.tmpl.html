@@ -1,0 +1,55 @@
+<div class="add-review"  ng-controller="addReviewCtrl">
+    <div class="top-nav-container">
+        <h2 class="h2">Відгук</h2>
+    </div>
+    <div class="form-container">
+        <div class="clearfix"><a class="close" ui-sref="home.reviews.list"><span class="glyphicon glyphicon-remove-circle"></span></a></div>
+        <form class="form-horizontal admin-form" name="form" role="form" ng-submit="addReview()"  id="formValidate">
+            <div class="form-group">
+                <label for="inputName" class="col-sm-3  control-label">Ім'я</label>
+                <div class="col-sm-9">
+                    <input   type="text" name="name" ng-model="review.name"  class="form-control" id="inputName" required>
+                </div>
+            </div>
+            <div class="form-group text-left">
+                <label for="inputJobPosition" class="col-sm-3   control-label">Позиція</label>
+                <div class="col-sm-9">
+                    <span class="arrow"></span>
+                    <select id="inputJobPosition" name="jobPosition" ng-model="review.jobPositionId"  class="form-control" required>
+                        <option value="">none</option>
+                        <option ng-repeat="jobPosition in jobPositions" ng-selected="vacancy.jobPositionId" ng-value="jobPosition.id">{{jobPosition.jobName}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputProject" class="col-sm-3  control-label">Проект</label>
+                <div class="col-sm-9">
+                    <span class="arrow"></span>
+                    <select id="inputProject" name="projectName" ng-model="review.projectId"   class="form-control" required>
+                        <option value="">none</option>
+                        <option ng-repeat="project in projects"  ng-selected="review.projectId" value="project.id">{{project.projectName}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputPhoto" class="col-sm-3  control-label">Фото</label>
+                <div class="col-sm-9">
+                    <input   class="file" type="file" name="photo" ng-model="review.photo"  id="inputPhoto">
+                    <span class="custom-file-control"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label  class="col-sm-3 control-label">Відгук</label>
+                <div class="col-sm-9">
+                    <trix-editor  angular-trix ng-model="review.review" class="trix-content" required></trix-editor>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="text-center">
+                    <button type="submit"  id="sendBtn" class="btn btn-primary btn-save">Зберегти чорновик</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

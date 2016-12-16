@@ -1,0 +1,40 @@
+<div class="customers_statement"  ng-controller="orderCustomerCtrl">
+<div class="top-nav-container">
+    <h2 class="h2">Заявки клієнтів</h2>
+</div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="title_container">
+                <a class="dwl-table"><span>Завантажити таблицю</span></a>
+            </div>
+        </div>
+    </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table_container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Дата</th>
+                                <th>ПІБ</th>
+                                <th>Телефон</th>
+                                <th>E-mail</th>
+                                <th>Компанія</th>
+                                <th>Переглянути</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="customer in customers">
+                                <td>{{customer.data_regist}}</td>
+                                <td>{{customer.full_name}}</td>
+                                <td>{{customer.phone}}</td>
+                                <td>{{customer.mail}}</td>
+                                <td>{{customer.name_company}}</td>
+                                <td><a ui-sref="home.ordercustomer.view({orderId: customer.id})">link</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+</div>

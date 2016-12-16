@@ -2,7 +2,7 @@
     angular.module('vacancyModule', [])
         .controller('vacanciesController',vacanciesController);
 
-
+    vacanciesController.$inject  = ['$scope', 'serverDataService']
     function vacanciesController($scope, serverDataService) {
         var self = this;
         $scope.getVacancies = function(){
@@ -11,8 +11,12 @@
             });
         };
 
-        // (function(){
-        //     $scope.getVacancies();
-        // })()
+        $scope.vacancyJson = function (obj) {
+            return JSON.stringify(obj);
+        };
+
+        (function(){
+            $scope.getVacancies();
+        })()
     }
 
