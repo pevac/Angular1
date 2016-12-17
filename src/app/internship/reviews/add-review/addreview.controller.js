@@ -1,6 +1,6 @@
-    angular.module('reviewsModule',[])
+(function(){
+ angular.module('reviewsModule',[])
         .controller('addReviewCtrl', addReviewCtrl);
-
 
     function addReviewCtrl($scope, serverActService, serverDataService){
 
@@ -26,5 +26,6 @@
             $scope.getDevProjects();
         })();
     }
-
+})();
+   
 

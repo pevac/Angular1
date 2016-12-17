@@ -1,3 +1,4 @@
+(function(){
 angular.module("angularApp").config(function($stateProvider, $urlRouterProvider, USER_ROLES) {
     
     $urlRouterProvider.otherwise('/');
@@ -15,7 +16,6 @@ angular.module("angularApp").config(function($stateProvider, $urlRouterProvider,
             abstract: false,
             url: "/",
             templateUrl: "components/home/home.html",
-            controller: 'HomeController',
             data: {
                 authorizedRoles: [USER_ROLES.admin, USER_ROLES.editor]
             },
@@ -43,6 +43,10 @@ angular.module("angularApp").config(function($stateProvider, $urlRouterProvider,
             url: "/edit?project",
             controller: "addDevPortfolioCtrl",
             templateUrl:"devstudio/devportfolio/form-devportfolio/form-devportfolio.tmpl.html"
+        })
+        .state("home.devportfolio.viewportfolio", {
+            url: "/view?project",
+            templateUrl:"devstudio/devportfolio/view-devportfolio/view-devportfolio.tmpl.html"
         })
 
         .state("home.ordercustomer", {
@@ -130,8 +134,8 @@ angular.module("angularApp").config(function($stateProvider, $urlRouterProvider,
         })
 
 
-
-
-
 });
+})();
+
+
 

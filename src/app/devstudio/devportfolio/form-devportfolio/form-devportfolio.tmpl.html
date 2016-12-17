@@ -1,17 +1,22 @@
 <div   ng-controller="addDevPortfolioCtrl">
     <div class="top-nav-container">
         <h2 class="h2">Портфоліо</h2>
+        <ul class="nav navbar-nav navbar-right">
+			<li>
+				<a ui-sref="home.devportfolio.list"><span tooltip-placement="bottom" uib-tooltip="повернутися до списку проектів" tooltip-trigger="focus"  class="glyphicon glyphicon-arrow-left"></span></a>
+			</li>
+		</ul>
     </div>
     <div class="form-container ">
         <div class="clearfix"><a class="close" ui-sref="home.devportfolio.list"><span class="glyphicon glyphicon-remove-circle"></span></a></div>
-        <form class="form-horizontal admin-form"  name="portfolioForm" role="form" novalidate>
+        <form class="form-horizontal admin-form"  name="portfolioForm" role="form" ng-submit="addProject()" novalidate>
             <div class="form-group ">
                 <input   type="hidden" name="id"  ng-model="project.id"   id="inpuId">
             </div>
             <div class="form-group">
                 <label for="inputProjectName" class="col-sm-3   control-label">Назва</label>
                 <div class="col-sm-9">
-                    <input   type="text" name="projectName"  ng-model="project.projectName"  class="form-control" id="inputProjectName" ng-maxlength="50" ng-required="true">
+                    <input   type="text" name="projectName"  ng-model="project.name"  class="form-control" id="inputProjectName" ng-maxlength="50" ng-required="true">
                     <div role="alert">
                         <span   class="error" ng-show="portfolioForm.$submitted || portfolioForm.projectName.$touched">
                             <span  ng-show="portfolioForm.projectName.$error.required">Це поле є обов'язкове</span>
@@ -23,7 +28,7 @@
             <div class="form-group">
                 <label for="inputCustomer" class="col-sm-3  control-label">Клієнт</label>
                 <div class="col-sm-9">
-                    <input   type="text" name="customer"   ng-model="project.costumer"  class="form-control" id="inputCustomer" ng-maxlength="50" ng-required="true">
+                    <input   type="text" name="customer"   ng-model="project.customer"  class="form-control" id="inputCustomer" ng-maxlength="50" ng-required="true">
                     <div role="alert">
                         <span   class="error" ng-show="portfolioForm.$submitted  || portfolioForm.customer.$touched">
                             <span  ng-show="portfolioForm.customer.$error.required">Це поле є обов'язкове</span>
@@ -115,7 +120,7 @@
                 <div class="col-sm-6">
                     <div class="form-check">
                         <label class="form-check-inline control-label">
-                            <input id="inputPriority" class="form-check-input" ng-model="project.priority" type="checkbox">
+                            <input id="inputPriority" class="form-check-input" ng-model="priority" type="checkbox">
                         </label>
                     </div>
                 </div>

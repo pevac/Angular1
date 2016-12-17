@@ -51,7 +51,7 @@ var path = {
             "./src/assets/lib/angular-ui-router/release/angular-ui-router.js",
             "./src/assets/lib/angular-trix/dist/angular-trix.min.js",
             "./src/assets/lib/trix/dist/trix.js",
-            "./src/assets/lib/wizValidation/wizValidation/wizValidation.js"
+            "./src/assets/lib/angular-smart-table/dist/smart-table.js"
         ]
         },
         styles: SOURCE_BASE_DIR + "/assets/sass/*.scss",
@@ -115,18 +115,6 @@ gulp.task("script:build", function() {
       .pipe($.if(!RELEASE, $.sourcemaps.write()))
       .pipe(gulp.dest(path.build.script));
 });
-
-
-// gulp.task("app:build", function() {
-//     return gulp.src(path.src.app)
-//         .pipe($.rigger())
-//         .pipe($.if(RELEASE, $.htmlmin({
-//             removeComments: true,
-//             collapseWhitespace: true,
-//             minifyJS: true
-//         })))
-//         .pipe(gulp.dest(path.build.app))
-// });
 
 gulp.task("templates:build", function() {
   return gulp.src(path.src.templates)

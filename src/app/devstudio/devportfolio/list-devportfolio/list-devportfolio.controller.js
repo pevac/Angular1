@@ -1,24 +1,28 @@
-angular.module('devPortfolioModule',[])
-    .controller('devPortfolioListCtrl', devPortfolioListCtrl);
+(function(){
+    angular.module('devPortfolioModule',[])
+        .controller('devPortfolioListCtrl', devPortfolioListCtrl);
 
-function devPortfolioListCtrl($scope, $state , serverDataService){
-    $scope.getProjects = function(){
-            serverDataService.getDevProjects().then(function (data) {
-                $scope.projects = data;
-            });
-    };
+devPortfolioListCtrl.$inject = ["$scope", "$rootScope", "serverDataService"]
+    function devPortfolioListCtrl($scope,  $rootScope, serverDataService){
+        $scope.getProjects = function(){
+                serverDataService.getDevProjects().then(function (data) {
+                    $scope.projects = data;
+                });
+        };
 
-    $scope.projectJson = function (obj) {
-        return JSON.stringify(obj);
-    };
+        $scope.projectJson = function (obj) {
+            return JSON.stringify(obj);
+        };
 
-    // $scope.goToEdit = function(project) {
-    //     $state.go('home.devportfolio.editportfolio', {project: JSON.stringify(project)} );
-    // };
+        $scope.goToEdit = function(project) {
+           $rootScope.project = project;
+           
+        };
 
 
-    (function(){
-        $scope.getProjects();
-    })()
-}
+        (function(){
+            $scope.getProjects();
+        })()
+    }
+})();
 

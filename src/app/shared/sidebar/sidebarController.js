@@ -1,10 +1,16 @@
-angular.module("angularApp").controller("SidebarController", function ($scope,$rootScope, $location) {
-    $scope.currentUser = $rootScope.currentUser;
+(function(){
+    angular.module("angularApp").controller("SidebarController", SidebarController);
 
-    $scope.isActive = function (viewLocation) {
-        var active = ($location.path().indexOf(viewLocation) !== -1);
-        return active;
-    };
+    SidebarController.$inject = ["$scope","$rootScope", "$location", "USER_ROLES", "AuthService"];
+    
+    function SidebarController($scope,$rootScope, $location, USER_ROLES,AuthService) {
+            $scope.currentUser = $rootScope.currentUser;
+            $scope.userRoles = USER_ROLES;
+            $scope.isAuthorized = AuthService.isAuthorized;
+            $scope.isActive = function (viewLocation) {
+                var active = ($location.path().indexOf(viewLocation) !== -1);
+                return active;
+            };
+    }
+})();
 
-
-})

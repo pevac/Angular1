@@ -4,7 +4,6 @@
 
     vacanciesController.$inject  = ['$scope', 'serverDataService']
     function vacanciesController($scope, serverDataService) {
-        var self = this;
         $scope.getVacancies = function(){
             serverDataService.getVacancies().then(function (data) {
                 $scope.vacancies = data;

@@ -1,8 +1,9 @@
+(function(){
     angular.module('vacancyModule')
         .controller('addVacancyCtrl', addVacancyCtrl);
 
-    addVacancyCtrl.$inject = ['$scope', 'serverActService', 'serverDataService', '$stateParams']
-    function addVacancyCtrl($scope, serverActService, serverDataService, $stateParams){
+    addVacancyCtrl.$inject = ['$scope', 'serverActService', '$rootScope', 'serverDataService', '$stateParams']
+    function addVacancyCtrl($scope, serverActService, $rootScope,  serverDataService, $stateParams){
 
         $scope.clear = function() {
             $scope.dt = null;
@@ -30,34 +31,47 @@
 
 
         $scope.addVacancy = function () {
-            serverActService.addVacancy($scope.newVacancy).then(function (response) {
+            // console.log($scope.vacancy)
+            serverActService.addVacancy($scope.vacancy).then(function (response) {
+                
             });
-        }
-
-        
-        $scope.getJobPositions = function () {
-            serverDataService.getJobPositions().then(function (data) {
-                $scope.jobPositions = data;
-            })
         };
 
-         $scope.getDevProjects = function () {
+       $scope.initForm = function () {
+            if(!$stateParams.vacancy){ return; }
+            console.log($stateParams.vacancy);
+            $scope.project = JSON.parse($stateParams.vacancy);
+        };
+
+       $scope.getJobPositions = function () {
+            serverDataService.getJobPositions().then(function (data) {
+                $scope.jobPositions = data;
+            });
+        };
+
+        $scope.getWorkingTimes = function (){
+            serverDataService.getWorkingTimes().then(function(){
+                $scope.workingTimes = data;
+            });
+        };
+
+        $scope.getDevProjects = function () {
             serverDataService.getDevProjects().then(function (data) {
                 $scope.projects = data;
             })
         };
 
         (function(){
-            initForm();
             $scope.getJobPositions();
             $scope.getDevProjects();
+            $scope.getWorkingTimes();
+            $scope.initForm();
         })();
-
-        function initForm() {
-            if(!$stateParams.vacancy){ return; }
-            $scope.project = JSON.parse($stateParams.vacancy)
-        };
+        
     }
+})();
+    
+   
 
 
 
