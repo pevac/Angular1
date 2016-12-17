@@ -2,7 +2,7 @@ angular.module("angularApp").controller("SidebarController", function ($scope,$r
     $scope.currentUser = $rootScope.currentUser;
 
     $scope.isActive = function (viewLocation) {
-        var active = (viewLocation === $location.path());
+        var active = ($location.path().indexOf(viewLocation) !== -1);
         return active;
     };
 

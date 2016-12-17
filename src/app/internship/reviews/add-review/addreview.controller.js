@@ -1,18 +1,12 @@
     angular.module('reviewsModule',[])
         .controller('addReviewCtrl', addReviewCtrl);
 
+
     function addReviewCtrl($scope, serverActService, serverDataService){
-        $scope.newReview ={
-            name:"",
-            review: "",
-            photo: ""
-        }
 
         $scope.addReview = function () {
             var a = $scope.newReview;
-            serverActService.addReview($scope.newReview).then(function (response) {
-
-            });
+            serverActService.addReview($scope.review).then(function (response) {});
         }
 
         $scope.getJobPositions = function () {

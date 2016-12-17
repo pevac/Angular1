@@ -4,48 +4,74 @@
     </div>
     <div class="form-container ">
         <div class="clearfix"><a class="close" ui-sref="home.vacancies.list"><span class="glyphicon glyphicon-remove-circle"></span></a></div>
-        <form class="form-horizontal admin-form" name="form" role="form" ng-submit="addVacancy()"  id="formValidate">
+        <form class="form-horizontal admin-form" name="vacancyForm" role="form" ng-submit="addVacancy()"  id="formValidate" novalidate>
             <div class="form-group text-left">
                 <label for="inputJobPosition" class="col-sm-3   control-label">Позиція</label>
                 <div class="col-sm-9">
                     <span class="arrow"></span>
-                    <select id="inputJobPosition" name="jobPosition" ng-model="vacancy.jobPositionId"  class="form-control" required>
+                    <select id="inputJobPosition" name="jobPosition" ng-model="vacancy.jobPositionId"  class="form-control" ng-required="true">
                         <option value="">none</option>
                         <option ng-repeat="jobPosition in jobPositions" ng-selected="vacancy.jobPositionId" ng-value="jobPosition.id">{{jobPosition.jobName}}</option>
                     </select>
+                    <div role="alert">
+                        <span   class="error" ng-show="vacancyForm.$submitted || vacancyForm.jobPosition.$touched">
+                            <span  ng-show="vacancyForm.jobPosition.$error.required">Це поле є обов'язкове</span>
+                        </span>
+                    </div>
                 </div>
             </div>
             <div class="form-group">
                 <label for="inputProject" class="col-sm-3  control-label">Проект</label>
                 <div class="col-sm-9">
                     <span class="arrow"></span>
-                    <select id="inputProject" name="projectName" ng-model="vacancy.projectId"   class="form-control" required>
+                    <select id="inputProject" name="projectName" ng-model="vacancy.projectId"   class="form-control" ng-required="true">
                         <option value="">none</option>
                         <option ng-repeat="project in projects"  ng-selected="vacancy.projectId" value="project.id">{{project.projectName}}</option>
                     </select>
+                    <div role="alert">
+                        <span   class="error" ng-show="vacancyForm.$submitted || vacancyForm.projectName.$touched">
+                            <span  ng-show="vacancyForm.projectName.$error.required">Це поле є обов'язкове</span>
+                        </span>
+                    </div>
                 </div>
             </div>
             <div class="form-group">
                 <label  class="col-sm-3 control-label">Опис вакансії</label>
                 <div class="col-sm-9">
-                    <trix-editor  angular-trix  ng-model="vacancy.description" class="trix-content"></trix-editor>
+                    <trix-editor  name="description" angular-trix  ng-model="vacancy.description" class="trix-content" ng-maxlength="250"  ng-required="true"></trix-editor>
+                    <div role="alert">
+                        <span   class="error" ng-show="vacancyForm.$submitted || vacancyForm.description.$touched">
+                            <span  ng-show="vacancyForm.description.$error.required">Це поле є обов'язкове</span>
+                            <span  ng-show="vacancyForm.description.$error.maxlength">Ви ввели занадто велике повідомлення</span>
+                        </span>
+                    </div>
                 </div>
             </div>
             <div class="form-group">
                 <label for="inputEmployment" class="col-sm-3  control-label">Зайнятість</label>
                 <div class="col-sm-9">
                     <span class="arrow"></span>
-                    <select id="inputEmployment" name="busyHour" ng-model="newVacancy.busyHour"   class="form-control" required>
+                    <select id="inputEmployment" name="busyHour" ng-model="newVacancy.busyHour"   class="form-control" ng-required="true">
                         <option value="">none</option>
                         <option value="Front-end Developer">full time</option>
                         <option value="Front-end Developer">part time</option>
                     </select>
+                    <div role="alert">
+                        <span   class="error" ng-show="vacancyForm.$submitted || vacancyForm.busyHour.$touched">
+                            <span  ng-show="vacancyForm.busyHour.$error.required">Це поле є обов'язкове</span>
+                        </span>
+                    </div>
                 </div>
             </div>
             <div class="form-group">
                 <label for="inputInfo" class="col-sm-3  control-label">Дод.інф-ція</label>
                 <div class="col-sm-9">
-                    <input   type="text" name="addDescription" ng-model="vacancy.addDescription"   class="form-control" id="inputInfo" required>
+                    <textarea  id="inputInfo"   name="addDescription" ng-model="vacancy.addDescription"   class="form-control"   ng-maxlength="150"></textarea>
+                    <div role="alert">
+                        <span   class="error" ng-show="vacancyForm.$submitted || vacancyForm.addDescription.$touched">
+                            <span  ng-show="vacancyForm.addDescription.$error.maxlength">Ви ввели занадто велике повідомлення</span>
+                        </span>
+                    </div>
                 </div>
             </div>
             <div class="form-group">
@@ -53,16 +79,17 @@
                 <div class="col-sm-9">
                     <p class="input-group">
                         <input id="inputStartDate" type="text" name="date" ng-model="vacancy.dateRegist" class="form-control" uib-datepicker-popup   is-open="popup.opened"
-                               close-text="Close"   ng-required="true"/>
+                               close-text="Close" placeholder="yyyy-mm-dd" ng-pattern="/^((\d{4})-(\d{2})-(\d{2})|(\d{2})\/(\d{2})\/(\d{4}))$/"   ng-required="true"/>
                         <span class="input-group-btn">
                             <button type="submit" class="btn btn-default btn-calendar" ng-click="open()"><i class="glyphicon glyphicon-calendar"></i></button>
                         </span>
+                    </p>
                     <div role="alert">
-                        <span   class="error" ng-show="portfolioForm.$submitted || portfolioForm.date.$touched">
-                            <span  ng-show="portfolioForm.date.$error.required">Це поле є обов'язкове</span>
+                        <span   class="error" ng-show="vacancyForm.$submitted || vacancyForm.date.$touched">
+                            <span  ng-show="vacancyForm.date.$error.required">Це поле є обов'язкове</span>
+                            <span  ng-show="vacancyForm.date.$error.date">Введіть правильний формат</span>
                         </span>
                     </div>
-                    </p>
                 </div>
             </div>
             <div class="form-group">

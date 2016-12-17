@@ -4,7 +4,7 @@
     </div>
     <div class="form-container ">
         <div class="clearfix"><a class="close" ui-sref="home.intportfolio.list"><span class="glyphicon glyphicon-remove-circle"></span></a></div>
-        <form class="form-horizontal admin-form"  name="portfolioForm" role="form" novalidate>
+        <form class="form-horizontal admin-form"  name="intPortfolioForm" role="form" novalidate>
             <div class="form-group">
                 <input   type="hidden" name="id"  ng-model="project.id"   id="inpuId">
             </div>
@@ -13,9 +13,9 @@
                 <div class="col-sm-9">
                     <input   type="text" name="projectName"  ng-model="project.projectName"  class="form-control" id="inputProjectName" ng-maxlength="50" ng-required="true">
                     <div role="alert">
-                        <span   class="error" ng-show="portfolioForm.$submitted || portfolioForm.projectName.$touched">
-                            <span  ng-show="portfolioForm.projectName.$error.required">Це поле є обов'язкове</span>
-                            <span  ng-show="portfolioForm.projectName.$error.maxlength">Ви ввели занадто велике повідомлення</span>
+                        <span   class="error" ng-show="intPortfolioForm.$submitted || intPortfolioForm.projectName.$touched">
+                            <span  ng-show="intPortfolioForm.projectName.$error.required">Це поле є обов'язкове</span>
+                            <span  ng-show="intPortfolioForm.projectName.$error.maxlength">Ви ввели занадто велике повідомлення</span>
                     </span>
                     </div>
                 </div>
@@ -25,9 +25,9 @@
                 <div class="col-sm-9">
                     <input   type="text" name="customer"   ng-model="project.costumer"  class="form-control" id="inputCustomer" ng-maxlength="50" ng-required="true">
                     <div role="alert">
-                        <span   class="error" ng-show="portfolioForm.$submitted  || portfolioForm.customer.$touched">
-                            <span  ng-show="portfolioForm.customer.$error.required">Це поле є обов'язкове</span>
-                            <span  ng-show="portfolioForm.customer.$error.maxlength">Ви ввели занадто велике повідомлення</span>
+                        <span   class="error" ng-show="intPortfolioForm.$submitted  || intPortfolioForm.customer.$touched">
+                            <span  ng-show="intPortfolioForm.customer.$error.required">Це поле є обов'язкове</span>
+                            <span  ng-show="intPortfolioForm.customer.$error.maxlength">Ви ввели занадто велике повідомлення</span>
                         </span>
                     </div>
                 </div>
@@ -35,14 +35,14 @@
             <div class="form-group">
                 <label for="inputSitePhoto" class="col-sm-3  control-label">Зображення сайту</label>
                 <div class="col-sm-9">
-                    <input   class="file" type="file" name="sitePhoto" ng-model="sitePhoto" id="inputSitePhoto"
-                             wiz-val-file wiz-val-file-types="['image/png','image/jpeg','image/gif']" wiz-val-file-size="1000" required>
-                    <span class="custom-file-control">Завантажити фото</span>
+                    <input   class="file" type="file" name="sitePhoto" ng-model="project.sitePhoto" id="inputSitePhoto" file-reader
+                             valid-file  valid-file-type="['image/png','image/jpeg','image/gif']"  valid-file-size = "10000">
+                    <span class="custom-file-control" >{{project.sitePhoto.name ? project.sitePhoto.name: "Завантажити фото" }}</span>
                     <div role="alert">
-                        <span   class="error" ng-if="portfolioForm.$submitted  || portfolioForm.sitePhoto.$touched">
-                            <span  ng-show="portfolioForm.sitePhoto.$error.required">Це поле є обов'язкове</span>
-                            <span  ng-show="portfolioForm.sitePhoto.$error.wizValFileTypes">Невірний формат файлу</span>
-                            <span  ng-show="portfolioForm.sitePhoto.$error.wizValFileSize">Занадто великий файл</span>
+                        <span   class="error" ng-show="intPortfolioForm.$submitted  || intPortfolioForm.sitePhoto.$touched">
+                            <span  ng-show="intPortfolioForm.sitePhoto.$error.validFile">Це поле є обов'язкове</span>
+                            <span  ng-show="intPortfolioForm.sitePhoto.$error.validFileType">Невірний формат файлу</span>
+                            <span  ng-show="intPortfolioForm.sitePhoto.$error.validFileSize">Занадто великий файл</span>
                         </span>
                     </div>
                 </div>
@@ -52,9 +52,9 @@
                 <div class="col-sm-9">
                     <trix-editor  name="description"  angular-trix ng-model="project.description" class="trix-content" ng-maxlength="250" ng-required="true"></trix-editor>
                     <div role="alert">
-                        <span   class="error" ng-show="portfolioForm.$submitted || portfolioForm.description.$touched">
-                            <span  ng-show="portfolioForm.description.$error.required">Це поле є обов'язкове</span>
-                            <span  ng-show="portfolioForm.description.$error.maxlength">Ви ввели занадто велике повідомлення</span>
+                        <span   class="error" ng-show="intPortfolioForm.$submitted || intPortfolioForm.description.$touched">
+                            <span  ng-show="intPortfolioForm.description.$error.required">Це поле є обов'язкове</span>
+                            <span  ng-show="intPortfolioForm.description.$error.maxlength">Ви ввели занадто велике повідомлення</span>
                         </span>
                     </div>
                 </div>
@@ -64,13 +64,14 @@
                 <div class="col-sm-9">
                     <p class="input-group">
                         <input id="inputStartDate" type="text" name="startDate" ng-model="project.dateRegist" class="form-control" uib-datepicker-popup ng-model="startDay"  is-open="popup2.opened"
-                                close-text="Close"   ng-required="true"/>
+                                close-text="Close"    placeholder="yyyy-mm-dd" ng-pattern="/^((\d{4})-(\d{2})-(\d{2})|(\d{2})\/(\d{2})\/(\d{4}))$/"   ng-required="true"/>
                         <span class="input-group-btn">
-                            <button type="submit" class="btn btn-default btn-calendar" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+                            <button type="button" class="btn btn-default btn-calendar" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
                         </span>
                         <div role="alert">
-                            <span   class="error" ng-show="portfolioForm.$submitted || portfolioForm.startDate.$touched">
-                                <span  ng-show="portfolioForm.startDate.$error.required">Це поле є обов'язкове</span>
+                            <span   class="error" ng-show="intPortfolioForm.$submitted || intPortfolioForm.startDate.$touched">
+                                <span  ng-show="intPortfolioForm.startDate.$error.required">Це поле є обов'язкове</span>
+                                <span  ng-show="intPortfolioForm.startDate.$error.date">Введіть правильний формат</span>
                             </span>
                         </div>
                     </p>
@@ -83,18 +84,18 @@
                         <input id="inputEndDate" type="text" name="endDate" ng-model="project.endDate"
                                class="form-control" uib-datepicker-popup ng-model="endDay" is-open="popup1.opened"
                                datepicker-options="dateOptions"
-                               close-text="Close" ng-required="true"/>
+                               close-text="Close"  placeholder="yyyy-mm-dd" ng-pattern="/^((\d{4})-(\d{2})-(\d{2})|(\d{2})\/(\d{2})\/(\d{4}))$/"   ng-required="true"/>
                         <span class="input-group-btn">
                             <button type="button" class="btn btn-default btn-calendar" ng-click="open1()"><i
                                     class="glyphicon glyphicon-calendar"></i></button>
                         </span>
                     </p>
                     <div role="alert">
-                            <span class="error" ng-show="portfolioForm.$submitted || portfolioForm.endDate.$touched">
-                                <span ng-show="portfolioForm.endDate.$error.required">Це поле є обов'язкове</span>
+                            <span class="error" ng-show="intPortfolioForm.$submitted || intPortfolioForm.endDate.$touched">
+                                <span ng-show="intPortfolioForm.endDate.$error.required">Це поле є обов'язкове</span>
+                                <span  ng-show="intPortfolioForm.endDate.$error.date">Введіть правильний формат</span>
                             </span>
                     </div>
-
                 </div>
             </div>
             <div class="form-group">
@@ -103,33 +104,27 @@
                     <div class="col-flex">
                     <span class="btn-file ">
                         <span class="glyphicon glyphicon-plus"></span>
-                        <input class="file" type="file" name="gallery1" ng-model="sitePhoto"
-                               wiz-val-file wiz-val-file-types="['image/png','image/jpeg','image/gif']"
-                               wiz-val-file-size="1000">
+                        <input class="file" type="file" name="gallery1" ng-model="sitePhoto" file-reader
+                               valid-file  valid-file-type="['image/png','image/jpeg','image/gif']"  valid-file-size = "10000">
                     </span>
                     <span class="btn-file ">
                         <span class="glyphicon glyphicon-plus"></span>
-                        <input class="file" type="file" name="gallery2" ng-model="sitePhoto"
-                               wiz-val-file wiz-val-file-types="['image/png','image/jpeg','image/gif']"
-                               wiz-val-file-size="1000">
+                        <input class="file" type="file" name="gallery2" ng-model="sitePhoto" file-reader
+                               valid-file  valid-file-type="['image/png','image/jpeg','image/gif']"  valid-file-size = "10000">
                     </span>
                     <span class="btn-file ">
                         <span class="glyphicon glyphicon-plus"></span>
-                        <input class="file" type="file" name="gallery3" ng-model="sitePhoto"
-                               wiz-val-file wiz-val-file-types="['image/png','image/jpeg','image/gif']"
-                               wiz-val-file-size="1000">
+                        <input class="file" type="file" name="gallery3" ng-model="sitePhoto" file-reader
+                               valid-file  valid-file-type="['image/png','image/jpeg','image/gif']"  valid-file-size = "10000">
                     </span>
                     <span class="btn-file ">
                         <span class="glyphicon glyphicon-plus"></span>
-                        <input class="file" type="file" name="gallery4" ng-model="sitePhoto"
-                               wiz-val-file wiz-val-file-types="['image/png','image/jpeg','image/gif']"
-                               wiz-val-file-size="1000">
+                        <input class="file" type="file" name="gallery4" ng-model="sitePhoto" file-reader
+                               valid-file  valid-file-type="['image/png','image/jpeg','image/gif']"  valid-file-size = "10000">
                     </span>
                     </div>
                 </div>
             </div>
-
-
             <div class="form-group">
                 <div class="text-center">
                     <button type="submit"  id="sendBtn" class="btn btn-primary btn-save">Опублікувати</button>

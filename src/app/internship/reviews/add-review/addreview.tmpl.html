@@ -4,47 +4,75 @@
     </div>
     <div class="form-container">
         <div class="clearfix"><a class="close" ui-sref="home.reviews.list"><span class="glyphicon glyphicon-remove-circle"></span></a></div>
-        <form class="form-horizontal admin-form" name="form" role="form" ng-submit="addReview()"  id="formValidate">
+        <form id="formValidate" class="form-horizontal admin-form" name="reviewForm" role="form" ng-submit="addReview()" novalidate>
             <div class="form-group">
                 <label for="inputName" class="col-sm-3  control-label">Ім'я</label>
                 <div class="col-sm-9">
-                    <input   type="text" name="name" ng-model="review.name"  class="form-control" id="inputName" required>
+                    <input   type="text" name="fullName" ng-model="review.name"  class="form-control" id="inputName" ng-maxlength="50" ng-required="true">
+                    <div role="alert">
+                        <span   class="error" ng-show="reviewForm.$submitted || reviewForm.fullName.$touched">
+                            <span  ng-show="reviewForm.fullName.$error.required">Це поле є обов'язкове</span>
+                            <span  ng-show="reviewForm.fullName.$error.maxlength">Ви ввели занадто велике повідомлення</span>
+                        </span>
+                    </div>
                 </div>
             </div>
             <div class="form-group text-left">
                 <label for="inputJobPosition" class="col-sm-3   control-label">Позиція</label>
                 <div class="col-sm-9">
                     <span class="arrow"></span>
-                    <select id="inputJobPosition" name="jobPosition" ng-model="review.jobPositionId"  class="form-control" required>
+                    <select id="inputJobPosition" name="jobPosition" ng-model="review.jobPositionId"  class="form-control" ng-required="true">
                         <option value="">none</option>
                         <option ng-repeat="jobPosition in jobPositions" ng-selected="vacancy.jobPositionId" ng-value="jobPosition.id">{{jobPosition.jobName}}</option>
                     </select>
+                    <div role="alert">
+                        <span   class="error" ng-show="reviewForm.$submitted || reviewForm.jobPosition.$touched">
+                            <span  ng-show="reviewForm.jobPosition.$error.required">Це поле є обов'язкове</span>
+                        </span>
+                    </div>
                 </div>
             </div>
             <div class="form-group">
                 <label for="inputProject" class="col-sm-3  control-label">Проект</label>
                 <div class="col-sm-9">
                     <span class="arrow"></span>
-                    <select id="inputProject" name="projectName" ng-model="review.projectId"   class="form-control" required>
+                    <select id="inputProject" name="projectName" ng-model="review.projectId"   class="form-control" ng-required="true">
                         <option value="">none</option>
                         <option ng-repeat="project in projects"  ng-selected="review.projectId" value="project.id">{{project.projectName}}</option>
                     </select>
+                    <div role="alert">
+                        <span   class="error" ng-show="reviewForm.$submitted || reviewForm.projectName.$touched">
+                            <span  ng-show="reviewForm.projectName.$error.required">Це поле є обов'язкове</span>
+                        </span>
+                    </div>
                 </div>
             </div>
             <div class="form-group">
                 <label for="inputPhoto" class="col-sm-3  control-label">Фото</label>
                 <div class="col-sm-9">
-                    <input   class="file" type="file" name="photo" ng-model="review.photo"  id="inputPhoto">
-                    <span class="custom-file-control"></span>
+                    <input id="inputPhoto"   class="file" type="file" name="photo" ng-model="review.photo" file-reader  valid-file  valid-file-type="['image/png','image/jpeg','image/gif']"  valid-file-size = "10000" >
+                    <span class="custom-file-control" >{{review.photo.name ? review.photo.name: "Завантажити фото" }}</span>
+                    <div role="alert">
+                        <span   class="error" ng-show="reviewForm.$submitted || reviewForm.photo.$touched">
+                            <span  ng-show="reviewForm.photo.$error.validFile">Це поле є обов'язкове</span>
+                            <span  ng-show="reviewForm.photo.$error.validFileType">Невірний формат файлу</span>
+                            <span  ng-show="reviewForm.photo.$error.validFileSize">Занадто великий файл</span>
+                        </span>
+                    </div>
                 </div>
             </div>
             <div class="form-group">
                 <label  class="col-sm-3 control-label">Відгук</label>
                 <div class="col-sm-9">
-                    <trix-editor  angular-trix ng-model="review.review" class="trix-content" required></trix-editor>
+                    <trix-editor  angular-trix name="description" ng-model="review.description" class="trix-content" ng-maxlength="250"  ng-required="true"></trix-editor>
+                    <div role="alert">
+                        <span   class="error" ng-show="reviewForm.$submitted || reviewForm.description.$touched">
+                            <span  ng-show="reviewForm.description.$error.required">Це поле є обов'язкове</span>
+                            <span  ng-show="reviewForm.description.$error.maxlength">Ви ввели занадто велике повідомлення</span>
+                        </span>
+                    </div>
                 </div>
             </div>
-
             <div class="form-group">
                 <div class="text-center">
                     <button type="submit"  id="sendBtn" class="btn btn-primary btn-save">Зберегти чорновик</button>

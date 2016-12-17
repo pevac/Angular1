@@ -80,7 +80,7 @@ angular.module("angularApp").config(function($stateProvider, $urlRouterProvider,
             controller: "addVacancyCtrl"
         })
         .state("home.vacancies.review", {
-            url: "/review",
+            url: "^/review/list",
             templateUrl:"devstudio/vacancies/review-vacancies/review-vacancies.tmpl.html",
             controller: "reviewVacanciesController"
         })
