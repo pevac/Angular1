@@ -1,6 +1,11 @@
 <div class="viewOrder customers_statement"  ng-controller="viewOrderCustomerCtrl">
     <div class="top-nav-container">
         <h2 class="h2">Заявка</h2>
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                <a ui-sref="home.ordercustomer.list"  tooltip-placement="bottom" uib-tooltip="повернутися до списку замовлень" tooltip-trigger="focus" ><span class="glyphicon glyphicon-arrow-left"></span></a>
+            </li>
+        </ul>
     </div>
     <div class="row">
         <div class="col-md-12">
@@ -10,11 +15,11 @@
                 <table>
                     <tr>
                         <td>Назва компанії</td>
-                        <td>{{order.name_company}}</td>
+                        <td>{{order.name}}</td>
                     </tr>
                     <tr>
                         <td>Сайт компанії</td>
-                        <td>{{order.site_company}}</td>
+                        <td>{{order.site}}</td>
                     </tr>
                 </table>
             </div>
@@ -24,11 +29,11 @@
                 <table>
                     <tr>
                         <td>Ім'я і Прізвище</td>
-                        <td>{{order.full_name}}</td>
+                        <td>{{order.name}}</td>
                     </tr>
                     <tr>
                         <td>Посада в компанії</td>
-                        <td>{{order.job_position}}</td>
+                        <td>{{order.jobPosition}}</td>
                     </tr>
                     <tr>
                         <td>Телефон</td>

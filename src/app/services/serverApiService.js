@@ -4,15 +4,21 @@
         .factory('serverDataService', getData)
         .factory('serverActService', setData)
         .constant('serverApiConstant',{
-            // url : 'http://128.0.169.5:8888/dev-studio/api/'
-            url : 'http://192.168.10.100:8080/api/',
-            devProjects: "projects",
-            intProjects: "projects",
-            vacancies: "vacancies",
-            workingtimes: "workingtimes",
-            jobpositions: "jobpositions",
-            customerrequests: "customerrequests"
+            url : 'http://128.0.169.5:8888/dev-studio/api/',
+            // url : 'http://192.168.10.100:8080/api/',
+            // devProjects: "projects",
+            // intProjects: "projects",
+            // vacancies: "vacancies",
+            // workingtimes: "workingtimes",
+            // jobpositions: "jobpositions",
+            // customerrequests: "customerrequests"
 
+            devProjects: "project/",
+            intProjects: "project/",
+            vacancies: "vacancie/",
+            workingtimes: "workingtime/",
+            jobpositions: "jobposition/",
+            customerrequests: "customerrequest/"
         })
        
 

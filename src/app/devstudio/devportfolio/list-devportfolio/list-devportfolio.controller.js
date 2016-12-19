@@ -2,7 +2,7 @@
     angular.module('devPortfolioModule',[])
         .controller('devPortfolioListCtrl', devPortfolioListCtrl);
 
-devPortfolioListCtrl.$inject = ["$scope", "$rootScope", "serverDataService"]
+    devPortfolioListCtrl.$inject = ["$scope", "$rootScope", "serverDataService"]
     function devPortfolioListCtrl($scope,  $rootScope, serverDataService){
         $scope.getProjects = function(){
                 serverDataService.getDevProjects().then(function (data) {

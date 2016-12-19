@@ -51,7 +51,9 @@ var path = {
             "./src/assets/lib/angular-ui-router/release/angular-ui-router.js",
             "./src/assets/lib/angular-trix/dist/angular-trix.min.js",
             "./src/assets/lib/trix/dist/trix.js",
-            "./src/assets/lib/angular-smart-table/dist/smart-table.js"
+            "./src/assets/lib/angular-smart-table/dist/smart-table.js",
+            "./src/assets/lib/angular-file-saver/dist/angular-file-saver.min.js",
+            "./src/assets/lib/angular-file-saver/dist/angular-file-saver.bundle.min.js"
         ]
         },
         styles: SOURCE_BASE_DIR + "/assets/sass/*.scss",

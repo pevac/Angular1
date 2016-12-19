@@ -5,6 +5,8 @@ viewOrderCustomerCtrl.$inject = ["$scope", "$stateParams", "serverDataService"]
 function viewOrderCustomerCtrl($scope, $stateParams, serverDataService) {
     initForm();
 
+
+
     function initForm() {
         if(!$stateParams.orderId){ return; }
         getCustomerItem($stateParams.orderId);
@@ -14,6 +16,7 @@ function viewOrderCustomerCtrl($scope, $stateParams, serverDataService) {
         serverDataService.getCustomerItem(id).then(
             function(data){
                 $scope.order = data;
+
             }
         )
     };
