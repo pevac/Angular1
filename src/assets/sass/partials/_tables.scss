@@ -15,6 +15,25 @@
       text-align: center;
       background-color: $light-base-color;
     }
+
+    
   }
+}
+
+.trbn{
+  width: 100%;
+}
+
+.bordernone{
+  
+}
+
+.bordernone > tbody > tr > td, .bordernone > tfoot > tr > th, .bordernone > tfoot > tr > td{
+  border: 1px solid $light-base-color;
+  vertical-align: middle;
+}
+
+.bordernone .inptext{
+  width: 100%;
 }
 

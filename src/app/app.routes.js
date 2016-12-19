@@ -133,6 +133,17 @@ angular.module("angularApp").config(function($stateProvider, $urlRouterProvider,
             templateUrl:"internship/training/training.html"
         })
 
+        .state("home.users", {
+            url: "users",
+            templateUrl:"users/list-users/list-users.tmpl.html"
+        })
+
+        .state("home.addusers", {
+            url: "add",
+            templateUrl:"users/form-users/form-users.tmpl.html"
+        })
+
+        
 
 });
 })();

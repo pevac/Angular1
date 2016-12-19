@@ -1,0 +1,75 @@
+<div ng-controller="addUsersCtrl">
+	<div class="top-nav-container">
+		<h2 class="h2">Користувачі</h2>
+	</div>
+
+	<div class="form-container form-container-users">
+		<div class="table-responsive">
+			<table class="table bordernone">
+				<tr class="trbn">
+					<td><h3>ПІБ</h3></td>
+					<td><input type="text" class="inptext"></td>
+				</tr>
+				<tr class="trbn">
+					<td><h3>Email</h3></td>
+					<td><input type="text" class="inptext"></td>
+				</tr>
+				<tr class="trbn">
+					<td><h3>Фото</h3></td>
+					<td>
+					<!--<input type="file" oi-file="options">-->
+						<div class="form-group">
+							<form class="form-horizontal admin-form"  name="intPortfolioForm" role="form" ng-submit="addProject()" novalidate>
+								<div class="col-md-9">
+									<div class="col-flex">
+										<span class="btn-file ">
+		                        			<span class="glyphicon glyphicon-plus"></span>
+		                        			<input class="file" type="file" name="gallery1" ng-model="sitePhoto" file-reader
+		                               valid-file  valid-file-type="['image/png','image/jpeg','image/gif']"  valid-file-size = "10000">
+		                    			</span>
+									</div>
+								</div>
+							</form>
+						</div>
+					</td>
+				</tr>
+				<tr class="trbn">
+					<td>
+						<div class="form-group">
+						      <div class="radio">
+						        <label class="user">
+						          <input type="radio" name="user"> Адміністратор
+						        </label>
+						      </div>
+						</div>
+						<div class="form-group">
+						      <div class="radio">
+						        <label class="user">
+						          <input type="radio" name="user"> Експерт
+						        </label>
+						      </div>
+						</div>
+					</td>
+					<td></td>
+				</tr>
+				<!--<tr class="trbn">
+					<td>
+						<div class="form-group">
+						      <div class="radio">
+						        <label class="user">
+						          <input type="radio" name="user"> <b>Експерт</b>
+						        </label>
+						      </div>
+						</div>
+					</td>
+					<td></td>
+				</tr>-->
+				<tr class="trbn">
+					<td>
+						<button class="btn btn-default" type="submit">Надіслати запрошення</button>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</div>
