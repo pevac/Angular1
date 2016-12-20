@@ -1,26 +1,26 @@
 (function(){
-    angular.module('bu.validation', [])
-        .directive('validFile',validFile);
+    angular.module("bu.validation", [])
+        .directive("validFile",validFile);
 
     function validFile(){
         return {
-            restrict: 'A',
-            require: 'ngModel',
+            restrict: "A",
+            require: "ngModel",
             scope: {
                 // array of valid file types e.g ['image/jpeg','image/gif']
-                fileTypes: '=validFileType',
+                fileTypes: "=validFileType",
                 // maximum file size in bytes
-                fileSize: '=validFileSize',
+                fileSize: "=validFileSize",
                 // number of files integer
             },
             link:function(scope,el,attrs,ctrl){
                 var validType = true;
                 var validSize = true;
 
-                ctrl.$setValidity('validFile', el.val() != '');
+                ctrl.$setValidity("validFile", el.val() != '');
 
                 //change event is fired when file is selected
-                el.bind('change',function(){
+                el.bind("change",function(){
                     validate(el[0].files);
                     scope.$apply(function(){
                         ctrl.$setViewValue(el.val());
@@ -57,9 +57,9 @@
                         }
                     }
 
-                    ctrl.$setValidity('validFileType', validType);
-                    ctrl.$setValidity('validFileSize', validSize);
-                    ctrl.$setValidity('validFile', el.val() != '');
+                    ctrl.$setValidity("validFileType", validType);
+                    ctrl.$setValidity("validFileSize", validSize);
+                    ctrl.$setValidity("validFile", el.val() != "");
                 }
             }
         }

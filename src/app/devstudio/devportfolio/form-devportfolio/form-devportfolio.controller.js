@@ -1,6 +1,7 @@
 (function(){
-    angular.module('devPortfolioModule')
-        .controller('addDevPortfolioCtrl', addDevPortfolioCtrl)
+    "use strict";
+    angular.module("devPortfolioModule")
+        .controller("addDevPortfolioCtrl", addDevPortfolioCtrl)
 
     addDevPortfolioCtrl.$inject = ["$scope","$stateParams", "serverActService"];
 
@@ -10,7 +11,7 @@
         };
 
         $scope.dateOptions = {
-            formatYear: 'yy',
+            formatYear: "yy",
             maxDate: new Date(2040, 5, 22),
             minDate: new Date(),
             startingDay: 1,
@@ -24,7 +25,7 @@
             $scope.popup2.opened = true;
         };
 
-        $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+        $scope.formats = ["dd-MMMM-yyyy", "yyyy/MM/dd", "dd.MM.yyyy", "shortDate"];
         $scope.format = $scope.formats[2];
 
         $scope.popup1 = {

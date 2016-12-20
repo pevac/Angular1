@@ -4,20 +4,10 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <!--<div class="form-group admin-form">-->
-                <!--<div class="input-group col-md-3 search_container">-->
-                    <!--<input st-search  type="search" class="form-control" />-->
-                    <!--<span class="input-group-btn">-->
-                        <!--<button class="btn btn-search" type="button">-->
-                            <!--<span class="glyphicon glyphicon-search"></span>-->
-                        <!--</button>-->
-                    <!--</span>-->
-                <!--</div>-->
-            <!--</div>-->
         </div>
         <div class="col-md-12">
             <div class="table_container">
-                <table st-table="vacancies">
+                <table st-table="vacanciesCollection" st-safe-src="vacancies" >
                     <thead>
                         <tr class="tr-search">
                             <td colspan="5">
@@ -41,11 +31,11 @@
                         </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="customer in vacancies">
-                        <td>{{customer.dataRegist}}</td>
-                        <td>{{customer.jobPosition}}</td>
-                        <td>{{customer.project}}</td>
-                        <td>{{customer.mail}}</td>
+                    <tr ng-repeat="vacancy in vacanciesCollection">
+                        <td>{{vacancy.dataRegist}}</td>
+                        <td>{{vacancy.jobPosition}}</td>
+                        <td>{{vacancy.project}}</td>
+                        <td>{{vacancy.mail}}</td>
                     </tr>
                     </tbody>
                     <tfoot>

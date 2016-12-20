@@ -12,30 +12,37 @@
         <div class="row">
             <div class="col-md-12">
                 <div id="exportable" class="table_container">
-                    <table st-table="customer">
+                    <table  st-table="customerCollection" st-safe-src="customers" >
                         <thead>
                             <tr>
                                 <th st-sort="dataRegist">Дата</th>
-                                <th>ПІБ</th>
-                                <th>Телефон</th>
+                                <th st-sort="name">ПІБ</th>
+                                <th >Телефон</th>
                                 <th>E-mail</th>
                                 <th>Компанія</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="customer in customers">
+                            <tr ng-repeat="customer in customerCollection">
                                 <td>{{customer.dataRegist}}</td>
-                                <td>{{customer.name}}</td>
+                                <td>{{customer.full_name}}</td>
                                 <td>{{customer.phone}}</td>
                                 <td>{{customer.mail}}</td>
-                                <td>{{customer.company}}</td>
-                                <td><a class="btn btn-default btn-save" ui-sref="home.ordercustomer.view({orderId: customer.id})"><span class="glyphicon glyphicon-eye-open"></span></a>
-                                    <a class="btn btn-default btn-save" ><span class="glyphicon glyphicon-download"></span></a></td>
+                                <td>{{customer.name_company}}</td>
+                                <td><a class="btn btn-default btn-save" tooltip-placement="bottom" uib-tooltip="переглянути" tooltip-trigger="focus" ui-sref="home.ordercustomer.view({orderId: customer.id})"><span class="glyphicon glyphicon-eye-open"></span></a>
+                                    <a class="btn btn-default btn-save" ng-click="saveData(customer)"  tooltip-placement="bottom" uib-tooltip="завантажити" tooltip-trigger="focus"><span class="glyphicon glyphicon-download"></span></a></td>
                             </tr>
                         </tbody>
+                        <tfoot>
+                            <tr>
+                                <td class="text-center" st-pagination="" st-items-by-page="itemsByPage" st-template="pagination/pagination.html"  colspan="6"></td>
+                            </tr>
+                        </tfoot>
                     </table>
                 </div>
             </div>
         </div>
 </div>
+
+<!--<ng-include style="display: none;"  src="'shared/order-form/order.tmpl.html'"></ng-include>-->

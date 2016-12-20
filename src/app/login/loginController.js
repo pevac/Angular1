@@ -1,5 +1,9 @@
 (function(){
-    angular.module("angularApp").controller('LoginController', function ($scope, $rootScope, AUTH_EVENTS, AuthService, $location) {
+    "use strict";
+    angular.module("angularApp").controller("LoginController",LoginController );
+
+    LoginController.$inject = ["$scope","$rootScope","AUTH_EVENTS","AuthService","$location",]
+    function LoginController($scope, $rootScope, AUTH_EVENTS, AuthService, $location) {
         $scope.credentials = {
             login: "",
             password: ""
@@ -24,14 +28,15 @@
         // };
 
         $scope.login = function (credentials) {
-                $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
-                $rootScope.currentUser = {
-                    id: 23,
-                    role: "admin",
-                    userName: "vasyl",
-                    avatar: "img/admin.jpg"
-                };
-                $location.path("/");
+            $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+            $rootScope.currentUser = {
+                id: 23,
+                role: "admin",
+                userName: "vasyl",
+                avatar: "img/admin.jpg"
+            };
+            $location.path("/");
         };
-    });
+    }
 })();
+

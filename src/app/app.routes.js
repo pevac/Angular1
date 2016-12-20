@@ -1,4 +1,5 @@
 (function(){
+    "use strict";
     angular.module("angularApp").config(function($stateProvider, $urlRouterProvider, USER_ROLES) {
 
         $urlRouterProvider.otherwise('/');
@@ -7,7 +8,7 @@
             .state("login", {
                 url: "/login",
                 templateUrl: "login/login.html",
-                controller: 'LoginController',
+                controller: "LoginController",
                 data: {
                     authorizedRoles: [USER_ROLES.admin, USER_ROLES.editor]
                 }
@@ -31,7 +32,7 @@
             })
             .state("home.devportfolio.list", {
                 url: "/list",
-                controller: 'devPortfolioListCtrl',
+                controller: "devPortfolioListCtrl",
                 templateUrl:"devstudio/devportfolio/list-devportfolio/list-devportfolio.tmpl.html"
             })
             .state("home.devportfolio.addportfolio", {

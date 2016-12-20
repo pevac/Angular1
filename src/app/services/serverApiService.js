@@ -1,10 +1,11 @@
 (function(){
+    "use strict";
     angular
-        .module('serverApi',[])
-        .factory('serverDataService', getData)
-        .factory('serverActService', setData)
-        .constant('serverApiConstant',{
-            url : 'http://128.0.169.5:8888/dev-studio/api/',
+        .module("serverApi",[])
+        .factory("serverDataService", getData)
+        .factory("serverActService", setData)
+        .constant("serverApiConstant",{
+            url : "http://128.0.169.5:8888/dev-studio/api/",
             // url : 'http://192.168.10.100:8080/api/',
             // devProjects: "projects",
             // intProjects: "projects",
@@ -166,7 +167,6 @@
                     data: data
                 })
             },
-
         }
     }
 })();

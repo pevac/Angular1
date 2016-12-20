@@ -35,7 +35,7 @@
     }
 
 
-    .pagination>li>a{
+    .pagination>li>a, .pagination>li>a:focus{
       color: $dark-base-color;
       background-color: $light-base-color;
       border: 1px solid $dark-base-color;
@@ -51,8 +51,7 @@
       font-size: 16px;
     }
 
-    .pagination>li>a:hover,
-    .pagination > li > a:focus {
+    .pagination>li>a:hover {
       background-color: $biruza-base-color;
       color: white;
       border: 1px solid $dark-base-color;

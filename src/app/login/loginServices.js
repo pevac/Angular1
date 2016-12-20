@@ -1,29 +1,30 @@
 (function(){
+    "use strict";
     angular.module("angularApp")
-        .factory('AuthService', AuthService )
-        .service('Session', Session)
-        .factory('AuthInterceptor', AuthInterceptor)
-        .factory('AuthResolver',AuthResolver)
+        .factory("AuthService", AuthService )
+        .service("Session", Session)
+        .factory("AuthInterceptor", AuthInterceptor)
+        .factory("AuthResolver",AuthResolver)
         .config(requestProvider)
         .run(initLogin)
-        .constant('AUTH_EVENTS', {
-            loginSuccess: 'auth-login-success',
-            loginFailed: 'auth-login-failed',
-            logoutSuccess: 'auth-logout-success',
-            sessionTimeout: 'auth-session-timeout',
-            notAuthenticated: 'auth-not-authenticated',
-            notAuthorized: 'auth-not-authorized'
+        .constant("AUTH_EVENTS", {
+            loginSuccess: "auth-login-success",
+            loginFailed: "auth-login-failed",
+            logoutSuccess: "auth-logout-success",
+            sessionTimeout: "auth-session-timeout",
+            notAuthenticated: "auth-not-authenticated",
+            notAuthorized: "auth-not-authorized"
         })
-        .constant('USER_ROLES', {
-            all: '*',
-            admin: 'admin',
-            editor: 'editor',
-            guest: 'guest'
+        .constant("USER_ROLES", {
+            all: "*",
+            admin: "admin",
+            editor: "editor",
+            guest: "guest"
         });
 
 
     function initLogin($rootScope, AUTH_EVENTS, AuthService, $location) {
-        $rootScope.$on('$stateChangeStart', function (event, next) {
+        $rootScope.$on("$stateChangeStart", function (event, next) {
             var authorizedRoles = next.data.authorizedRoles;
             if (!AuthService.isAuthorized(authorizedRoles)) {
 
@@ -33,7 +34,7 @@
                 } else {
                     // user is not logged in
                     $rootScope.$broadcast(AUTH_EVENTS.notAuthenticated);
-                    $location.path('/login');
+                    $location.path("/login");
                 }
                 // event.preventDefault();
             }
@@ -45,7 +46,7 @@
 
         authService.login = function (credentials) {
             return $http
-                .post('http://localhost:8080/api/login', credentials)
+                .post("http://localhost:8080/api/login", credentials)
                 .then(function (res) {
                     console.log(res);
                     Session.create(res.data.id, res.data.user.id, res.data.user.role);
@@ -99,7 +100,7 @@
         return {
             resolve: function () {
                 var deferred = $q.defer();
-                var unwatch = $rootScope.$watch('currentUser', function (currentUser) {
+                var unwatch = $rootScope.$watch("currentUser", function (currentUser) {
                     if (angular.isDefined(currentUser)) {
                         if (currentUser) {
                             deferred.resolve(currentUser);
@@ -117,9 +118,9 @@
 
     function requestProvider($httpProvider)  {
         $httpProvider.interceptors.push([
-            '$injector',
+            "$injector",
             function ($injector) {
-                return $injector.get('AuthInterceptor');
+                return $injector.get("AuthInterceptor");
             }
         ]);
     }

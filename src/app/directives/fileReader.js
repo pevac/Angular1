@@ -1,10 +1,10 @@
 (function(){
-    angular.module('fileReaderModule', [])
+    angular.module("fileReaderModule", [])
         .directive("fileReader", [fileReader]);
 
     function fileReader() {
             return {
-                require: '?ngModel',
+                require: "?ngModel",
 
                 link: function (scope, element, attributes, ngModel) {
                     element.bind("change", function (changeEvent) {
