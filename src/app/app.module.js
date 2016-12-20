@@ -1,11 +1,11 @@
  (function(){
-<<<<<<< HEAD
+//<<<<<<< HEAD
  angular.module("angularApp", ['ui.bootstrap', 'bu.validation', 'smart-table', 'ui.router', 'angularTrix',  'serverApi',  'fileReaderModule', 'devPortfolioModule','intPortfolioModule', 'orderCustomerModule', 'vacancyModule', 'reviewsModule', 'usersModule']);
 
-=======
+//=======
      "use strict";
-     angular.module("angularApp", ["ui.bootstrap", "bu.validation", "smart-table", "ngFileSaver", "ui.router", "angularTrix",  "serverApi",  "fileReaderModule", "devPortfolioModule", "intPortfolioModule", "orderCustomerModule", "vacancyModule",   "reviewsModule"])
->>>>>>> b2e5d2699464d013bad4b08d9d3cc2dc7b35ea56
+     angular.module("angularApp", ["ui.bootstrap", "bu.validation", "smart-table", "ngFileSaver", "ui.router", "angularTrix",  "serverApi",  "fileReaderModule", "devPortfolioModule", "intPortfolioModule", "orderCustomerModule", "vacancyModule",   "reviewsModule", 'usersModule'])
+//>>>>>>> b2e5d2699464d013bad4b08d9d3cc2dc7b35ea56
 
     .run(["$templateCache", function($templateCache) {
          $templateCache.put("pagination/pagination.html",
