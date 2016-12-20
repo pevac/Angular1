@@ -16,7 +16,6 @@
 
         $scope.goToEdit = function(project) {
            $rootScope.project = project;
-           
         };
 
 

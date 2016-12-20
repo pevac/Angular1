@@ -1,6 +1,4 @@
 .panel-container{
-  //margin-top: 70px;
-
   .row{
     display: flex;
     align-self: stretch;
@@ -17,5 +15,32 @@
   .col-flex{
     display: flex;
     justify-content: space-between;
+  }
+}
+
+
+.project-view {
+  padding: 10px 0 15px 0;
+  min-height: 370px;
+
+  img {
+    min-height: 200px;
+  }
+
+  .description {
+    //background-color: $yellow-base-color;
+    padding: 0 40px 22px 40px;
+
+    h1 {
+      font-size: 28px;
+      text-transform: capitalize;
+      margin-bottom: 38px;
+      font-weight: 700;
+    }
+
+    p {
+      font-size: 18px;
+      margin-left: 12px;
+    }
   }
 }

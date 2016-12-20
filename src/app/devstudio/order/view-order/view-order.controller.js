@@ -23,7 +23,6 @@
             serverDataService.getCustomerItem(id).then(
                 function(data){
                     $scope.order = data;
-
                 }
             )
         };

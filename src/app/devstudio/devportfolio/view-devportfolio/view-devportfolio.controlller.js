@@ -2,20 +2,16 @@
     angular.module('devPortfolioModule')
     .controller('viewDevPortfolioCtrl', viewDevPortfolioCtrl);
 
-    viewDevPortfolioCtrl.$inject = ["$scope","$stateParams"];
+    viewDevPortfolioCtrl.$inject = ["$scope","$stateParams", "$rootScope"];
 
-    function viewDevPortfolioCtrl($scope, $stateParams ) {
-
-        $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
-        $scope.format = $scope.formats[2];
+    function viewDevPortfolioCtrl($scope, $stateParams ,$rootScope) {
 
         initForm();
 
         function initForm() {
-            
-            if(!$stateParams.project){ return; }
-            $scope.project = JSON.parse($stateParams.project)
-            console.log($scope.project);
+            if(!$rootScope.project){ return; }
+            $scope.project = $rootScope.project;
+            $rootScope.project = null;
         }
     }
 })();
