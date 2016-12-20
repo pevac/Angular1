@@ -22,8 +22,8 @@
                                 };
                                 ngModel.$setViewValue(file);
                                 ngModel.$render();
-                            });
-                        }
+                            })
+                        };
                         reader.readAsDataURL(changeEvent.target.files[0]);
                     });
                 }
