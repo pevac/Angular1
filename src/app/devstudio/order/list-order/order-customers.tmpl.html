@@ -5,36 +5,44 @@
     <div class="row">
         <div class="col-md-12">
             <div class="title_container">
-                <a class="dwl-table" ng-click="exportData()"><span>Завантажити таблицю</span></a>
+                <a class="dwl-table" ng-click="exportData()"><span class="icon-dowload" tooltip-placement="left" uib-tooltip="завантажити таблицю" tooltip-trigger="focus"></span></a>
             </div>
         </div>
     </div>
         <div class="row">
             <div class="col-md-12">
-                <div class="table_container">
-                    <table>
+                <div id="exportable" class="table_container">
+                    <table  st-table="customerCollection" st-safe-src="customers" >
                         <thead>
                             <tr>
-                                <th>Дата</th>
-                                <th>ПІБ</th>
-                                <th>Телефон</th>
+                                <th st-sort="dataRegist">Дата</th>
+                                <th st-sort="name">ПІБ</th>
+                                <th >Телефон</th>
                                 <th>E-mail</th>
                                 <th>Компанія</th>
-                                <th>Переглянути</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="customer in customers">
-                                <td>{{customer.data_regist}}</td>
+                            <tr ng-repeat="customer in customerCollection">
+                                <td>{{customer.dataRegist}}</td>
                                 <td>{{customer.full_name}}</td>
                                 <td>{{customer.phone}}</td>
                                 <td>{{customer.mail}}</td>
                                 <td>{{customer.name_company}}</td>
-                                <td><a ui-sref="home.ordercustomer.view({orderId: customer.id})">link</a></td>
+                                <td class="collapse-padding" ><a class="btn btn-default btn-save" tooltip-placement="bottom" uib-tooltip="переглянути" tooltip-trigger="focus" ui-sref="home.ordercustomer.view({orderId: customer.id})"><span class="glyphicon glyphicon-eye-open"></span></a>
+                                    <a class="btn btn-default btn-save" ng-click="saveData(customer)"  tooltip-placement="bottom" uib-tooltip="завантажити" tooltip-trigger="focus"><span class="glyphicon glyphicon-download"></span></a></td>
                             </tr>
                         </tbody>
+                        <tfoot>
+                            <tr>
+                                <td class="text-center" st-pagination="" st-items-by-page="itemsByPage" st-template="pagination/pagination.html"  colspan="6"></td>
+                            </tr>
+                        </tfoot>
                     </table>
                 </div>
             </div>
         </div>
 </div>
+
+<!--<ng-include style="display: none;"  src="'shared/order-form/order.tmpl.html'"></ng-include>-->

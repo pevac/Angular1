@@ -2,9 +2,9 @@
     angular.module('intPortfolioModule')
         .controller('addIntPortfolioCtrl', addIntPortfolioCtrl)
 
-    addIntPortfolioCtrl.$inject = ["$scope","$stateParams", "serverActService"];
+    addIntPortfolioCtrl.$inject = ["$scope","$stateParams", "serverActService", "$rootScope"];
 
-    function addIntPortfolioCtrl($scope,  $stateParams, serverActService) {
+    function addIntPortfolioCtrl($scope,   serverActService, $rootScope) {
         $scope.clear = function() {
             $scope.dt = null;
         };
@@ -45,8 +45,9 @@
         initForm();
 
         function initForm() {
-            if(!$stateParams.project){ return; }
-            $scope.project = JSON.parse($stateParams.project)
+            if(!$rootScope.project){ return; }
+            $scope.project = $rootScope.project;
+            $rootScope.project = null;
         }
     }
 })();

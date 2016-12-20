@@ -2,14 +2,20 @@
 @import "../../lib/trix/dist/trix";
 
 .form-container {
-  width: 70%;
+  width: 100%;
   margin: auto;
   background-color: $light-base-color;
   padding: 35px;
   margin-top: 70px;
 }
 
-.admin-form {
+@media(min-width: 768px){
+  .form-container {
+    width: 70%;
+  }
+}
+
+.home_wrapper {
   .trix-content {
     height: 100px;
     width: 100%;
@@ -49,7 +55,7 @@
     }
   }
 
-  span.arrow::before {
+  form span.arrow::before {
     width: 20px;
     height: 20px;
     content: "";
@@ -139,6 +145,10 @@
     text-align: left;
   }
 
+  .form-container .btn-save{
+    margin: 35px 0;
+  }
+
   .btn-save {
     color: $light-base-color;
     background-color: $biruza-base-color;
@@ -146,10 +156,11 @@
     padding: 5px 22px;
     font-size: 16px;
     border-radius: 0;
-    margin: 35px 0;
+    margin: 5px;
 
     &:hover {
       background-color: $blue-base-color;
+      color: $light-base-color;
     }
   }
 
@@ -227,5 +238,7 @@
       border: 1px solid $input-border-focus-color;
     }
   }
+
+
 
 }

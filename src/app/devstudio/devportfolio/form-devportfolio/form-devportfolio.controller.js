@@ -1,16 +1,17 @@
 (function(){
-    angular.module('devPortfolioModule')
-        .controller('addDevPortfolioCtrl', addDevPortfolioCtrl)
+    "use strict";
+    angular.module("devPortfolioModule")
+        .controller("addDevPortfolioCtrl", addDevPortfolioCtrl)
 
-    addDevPortfolioCtrl.$inject = ["$scope","$stateParams", "serverActService"];
+    addDevPortfolioCtrl.$inject = ["$scope","$stateParams", "serverActService", "$rootScope"];
 
-    function addDevPortfolioCtrl($scope, $stateParams ,  serverActService) {
+    function addDevPortfolioCtrl($scope, $stateParams ,  serverActService, $rootScope) {
         $scope.clear = function() {
             $scope.dt = null;
         };
 
         $scope.dateOptions = {
-            formatYear: 'yy',
+            formatYear: "yy",
             maxDate: new Date(2040, 5, 22),
             minDate: new Date(),
             startingDay: 1,
@@ -24,7 +25,7 @@
             $scope.popup2.opened = true;
         };
 
-        $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+        $scope.formats = ["dd-MMMM-yyyy", "yyyy/MM/dd", "dd.MM.yyyy", "shortDate"];
         $scope.format = $scope.formats[2];
 
         $scope.popup1 = {
@@ -47,8 +48,9 @@
         initForm();
 
         function initForm() {
-            if(!$stateParams.project){ return; }
-            $scope.project = JSON.parse($stateParams.project)
+            if(!$rootScope.project){ return; }
+            $scope.project = $rootScope.project;
+            $rootScope.project = null;
         }
     }
 })();

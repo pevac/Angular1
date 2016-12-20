@@ -2,24 +2,21 @@
 
   .title_container {
     text-align: right;
-    margin-bottom: 50px;
+    margin-top: 15px;
+    margin-bottom: 15px;
 
     .dwl-table {
-      position: relative;
-      height: 81px;
-      display: inline-block;
-
       &:hover {
         text-decoration: none;
       }
 
-      span {
+      span.icon-dowload {
         display: inline-block;
         &:after {
           content: '';
           display: inline-block;
-          width: 73px;
-          height: 81px;
+          width: 45px;
+          height: 55px;
           background: url(../img/icon-xls.png) no-repeat;
           background-size: contain;
         }

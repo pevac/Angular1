@@ -1,19 +1,26 @@
 (function(){
+    "use strict";
     angular
-        .module('serverApi',[])
-        .factory('serverDataService', getData)
-        .factory('serverActService', setData)
-        .constant('serverApiConstant',{
-            // url : 'http://128.0.169.5:8888/dev-studio/api/'
-            url : 'http://192.168.10.100:8080/api/',
-            devProjects: "projects",
-            intProjects: "projects",
-            vacancies: "vacancies",
-            workingtimes: "workingtimes",
-            jobpositions: "jobpositions",
-            customerrequests: "customerrequests"
+        .module("serverApi",[])
+        .factory("serverDataService", getData)
+        .factory("serverActService", setData)
+        .constant("serverApiConstant",{
+            url : "http://128.0.169.5:8888/dev-studio/api/",
+            // url : 'http://192.168.10.100:8080/api/',
+            // devProjects: "projects",
+            // intProjects: "projects",
+            // vacancies: "vacancies",
+            // workingtimes: "workingtimes",
+            // jobpositions: "jobpositions",
+            // customerrequests: "customerrequests"
 
-        })
+            devProjects: "project/",
+            intProjects: "project/",
+            vacancies: "vacancie/",
+            workingTimes: "workingtime/",
+            jobPositions: "jobposition/",
+            customerRequests: "customerrequest/"
+        });
        
 
     function getData($http, serverApiConstant){
@@ -61,7 +68,7 @@
              getWorkingTimes:function(){
                 return    $http({
                     method: "GET",
-                    url: serverApiConstant.url+serverApiConstant.workingtimes
+                    url: serverApiConstant.url+serverApiConstant.workingTimes
                 })
                     .then(function (response) {
                         return response.data;
@@ -71,7 +78,7 @@
             getJobPositions:function(){
                 return    $http({
                     method: "GET",
-                    url: serverApiConstant.url+serverApiConstant.jobpositions
+                    url: serverApiConstant.url+serverApiConstant.jobPositions
                 })
                     .then(function (response) {
                         return response.data;
@@ -81,7 +88,7 @@
             getCustomers:function(){
                 return    $http({
                     method: "GET",
-                    url: serverApiConstant.url + serverApiConstant.customerrequests
+                    url: serverApiConstant.url + serverApiConstant.customerRequests
                 })
                     .then(function (response) {
                         return response.data;
@@ -91,14 +98,14 @@
             getCustomerItem:function(id){
                 return    $http({
                     method: "GET",
-                    url: serverApiConstant.url+serverApiConstant.customerrequests + "/" +id 
+                    url: serverApiConstant.url+serverApiConstant.customerRequests + "/" +id
                 })
                     .then(function (response) {
                         return response.data;
                     })
             }
         }
-    };
+    }
 
     function setData($http, serverApiConstant){
         return{
@@ -118,7 +125,7 @@
             },
             
             addReview: function(data){
-                  var method = (!data.id || data.id === "") ? "POST" : "PUT";
+                var method = (!data.id || data.id === "") ? "POST" : "PUT";
                 var url1 = (!data.id || data.id === "") ? 
                     serverApiConstant.url+serverApiConstant.devProjects : 
                     serverApiConstant.url+serverApiConstant.devProjects + "/" + data.id;
@@ -143,12 +150,12 @@
                 return  $http({
                     method: method,
                     url: url1,
-                    data: data,
+                    data: data
                 })
             },
 
             addIntProject: function(data){
-                  var method = (!data.id || data.id === "") ? "POST" : "PUT";
+                var method = (!data.id || data.id === "") ? "POST" : "PUT";
                 var url1 = (!data.id || data.id === "") ? 
                     serverApiConstant.url+serverApiConstant.devProjects : 
                     serverApiConstant.url+serverApiConstant.devProjects + "/" + data.id;
@@ -159,8 +166,7 @@
                     url: url1,
                     data: data
                 })
-            },
-
+            }
         }
     }
 })();

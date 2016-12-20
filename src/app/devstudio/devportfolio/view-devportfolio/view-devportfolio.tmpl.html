@@ -3,7 +3,7 @@
         <h2 class="h2">Портфоліо</h2>
         <ul class="nav navbar-nav navbar-right">
 			<li>
-				<a ui-sref="home.devportfolio.list"><span tooltip-placement="bottom" uib-tooltip="повернутися до списку проектів" tooltip-trigger="focus"  class="glyphicon glyphicon-arrow-left"></span></a>
+				<a ui-sref="home.devportfolio.list" tooltip-placement="bottom" uib-tooltip="повернутися до списку проектів" tooltip-trigger="focus"><span class="glyphicon glyphicon-arrow-left"></span></a>
 			</li>
 		</ul>
     </div>
@@ -11,9 +11,12 @@
         <h2 class="text-center" ng-bind="project.projectName"></h2>
         <div class="row">
             <div class="col-sm-5">
-                <img ng-src=""{{project.sitePhoto}}"" alt="">
+                <img ng-src="{{project.sitePhoto}}" alt=""/>
             </div>
             <div class="col-sm-7">
+                <p ng-bind="project.description"></p>
+                <p ng-bind="project.description"></p>
+                <p ng-bind="project.description"></p>
                 <p ng-bind="project.description"></p>
             </div>
         </div>

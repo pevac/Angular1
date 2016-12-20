@@ -1,6 +1,11 @@
 <div   ng-controller="addIntPortfolioCtrl">
     <div class="top-nav-container">
         <h2 class="h2">Портфоліо</h2>
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                <a ui-sref="home.intportfolio.list" tooltip-placement="bottom" uib-tooltip="повернутися до списку проектів" tooltip-trigger="focus"><span   class="glyphicon glyphicon-arrow-left"></span></a>
+            </li>
+        </ul>
     </div>
     <div class="form-container ">
         <div class="clearfix"><a class="close" ui-sref="home.intportfolio.list"><span class="glyphicon glyphicon-remove-circle"></span></a></div>

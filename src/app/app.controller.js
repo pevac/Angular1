@@ -1,4 +1,5 @@
 (function(){
+    "use strict";
     angular.module('angularApp')
     .controller("appController", ['$scope','$rootScope', 'USER_ROLES','AuthService', appCtrl]);
 
