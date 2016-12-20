@@ -11,11 +11,11 @@
 		<div class="row">
 			<div class="col-xs-6 col-sm-4 col-lg-3  col-flex" ng-repeat="project in projects">
 				<div class="panel  panel-default panel-admin">
-					<div class="panel-heading"><h3>{{project.year}}</h3></div>
+					<div class="panel-heading"><h3>{{project.date}}</h3></div>
 					<div class="panel-body">
 						<span class="pull-right" uib-rating ng-model="rate" max="1" read-only="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null"  aria-labelledby="default-rating"></span>
-						<h2>{{project.projectName}}</h2>
-						<h4>{{project.costumer}}</h4>
+						<h2>{{project.name}}</h2>
+						<h4>{{project.customer}}</h4>
 					</div>
 					<div class="panel-footer" >
 						<ul class="nav-menu">

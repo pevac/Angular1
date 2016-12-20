@@ -20,16 +20,16 @@
                                 <th >Телефон</th>
                                 <th>E-mail</th>
                                 <th>Компанія</th>
-                                <th></th>
+                                <th>Детальна інформація</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr ng-repeat="customer in customerCollection">
-                                <td>{{customer.dataRegist}}</td>
-                                <td>{{customer.full_name}}</td>
+                                <td>{{customer.date}}</td>
+                                <td>{{customer.fullName}}</td>
                                 <td>{{customer.phone}}</td>
                                 <td>{{customer.mail}}</td>
-                                <td>{{customer.name_company}}</td>
+                                <td>{{customer.company}}</td>
                                 <td class="collapse-padding" ><a class="btn btn-default btn-save" tooltip-placement="bottom" uib-tooltip="переглянути" tooltip-trigger="focus" ui-sref="home.ordercustomer.view({orderId: customer.id})"><span class="glyphicon glyphicon-eye-open"></span></a>
                                     <a class="btn btn-default btn-save" ng-click="saveData(customer)"  tooltip-placement="bottom" uib-tooltip="завантажити" tooltip-trigger="focus"><span class="glyphicon glyphicon-download"></span></a></td>
                             </tr>

@@ -7,7 +7,19 @@
   background-color: $light-base-color;
   padding: 35px;
   margin-top: 70px;
+
+  
+  .flex_container{
+    display: flex;
+    justify-content: space-between;
+
+    .btn{
+      font-size: 14px;
+      padding: 5px 5px;
+    }
+  }
 }
+
 
 @media(min-width: 768px){
   .form-container {
@@ -223,6 +235,8 @@
     cursor: inherit;
     display: block;
   }
+
+
 
   input[type="search"] {
     background-color: $light-base-color;

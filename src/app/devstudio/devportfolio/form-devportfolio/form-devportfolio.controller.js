@@ -38,8 +38,20 @@
 
         $scope.addProject = function(){
             serverActService.addDevProject($scope.project).then(function (response) {
+                $scope.addImage(response.data.id)
                 console.log(response);
             },
+            function (response) {
+                console.log(response);
+            });
+        };
+
+         $scope.addImage = function(id){
+             console.log($scope.photo.sitePhoto);
+             console.log(id);
+            serverActService.addDevImage($scope.photo.sitePhoto, id).then(function (response) {
+            },
+
             function (response) {
                 console.log(response);
             });

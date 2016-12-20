@@ -5,21 +5,21 @@
         .factory("serverDataService", getData)
         .factory("serverActService", setData)
         .constant("serverApiConstant",{
-            url : "http://128.0.169.5:8888/dev-studio/api/",
-            // url : 'http://192.168.10.100:8080/api/',
-            // devProjects: "projects",
-            // intProjects: "projects",
-            // vacancies: "vacancies",
-            // workingtimes: "workingtimes",
-            // jobpositions: "jobpositions",
-            // customerrequests: "customerrequests"
+            // url : "http://128.0.169.5:8888/dev-studio/api/",
+            url : 'http://192.168.10.91:8080/api/',
+            devProjects: "projects",
+            intProjects: "projects",
+            vacancies: "vacancies",
+            workingtimes: "workingtimes",
+            jobpositions: "jobpositions",
+            customerrequests: "customerrequests"
 
-            devProjects: "project/",
-            intProjects: "project/",
-            vacancies: "vacancie/",
-            workingTimes: "workingtime/",
-            jobPositions: "jobposition/",
-            customerRequests: "customerrequest/"
+            // devProjects: "project/",
+            // intProjects: "project/",
+            // vacancies: "vacancie/",
+            // workingTimes: "workingtime/",
+            // jobPositions: "jobposition/",
+            // customerRequests: "customerrequest/"
         });
        
 
@@ -88,7 +88,7 @@
             getCustomers:function(){
                 return    $http({
                     method: "GET",
-                    url: serverApiConstant.url + serverApiConstant.customerRequests
+                    url: serverApiConstant.url + serverApiConstant.customerrequests
                 })
                     .then(function (response) {
                         return response.data;
@@ -98,7 +98,7 @@
             getCustomerItem:function(id){
                 return    $http({
                     method: "GET",
-                    url: serverApiConstant.url+serverApiConstant.customerRequests + "/" +id
+                    url: serverApiConstant.url+serverApiConstant.customerrequests + "/" +id
                 })
                     .then(function (response) {
                         return response.data;
@@ -144,8 +144,6 @@
                 var url1 = (!data.id || data.id === "") ? 
                     serverApiConstant.url+serverApiConstant.devProjects : 
                     serverApiConstant.url+serverApiConstant.devProjects + "/" + data.id;
-                console.log(method);
-                console.log(url1);
 
                 return  $http({
                     method: method,
@@ -159,14 +157,28 @@
                 var url1 = (!data.id || data.id === "") ? 
                     serverApiConstant.url+serverApiConstant.devProjects : 
                     serverApiConstant.url+serverApiConstant.devProjects + "/" + data.id;
-                console.log(method);
-                console.log(url1);
                 return  $http({
                     method: method,
                     url: url1,
                     data: data
                 })
-            }
+            },
+
+            addDevImage:   function(data, id){
+                var method =  "POST";
+                var url1 ="http://192.168.10.91:8080/api/images/" + id
+                var fd = new FormData();
+                fd.append('file', data);
+                return  $http({
+                    method: method,
+                    url: url1,
+                    data: fd,
+                    transformRequest: angular.identity,
+                    withCredentials : true,
+                    headers: {'Content-Type': 'multipart/form-data'}
+                })
+            },
+
         }
     }
 })();

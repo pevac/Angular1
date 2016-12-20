@@ -22,6 +22,7 @@
         function getCustomerItem(id){
             serverDataService.getCustomerItem(id).then(
                 function(data){
+                    console.log(data);
                     $scope.order = data;
                 }
             )

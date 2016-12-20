@@ -175,7 +175,8 @@ gulp.task("browser-sync", function () {
     browserSync.init({
         server: {
             baseDir: PROXY_PATHS
-        }
+        },
+                 
     });
     browserSync.watch(path.watch.reload).on("change", browserSync.reload);
 });
