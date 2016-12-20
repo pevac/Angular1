@@ -39,7 +39,6 @@
         self.getCustomers = function(){
             serverDataService.getCustomers().then(
                 function(data){
-                    console.log(data);
                     $scope.customers = [];
                     $scope.customers = data;
                     $scope.customerCollection = [].concat($scope.customers);
