@@ -128,6 +128,17 @@
                 templateUrl:"internship/reviews/add-review/addreview.tmpl.html"
             })
 
+        .state("home.users", {
+            url: "users",
+            templateUrl:"users/list-users/list-users.tmpl.html"
+        })
+
+        .state("home.addusers", {
+            url: "add",
+            templateUrl:"users/form-users/form-users.tmpl.html"
+        })
+
+        
 
             .state("home.training", {
                 url: "training",
