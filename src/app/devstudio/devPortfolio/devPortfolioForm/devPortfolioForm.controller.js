@@ -11,11 +11,20 @@
         };
 
         $scope.dateOptions = {
-            formatYear: "yy",
-            maxDate: new Date(2040, 5, 22),
-            minDate: new Date(),
-            startingDay: 1,
+            datepickerMode: "'month'",
+            minMode: "month",
         };
+
+        $scope.formats = ["MMMM-yyyy", "yyyy/MM", "dd.MM.yyyy", "shortDate"];
+        $scope.format = $scope.formats[0];
+
+        $scope.popup1 = {
+            opened: false
+        };
+
+        $scope.popup2 = {
+            opened: false
+        }
 
         $scope.open1 = function() {
             $scope.popup1.opened = true;
@@ -25,16 +34,6 @@
             $scope.popup2.opened = true;
         };
 
-        $scope.formats = ["dd-MMMM-yyyy", "yyyy/MM/dd", "dd.MM.yyyy", "shortDate"];
-        $scope.format = $scope.formats[2];
-
-        $scope.popup1 = {
-            opened: false
-        };
-
-        $scope.popup2 = {
-            opened: false
-        };
 
         $scope.addProject = function(){
             serverActService.addDevProject($scope.project).then(function (response) {
@@ -47,8 +46,6 @@
         };
 
          $scope.addImage = function(id){
-             console.log($scope.photo.sitePhoto);
-             console.log(id);
             serverActService.addDevImage($scope.photo.sitePhoto, id).then(function (response) {
             },
 

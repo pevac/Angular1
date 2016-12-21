@@ -8,7 +8,6 @@
 		</ul>
     </div>
     <div class="form-container ">
-        <div class="clearfix"><a class="close" ui-sref="home.devportfolio.list"><span class="glyphicon glyphicon-remove-circle"></span></a></div>
         <form class="form-horizontal admin-form" enctype="multipart/form-data"  name="portfolioForm" role="form" ng-submit="addProject()" novalidate>
             <div class="form-group ">
                 <input   type="hidden" name="id"  ng-model="project.id"   id="inpuId">
@@ -83,8 +82,9 @@
                 <label for="inputStartDate" class="col-sm-3  control-label">Дата початку</label>
                 <div class="col-sm-9">
                     <p class="input-group">
-                        <input id="inputStartDate" type="text" name="startDate" ng-model="project.dateRegist" class="form-control" uib-datepicker-popup   is-open="popup2.opened"
-                                close-text="Close"   placeholder="yyyy-mm-dd" ng-pattern="/^((\d{4})-(\d{2})-(\d{2})|(\d{2})\/(\d{2})\/(\d{4}))$/" ng-required="true"/>
+                        <input id="inputStartDate" type="text" name="startDate"  class="form-control"  uib-datepicker-popup="{{format}}" timezone-select
+                                ng-model="project.dateRegist" uib-datepicker-popup   is-open="popup2.opened" datepicker-options="dateOptions"
+                                close-text="Close"   placeholder="yyyy-mm" ng-pattern="/^((\d{4})-(\d{2})-(\d{2})|(\d{2})\/(\d{2})\/(\d{4}))$/" ng-required="true"/>
                         <span class="input-group-btn">
                             <button type="button" class="btn btn-default btn-calendar" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
                         </span>
@@ -101,14 +101,14 @@
                 <label for="inputEndDate" class="col-sm-3  control-label">Дата кінця</label>
                 <div class="col-sm-9">
                     <p class="input-group">
-                        <input id="inputEndDate" type="text" name="endDate" ng-model="project.endDate" class="form-control" uib-datepicker-popup ng-model="endDay" is-open="popup1.opened" datepicker-options="dateOptions"
-                                close-text="Close"  placeholder="yyyy-mm-dd" ng-pattern="/^((\d{4})-(\d{2})-(\d{2})|(\d{2})\/(\d{2})\/(\d{4}))$/" />
+                        <input id="inputEndDate" type="text" name="endDate" class="form-control"  uib-datepicker-popup="{{format}}"
+                                ng-model="project.endDate" uib-datepicker-popup  is-open="popup1.opened" datepicker-options="dateOptions"
+                                close-text="Close"  placeholder="yyyy-mm" ng-pattern="/^((\d{4})-(\d{2})-(\d{2})|(\d{2})\/(\d{2})\/(\d{4}))$/" />
                         <span class="input-group-btn">
                             <button type="button" class="btn btn-default btn-calendar" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
                         </span>
                         <div role="alert">
                             <span   class="error" ng-show="portfolioForm.$submitted || portfolioForm.endDate.$touched">
-                                <!--<span  ng-show="portfolioForm.endDate.$error.required">Це поле є обов'язкове</span>-->
                                 <span  ng-show="portfolioForm.endDate.$error.date">Введіть правильний формат</span>
                             </span>
                         </div>

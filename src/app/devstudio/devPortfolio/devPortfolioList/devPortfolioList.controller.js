@@ -14,10 +14,10 @@
             return JSON.stringify(obj);
         };
 
-        $scope.goToEdit = function(project) {
-           $rootScope.project = project;
-        };
 
+        $scope.goToEdit = function(project) {
+            $rootScope.project = project;
+        };
 
         (function(){
             $scope.getProjects();

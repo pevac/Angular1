@@ -7,7 +7,7 @@
         $stateProvider
             .state("login", {
                 url: "/login",
-                templateUrl: "login/login.html",
+                templateUrl: "login/login.tmpl.html",
                 controller: "LoginController",
                 data: {
                     authorizedRoles: [USER_ROLES.admin, USER_ROLES.editor]
@@ -33,21 +33,21 @@
             .state("home.devportfolio.list", {
                 url: "/list",
                 controller: "devPortfolioListCtrl",
-                templateUrl:"devstudio/devportfolio/list-devportfolio/list-devportfolio.tmpl.html"
+                templateUrl:"devstudio/devPortfolio/devPortfolioList/devPortfolioList.tmpl.html"
             })
             .state("home.devportfolio.addportfolio", {
                 url: "/add",
                 controller: "addDevPortfolioCtrl",
-                templateUrl:"devstudio/devportfolio/form-devportfolio/form-devportfolio.tmpl.html"
+                templateUrl:"devstudio/devPortfolio/devPortfolioForm/devPortfolioForm.tmpl.html"
             })
             .state("home.devportfolio.editportfolio", {
                 url: "/edit?project",
                 controller: "addDevPortfolioCtrl",
-                templateUrl:"devstudio/devportfolio/form-devportfolio/form-devportfolio.tmpl.html"
+                templateUrl:"devstudio/devPortfolio/devPortfolioForm/devPortfolioForm.tmpl.html"
             })
             .state("home.devportfolio.viewportfolio", {
                 url: "/view?project",
-                templateUrl:"devstudio/devportfolio/view-devportfolio/view-devportfolio.tmpl.html"
+                templateUrl:"devstudio/devPortfolio/devPortfolioView/devPortfolioView.tmpl.html"
             })
 
             .state("home.ordercustomer", {
@@ -56,12 +56,12 @@
             })
             .state("home.ordercustomer.list", {
                 url: "/list",
-                templateUrl:"devstudio/order/list-order/order-customers.tmpl.html",
+                templateUrl:"devstudio/customersOrder/ordersList/ordersList.tmpl.html",
                 controller: "orderCustomerCtrl"
             })
             .state("home.ordercustomer.view", {
                 url: "/view?orderId",
-                templateUrl:"devstudio/order/view-order/view-order.tpml.html",
+                templateUrl:"devstudio/customersOrder/orderViewer/orderViewer.tpml.html",
                 controller: "viewOrderCustomerCtrl"
             })
 
@@ -71,22 +71,22 @@
             })
             .state("home.vacancies.list", {
                 url: "/list",
-                templateUrl:"devstudio/vacancies/list-vacancies/vacancies.tmpl.html",
+                templateUrl:"devstudio/vacancies/vacanciesList/vacanciesList.tmpl.html",
                 controller: "vacanciesController"
             })
             .state("home.vacancies.addvacancy", {
                 url: "/add",
-                templateUrl:"devstudio/vacancies/add-vacancy/addvacancy.tmpl.html",
+                templateUrl:"devstudio/vacancies/addVacancy/addVacancy.tmpl.html",
                 controller: "addVacancyCtrl"
             })
             .state("home.vacancies.edit", {
                 url: "/edit?vacancy",
-                templateUrl:"devstudio/vacancies/add-vacancy/addvacancy.tmpl.html",
+                templateUrl:"devstudio/vacancies/addVacancy/addVacancy.tmpl.html",
                 controller: "addVacancyCtrl"
             })
             .state("home.vacancies.review", {
                 url: "^/review/list",
-                templateUrl:"devstudio/vacancies/review-vacancies/review-vacancies.tmpl.html",
+                templateUrl:"devstudio/vacancies/reviewVacancies/reviewVacancies.tmpl.html",
                 controller: "reviewVacanciesController"
             })
 
@@ -97,17 +97,17 @@
             .state("home.intportfolio.list", {
                 url: "/list",
                 controller: 'intPortfolioListCtrl',
-                templateUrl:"internship/intportfolio/list-intportfolio/list-intportfolio.tmpl.html"
+                templateUrl:"internship/intPortfolio/intPortfolioList/intPortfolioList.tmpl.html"
             })
             .state("home.intportfolio.addportfolio", {
                 url: "/add",
                 controller: "addIntPortfolioCtrl",
-                templateUrl:"internship/intportfolio/form-intportfolio/form-intportfolio.tmpl.html"
+                templateUrl:"internship/intPortfolio/intPortfolioForm/intPortfolioForm.tmpl.html"
             })
             .state("home.intportfolio.editportfolio", {
                 url: "/edit?project",
                 controller: "addIntPortfolioCtrl",
-                templateUrl:"internship/intportfolio/form-intportfolio/form-intportfolio.tmpl.html"
+                templateUrl:"internship/intPortfolio/intPortfolioForm/intPortfolioForm.tmpl.html"
             })
 
 
@@ -121,22 +121,21 @@
             })
             .state("home.reviews.addreview", {
                 url: "/add",
-                templateUrl:"internship/reviews/add-review/addreview.tmpl.html"
+                templateUrl:"internship/reviews/reviewForm/reviewForm.tmpl.html"
             })
             .state("home.reviews.editreview", {
                 url: "/edit?review",
-                templateUrl:"internship/reviews/add-review/addreview.tmpl.html"
+                templateUrl:"internship/reviews/reviewForm/reviewForm.tmpl.html"
             })
 
-        .state("home.users", {
-            url: "users",
-            templateUrl:"users/list-users/list-users.tmpl.html"
-        })
-
-        .state("home.addusers", {
-            url: "add",
-            templateUrl:"users/form-users/form-users.tmpl.html"
-        })
+            .state("home.users", {
+                url: "users",
+                templateUrl:"users/list-users/list-users.tmpl.html"
+            })
+            .state("home.addusers", {
+                url: "add",
+                templateUrl:"users/form-users/form-users.tmpl.html"
+            })
 
         
 

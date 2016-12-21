@@ -3,6 +3,7 @@ var jshint = require("gulp-jshint");
 var del = require("del");
 var runSequence = require("run-sequence");
 var browserSync = require("browser-sync").create();
+var spa         = require("browser-sync-spa");
 var argv = require("minimist")(process.argv.slice(2));
 var $ = require("gulp-load-plugins")();
 var angularTemplateCache   = require("gulp-angular-templatecache");
@@ -175,11 +176,18 @@ gulp.task("browser-sync", function () {
     browserSync.init({
         server: {
             baseDir: PROXY_PATHS
-        },
-                 
+        }
     });
     browserSync.watch(path.watch.reload).on("change", browserSync.reload);
 });
+
+browserSync.use(spa({
+    selector: "[ng-app]",
+    history: {
+        index: PROXY_PATHS + '/index.html'
+    }
+}));
+
 
 gulp.task("watch", function(){
     $.watch([path.watch.index], function(event, cb) {

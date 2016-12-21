@@ -10,9 +10,9 @@
             devProjects: "projects",
             intProjects: "projects",
             vacancies: "vacancies",
-            workingtimes: "workingtimes",
-            jobpositions: "jobpositions",
-            customerrequests: "customerrequests"
+            workingTimes: "workingtimes",
+            jobPositions: "jobpositions",
+            customerRequests: "customerrequests"
 
             // devProjects: "project/",
             // intProjects: "project/",
@@ -88,7 +88,7 @@
             getCustomers:function(){
                 return    $http({
                     method: "GET",
-                    url: serverApiConstant.url + serverApiConstant.customerrequests
+                    url: serverApiConstant.url + serverApiConstant.customerRequests
                 })
                     .then(function (response) {
                         return response.data;
@@ -98,7 +98,7 @@
             getCustomerItem:function(id){
                 return    $http({
                     method: "GET",
-                    url: serverApiConstant.url+serverApiConstant.customerrequests + "/" +id
+                    url: serverApiConstant.url+serverApiConstant.customerRequests + "/" +id
                 })
                     .then(function (response) {
                         return response.data;
