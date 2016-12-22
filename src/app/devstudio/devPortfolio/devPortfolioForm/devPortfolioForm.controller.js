@@ -40,8 +40,8 @@
 
         $scope.addProject = function(){
             serverActService.addDevProject($scope.project).then(function (response) {
-                $scope.addImage(response.data.id)
                 console.log(response);
+                $scope.addImage(response.data.id)
             },
             function (response) {
                 console.log(response);
@@ -49,7 +49,9 @@
         };
 
          $scope.addImage = function(id){
-            serverActService.addDevImage($scope.photo.sitePhoto, id).then(function (response) {
+             var photo = $scope.photo.sitePhoto
+            serverActService.addDevImage(photo, id).then(function (response) {
+                console.log(response);
             },
 
             function (response) {

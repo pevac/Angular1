@@ -54,7 +54,7 @@
             <div class="form-group">
                 <label for="inputPagePhoto" class="col-sm-3  control-label">Зображення сторінки</label>
                 <div class="col-sm-9">
-                    <input  id="inputPagePhoto" class="file" type="file" name="pagePhoto" ng-model="photo.pagePhoto"  file-reader
+                    <input  id="inputPagePhoto" class="file" type="file" name="pagePhoto" ng-model="photo.pagePhoto" 
                              valid-file  valid-file-type="['image/png','image/jpeg','image/gif']"  valid-file-size = "1000000">
                     <span class="custom-file-control" >{{photo.pagePhoto ? photo.pagePhoto.name : "Завантажити фото" }}</span>
                     <div role="alert">
@@ -134,7 +134,7 @@
                         <button type="submit"  class="btn btn-primary btn-save">Зберегти чорновик</button>
                     </div>
                     <div class="col-md-4">
-                        <button type="submit"   class="btn btn-primary btn-save">Опублікувати проект</button>
+                        <button type="button" ng-click="addImage(2)";  class="btn btn-primary btn-save">Опублікувати проект</button>
                     </div>
                 </div>
             </div>

@@ -5,21 +5,21 @@
         .factory("serverDataService", getData)
         .factory("serverActService", setData)
         .constant("serverApiConstant",{
-            // url : 'http://192.168.10.91:8080/api/',
-            // devProjects: "projects",
-            // intProjects: "projects",
-            // vacancies: "vacancies",
-            // workingTimes: "workingtimes",
-            // jobPositions: "jobpositions",
-            // customerRequests: "customerrequests"
+            url : 'http://192.168.10.60:8080/api/',
+            devProjects: "projects",
+            intProjects: "projects",
+            vacancies: "vacancies",
+            workingTimes: "workingtimes",
+            jobPositions: "jobpositions",
+            customerRequests: "customerrequests",
 
-            url : "http://128.0.169.5:8888/dev-studio/api/",
-            devProjects: "project/",
-            intProjects: "project/",
-            vacancies: "vacancie/",
-            workingTimes: "workingtime/",
-            jobPositions: "jobposition/",
-            customerRequests: "customerrequest/",
+            // url : "http://128.0.169.5:8888/dev-studio/api/",
+            // devProjects: "project/",
+            // intProjects: "project/",
+            // vacancies: "vacancie/",
+            // workingTimes: "workingtime/",
+            // jobPositions: "jobposition/",
+            // customerRequests: "customerrequest/",
             devImage: "images/"
         });
        
@@ -169,17 +169,19 @@
                 var method =  "POST";
                 var url1 =serverApiConstant.url+ serverApiConstant.devImage + id
                 var fd = new FormData();
+                console.log(data);
                 fd.append('file', data);
-                return  $http({
-                    method: method,
-                    url: url1,
-                    data: fd,
-                    transformRequest: angular.identity,
-                    withCredentials : true,
-                    headers: {'Content-Type': 'multipart/form-data'}
-                })
-            },
+                  console.log(fd);
+                            return  $http({
+                                method: method,
+                                url: url1,
+                                data: fd,
+                                transformRequest:angular.identity,
+                                headers: {"Content-Type": undefined}
+                            })
+       
 
+            }
         }
     }
 })();
