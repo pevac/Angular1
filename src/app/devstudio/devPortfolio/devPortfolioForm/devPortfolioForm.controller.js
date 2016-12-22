@@ -3,19 +3,24 @@
     angular.module("devPortfolioModule")
         .controller("addDevPortfolioCtrl", addDevPortfolioCtrl)
 
-    addDevPortfolioCtrl.$inject = ["$scope","$stateParams", "serverActService", "$rootScope"];
+    addDevPortfolioCtrl.$inject = ["$scope", "serverActService", "FileUploader", "$rootScope"];
 
-    function addDevPortfolioCtrl($scope, $stateParams ,  serverActService, $rootScope) {
+    function addDevPortfolioCtrl($scope, serverActService, FileUploader, $rootScope) {
         $scope.clear = function() {
             $scope.dt = null;
         };
 
+        // $scope.uploader = new FileUploader();
+        //
+        // console.log($scope.uploader);
+
         $scope.dateOptions = {
             datepickerMode: "'month'",
             minMode: "month",
+            formatMonth: "MMMM"
         };
 
-        $scope.formats = ["MMMM-yyyy", "yyyy/MM", "dd.MM.yyyy", "shortDate"];
+        $scope.formats = ["MMMM yyyy", "yyyy/MM", "dd.MM.yyyy"];
         $scope.format = $scope.formats[0];
 
         $scope.popup1 = {

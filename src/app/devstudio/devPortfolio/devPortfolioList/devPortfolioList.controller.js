@@ -4,23 +4,18 @@
 
     devPortfolioListCtrl.$inject = ["$scope", "$rootScope", "serverDataService"]
     function devPortfolioListCtrl($scope,  $rootScope, serverDataService){
-        $scope.getProjects = function(){
-                serverDataService.getDevProjects().then(function (data) {
-                    $scope.projects = data;
-                });
-        };
-
-        $scope.projectJson = function (obj) {
-            return JSON.stringify(obj);
-        };
-
-
         $scope.goToEdit = function(project) {
             $rootScope.project = project;
         };
 
+        function getProjects(){
+            serverDataService.getDevProjects().then(function (data) {
+                $scope.projects = data;
+            });
+        };
+
         (function(){
-            $scope.getProjects();
+            getProjects();
         })()
     }
 })();

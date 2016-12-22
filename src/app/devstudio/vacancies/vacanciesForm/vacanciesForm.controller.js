@@ -10,37 +10,26 @@
         };
 
         $scope.dateOptions = {
-            formatYear: 'yy',
-            maxDate: new Date(2040, 5, 22),
-            minDate: new Date(),
-            startingDay: 1,
+            datepickerMode: "'month'",
+            minMode: "month"
         };
 
-
-        $scope.open = function() {
-            $scope.popup.opened = true;
-        };
-
-        $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
-        $scope.format = $scope.formats[2];
-
+        $scope.formats = ["MMMM yyyy", "yyyy/MM", "dd.MM.yyyy", "shortDate"];
+        $scope.format = $scope.formats[0];
 
         $scope.popup = {
             opened: false
         };
 
-
-        $scope.addVacancy = function () {
-            // console.log($scope.vacancy)
-            serverActService.addVacancy($scope.vacancy).then(function (response) {
-                
-            });
+        $scope.open = function() {
+            $scope.popup.opened = true;
         };
 
-       $scope.initForm = function () {
-            if(!$stateParams.vacancy){ return; }
-            console.log($stateParams.vacancy);
-            $scope.project = JSON.parse($stateParams.vacancy);
+
+        $scope.addVacancy = function () {
+            serverActService.addVacancy($scope.vacancy).then(function (response) {
+
+            });
         };
 
        $scope.getJobPositions = function () {
@@ -65,9 +54,17 @@
             $scope.getJobPositions();
             $scope.getDevProjects();
             $scope.getWorkingTimes();
-            $scope.initForm();
+            initForm();
         })();
-        
+
+
+
+        function initForm() {
+            if(!$rootScope.vacancy){ return; }
+            $scope.vacancy = $rootScope.vacancy;
+            $rootScope.vacancy = null;
+        }
+
     }
 })();
     

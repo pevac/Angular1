@@ -39,9 +39,10 @@
             <div class="form-group">
                 <label for="inputSitePhoto" class="col-sm-3  control-label">Зображення сайту</label>
                 <div class="col-sm-9">
-                    <input id="inputSitePhoto"  class="file" type="file" name="sitePhoto"  ng-model="photo.sitePhoto" 
-                             valid-file  valid-file-type="['image/png','image/jpeg','image/gif']"  valid-file-size = "1000000">
-                    <span class="custom-file-control" >{{project.sitePhoto.name ? project.sitePhoto.name: "Завантажити фото" }}</span>
+                    <!--<input id="inputSitePhoto"  class="file" type="file" name="sitePhoto"   nv-file-select uploader="{uploader}">-->
+                    <input id="inputSitePhoto"  class="file" type="file" name="sitePhoto"  ng-model="photo.sitePhoto"
+                           valid-file  valid-file-type="['image/png','image/jpeg','image/gif']"  valid-file-size = "1000000">
+                    <span class="custom-file-control" >{{photo.sitePhoto ? photo.sitePhoto.name: "Завантажити фото" }}</span>
                     <div role="alert">
                         <span   class="error" ng-if="portfolioForm.$submitted  || portfolioForm.sitePhoto.$touched">
                             <span  ng-show="portfolioForm.sitePhoto.$error.validFile">Це поле є обов'язкове</span>
@@ -54,9 +55,9 @@
             <div class="form-group">
                 <label for="inputPagePhoto" class="col-sm-3  control-label">Зображення сторінки</label>
                 <div class="col-sm-9">
-                    <input  id="inputPagePhoto" class="file" type="file" name="pagePhoto" ng-model="photo.pagePhoto" 
+                    <input  id="inputPagePhoto" class="file" type="file" name="pagePhoto" ng-model="photo.pagePhoto"  file-reader
                              valid-file  valid-file-type="['image/png','image/jpeg','image/gif']"  valid-file-size = "1000000">
-                    <span class="custom-file-control" >{{project.pagePhoto.name ? project.pagePhoto.name: "Завантажити фото" }}</span>
+                    <span class="custom-file-control" >{{photo.pagePhoto ? photo.pagePhoto.name : "Завантажити фото" }}</span>
                     <div role="alert">
                         <span   class="error" ng-if="portfolioForm.$submitted  || portfolioForm.pagePhoto.$touched">
                             <span  ng-show="portfolioForm.pagePhoto.$error.validFile">Це поле є обов'язкове</span>
@@ -82,9 +83,9 @@
                 <label for="inputStartDate" class="col-sm-3  control-label">Дата початку</label>
                 <div class="col-sm-9">
                     <p class="input-group">
-                        <input id="inputStartDate" type="text" name="startDate"  class="form-control"  uib-datepicker-popup="{{format}}" timezone-select
+                        <input id="inputStartDate" type="text" name="startDate"  class="form-control"  uib-datepicker-popup="{{format}}"
                                 ng-model="project.dateRegist" uib-datepicker-popup   is-open="popup2.opened" datepicker-options="dateOptions"
-                                close-text="Close"   placeholder="yyyy-mm" ng-pattern="/^((\d{4})-(\d{2})-(\d{2})|(\d{2})\/(\d{2})\/(\d{4}))$/" ng-required="true"/>
+                                close-text="Закрити" clear-text="Очистити" current-text="Сьогодні"  ng-pattern="/^((\d{4})-(\d{2})-(\d{2})|(\d{2})\/(\d{2})\/(\d{4}))$/" ng-required="true"/>
                         <span class="input-group-btn">
                             <button type="button" class="btn btn-default btn-calendar" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
                         </span>
@@ -103,7 +104,7 @@
                     <p class="input-group">
                         <input id="inputEndDate" type="text" name="endDate" class="form-control"  uib-datepicker-popup="{{format}}"
                                 ng-model="project.endDate" uib-datepicker-popup  is-open="popup1.opened" datepicker-options="dateOptions"
-                                close-text="Close"  placeholder="yyyy-mm" ng-pattern="/^((\d{4})-(\d{2})-(\d{2})|(\d{2})\/(\d{2})\/(\d{4}))$/" />
+                                close-text="Закрити" clear-text="Очистити" current-text="Сьогодні"  ng-pattern="/^((\d{4})-(\d{2})-(\d{2})|(\d{2})\/(\d{2})\/(\d{4}))$/" />
                         <span class="input-group-btn">
                             <button type="button" class="btn btn-default btn-calendar" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
                         </span>
@@ -125,10 +126,18 @@
                     </div>
                 </div>
             </div>
-            <div class="form-group flex_container">
-                    <!--<button type="button" ui-sref="home.devportfolio.list"  class="btn btn-primary btn-save">Переглянути</button>-->
-                    <button type="submit"  class="btn btn-primary btn-save">Зберегти чорновик</button>
-                    <!--<button type="button" ui-sref="home.devportfolio.list"  class="btn btn-primary btn-save">Опублікувати проект</button>-->
+            <div class="form-group btn_container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <button type="submit"  class="btn btn-primary btn-save">Переглянути</button>
+                    </div>
+                    <div class="col-md-4">
+                        <button type="submit"  class="btn btn-primary btn-save">Зберегти чорновик</button>
+                    </div>
+                    <div class="col-md-4">
+                        <button type="submit"   class="btn btn-primary btn-save">Опублікувати проект</button>
+                    </div>
+                </div>
             </div>
         </form>
     </div>

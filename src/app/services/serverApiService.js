@@ -5,21 +5,22 @@
         .factory("serverDataService", getData)
         .factory("serverActService", setData)
         .constant("serverApiConstant",{
-            // url : "http://128.0.169.5:8888/dev-studio/api/",
-            url : 'http://192.168.10.91:8080/api/',
-            devProjects: "projects",
-            intProjects: "projects",
-            vacancies: "vacancies",
-            workingTimes: "workingtimes",
-            jobPositions: "jobpositions",
-            customerRequests: "customerrequests"
+            // url : 'http://192.168.10.91:8080/api/',
+            // devProjects: "projects",
+            // intProjects: "projects",
+            // vacancies: "vacancies",
+            // workingTimes: "workingtimes",
+            // jobPositions: "jobpositions",
+            // customerRequests: "customerrequests"
 
-            // devProjects: "project/",
-            // intProjects: "project/",
-            // vacancies: "vacancie/",
-            // workingTimes: "workingtime/",
-            // jobPositions: "jobposition/",
-            // customerRequests: "customerrequest/"
+            url : "http://128.0.169.5:8888/dev-studio/api/",
+            devProjects: "project/",
+            intProjects: "project/",
+            vacancies: "vacancie/",
+            workingTimes: "workingtime/",
+            jobPositions: "jobposition/",
+            customerRequests: "customerrequest/",
+            devImage: "images/"
         });
        
 
@@ -166,7 +167,7 @@
 
             addDevImage:   function(data, id){
                 var method =  "POST";
-                var url1 ="http://192.168.10.91:8080/api/images/" + id
+                var url1 =serverApiConstant.url+ serverApiConstant.devImage + id
                 var fd = new FormData();
                 fd.append('file', data);
                 return  $http({

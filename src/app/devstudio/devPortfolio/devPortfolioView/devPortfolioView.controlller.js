@@ -3,7 +3,6 @@
     .controller('viewDevPortfolioCtrl', viewDevPortfolioCtrl);
 
     viewDevPortfolioCtrl.$inject = ["$scope","$stateParams", "$rootScope"];
-
     function viewDevPortfolioCtrl($scope, $stateParams ,$rootScope) {
 
         initForm();

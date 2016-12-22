@@ -1,21 +1,24 @@
-    'use strict'
-    angular.module('vacancyModule', [])
-        .controller('vacanciesController',vacanciesController);
+(function () {
+    "use strict"
+    angular.module("vacancyModule", [])
+        .controller("vacanciesController",vacanciesController);
 
     vacanciesController.$inject  = ['$scope', 'serverDataService']
     function vacanciesController($scope, serverDataService) {
-        $scope.getVacancies = function(){
+        $scope.goToEdit = function(vacancy) {
+            $rootScope.vacancy = vacancy;
+        };
+
+        function getVacancies(){
             serverDataService.getVacancies().then(function (data) {
                 $scope.vacancies = data;
             });
         };
 
-        $scope.vacancyJson = function (obj) {
-            return JSON.stringify(obj);
-        };
-
         (function(){
-            $scope.getVacancies();
+            getVacancies();
         })()
-    }
+    };
+})();
+
 

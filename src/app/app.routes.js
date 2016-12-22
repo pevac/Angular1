@@ -76,12 +76,12 @@
             })
             .state("home.vacancies.addvacancy", {
                 url: "/add",
-                templateUrl:"devstudio/vacancies/addVacancy/addVacancy.tmpl.html",
+                templateUrl:"devstudio/vacancies/vacanciesForm/vacanciesForm.tmpl.html",
                 controller: "addVacancyCtrl"
             })
             .state("home.vacancies.edit", {
                 url: "/edit?vacancy",
-                templateUrl:"devstudio/vacancies/addVacancy/addVacancy.tmpl.html",
+                templateUrl:"devstudio/vacancies/vacanciesForm/vacanciesForm.tmpl.html",
                 controller: "addVacancyCtrl"
             })
             .state("home.vacancies.review", {
