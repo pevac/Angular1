@@ -8,7 +8,7 @@
 		</ul>
     </div>
     <div class="form-container ">
-        <form class="form-horizontal admin-form" enctype="multipart/form-data"  name="portfolioForm" role="form" ng-submit="addProject()" novalidate>
+        <form class="form-horizontal admin-form" method="POST" enctype="multipart/form-data"  name="portfolioForm" role="form" ng-submit="addProject()" novalidate>
             <div class="form-group ">
                 <input   type="hidden" name="id"  ng-model="project.id"   id="inpuId">
             </div>

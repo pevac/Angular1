@@ -10,9 +10,7 @@
             $scope.dt = null;
         };
 
-        // $scope.uploader = new FileUploader();
-        //
-        // console.log($scope.uploader);
+        
 
         $scope.dateOptions = {
             datepickerMode: "'month'",
