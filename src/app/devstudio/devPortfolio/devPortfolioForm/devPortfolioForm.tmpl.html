@@ -39,8 +39,7 @@
             <div class="form-group">
                 <label for="inputSitePhoto" class="col-sm-3  control-label">Зображення сайту</label>
                 <div class="col-sm-9">
-                    <!--<input id="inputSitePhoto"  class="file" type="file" name="sitePhoto"   nv-file-select uploader="{uploader}">-->
-                    <input id="inputSitePhoto"  class="file" type="file" name="sitePhoto"  ng-model="photo.sitePhoto"
+                    <input id="inputSitePhoto"  class="file" type="file" name="sitePhoto"  ng-model="photo.sitePhoto" file-reader
                            valid-file  valid-file-type="['image/png','image/jpeg','image/gif']"  valid-file-size = "1000000">
                     <span class="custom-file-control" >{{photo.sitePhoto ? photo.sitePhoto.name: "Завантажити фото" }}</span>
                     <div role="alert">
