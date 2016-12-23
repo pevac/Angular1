@@ -3,14 +3,14 @@
     angular.module("devPortfolioModule")
         .controller("addDevPortfolioCtrl", addDevPortfolioCtrl)
 
-    addDevPortfolioCtrl.$inject = ["$scope", "serverActService", "FileUploader", "$rootScope"];
+    addDevPortfolioCtrl.$inject = ["$scope", "serverActService", "$rootScope"];
 
-    function addDevPortfolioCtrl($scope, serverActService, FileUploader, $rootScope) {
-        $scope.clear = function() {
-            $scope.dt = null;
+    function addDevPortfolioCtrl($scope, serverActService,  $rootScope) {
+        var self = this;
+
+        self.clear = function() {
+            $scope.project = null;
         };
-
-        
 
         $scope.dateOptions = {
             datepickerMode: "'month'",
@@ -37,26 +37,27 @@
             $scope.popup2.opened = true;
         };
 
+        $scope.goToEdit = function() {
+            $rootScope.project = $scope.project;
+        };
 
         $scope.addProject = function(){
             serverActService.addDevProject($scope.project).then(function (response) {
-                console.log(response);
-                $scope.addImage(response.data.id)
+                    self.addImage(response.data.id)
             },
             function (response) {
                 console.log(response);
             });
         };
 
-         $scope.addImage = function(id){
-             var photo = $scope.photo.sitePhoto
-            serverActService.addDevImage(photo, id).then(function (response) {
-                console.log(response);
-            },
-
-            function (response) {
-                console.log(response);
-            });
+         self.addImage = function(id){
+             var photo = $scope.photo.sitePhoto;
+             serverActService.addDevImage(photo, id).then(function (response) {
+                     $scope.project = null;
+                 },
+                function (response) {
+                    console.log(response);
+                });
         };
 
         initForm();

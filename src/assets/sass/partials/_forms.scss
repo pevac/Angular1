@@ -185,9 +185,10 @@
     background-color: $biruza-base-color;
     border: 1px solid $biruza-base-color;
     border-radius: 0;
-    &:hover {
+    &:hover,&:active, &:focus, &:focus:active, &:active:hover {
       background-color: $blue-base-color;
       border: 1px solid $blue-base-color;
+      color: $light-base-color;
     }
   }
 
@@ -197,7 +198,6 @@
     padding-left: 25px;
     appearance: none;
   }
-
   select::-webkit-outer-spin-button,
   select::-webkit-inner-spin-button {
     -webkit-appearance: none;
