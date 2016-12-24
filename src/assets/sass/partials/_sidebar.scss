@@ -126,6 +126,9 @@
       .internship-icon {
         background: url("../img/internship-icon.png") no-repeat;
       }
+      .users-icon{
+        background: url("../img/users-icon.png")
+      }
     }
 
     li.active>a,
@@ -191,4 +194,5 @@
     width: $sidebar-width;
   }
 }
+
 
