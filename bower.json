@@ -20,7 +20,6 @@
     "trix": "~0.10.0",
     "angular-smart-table": "~2.1.8",
     "angular-file-saver": "~1.1.2",
-    "angular-file-upload": "~2.4.0",
     "angular-i18n": "~1.6.0"
   }
 }

@@ -8,7 +8,7 @@
 		</ul>
     </div>
     <div class="form-container ">
-        <form class="form-horizontal admin-form" method="POST" enctype="multipart/form-data"  name="portfolioForm" role="form" ng-submit="addProject()" novalidate>
+        <form class="form-horizontal admin-form" method="POST" enctype="multipart/form-data"  name="portfolioForm" role="form"  novalidate>
             <div class="form-group ">
                 <input   type="hidden" name="id"  ng-model="project.id"   id="inpuId">
             </div>
@@ -54,12 +54,11 @@
             <div class="form-group">
                 <label for="inputPagePhoto" class="col-sm-3  control-label">Зображення сторінки</label>
                 <div class="col-sm-9">
-                    <input  id="inputPagePhoto" class="file" type="file" name="pagePhoto" ng-model="photo.pagePhoto" 
+                    <input  id="inputPagePhoto" class="file" type="file" name="pagePhoto" ng-model="photo.pagePhoto" file-reader
                              valid-file  valid-file-type="['image/png','image/jpeg','image/gif']"  valid-file-size = "1000000">
                     <span class="custom-file-control" >{{photo.pagePhoto ? photo.pagePhoto.name : "Завантажити фото" }}</span>
                     <div role="alert">
                         <span   class="error" ng-if="portfolioForm.$submitted  || portfolioForm.pagePhoto.$touched">
-                            <span  ng-show="portfolioForm.pagePhoto.$error.validFile">Це поле є обов'язкове</span>
                             <span  ng-show="portfolioForm.pagePhoto.$error.validFileType">Невірний формат файлу</span>
                             <span  ng-show="portfolioForm.pagePhoto.$error.validFileSize">Занадто великий файл</span>
                         </span>
@@ -109,6 +108,7 @@
                         </span>
                         <div role="alert">
                             <span   class="error" ng-show="portfolioForm.$submitted || portfolioForm.endDate.$touched">
+                                <span  ng-show="portfolioForm.endDate.$error.sameAs">Дата закінчення проекту</span>
                                 <span  ng-show="portfolioForm.endDate.$error.date">Введіть правильний формат</span>
                             </span>
                         </div>
@@ -128,13 +128,14 @@
             <div class="form-group btn_container">
                 <div class="row">
                     <div class="col-md-4">
-                        <button type="submit"  class="btn btn-primary btn-save">Переглянути</button>
+                        <button type="button" ng-click="goToEdit()"  class="btn btn-primary btn-save">Переглянути</button>
                     </div>
                     <div class="col-md-4">
-                        <button type="submit"  class="btn btn-primary btn-save">Зберегти чорновик</button>
+                        <button type="submit" ng-click="addProject()" class="btn btn-primary btn-save">Зберегти чорновик</button>
                     </div>
                     <div class="col-md-4">
-                        <button type="button" ng-click="addImage(2)";  class="btn btn-primary btn-save">Опублікувати проект</button>
+                        <button ng-if="true" type="submit" ng-click="addProject()"  class="btn btn-primary btn-save">Опублікувати проект</button>
+                        <button ng-if="false" type="submit" ng-click="addProject()"  class="btn btn-primary btn-save">Опублікувати проект</button>
                     </div>
                 </div>
             </div>

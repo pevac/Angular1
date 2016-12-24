@@ -146,5 +146,44 @@
     });
 })();
 
+(function () {
+    'use strict';
+
+    angular.module('angularApp')
+        .provider('previousState', previousStateProvider)
+    .directive('back', ['$window','previousStateProvider', function ($window, previousStateProvider) {
+        return {
+            restrict: 'A',
+            link: function (scope, elem, attrs) {
+                console.log("hello");
+                elem.bind('click', function () {
+                    $window.history.back();
+                });
+            }
+        };
+    }]);
+
+    previousStateProvider.$inject = ['$rootScopeProvider'];
+
+    function previousStateProvider($rootScopeProvider) {
+        this.$get = PreviousState;
+
+        PreviousState.$inject = ['$rootScope'];
+
+        /* @ngInject */
+        function PreviousState($rootScope) {
+            $rootScope.previousParms;
+            $rootScope.previousState;
+            $rootScope.currentState;
+
+            $rootScope.$on('$stateChangeSuccess', function (ev, to, toParams, from, fromParams) {
+                $rootScope.previousParms = fromParams;
+                $rootScope.previousState = from.name;
+                $rootScope.currentState = to.name;
+            });
+        }
+    }
+})();
+
 
 

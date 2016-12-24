@@ -5,21 +5,13 @@
         .factory("serverDataService", getData)
         .factory("serverActService", setData)
         .constant("serverApiConstant",{
-            url : 'http://192.168.10.60:8080/api/',
+            url : 'http://128.0.169.5:8888/api/',
             devProjects: "projects",
             intProjects: "projects",
             vacancies: "vacancies",
             workingTimes: "workingtimes",
             jobPositions: "jobpositions",
             customerRequests: "customerrequests",
-
-            // url : "http://128.0.169.5:8888/dev-studio/api/",
-            // devProjects: "project/",
-            // intProjects: "project/",
-            // vacancies: "vacancie/",
-            // workingTimes: "workingtime/",
-            // jobPositions: "jobposition/",
-            // customerRequests: "customerrequest/",
             devImage: "images/"
         });
        
@@ -115,8 +107,6 @@
                 var url1 = (!data.id || data.id === "") ? 
                     serverApiConstant.url+serverApiConstant.vacancies : 
                     serverApiConstant.url+serverApiConstant.vacancies + "/" + data.id;
-                console.log(method);
-                console.log(url1);
 
                 return  $http({
                     method: method,
@@ -130,8 +120,6 @@
                 var url1 = (!data.id || data.id === "") ? 
                     serverApiConstant.url+serverApiConstant.devProjects : 
                     serverApiConstant.url+serverApiConstant.devProjects + "/" + data.id;
-                console.log(method);
-                console.log(url1);
 
                 return  $http({
                     method: method,
@@ -158,6 +146,7 @@
                 var url1 = (!data.id || data.id === "") ? 
                     serverApiConstant.url+serverApiConstant.devProjects : 
                     serverApiConstant.url+serverApiConstant.devProjects + "/" + data.id;
+
                 return  $http({
                     method: method,
                     url: url1,
@@ -169,16 +158,15 @@
                 var method =  "POST";
                 var url1 =serverApiConstant.url+ serverApiConstant.devImage + id
                 var fd = new FormData();
-                console.log(data);
                 fd.append('file', data);
-                  console.log(fd);
-                            return  $http({
-                                method: method,
-                                url: url1,
-                                data: fd,
-                                transformRequest:angular.identity,
-                                headers: {"Content-Type": undefined}
-                            })
+
+                return  $http({
+                    method: method,
+                    url: url1,
+                    data: fd,
+                    transformRequest:angular.identity,
+                    headers: {"Content-Type": undefined}
+                })
        
 
             }
