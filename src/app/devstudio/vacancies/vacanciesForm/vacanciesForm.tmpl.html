@@ -15,7 +15,7 @@
                     <span class="arrow"></span>
                     <select id="inputJobPosition" name="jobPosition" ng-model="vacancy.jobPositionId"  class="form-control" ng-required="true">
                         <option value="">none</option>
-                        <option ng-repeat="jobPosition in jobPositions" ng-selected="vacancy.jobPositionId" ng-value="jobPosition.id">{{jobPosition.jobName}}</option>
+                        <option ng-repeat="jobPosition in jobPositions" ng-selected="vacancy.jobPositionId" ng-value="jobPosition.id">{{jobPosition.name}}</option>
                     </select>
                     <div role="alert">
                         <span   class="error" ng-show="vacancyForm.$submitted || vacancyForm.jobPosition.$touched">
@@ -30,7 +30,7 @@
                     <span class="arrow"></span>
                     <select id="inputProject" name="projectName" ng-model="vacancy.projectId"   class="form-control" ng-required="true">
                         <option value="">none</option>
-                        <option ng-repeat="project in projects"  ng-selected="vacancy.projectId" value="project.id">{{project.projectName}}</option>
+                        <option ng-repeat="project in projects"  ng-selected="vacancy.projectId" value="project.id">{{project.name}}</option>
                     </select>
                     <div role="alert">
                         <span   class="error" ng-show="vacancyForm.$submitted || vacancyForm.projectName.$touched">

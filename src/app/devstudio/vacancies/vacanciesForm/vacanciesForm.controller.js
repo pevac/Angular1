@@ -39,7 +39,8 @@
         };
 
         $scope.getWorkingTimes = function (){
-            serverDataService.getWorkingTimes().then(function(){
+            serverDataService.getWorkingTimes().then(function(data){
+                console.log(data);
                 $scope.workingTimes = data;
             });
         };

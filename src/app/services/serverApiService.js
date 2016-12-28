@@ -5,13 +5,13 @@
         .factory("serverDataService", getData)
         .factory("serverActService", setData)
         .constant("serverApiConstant",{
-            url : 'http://128.0.169.5:8888/api/',
-            devProjects: "projects",
-            intProjects: "projects",
-            vacancies: "vacancies",
-            workingTimes: "workingtimes",
-            jobPositions: "jobpositions",
-            customerRequests: "customerrequests",
+            url : 'http://128.0.169.5:8888/dev-studio/api/',
+            devProjects: "projects/",
+            intProjects: "projects/",
+            vacancies: "vacancies/",
+            workingTimes: "workingtimes/",
+            jobPositions: "jobpositions/",
+            customerRequests: "customerrequests/",
             devImage: "images/"
         });
        
@@ -91,7 +91,7 @@
             getCustomerItem:function(id){
                 return    $http({
                     method: "GET",
-                    url: serverApiConstant.url+serverApiConstant.customerRequests + "/" +id
+                    url: serverApiConstant.url+serverApiConstant.customerRequests  +id
                 })
                     .then(function (response) {
                         return response.data;
