@@ -136,6 +136,16 @@
                 url: "add",
                 templateUrl:"users/form-users/form-users.tmpl.html"
             })
+            .state("home.edituser", {
+                url: "/edit?user",
+                controller: "addIntPortfolioCtrl",
+                templateUrl:"users/form-users/form-users.tmpl.html"
+            })
+            .state("home.viewuser", {
+                url: "/view?hello",
+                controller: "viewUserCtrl",
+                templateUrl:"users/view-users/view-users.tmpl.html"
+            })
 
         
 
