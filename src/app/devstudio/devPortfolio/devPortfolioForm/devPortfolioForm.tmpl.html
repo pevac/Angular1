@@ -82,8 +82,8 @@
                 <div class="col-sm-9">
                     <p class="input-group">
                         <input id="inputStartDate" type="text" name="startDate"  class="form-control"  uib-datepicker-popup="{{format}}"
-                                ng-model="project.dateRegist" uib-datepicker-popup   is-open="popup2.opened" datepicker-options="dateOptions"
-                                close-text="Закрити" clear-text="Очистити" current-text="Сьогодні"  ng-pattern="/^((\d{4})-(\d{2})-(\d{2})|(\d{2})\/(\d{2})\/(\d{4}))$/" ng-required="true"/>
+                                ng-model="project.dateStart"  uib-datepicker-popup   is-open="popup2.opened" datepicker-options="dateOptions"
+                                close-text="Закрити" clear-text="Очистити" current-text="Сьогодні"   ng-required="true"/>
                         <span class="input-group-btn">
                             <button type="button" class="btn btn-default btn-calendar" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
                         </span>
@@ -101,8 +101,8 @@
                 <div class="col-sm-9">
                     <p class="input-group">
                         <input id="inputEndDate" type="text" name="endDate" class="form-control"  uib-datepicker-popup="{{format}}"
-                                ng-model="project.endDate" uib-datepicker-popup  is-open="popup1.opened" datepicker-options="dateOptions"
-                                close-text="Закрити" clear-text="Очистити" current-text="Сьогодні"  ng-pattern="/^((\d{4})-(\d{2})-(\d{2})|(\d{2})\/(\d{2})\/(\d{4}))$/" />
+                                ng-model="project.dateEnd" uib-datepicker-popup  is-open="popup1.opened" datepicker-options="dateOptions"
+                                close-text="Закрити" clear-text="Очистити" current-text="Сьогодні"   />
                         <span class="input-group-btn">
                             <button type="button" class="btn btn-default btn-calendar" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
                         </span>
@@ -120,7 +120,7 @@
                 <div class="col-sm-6">
                     <div class="form-check">
                         <label class="form-check-inline control-label">
-                            <input id="inputPriority" class="form-check-input" ng-model="priority" type="checkbox">
+                            <input id="inputPriority" class="form-check-input" ng-model="project.inTop" type="checkbox">
                         </label>
                     </div>
                 </div>
