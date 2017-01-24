@@ -5,6 +5,8 @@ node_modules
 bower_components
 target
 test-results.xml
+launch.json
 .idea
+.vscode
 src/assets/lib
 
