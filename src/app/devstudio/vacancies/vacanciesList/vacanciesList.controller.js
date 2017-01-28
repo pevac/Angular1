@@ -13,10 +13,11 @@
             serverDataService.getVacancies().then(function (data) {
                 $scope.vacancies = data;
             });
-        };
-
+        };  
+        
         (function(){
             getVacancies();
+            setTime();
         })()
     };
 })();

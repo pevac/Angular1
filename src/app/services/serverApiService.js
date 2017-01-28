@@ -16,6 +16,8 @@
             customerRequests: "customerrequests/",
             devImage: "images/"
         });
+
+     
        
 
     function getData($http, serverApiConstant){
