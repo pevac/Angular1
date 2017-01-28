@@ -1,5 +1,5 @@
  (function(){
-     angular.module("angularApp", ["ui.bootstrap", "bu.validation", "angularFileUpload", "smart-table", "ngFileSaver", "ui.router", "angularTrix",  "serverApi",  "fileReaderModule", "devPortfolioModule", "intPortfolioModule", "orderCustomerModule", "vacancyModule",   "reviewsModule", 'usersModule'])
+     angular.module("angularApp", ["ui.bootstrap", "bu.validation", "ngSanitize","smart-table", "ngFileSaver", "ui.router", "angularTrix",  "serverApi",  "fileReaderModule", "devPortfolioModule", "intPortfolioModule", "orderCustomerModule", "vacancyModule",   "reviewsModule", 'usersModule'])
 
 
          .run(["$templateCache", function($templateCache) {

@@ -47,7 +47,7 @@ var path = {
         templates: [ SOURCE_BASE_DIR + '/app/**/*.html' ],
         script: {
         app: [ SOURCE_BASE_DIR + '/app/**/*.js' ],
-        vendor: ["./src/assets/lib/angular/angular.min.js",
+        vendor: ["./src/assets/lib/angular/angular.js",
             "./src/assets/lib/angular-i18n/angular-locale_uk-ua.js",
             "./src/assets/lib/angular-bootstrap/ui-bootstrap-tpls.js",
             "./src/assets/lib/angular-ui-router/release/angular-ui-router.min.js",
@@ -56,7 +56,7 @@ var path = {
             "./src/assets/lib/angular-smart-table/dist/smart-table.min.js",
             "./src/assets/lib/angular-file-saver/dist/angular-file-saver.min.js",
             "./src/assets/lib/angular-file-saver/dist/angular-file-saver.bundle.min.js",
-            "./src/assets/lib/angular-file-upload/dist/angular-file-upload.min.js"
+            "./src/assets/lib/angular-sanitize/angular-sanitize.min.js"
         ]
         },
         styles: SOURCE_BASE_DIR + "/assets/sass/*.scss",

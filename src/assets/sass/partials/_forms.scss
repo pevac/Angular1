@@ -33,7 +33,7 @@
 
 .home_wrapper {
   .trix-content {
-    height: 100px;
+    min-height: 100px;
     width: 100%;
     border-radius: 0;
     border: 1px solid $input-border-color;

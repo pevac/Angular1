@@ -81,7 +81,7 @@
                 <label for="inputStartDate" class="col-sm-3  control-label">Дата початку</label>
                 <div class="col-sm-9">
                     <p class="input-group">
-                        <input id="inputStartDate" type="text" name="startDate"  class="form-control"  uib-datepicker-popup="{{format}}"
+                        <input id="inputStartDate" type="text" name="startDate"  class="form-control"  uib-datepicker-popup="{{format}}" init-date="dateOptions.initDate"
                                 ng-model="project.dateStart"  uib-datepicker-popup   is-open="popup2.opened" datepicker-options="dateOptions"
                                 close-text="Закрити" clear-text="Очистити" current-text="Сьогодні"   ng-required="true"/>
                         <span class="input-group-btn">

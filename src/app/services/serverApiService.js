@@ -5,8 +5,8 @@
         .factory("serverDataService", getData)
         .factory("serverActService", setData)
         .constant("serverApiConstant",{
-            // url : 'http://128.0.169.5:8888/dev-studio/api/',
-            url : 'http://192.168.10.245:8080/api/',
+            url : 'http://128.0.169.5:8888/dev-studio/api/',
+            // url : 'http://192.168.10.245:8080/api/',
             
             devProjects: "projects/",
             intProjects: "projects/",
@@ -19,17 +19,7 @@
        
 
     function getData($http, serverApiConstant){
-        var projects =[{name: "First", company : 'Luxoft', year: '2016', isNew : true, isDraft : false},
-            {name: 'second', company: 'Epam',year: '2016',isNew : false, isDraft : false},
-            {name: 'second2', company: 'Epam3', year: '2016', isNew : false, isDraft : false},
-            {name: 'second3', company: 'Epam4', year: '2016', isNew : false, isDraft : true},
-            {name: 'second4', company: 'Epam2', year: '2016', isNew : true, isDraft : false}];
-        var vacancies = [{dataRegist: "12/12/12", jobName: "Frontend", projectName: "CRM", showStatus: true,  activeStatus: true },
-            {dataRegist: "12/12/12", jobName: "Frontend", projectName: "CRM", showStatus: true,  activeStatus: true },
-            {dataRegist: "12/12/12", jobName: "Frontend", projectName: "CRM", showStatus: true,  activeStatus: true },
-            {dataRegist: "12/12/12", jobName: "Frontend", projectName: "CRM", showStatus: true,  activeStatus: true }, ]
-
-        return{
+         return{
             getDevProjects: function(){
                 return    $http({
                     method: "GET",
@@ -98,6 +88,17 @@
                     .then(function (response) {
                         return response.data;
                     })
+            },
+
+             getDevImage:   function(imgName, id){
+                var url1 =(serverApiConstant.url +serverApiConstant.devImage + id+ '/' + imgName)
+                 return    $http.get(
+                     url1,
+                    {responseType: "arraybuffer"}
+                )
+                .then(function(response){
+                    return response.data;
+                })
             }
         }
     }
@@ -169,8 +170,6 @@
                     transformRequest:angular.identity,
                     headers: {"Content-Type": undefined}
                 })
-       
-
             }
         }
     }

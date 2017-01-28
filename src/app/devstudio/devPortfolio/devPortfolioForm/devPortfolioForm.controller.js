@@ -15,10 +15,10 @@
         $scope.dateOptions = {
             datepickerMode: "'month'",
             minMode: "month",
-            formatMonth: "MMMM"
+            initDate:  new Date('2015-06-22'),
         };
 
-        $scope.formats = ["MMMM yyyy", "yyyy/MM", "dd.MM.yyyy"];
+        $scope.formats = ["MMMM yyyy", "MMMM-yyyy", "yyyy/MM", "dd.MM.yyyy"];
         $scope.format = $scope.formats[0];
 
         $scope.popup1 = {
@@ -42,7 +42,6 @@
         };
 
         $scope.addProject = function(){
-            console.log($scope.project);
             serverActService.addDevProject($scope.project).then(function (response) {
                     self.addImage(response.data.id)
             },

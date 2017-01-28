@@ -11,13 +11,10 @@
         <h2 class="text-center" ng-bind="project.projectName"></h2>
         <div class="row">
             <div class="col-sm-5">
-                <img ng-src="{{'http://192.168.10.245:8080/api/images/' + project.id + '/' + project.previewImg}}" alt=""/>
+                <img id="photo"  alt=""/>
             </div>
             <div class="col-sm-7">
-                <p ng-bind="project.description"></p>
-                <p ng-bind="project.description"></p>
-                <p ng-bind="project.description"></p>
-                <p ng-bind="project.description"></p>
+                <p ng-bind-html="project.description"></p>
             </div>
         </div>
     </article>
