@@ -8,8 +8,7 @@
 		</ul>
 	</div>
 
-	<div class="form-container form-container-users">
-		<div class="table-responsive">
+	<div class="form-container">
 		<form class="form-horizontal admin-form" method="POST" enctype="multipart/form-data"  name="portfolioForm" role="form" ng-submit="addProject()" novalidate>
             <div class="form-group ">
                 <input   type="hidden" name="id"  ng-model="project.id"   id="inpuId">
@@ -41,19 +40,21 @@
             <div class="form-group">
                 <label for="inputSitePhoto" class="col-sm-3  control-label">Фото</label>
                 <div class="col-sm-9">
-                    <div class="form-group">
-							<form class="form-horizontal admin-form"  name="intPortfolioForm" role="form" ng-submit="addProject()" novalidate>
-								<div class="col-md-9">
 									<div class="col-flex">
-										<span class="btn-file" oi-file="options">
+										<span class="btn-file">
 		                        			<span class="glyphicon glyphicon-plus"></span>
-		                        			<input class="file" type="file" oi-file="options" name="gallery1" ng-model="sitePhoto" file-reader
-		                               valid-file  valid-file-type="['image/png','image/jpeg','image/gif']"  valid-file-size = "10000">
+		                        			<!--<input class="file" ngf-select type="file"  name="gallery1" ng-model="sitePhoto" file-reader
+		                               			valid-file  valid-file-type="['image/png','image/jpeg','image/gif']"  valid-file-size = "10000">-->
+												   	<input class="file" ngf-select type="file"  name="gallery1" ng-model="sitePhoto">
 		                    			</span>
+										
 									</div>
-								</div>
-							</form>
-						</div>
+									
+									  <div ngf-drop ng-model="sitePhoto" ngf-pattern="image/*"  class="cropArea">
+            								<img-crop image="sitePhoto  | ngfDataUrl"  
+												result-image="croppedDataUrl" ng-init="croppedDataUrl=''">
+											</img-crop>
+        								</div>
                 </div>
             </div>
             <div class="form-group">
@@ -71,6 +72,5 @@
 				</div>
             </div>
         </form>
-		</div>
 	</div>
 </div>

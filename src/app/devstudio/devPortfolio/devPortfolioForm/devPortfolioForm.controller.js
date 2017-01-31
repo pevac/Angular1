@@ -41,8 +41,10 @@
             $rootScope.project = $scope.project;
         };
 
-        $scope.addProject = function(){
+        $scope.addProject = function(draft){
+            $scope.project.draft = draft;
             serverActService.addDevProject($scope.project).then(function (response) {
+                console.log(response.data)
                     self.addImage(response.data.id)
             },
             function (response) {
@@ -61,10 +63,7 @@
                 function (response) {
                     console.log(response);
                 });
-                 },
-                function (response) {
-                    console.log(response);
-            });
+                 });
 
               serverActService.addDevImage(mainImg, id).then(function (response) {
                 // $scope.project = null;
@@ -75,10 +74,7 @@
                     console.log(response);
                 });
                 
-                 },
-                function (response) {
-                    console.log(response);
-            });
+                 });
         };
 
         initForm();

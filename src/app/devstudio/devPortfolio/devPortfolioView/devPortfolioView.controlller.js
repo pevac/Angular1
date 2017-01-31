@@ -10,7 +10,6 @@
         function initForm() {
             if(!$rootScope.project){ return; }
             $scope.project = $rootScope.project;
-            console.log($scope.project );
             download();
             $rootScope.project = null;
         }

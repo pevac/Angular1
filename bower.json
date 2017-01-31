@@ -21,6 +21,8 @@
     "trix": "~0.10.0",
     "angular-smart-table": "~2.1.8",
     "angular-file-saver": "~1.1.2",
-    "angular-i18n": "~1.6.0"
+    "angular-i18n": "~1.6.0",
+    "ng-file-upload": "^12.2.13",
+    "ng-img-crop": "ngImgCrop#^0.3.2"
   }
 }

@@ -56,7 +56,11 @@ var path = {
             "./src/assets/lib/angular-smart-table/dist/smart-table.min.js",
             "./src/assets/lib/angular-file-saver/dist/angular-file-saver.min.js",
             "./src/assets/lib/angular-file-saver/dist/angular-file-saver.bundle.min.js",
-            "./src/assets/lib/angular-sanitize/angular-sanitize.min.js"
+            "./src/assets/lib/angular-sanitize/angular-sanitize.min.js",
+            "./src/assets/lib/ng-file-upload/ng-file-upload-shim.js",
+            "./src/assets/lib/ng-file-upload/ng-file-upload.js",
+            "./src/assets/lib/ng-file-upload/FileApi.js",
+             "./src/assets/lib/ng-img-crop/compile/unminified/ng-img-crop.js",
         ]
         },
         styles: SOURCE_BASE_DIR + "/assets/sass/*.scss",
