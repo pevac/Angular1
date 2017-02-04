@@ -130,7 +130,7 @@
 
             .state("home.users", {
                 url: "users",
-                templateUrl:'<div ng-app="usersModule"  ui-view ></div>'
+                template:'<div ng-app="usersModule"  ui-view ></div>'
             })
             .state("home.users.list", {
                 url: "/list",
