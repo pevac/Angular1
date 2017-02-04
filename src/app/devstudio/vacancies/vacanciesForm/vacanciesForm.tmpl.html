@@ -14,8 +14,8 @@
                 <div class="col-sm-9">
                     <span class="arrow"></span>
                     <select id="inputJobPosition" name="jobPosition" ng-model="vacancy.jobPosition.id"  class="form-control" ng-required="true">
-                        <option value="">none</option>
-                        <option ng-repeat="jobPosition in jobPositions" ng-selected="vacancy.jobPosition.id" ng-value="jobPosition.id">{{jobPosition.name}}</option>
+                        <option ng-value="">none</option>
+                        <option ng-repeat="jobPosition in jobPositions"  ng-value="jobPosition.id">{{jobPosition.name}}</option>
                     </select>
                     <div role="alert">
                         <span   class="error" ng-show="vacancyForm.$submitted || vacancyForm.jobPosition.$touched">
@@ -30,7 +30,7 @@
                     <span class="arrow"></span>
                     <select id="inputProject" name="projectName" ng-model="vacancy.project.id"   class="form-control" ng-required="true">
                         <option value="">none</option>
-                        <option ng-repeat="project in projects"  ng-selected="vacancy.project.id" ng-value="project.id">{{project.name}}</option>
+                        <option ng-repeat="project in projects"   ng-value="project.id">{{project.name}}</option>
                     </select>
                     <div role="alert">
                         <span   class="error" ng-show="vacancyForm.$submitted || vacancyForm.projectName.$touched">
@@ -57,7 +57,7 @@
                     <span class="arrow"></span>
                     <select id="inputEmployment" name="workingTime" ng-model="vacancy.workingTime.id"   class="form-control" ng-required="true">
                         <option value="">none</option>
-                        <option ng-repeat="workingTime in workingTimes"  ng-selected="vacancy.workingTime.id" ng-value="workingTime.id">{{workingTime.name}}</option>
+                        <option ng-repeat="workingTime in workingTimes"  ng-value="workingTime.id">{{workingTime.name}}</option>
                     </select>
                     <div role="alert">
                         <span   class="error" ng-show="vacancyForm.$submitted || vacancyForm.workingTime.$touched">

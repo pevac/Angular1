@@ -11,10 +11,9 @@
         <div class="row">
             <div class="col-xs-6 col-sm-4 col-lg-3  col-flex" ng-repeat="vacancy in vacancies" >
                 <div class="panel  panel-default panel-admin">
-                    <div class="panel-heading"><h3>{{vacancy.dataRegist}}</h3></div>
                     <div class="panel-body">
-                        <h2>{{vacancy.jobPosition}}</h2>
-                        <h4>{{vacancy.project}}</h4>
+                        <h2>{{setJobPosition(vacancy.jobPosition)}}</h2>
+                        <h4>{{setProject(vacancy.project)}}</h4>
                     </div>
                     <div class="panel-footer" >
                         <ul class="nav-menu">
