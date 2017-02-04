@@ -14,7 +14,8 @@
             minMode: "month"
         };
 
-        $scope.formats = ["MMMM yyyy", "yyyy/MM", "dd.MM.yyyy", "shortDate"];
+       
+        $scope.formats = ["MMMM yyyy", "MMMM-yyyy", "yyyy/MM", "dd.MM.yyyy"];
         $scope.format = $scope.formats[0];
 
         $scope.popup = {
@@ -27,6 +28,7 @@
 
 
         $scope.addVacancy = function () {
+            console.log($scope.vacancy)
             serverActService.addVacancy($scope.vacancy).then(function (response) {
 
             });
@@ -40,7 +42,6 @@
 
         $scope.getWorkingTimes = function (){
             serverDataService.getWorkingTimes().then(function(data){
-                console.log(data);
                 $scope.workingTimes = data;
             });
         };

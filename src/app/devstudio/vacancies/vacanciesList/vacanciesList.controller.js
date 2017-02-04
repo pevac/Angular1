@@ -11,6 +11,7 @@
 
         function getVacancies(){
             serverDataService.getVacancies().then(function (data) {
+                console.log(data);
                 $scope.vacancies = data;
             });
         };  

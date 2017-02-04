@@ -10,7 +10,7 @@
             
             devProjects: "projects/",
             intProjects: "projects/",
-            vacancies: "vacancies/",
+            vacancies: "vacancies",
             workingTimes: "workingtimes/",
             jobPositions: "jobpositions/",
             customerRequests: "customerrequests/",
@@ -111,7 +111,7 @@
                 var method = (!data.id || data.id === "") ? "POST" : "PUT";
                 var url1 = (!data.id || data.id === "") ? 
                     serverApiConstant.url+serverApiConstant.vacancies : 
-                    serverApiConstant.url+serverApiConstant.vacancies + "/" + data.id;
+                    serverApiConstant.url+serverApiConstant.vacancies  + data.id;
 
                 return  $http({
                     method: method,
@@ -124,7 +124,7 @@
                 var method = (!data.id || data.id === "") ? "POST" : "PUT";
                 var url1 = (!data.id || data.id === "") ? 
                     serverApiConstant.url+serverApiConstant.devProjects : 
-                    serverApiConstant.url+serverApiConstant.devProjects + "/" + data.id;
+                    serverApiConstant.url+serverApiConstant.devProjects + data.id;
 
                 return  $http({
                     method: method,

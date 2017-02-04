@@ -14,8 +14,7 @@
 
         $scope.dateOptions = {
             datepickerMode: "'month'",
-            minMode: "month",
-            initDate:  new Date('2015-06-22'),
+            minMode: "month"
         };
 
         $scope.formats = ["MMMM yyyy", "MMMM-yyyy", "yyyy/MM", "dd.MM.yyyy"];
@@ -43,7 +42,6 @@
 
         $scope.addProject = function(draft){
             $scope.project.draft = draft;
-            console.log($scope.project);
             serverActService.addDevProject($scope.project).then(function (response) {
                     self.addImage(response.data.id)
             },

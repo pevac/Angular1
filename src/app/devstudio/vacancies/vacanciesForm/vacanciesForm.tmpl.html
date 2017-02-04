@@ -13,9 +13,9 @@
                 <label for="inputJobPosition" class="col-sm-3   control-label">Позиція</label>
                 <div class="col-sm-9">
                     <span class="arrow"></span>
-                    <select id="inputJobPosition" name="jobPosition" ng-model="vacancy.jobPositionId"  class="form-control" ng-required="true">
+                    <select id="inputJobPosition" name="jobPosition" ng-model="vacancy.jobPosition.id"  class="form-control" ng-required="true">
                         <option value="">none</option>
-                        <option ng-repeat="jobPosition in jobPositions" ng-selected="vacancy.jobPositionId" ng-value="jobPosition.id">{{jobPosition.name}}</option>
+                        <option ng-repeat="jobPosition in jobPositions" ng-selected="vacancy.jobPosition.id" ng-value="jobPosition.id">{{jobPosition.name}}</option>
                     </select>
                     <div role="alert">
                         <span   class="error" ng-show="vacancyForm.$submitted || vacancyForm.jobPosition.$touched">
@@ -28,9 +28,9 @@
                 <label for="inputProject" class="col-sm-3  control-label">Проект</label>
                 <div class="col-sm-9">
                     <span class="arrow"></span>
-                    <select id="inputProject" name="projectName" ng-model="vacancy.projectId"   class="form-control" ng-required="true">
+                    <select id="inputProject" name="projectName" ng-model="vacancy.project.id"   class="form-control" ng-required="true">
                         <option value="">none</option>
-                        <option ng-repeat="project in projects"  ng-selected="vacancy.projectId" value="project.id">{{project.name}}</option>
+                        <option ng-repeat="project in projects"  ng-selected="vacancy.project.id" ng-value="project.id">{{project.name}}</option>
                     </select>
                     <div role="alert">
                         <span   class="error" ng-show="vacancyForm.$submitted || vacancyForm.projectName.$touched">
@@ -55,9 +55,9 @@
                 <label for="inputEmployment" class="col-sm-3  control-label">Зайнятість</label>
                 <div class="col-sm-9">
                     <span class="arrow"></span>
-                    <select id="inputEmployment" name="workingTime" ng-model="workingTime"   class="form-control" ng-required="true">
+                    <select id="inputEmployment" name="workingTime" ng-model="vacancy.workingTime.id"   class="form-control" ng-required="true">
                         <option value="">none</option>
-                        <option ng-repeat="workingTime in workingTimes" value="workingTime.id">{{workingTime.name}}</option>
+                        <option ng-repeat="workingTime in workingTimes"  ng-selected="vacancy.workingTime.id" ng-value="workingTime.id">{{workingTime.name}}</option>
                     </select>
                     <div role="alert">
                         <span   class="error" ng-show="vacancyForm.$submitted || vacancyForm.workingTime.$touched">
@@ -78,12 +78,12 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="inputStartDate" class="col-sm-3  control-label">Дата публікації</label>
+                <label for="inputDate" class="col-sm-3  control-label">Дата публікації</label>
                 <div class="col-sm-9">
                     <p class="input-group">
-                        <input id="inputStartDate" type="text" name="startDate"  class="form-control"  uib-datepicker-popup="{{format}}"
-                               ng-model="vacancy.dateRegist" uib-datepicker-popup   is-open="popup.opened" datepicker-options="dateOptions"
-                               close-text="Закрити" clear-text="Очистити" current-text="Сьогодні"  ng-pattern="/^((\d{4})-(\d{2})-(\d{2})|(\d{2})\/(\d{2})\/(\d{4}))$/" ng-required="true"/>
+                        <input id="inputDate" type="text" name="date"  class="form-control"  uib-datepicker-popup="{{format}}"
+                               ng-model="vacancy.date" uib-datepicker-popup   is-open="popup.opened" datepicker-options="dateOptions"
+                               close-text="Закрити" clear-text="Очистити" current-text="Сьогодні" ng-required="true"/>
                         <span class="input-group-btn">
                             <button type="button" class="btn btn-default btn-calendar" ng-click="open()"><i class="glyphicon glyphicon-calendar"></i></button>
                         </span>

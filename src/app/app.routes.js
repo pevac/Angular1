@@ -150,6 +150,12 @@
                 templateUrl:"users/view-users/view-users.tmpl.html"
             })
 
+
+                .state("home.works", {
+                    url: "works/",
+                    templateUrl:"work/work.html"
+                })
+                
         
 
             .state("home.training", {
