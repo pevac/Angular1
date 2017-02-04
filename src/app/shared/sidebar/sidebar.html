@@ -56,17 +56,17 @@
 						</ul>
 					</li>
 					<li ng-class='{"active": !isUsersOpen}'>
-						<a ng-init="isUsersOpen=true" ng-click="isUsersOpen=!isUsersOpen; isDevStudioOpen=true; isInternshipOpen=true">
+						<a  ui-sref="home.users.list" ng-init="isUsersOpen=true" ng-click="isUsersOpen=!isUsersOpen; isDevStudioOpen=true; isInternshipOpen=true">
 							<span class="icon users-icon"></span>
 							<span>Users</span>
 							<span class="arrow"></span>
 						</a>
-						<ul class="nav nav-second"  uib-collapse="isUsersOpen">
-							<li ng-class="{ 'active': isActive('/users')}"><a ui-sref="home.users"><span>Користувачі</span></a></li>
-							<!--<li ng-class="{ 'active': isActive('/reviews')}"><a ui-sref=".reviews.list"><span>Відгуки</span></a></li>
+						<!--<ul class="nav nav-second"  uib-collapse="isUsersOpen">
+							<li ng-class="{ 'active': isActive('/users')}"><a><span>Користувачі</span></a></li>
+							<li ng-class="{ 'active': isActive('/reviews')}"><a ui-sref=".reviews.list"><span>Відгуки</span></a></li>
 							<li ng-class="{ 'active': isActive('/training')}"><a ui-sref=".training"><span>Навчальна частина</span></a>
-							</li>-->
-						</ul>
+							</li>
+						</ul>-->
 					</li>
 				</ul>
 		</div>

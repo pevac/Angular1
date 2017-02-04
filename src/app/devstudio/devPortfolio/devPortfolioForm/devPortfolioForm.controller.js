@@ -43,8 +43,8 @@
 
         $scope.addProject = function(draft){
             $scope.project.draft = draft;
+            console.log($scope.project);
             serverActService.addDevProject($scope.project).then(function (response) {
-                console.log(response.data)
                     self.addImage(response.data.id)
             },
             function (response) {
@@ -59,22 +59,23 @@
                 // $scope.project = null;
                 $scope.project.previewImg = photo.name;
                 serverActService.addDevProject($scope.project).then(function (response) {
+                    // console.log(response);
                 },
                 function (response) {
-                    console.log(response);
+                    // console.log(response);
                 });
-                 });
+            });
 
-              serverActService.addDevImage(mainImg, id).then(function (response) {
+            serverActService.addDevImage(mainImg, id).then(function (response) {
                 // $scope.project = null;
                 $scope.project.mainImg = mainImg.name;
                 serverActService.addDevProject($scope.project).then(function (response) {
                 },
                 function (response) {
-                    console.log(response);
+                    // console.log(response);
                 });
                 
-                 });
+            });
         };
 
         initForm();

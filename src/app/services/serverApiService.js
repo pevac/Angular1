@@ -164,7 +164,6 @@
                 var url1 =serverApiConstant.url+ serverApiConstant.devImage + id
                 var fd = new FormData();
                 fd.append('file', data);
-
                 return  $http({
                     method: method,
                     url: url1,

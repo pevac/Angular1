@@ -44,3 +44,11 @@
     }
   }
 }
+
+.draft{
+  background: url("../img/draft.png") center no-repeat;
+  display: block;
+  background-size: contain;
+  min-width: 50px;
+  height: 44px;
+}

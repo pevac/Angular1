@@ -130,18 +130,21 @@
 
             .state("home.users", {
                 url: "users",
+                templateUrl:'<div ng-app="usersModule"  ui-view ></div>'
+            })
+            .state("home.users.list", {
+                url: "/list",
                 templateUrl:"users/list-users/list-users.tmpl.html"
             })
-            .state("home.addusers", {
-                url: "add",
+            .state("home.users.add", {
+                url: "/add",
                 templateUrl:"users/form-users/form-users.tmpl.html"
             })
-            .state("home.edituser", {
-                url: "/edit?user",
-                controller: "addIntPortfolioCtrl",
+            .state("home.users.edit", {
+                url: "/edit",
                 templateUrl:"users/form-users/form-users.tmpl.html"
             })
-            .state("home.viewuser", {
+            .state("home.users.view", {
                 url: "/view?hello",
                 controller: "viewUserCtrl",
                 templateUrl:"users/view-users/view-users.tmpl.html"

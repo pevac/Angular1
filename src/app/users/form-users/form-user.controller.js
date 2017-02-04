@@ -2,52 +2,46 @@
     angular.module('usersModule')
         .controller('addUsersCtrl', addUsersCtrl)
 
-    addUsersCtrl.$inject = ["$scope","$stateParams", "serverActService"];
+    addUsersCtrl.$inject = ["$scope","$stateParams",  "serverActService"];
 
-    function addUsersCtrl($scope,  $stateParams, serverActService) {
-        //$scope.clear = function() {
-        //    $scope.dt = null;
-        //};
+    function addUsersCtrl($scope,  $stateParams,   serverActService) {
+        $scope.upload = function (dataUrl, foto) {
+            var image = dataUrl;
+            var base64ImageContent = image.replace(/^data:image\/(png|jpg);base64,/, "");
+            var blob = base64ToBlob(base64ImageContent, foto);   
+                console.log(blob);
 
-        //$scope.dateOptions = {
-        //    formatYear: 'yy',
-        //    maxDate: new Date(2040, 5, 22),
-        //    minDate: new Date(),
-        //    startingDay: 1,
-        //};
+            serverActService.addDevImage(foto, 2).then(function (response) {
+                            console.log(response);
+            });
 
-        //$scope.open1 = function() {
-        //    $scope.popup1.opened = true;
-        //};
+            function base64ToBlob(base64, foto){
+                mime = foto.type || '';
+                var sliceSize = foto.size || 1024;
+                var byteChars = window.atob(base64);
+                var byteArrays = [];
 
-        //$scope.open2 = function() {
-        //    $scope.popup2.opened = true;
-        //};
+                for (var offset = 0, len = byteChars.length; offset < len; offset += sliceSize) {
+                    var slice = byteChars.slice(offset, offset + sliceSize);
 
-        //$scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
-        //$scope.format = $scope.formats[2];
+                    var byteNumbers = new Array(slice.length);
+                    for (var i = 0; i < slice.length; i++) {
+                        byteNumbers[i] = slice.charCodeAt(i);
+                    }
 
-        //$scope.popup1 = {
-        //    opened: false
-        //};
+                    var byteArray = new Uint8Array(byteNumbers);
 
-        //$scope.popup2 = {
-        //    opened: false
-        //};
+                    byteArrays.push(byteArray);
+                }
 
-        //$scope.addProject = function(){
-        //console.log($scope.project);
-        //    serverActService.addIntProject($scope.project).then(function (response) {
+                var blob = new Blob(byteArrays, {type: mime});
+                blob.name = foto.name;
+                
+                return blob;
+            }
 
-        //    });
-        //};
+        }
 
-        //initForm();
-
-        //function initForm() {
-        //    if(!$stateParams.project){ return; }
-         //   $scope.project = JSON.parse($stateParams.project)
-        //}
     }
 })();
 
