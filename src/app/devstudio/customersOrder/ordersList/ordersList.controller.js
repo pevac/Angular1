@@ -19,10 +19,10 @@
 
             $timeout(function () {
                 var blob = new Blob([document.getElementById('fullOrderCustomersTable').innerHTML], {
-                    type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8;"
+                    type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;"
                 });
-                FileSaver.saveAs(blob, "Report.xls");
-            }, 0);
+                FileSaver.saveAs(blob, "Report.xlsx");
+            }, 100);
         };
 
         $scope.saveData = function (data){
@@ -39,9 +39,9 @@
                         document.body.append(el);
                     }
                     $timeout(function () {
-                        var  blob = new Blob([document.getElementById('exportOrder').innerHTML], {type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8;"});
-                        FileSaver.saveAs(blob, "Report.xls");
-                    }, 0);
+                        var  blob = new Blob([document.getElementById('exportOrder').innerHTML], {type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;"});
+                        FileSaver.saveAs(blob, "Report.xlsx");
+                    }, 100);
 
                 }
             )

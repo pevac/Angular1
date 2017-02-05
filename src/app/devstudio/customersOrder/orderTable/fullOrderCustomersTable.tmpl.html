@@ -16,8 +16,8 @@
                     <th>Ми розглядаємо вашу заявку як співпрацю в сфері розробки повноцінного IT-рішення (веб-додаток, мобільний додаток і т.д)</th>
                 </tr>
                 <tr ng-repeat="customerOrder in customers">
-                    <td>{{customerOrder.name}}</td>
-                    <td>{{customerOrder.site}}</td>
+                    <td>{{customerOrder.company}}</td>
+                    <td>{{customerOrder.url}}</td>
                     <td>{{customerOrder.fullName}}</td>
                     <td>{{customerOrder.jobPosition}}</td>
                     <td>{{customerOrder.phone}}</td>
@@ -25,7 +25,7 @@
                     <td>{{customerOrder.clients}}</td>
                     <td>{{customerOrder.objectives}}</td>
                     <td>{{customerOrder.expectation}}</td>
-                    <td>{{customerOrder.prototypeRequered}}</td>
+                    <td>{{customerOrder.prototypeRequired}}</td>
                 </tr>
             </table>
         </div>

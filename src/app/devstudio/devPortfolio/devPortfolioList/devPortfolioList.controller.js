@@ -8,50 +8,51 @@
             $rootScope.project = project;
         };
 
-        //   $scope.open = function () {
-        //     var parentElem =  angular.element($document[0].querySelector('.devportfolio'));
-        //     var modalInstance = $uibModal.open({
-        //     animation: true,
-        //     ariaLabelledBy: 'modal-title',
-        //     ariaDescribedBy: 'modal-body',
-        //     templateUrl: 'devstudio/devPortfolio/modal/modal.tmpl.html',
-        //     controller: 'ModalInstanceCtrl',
-        //     appendTo: parentElem,
-        //    resolve: {} // empty storage
-          
-
-        //     });
-
-        //     modalInstance.result.then(function (selectedItem) {
-        //         // console.log(selectedItem)
-        //     //   $ctrl.selected = selectedItem;
-        //     }, function () {
-        //     $log.info('Modal dismissed at: ' + new Date());
-        //     });
-        // };
-
-
         $scope.publish = function(project){
-            project.draft = !project.draft;
-              serverActService.addDevProject(project).then(function (response) {
-                  getProjects();
-            },
-            function (response) {
-                console.log(response);
-            });
+            var newProject = project;
+            newProject.draft = !project.draft;
+            if(newProject.draft) { newProject.inTop = false }
+            addDevProject(newProject)
         };
 
         $scope.changeTop = function(project){
-            project.inTop = !project.inTop;
-              serverActService.addDevProject(project).then(function (response) {
-                //    $scope.showModal = true;
-                // $scope.open();
+           serverDataService.getDevProjects().then(function (data) {
+                var _isCheckTop = isCheckTop(data);
+               if(_isCheckTop && project.inTop || project.inTop && !_isCheckTop || !project.inTop && _isCheckTop){
+                    var newProject = project;
+                    newProject.inTop = !newProject.inTop;
+                    addDevProject(project);
+               }else{
+                    alert("Кількість проектів з зафарбованою зіркою не більше 4");
+               }
+            });
+           
+        };
+
+        function  addDevProject(data){
+            serverActService.addDevProject(data).then(function (response) {
                   getProjects();
-            },
-            function (response) {
-                console.log(response);
             });
         };
+
+        
+
+        function isCheckTop(arg){
+            var projects = arg;
+            var inTop = true;
+            var index=0;
+            for(var i = 0; i < projects.length; i++){
+                if(!projects[i].draft  && projects[i].inTop) {
+                    index++;
+                }
+                if(index >= 4){
+                    inTop = false;
+                    // break;
+                }
+            }
+
+            return inTop;
+        }
 
         function getProjects(){
             serverDataService.getDevProjects().then(function (data) {
@@ -59,9 +60,8 @@
             });
         };
 
-        (function(){
-            getProjects();
-        })()
+        getProjects();
+
     }
 })();
 
