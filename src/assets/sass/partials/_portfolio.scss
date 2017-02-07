@@ -22,14 +22,16 @@
 .project-view {
   padding: 10px 0 15px 0;
   min-height: 370px;
+  width: 70%;
+  margin: 0 auto;
+  background: #f5bf02;
 
   img {
-    min-height: 200px;
+    // min-height: 200px;
+    width: 100%;
   }
 
-  .description {
-    //background-color: $yellow-base-color;
-    padding: 0 40px 22px 40px;
+  .preview {
 
     h1 {
       font-size: 28px;
@@ -38,9 +40,9 @@
       font-weight: 700;
     }
 
-    p {
+    .description  {
       font-size: 18px;
-      margin-left: 12px;
+      padding: 15px;
     }
   }
 }

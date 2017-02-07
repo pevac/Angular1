@@ -120,7 +120,13 @@
         function initForm() {
             if(!$rootScope.project){ return; }
             $scope.project = $rootScope.project;
+            console.log();
             $rootScope.project = null;
+             serverDataService.getDevImage1($scope.project.mainImg, $scope.project.id).then(function (response) {
+         
+            console.log(response);
+         
+            });
         }
 
         initForm();

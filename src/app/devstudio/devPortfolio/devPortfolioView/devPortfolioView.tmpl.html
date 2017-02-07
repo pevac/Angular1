@@ -7,14 +7,14 @@
 			</li>
 		</ul>
     </div>
-    <article class="description ">
-        <h2 class="text-center" ng-bind="project.projectName"></h2>
+    <article class="preview">
+        <h1 class="text-center" ng-bind="project.name"></h1>
         <div class="row">
-            <div class="col-sm-5">
+            <div class="col-sm-12">
                 <img id="photo"  alt=""/>
             </div>
-            <div class="col-sm-7">
-                <p ng-bind-html="project.description"></p>
+            <div class="col-sm-12">
+                <div class="description" ng-bind-html="project.description"></div>
             </div>
         </div>
     </article>
