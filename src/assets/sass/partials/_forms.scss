@@ -8,6 +8,19 @@
   padding: 35px;
   margin-top: 70px;
 
+.img-container{
+  text-align: center;
+  // padding: 5px;
+  background: #E4E4E4;
+  height: 210px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  
+  img{
+    width: auto;
+  }
+}
   
   .btn_container{
     padding: 0 15px;

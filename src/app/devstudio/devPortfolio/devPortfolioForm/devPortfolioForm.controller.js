@@ -3,21 +3,25 @@
     angular.module("devPortfolioModule")
         .controller("addDevPortfolioCtrl", addDevPortfolioCtrl)
 
-    addDevPortfolioCtrl.$inject = ["$scope", "serverActService", "serverDataService", "$rootScope"];
+    addDevPortfolioCtrl.$inject = ["$scope", "serverActService", "$state", "serverDataService", "$rootScope"];
 
-    function addDevPortfolioCtrl($scope, serverActService, serverDataService,  $rootScope) {
+    function addDevPortfolioCtrl($scope, serverActService, $state, serverDataService,  $rootScope) {
         var self = this;
+        // var isTop;
+        if($scope.project) { var isTop = $scope.project.inTop;}
 
         self.clear = function() {
             $scope.project = null;
         };
+
+        // console.log(date);
 
         $scope.dateOptions = {
             datepickerMode: "'month'",
             minMode: "month"
         };
 
-        $scope.formats = ["MMMM yyyy", "MMMM-yyyy", "yyyy/MM", "dd.MM.yyyy"];
+        $scope.formats = ["MMMM yyyy","yyyy-MM-dd", "MMMM-yyyy", "yyyy/MM", "dd.MM.yyyy"];
         $scope.format = $scope.formats[0];
 
         $scope.popup1 = {
@@ -53,16 +57,15 @@
         };
 
         self.addImage = function(id){
-             var photo = $scope.photo.sitePhoto;
-             var mainImg = $scope.photo.pagePhoto;
-             serverActService.addDevImage(photo, id).then(function (response) {
+             var previewImg = $scope.photo.previewImg;
+             var mainImg = $scope.photo.mainImg;
+             serverActService.addDevImage(previewImg, id).then(function (response) {
                 // $scope.project = null;
-                $scope.project.previewImg = photo.name;
+                $scope.project.previewImg = previewImg.name;
                 serverActService.addDevProject($scope.project).then(function (response) {
-                    // console.log(response);
+                   $state.go("home.devportfolio.list");
                 },
                 function (response) {
-                    // console.log(response);
                 });
             });
 
@@ -70,24 +73,26 @@
                 // $scope.project = null;
                 $scope.project.mainImg = mainImg.name;
                 serverActService.addDevProject($scope.project).then(function (response) {
+                    $state.go("home.devportfolio.list");
                 },
                 function (response) {
-                    // console.log(response);
                 });
                 
             });
         };
 
+       
         $scope.changeTop = function(project){
+            console.log($scope.photo.previewImg);
+            
            serverDataService.getDevProjects().then(function (data) {
                 var _isCheckTop = isCheckTop(data);
+                console.log(isTop);
                 
-               if(_isCheckTop && !project.inTop || !project.inTop && !_isCheckTop || project.inTop && _isCheckTop){
-                    // var newProject = project;
-                    // newProject.inTop = !newProject.inTop;
-                    // addDevProject(project);
+               if(project.id && (_isCheckTop && !project.inTop || !project.inTop && !_isCheckTop || project.inTop && _isCheckTop || isTop && project.inTop && !_isCheckTop  )){
+                
                }else{
-                    $scope.project.inTop = false;
+                    $scope.project.inTop = isTop;
                     alert("Кількість проектів з зафарбованою зіркою не більше 4");
                }
             });
@@ -117,16 +122,36 @@
             return inTop;
         }
 
+        $scope.initPriveiwImage = function (){
+            var url = serverDataService.getDevImage1($scope.project.mainImg, $scope.project.id);
+            console.log(url);
+            
+            var input = document.getElementById("inputSitePhoto");
+            input.value = url;
+            // return a;
+        }
+
         function initForm() {
             if(!$rootScope.project){ return; }
             $scope.project = $rootScope.project;
-            console.log();
+            isTop = $scope.project.inTop;
+            $scope.project.dateStart = new Date($scope.project.dateStart);
+            $scope.project.dateEnd = new Date($scope.project.dateEnd);
+           $scope.photo1 = setImageUrl($scope.project.previewImg, $scope.project.id );
             $rootScope.project = null;
-             serverDataService.getDevImage1($scope.project.mainImg, $scope.project.id).then(function (response) {
-         
-            console.log(response);
-         
-            });
+        }
+
+        function setImageUrl(name, id){
+            serverDataService.getDevImage(name, id).then(function(data){
+            var arrayBufferView = new Uint8Array( data );
+            var blob = new Blob( [ arrayBufferView ], { type: "image/png" } );
+            blob.name = name;
+            
+            var urlCreator = window.URL || window.webkitURL;
+            var imageUrl = urlCreator.createObjectURL( blob );
+            console.log(imageUrl);
+            return blob;
+          })
         }
 
         initForm();

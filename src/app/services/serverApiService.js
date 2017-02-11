@@ -104,13 +104,7 @@
             },
 
                getDevImage1:   function(imgName, id){
-                var url1 =(serverApiConstant.url +serverApiConstant.devImage + id+ '/' + imgName)
-                 return    $http.get(
-                     url1
-                )
-                .then(function(response){
-                    return response.data;
-                })
+                return (serverApiConstant.url +serverApiConstant.devImage + id+ '/' + imgName)
             }
 
         }

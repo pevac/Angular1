@@ -3,8 +3,8 @@
     angular.module("vacancyModule", [])
         .controller("vacanciesController",vacanciesController);
 
-    vacanciesController.$inject  = ['$scope', 'serverDataService']
-    function vacanciesController($scope, serverDataService) {
+    vacanciesController.$inject  = ["$scope", "rootScope", "serverDataService"];
+    function vacanciesController($scope, rootScope, serverDataService) {
         $scope.goToEdit = function(vacancy) {
             $rootScope.vacancy = vacancy;
         };
@@ -35,19 +35,19 @@
             });
         };  
 
-           $scope.getJobPositions = function () {
+        function getJobPositions() {
             serverDataService.getJobPositions().then(function (data) {
                 $scope.jobPositions = data;
             });
         };
 
-        $scope.getWorkingTimes = function (){
+        function getWorkingTimes(){
             serverDataService.getWorkingTimes().then(function(data){
                 $scope.workingTimes = data;
             });
         };
 
-        $scope.getDevProjects = function () {
+        function getDevProjects() {
             serverDataService.getDevProjects().then(function (data) {
                 $scope.projects = data;
             })
@@ -55,10 +55,10 @@
 
         
         (function(){
-            $scope.getJobPositions();
-            $scope.getDevProjects();
+            getJobPositions();
+            getDevProjects();
             getVacancies();
-            $scope.getWorkingTimes();
+            getWorkingTimes();
         })()
     };
 })();

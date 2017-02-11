@@ -32,6 +32,10 @@ ul.nav-menu{
     min-height: 40px;
     border-radius: 0;
 
+    a{
+      cursor: pointer;
+    }
+
     span{
       color: black;
       &:focus, &:hover{
