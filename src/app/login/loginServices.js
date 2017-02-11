@@ -45,8 +45,9 @@
         var authService = {};
 
         authService.login = function (credentials) {
+            console.log(credentials);
             return $http
-                .post("http://localhost:8080/api/login", credentials)
+                .post("http://localhost:8080/dev-studio/api/login", credentials)
                 .then(function (res) {
                     console.log(res);
                     Session.create(res.data.id, res.data.user.id, res.data.user.role);

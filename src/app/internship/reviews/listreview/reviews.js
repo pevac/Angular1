@@ -2,25 +2,29 @@
     angular.module('reviewsModule')
         .controller('reviewCtrl', reviewCtrl);
 
-    function reviewCtrl($scope, $state , serverDataService){
-        $scope.getProjects = function(){
-            serverDataService.getDevProjects().then(function (data) {
-                $scope.projects = data;
+    reviewCtrl.$inject = ["$scope", "$rootScope", "$state", "serverDataService"];
+
+    function reviewCtrl($scope, $rootScope, $state, serverDataService){
+        var vm = this;
+        getReviews = function(){
+            serverDataService.getReviews().then(function (data) {
+                vm.reviews = data;
             });
         };
 
-        $scope.reviewJson = function (obj) {
-            return JSON.stringify(obj);
+        vm.setImage = function(review){
+            var imageUrl;
+          return  serverDataService.getDevImage1(review.img, review.id);
+        }
+
+        vm.goToEdit = function(review) {
+            $rootScope.review = review;
+            $state.go('home.reviews.editreview');
         };
 
-        // $scope.goToEdit = function(project) {
-        //     $state.go('home.devportfolio.editportfolio', {project: JSON.stringify(project)} );
-        // };
 
+        getReviews();
 
-        // (function(){
-        //     $scope.getProjects();
-        // })()
     }
 })();
 

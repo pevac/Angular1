@@ -3,8 +3,8 @@
     angular.module("vacancyModule", [])
         .controller("vacanciesController",vacanciesController);
 
-    vacanciesController.$inject  = ["$scope", "rootScope", "serverDataService"];
-    function vacanciesController($scope, rootScope, serverDataService) {
+    vacanciesController.$inject  = ["$scope", "$rootScope", "serverDataService"];
+    function vacanciesController($scope, $rootScope, serverDataService) {
         $scope.goToEdit = function(vacancy) {
             $rootScope.vacancy = vacancy;
         };

@@ -8,14 +8,14 @@
         $scope.upload = function (dataUrl, foto) {
             var image = dataUrl;
             var base64ImageContent = image.replace(/^data:image\/(png|jpg);base64,/, "");
-            var blob = base64ToBlob(base64ImageContent, foto);   
-                console.log(blob);
+            var file = base64ToFile(base64ImageContent, foto);   
 
-            serverActService.addDevImage(foto, 2).then(function (response) {
+            serverActService.addDevImage(file, 2).then(function (response) {
                             console.log(response);
             });
+        }
 
-            function base64ToBlob(base64, foto){
+         function base64ToFile(base64, foto){
                 mime = foto.type || '';
                 var sliceSize = foto.size || 1024;
                 var byteChars = window.atob(base64);
@@ -34,13 +34,10 @@
                     byteArrays.push(byteArray);
                 }
 
-                var blob = new Blob(byteArrays, {type: mime});
-                blob.name = foto.name;
+                var file = new File(byteArrays, foto.name, {type:mime});
                 
-                return blob;
+                return file;
             }
-
-        }
 
     }
 })();

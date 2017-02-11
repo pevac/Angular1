@@ -6,15 +6,16 @@
         .factory("serverActService", setData)
         .constant("serverApiConstant",{
             url : 'http://128.0.169.5:8888/dev-studio/api/',
-            // url : 'http://192.168.10.245:8080/api/',
+            // url : 'http://192.168.10.168:8080/api/',
             
             devProjects: "projects/",
             intProjects: "projects/",
-            vacancies: "vacancies",
+            vacancies: "vacancies/",
             workingTimes: "workingtimes/",
             jobPositions: "jobpositions/",
             customerRequests: "customerrequests/",
-            devImage: "images/"
+            devImage: "images/",
+            review: "internshipfeedback/"
         });
 
      
@@ -92,6 +93,15 @@
                     })
             },
 
+              getReviews: function(data){
+                return  $http({
+                    method: "GET",
+                    url: serverApiConstant.url+serverApiConstant.review,
+                }).then(function(response){
+                    return response.data;
+                })
+            },
+
              getDevImage:   function(imgName, id){
                 var url1 =(serverApiConstant.url +serverApiConstant.devImage + id+ '/' + imgName)
                  return    $http.get(
@@ -99,7 +109,7 @@
                     {responseType: "arraybuffer"}
                 )
                 .then(function(response){
-                    return response.data;
+                    return response;
                 })
             },
 
@@ -128,8 +138,8 @@
             addReview: function(data){
                 var method = (!data.id || data.id === "") ? "POST" : "PUT";
                 var url1 = (!data.id || data.id === "") ? 
-                    serverApiConstant.url+serverApiConstant.devProjects : 
-                    serverApiConstant.url+serverApiConstant.devProjects + data.id;
+                    serverApiConstant.url+serverApiConstant.review : 
+                    serverApiConstant.url+serverApiConstant.review + data.id;
 
                 return  $http({
                     method: method,

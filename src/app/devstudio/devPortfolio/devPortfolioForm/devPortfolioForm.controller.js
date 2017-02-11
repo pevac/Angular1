@@ -3,9 +3,9 @@
     angular.module("devPortfolioModule")
         .controller("addDevPortfolioCtrl", addDevPortfolioCtrl)
 
-    addDevPortfolioCtrl.$inject = ["$scope", "serverActService", "$state", "serverDataService", "$rootScope"];
+    addDevPortfolioCtrl.$inject = ["$scope", "serverActService", "$state", "$q", "serverDataService", "$rootScope"];
 
-    function addDevPortfolioCtrl($scope, serverActService, $state, serverDataService,  $rootScope) {
+    function addDevPortfolioCtrl($scope, serverActService, $state, $q,  serverDataService,  $rootScope) {
         var self = this;
         // var isTop;
         if($scope.project) { var isTop = $scope.project.inTop;}
@@ -124,34 +124,41 @@
 
         $scope.initPriveiwImage = function (){
             var url = serverDataService.getDevImage1($scope.project.mainImg, $scope.project.id);
-            console.log(url);
+            // console.log(url);
             
             var input = document.getElementById("inputSitePhoto");
             input.value = url;
+            console.log(input.value);
             // return a;
         }
+
 
         function initForm() {
             if(!$rootScope.project){ return; }
             $scope.project = $rootScope.project;
             isTop = $scope.project.inTop;
+            // $scope.initPriveiwImage();
+            
             $scope.project.dateStart = new Date($scope.project.dateStart);
-            $scope.project.dateEnd = new Date($scope.project.dateEnd);
-           $scope.photo1 = setImageUrl($scope.project.previewImg, $scope.project.id );
+            if($scope.project.dateEnd) $scope.project.dateEnd = new Date($scope.project.dateEnd);
+        //   setImageUrl($scope.project.previewImg, $scope.project.id );
             $rootScope.project = null;
+
         }
 
         function setImageUrl(name, id){
-            serverDataService.getDevImage(name, id).then(function(data){
-            var arrayBufferView = new Uint8Array( data );
-            var blob = new Blob( [ arrayBufferView ], { type: "image/png" } );
-            blob.name = name;
             
-            var urlCreator = window.URL || window.webkitURL;
-            var imageUrl = urlCreator.createObjectURL( blob );
-            console.log(imageUrl);
-            return blob;
+            serverDataService.getDevImage(name, id).then(function(response){
+            var arrayBufferView = new Uint8Array( response.data );
+            var type = response.headers('content-type') || 'image/WebP';
+            var file = new File( [ arrayBufferView ], name, { type: type } );
+            var input = document.getElementById("inputSitePhoto");
+            input.files[0] = file;
+            console.log( input.files[0]);
+
+
           })
+           
         }
 
         initForm();

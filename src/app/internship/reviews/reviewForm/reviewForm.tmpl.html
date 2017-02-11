@@ -1,4 +1,4 @@
-<div class="add-review"  ng-controller="addReviewCtrl">
+<div class="add-review"  ng-controller="addReviewCtrl as vm">
     <div class="top-nav-container">
         <h2 class="h2">Відгуки</h2>
         <ul class="nav navbar-nav navbar-right">
@@ -8,11 +8,11 @@
         </ul>
     </div>
     <div class="form-container">
-        <form id="formValidate" class="form-horizontal admin-form" name="reviewForm" role="form" ng-submit="addReview()" novalidate>
+        <form id="formValidate" class="form-horizontal admin-form" name="reviewForm" role="form"  novalidate>
             <div class="form-group">
                 <label for="inputName" class="col-sm-3  control-label">Ім'я</label>
                 <div class="col-sm-9">
-                    <input   type="text" name="fullName" ng-model="review.name"  class="form-control" id="inputName" ng-maxlength="50" ng-required="true">
+                    <input   type="text" name="fullName" ng-model="vm.review.name"  class="form-control" id="inputName" ng-maxlength="50" ng-required="true">
                     <div role="alert">
                         <span   class="error" ng-show="reviewForm.$submitted || reviewForm.fullName.$touched">
                             <span  ng-show="reviewForm.fullName.$error.required">Це поле є обов'язкове</span>
@@ -25,9 +25,9 @@
                 <label for="inputJobPosition" class="col-sm-3   control-label">Позиція</label>
                 <div class="col-sm-9">
                     <span class="arrow"></span>
-                    <select id="inputJobPosition" name="jobPosition" ng-model="review.jobPositionId"  class="form-control" ng-required="true">
+                    <select id="inputJobPosition" name="jobPosition" ng-model="vm.review.jobPosition.id"  class="form-control" ng-required="true">
                         <option value="">none</option>
-                        <option ng-repeat="jobPosition in jobPositions" ng-selected="vacancy.jobPositionId" ng-value="jobPosition.id">{{jobPosition.jobName}}</option>
+                        <option ng-repeat="jobPosition in vm.jobPositions"  ng-value="jobPosition.id">{{jobPosition.name}}</option>
                     </select>
                     <div role="alert">
                         <span   class="error" ng-show="reviewForm.$submitted || reviewForm.jobPosition.$touched">
@@ -40,9 +40,9 @@
                 <label for="inputProject" class="col-sm-3  control-label">Проект</label>
                 <div class="col-sm-9">
                     <span class="arrow"></span>
-                    <select id="inputProject" name="projectName" ng-model="review.projectId"   class="form-control" ng-required="true">
+                    <select id="inputProject" name="projectName" ng-model="vm.review.project.id"   class="form-control" ng-required="true">
                         <option value="">none</option>
-                        <option ng-repeat="project in projects"  ng-selected="review.projectId" value="project.id">{{project.projectName}}</option>
+                        <option ng-repeat="project in vm.projects"  ng-value="project.id">{{project.name}}</option>
                     </select>
                     <div role="alert">
                         <span   class="error" ng-show="reviewForm.$submitted || reviewForm.projectName.$touched">
@@ -51,41 +51,22 @@
                     </div>
                 </div>
             </div>
-            <!--<div class="form-group">
+            <div class="form-group">
                 <label for="inputPhoto" class="col-sm-3  control-label">Фото</label>
                 <div class="col-sm-9">
-                    <input id="inputPhoto"   class="file" type="file" name="photo" ng-model="review.photo" file-reader  valid-file  valid-file-type="['image/png','image/jpeg','image/gif']"  valid-file-size = "10000" >
-                    <span class="custom-file-control" >{{review.photo.name ? review.photo.name: "Завантажити фото" }}</span>
-                    <div role="alert">
-                        <span   class="error" ng-show="reviewForm.$submitted || reviewForm.photo.$touched">
-                            <span  ng-show="reviewForm.photo.$error.validFile">Це поле є обов'язкове</span>
-                            <span  ng-show="reviewForm.photo.$error.validFileType">Невірний формат файлу</span>
-                            <span  ng-show="reviewForm.photo.$error.validFileSize">Занадто великий файл</span>
-                        </span>
-                    </div>
-                </div>
-            </div>-->
-                   <div class="form-group">
-                <label for="inputSitePhoto" class="col-sm-3  control-label">Фото</label>
-                <div class="col-sm-9">
-									<div class="col-flex">
-										<span class="btn-file">
-		                        			<span class="glyphicon glyphicon-plus"></span>
-												   	<input class="file" ngf-select type="file"  name="gallery1" ng-model="sitePhoto">
-		                    			</span>
-										
-									</div>
-									  <div ngf-drop ng-model="sitePhoto" ngf-pattern="image/*"  class="cropArea">
-            								<img-crop image="sitePhoto  | ngfDataUrl"  
-												result-image="croppedDataUrl" ng-init="croppedDataUrl=''">
-											</img-crop>
-        								</div>
+				    <div class="col-flex">
+		                <span class="custom-file-control" >{{vm.photo ? vm.photo.name : "Завантажити фото" }}</span>
+						<input id="inputPhoto" class="file" ngf-select type="file"  name="photo" ng-model="vm.photo">
+					</div>
+					<div ngf-drop ng-model="vm.photo" ngf-pattern="image/*"  class="cropArea">
+            			<img-crop image="vm.photo  | ngfDataUrl"  result-image="vm.croppedDataUrl" ng-init="vm.croppedDataUrl=''"></img-crop>
+        			</div>
                 </div>
             </div>
             <div class="form-group">
                 <label  class="col-sm-3 control-label">Відгук</label>
                 <div class="col-sm-9">
-                    <trix-editor  angular-trix name="description" ng-model="review.description" class="trix-content" ng-maxlength="250"  ng-required="true"></trix-editor>
+                    <trix-editor  angular-trix name="description" ng-model="vm.review.description" class="trix-content" ng-maxlength="250"  ng-required="true"></trix-editor>
                     <div role="alert">
                         <span   class="error" ng-show="reviewForm.$submitted || reviewForm.description.$touched">
                             <span  ng-show="reviewForm.description.$error.required">Це поле є обов'язкове</span>
@@ -96,7 +77,7 @@
             </div>
             <div class="form-group">
                 <div class="text-center">
-                    <button type="submit"  id="sendBtn" class="btn btn-primary btn-save">Зберегти чорновик</button>
+                    <button type="submit" ng-click="vm.addReview()"  id="sendBtn" class="btn btn-primary btn-save">Зберегти</button>
                 </div>
             </div>
         </form>
