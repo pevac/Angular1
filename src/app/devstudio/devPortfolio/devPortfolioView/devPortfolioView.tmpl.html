@@ -1,4 +1,4 @@
-<div  class="project-view" ng-controller="viewDevPortfolioCtrl">
+<div  class="project-view" ng-controller="viewDevPortfolioCtrl as $ctrl">
      <div class="top-nav-container">
         <h2 class="h2">Портфоліо</h2>
         <ul class="nav navbar-nav navbar-right">
@@ -8,13 +8,13 @@
 		</ul>
     </div>
     <article class="preview">
-        <h1 class="text-center" ng-bind="project.name"></h1>
+        <h1 class="text-center" ng-bind="$ctrl.project.name"></h1>
         <div class="row">
             <div class="col-sm-12">
-                <img id="photo"  alt=""/>
+                <img id="photo" ng-src="{{$ctrl.image}}"  alt=""/>
             </div>
             <div class="col-sm-12">
-                <div class="description" ng-bind-html="project.description"></div>
+                <div class="description" ng-bind-html="$ctrl.project.description"></div>
             </div>
         </div>
     </article>

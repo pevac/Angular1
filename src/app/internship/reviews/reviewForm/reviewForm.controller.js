@@ -25,7 +25,7 @@
             var base64ImageContent = imageBase64.replace(/^data:image\/(png|jpg);base64,/, "");
             var file = base64ToFile(base64ImageContent, photo);   
           
-            serverActService.addDevImage(file, data.id).then(function (response) {
+            serverActService.addDevImage(file, data).then(function (response) {
                var  review  = data;
                review.img = file.name;
                 serverActService.addReview(review).then(function (response) {

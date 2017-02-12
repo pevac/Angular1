@@ -2,31 +2,29 @@
     angular.module('devPortfolioModule')
     .controller('viewDevPortfolioCtrl', viewDevPortfolioCtrl);
 
-    viewDevPortfolioCtrl.$inject = ["$scope","$stateParams", "$rootScope","serverDataService"];
-    function viewDevPortfolioCtrl($scope, $stateParams ,$rootScope,  serverDataService) {
-
+    viewDevPortfolioCtrl.$inject = ["$scope", "$location",  "$stateParams", "$rootScope","serverDataService"];
+    function viewDevPortfolioCtrl($scope, $location, $stateParams ,$rootScope,  serverDataService) {
+        var vm = this;
+        
         initForm();
        
         function initForm() {
-            if(!$rootScope.project){ return; }
-            $scope.project = $rootScope.project;
-            download();
+            vm.project = $rootScope.project;
+            setImage();
             $rootScope.project = null;
         }
 
 
-        function download()
+        function setImage()
         {
-          serverDataService.getDevImage($scope.project.previewImg,  $scope.project.id).then(function(data){
+          serverDataService.getDevImage(vm.project.previewImg,  vm.project.id).then(function(data){
             var arrayBufferView = new Uint8Array( data );
             var blob = new Blob( [ arrayBufferView ], { type: "image/png" } );
             
             var urlCreator = window.URL || window.webkitURL;
             var imageUrl = urlCreator.createObjectURL( blob );
-            
-            var img = document.querySelector( "#photo" );
-            img.src = imageUrl;
-          })
+            vm.image = imageUrl;
+          });
         }
     }
 })();
