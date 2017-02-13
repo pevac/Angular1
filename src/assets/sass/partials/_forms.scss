@@ -1,12 +1,29 @@
 @import "../../lib/bootstrap-sass/assets/stylesheets/bootstrap/forms";
 @import "../../lib/trix/dist/trix";
 
+.loader{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    justify-content: center;
+    svg{
+      align-self: center;
+      z-index: 11;
+      fill: green;
+    }
+  }
+
 .form-container {
   width: 100%;
   margin: auto;
   background-color: $light-base-color;
   padding: 35px;
   margin-top: 70px;
+  position: relative;
 
 .img-container{
   text-align: center;

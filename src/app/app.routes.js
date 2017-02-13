@@ -47,7 +47,10 @@
             })
             .state("home.devportfolio.viewportfolio", {
                 url: "/view?project",
-                templateUrl:"devstudio/devPortfolio/devPortfolioView/devPortfolioView.tmpl.html"
+                templateUrl:"devstudio/devPortfolio/devPortfolioView/devPortfolioView.tmpl.html",
+                params : {
+                    previousState: null,
+                }
             })
 
             .state("home.ordercustomer", {

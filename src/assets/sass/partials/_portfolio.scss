@@ -22,27 +22,25 @@
 .project-view {
   padding: 10px 0 15px 0;
   min-height: 370px;
-  width: 70%;
+  width: 80%;
   margin: 0 auto;
   background: #f5bf02;
 
   img {
-    // min-height: 200px;
     width: 100%;
   }
 
   .preview {
+    padding: 0 40px 22px 40px;
 
     h1 {
       font-size: 28px;
       text-transform: capitalize;
-      margin-bottom: 38px;
       font-weight: 700;
     }
 
     .description  {
       font-size: 18px;
-      padding: 15px;
     }
   }
 }

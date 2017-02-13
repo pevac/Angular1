@@ -3,9 +3,9 @@
     angular.module("devPortfolioModule")
         .controller("addDevPortfolioCtrl", addDevPortfolioCtrl)
 
-    addDevPortfolioCtrl.$inject = ["$scope", "$location", "serverActService", "$state", "serverDataService", "$rootScope"];
+    addDevPortfolioCtrl.$inject = ["$scope", "$location", "serverActService", "$timeout", "$state", "serverDataService", "$rootScope"];
 
-    function addDevPortfolioCtrl($scope, $location, serverActService, $state, serverDataService, $rootScope) {
+    function addDevPortfolioCtrl($scope, $location, serverActService, $timeout, $state, serverDataService, $rootScope) {
         var vm = this;
         var isTop;
         if (vm.project) {  isTop = vm.project.inTop; }
@@ -36,41 +36,21 @@
 
         vm.goToEdit = function () {
             $rootScope.project = vm.project;
+            $rootScope.previewImg = vm.previewImg;
+            $state.go( 'home.devportfolio.viewportfolio', { previousState : { name : $state.current.name } }, {} );
         };
 
         vm.addProject = function (draft) {
+            vm.dataLoading =true;
             var project = vm.project;
             project.draft = draft;
             if (project.draft) { project.inTop = false }
             serverActService.addDevProject(vm.project).then(function (response) {
-                vm.addImage(response.data)
+                addFullImage(response.data)
             },
                 function (response) {
                     console.log(response);
                 });
-        };
-
-        vm.addImage = function (data) {
-            var previewImg = vm.previewImg;
-            var mainImg = vm.mainImg;
-            var project = data;
-            serverActService.addDevImage(previewImg, project.id).then(function (response) {
-                project.previewImg = previewImg.name;
-                serverActService.addDevProject(project).then(function (response) {
-                    $state.go("home.devportfolio.list");
-                },
-                    function (response) {
-                    });
-            });
-
-            serverActService.addDevImage(mainImg, project.id).then(function (response) {
-                project.mainImg = mainImg.name;
-                serverActService.addDevProject(project).then(function (response) {
-                    $state.go("home.devportfolio.list");
-                },
-                    function (response) {
-                    });
-            });
         };
 
         vm.changeTop = function (project) {
@@ -88,9 +68,30 @@
 
         initForm();
 
-        function addDevProject(data) {
-            serverActService.addDevProject(data).then(function (response) {
-                getProjects();
+        function addFullImage(data) {
+            var previewImg = vm.previewImg;
+            var mainImg = vm.mainImg;
+            var project = data;
+
+            addImage(previewImg, project,"previewImg");
+            addImage(mainImg, project, "mainImg");
+            $timeout(function () {
+                vm.dataLoading =false;
+                $state.go("home.devportfolio.list");
+            }, 1000);
+        };
+
+        function addImage(image, project, name){
+            if(!image && !image.lastModifiedDate) {return;}
+            serverActService.addDevImage(image, project.id).then(function (response) {
+                project[name] = image.name;
+                serverActService.addDevProject(project).then(function (response) {
+                    $timeout(function () {
+                       $state.go("home.devportfolio.list");
+                    }, 1000);
+                },
+                    function (response) {
+                });
             });
         };
 
@@ -110,34 +111,38 @@
             return inTop;
         };
 
-
         function initForm() {
             if ($location.path().indexOf("edit") === -1) { return; }
             vm.project = $rootScope.project;
+            vm.previewImg = $rootScope.previewImg;
             isTop = vm.project.inTop;
-            setPreviewImage(vm.project.previewImg, vm.project.id);
-            setMainImage(vm.project.mainImg, vm.project.id);
+            if(!vm.previewImg) setImage(vm.project.previewImg, vm.project.id, "previewImg");
+            setImage(vm.project.mainImg, vm.project.id, "mainImg");
             vm.project.dateStart = new Date(vm.project.dateStart);
             if (vm.project.dateEnd) vm.project.dateEnd = new Date(vm.project.dateEnd);
         };
 
-        function setPreviewImage(name, id) {
-           serverDataService.getDevImage(name, id).then(function (response) {
-                vm.previewImg =  base64ToFile(response, name);                
-            })
-        };
-
-         function setMainImage(name, id) {
-           serverDataService.getDevImage(name, id).then(function (response) {
-                vm.mainImg =  base64ToFile(response, name);                
+        function setImage(img, id, name) {
+           serverDataService.getDevImage(img, id).then(function (response) {
+                vm[name] =  base64ToFile(response, img); 
             })
         };
 
         function base64ToFile(response, name){
+            var file;
+            var blob;
             var arrayBufferView = new Uint8Array(response.data);
             var type = response.headers('content-type') || 'image/WebP';
-            var file = new File([arrayBufferView], name, { type: type });
-            return file;  
+         
+            if (window.navigator && window.navigator.msSaveOrOpenBlob) { 
+                blob = new Blob([arrayBufferView], { type: type });
+                blob.name = name;
+                window.navigator.msSaveOrOpenBlob(blob, name); 
+            } else{
+               file = new File([arrayBufferView], name, { type: type });
+            }
+
+            return file || blob;
         };
 
     }

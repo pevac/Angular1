@@ -2,10 +2,11 @@
     angular.module('devPortfolioModule',[])
         .controller('devPortfolioListCtrl', devPortfolioListCtrl);
 
-    devPortfolioListCtrl.$inject = ["$scope", "$rootScope", "serverActService", "serverDataService", "$uibModal", "$log", "$document"]
-    function devPortfolioListCtrl($scope,  $rootScope, serverActService, serverDataService, $uibModal, $log, $document){
-        $scope.goToEdit = function(project) {
+    devPortfolioListCtrl.$inject = ["$scope", "$rootScope", "serverActService", "serverDataService", "$state"];
+    function devPortfolioListCtrl($scope,  $rootScope, serverActService, serverDataService, $state){
+        $scope.goToEdit = function(project, stateToGo) {
             $rootScope.project = project;
+            $state.go( stateToGo, { previousState : { name : $state.current.name } }, {} );
         };
 
         $scope.publish = function(project){
