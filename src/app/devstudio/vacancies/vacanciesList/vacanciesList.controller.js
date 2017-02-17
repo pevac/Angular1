@@ -11,12 +11,13 @@
 
         $scope.setJobPosition = function(job){
             var jobPosition = "";
-           for(var i = 0; i< $scope.jobPositions.length; i++){
+            if(!$scope.jobPositions) return "";
+            for(var i = 0; i< $scope.jobPositions.length; i++){
                if(job.id == $scope.jobPositions[i].id){
                    jobPosition =  $scope.jobPositions[i];
                }
-           }
-           return jobPosition.name;
+            }
+            return jobPosition.name;
         }
 
         $scope.deleteProject = function(project){
@@ -27,6 +28,7 @@
 
         $scope.setProject = function(arg){
             var project = "";
+            if(!$scope.projects ) return "";
            for(var i = 0; i< $scope.projects.length; i++){
                if(arg.id == $scope.projects[i].id){
                    project =  $scope.projects[i];

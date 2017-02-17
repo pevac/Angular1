@@ -12,7 +12,7 @@
         };
 
         vm.setJobPosition = function(review){
-            if(vm.jobPositions) return;
+            if(!vm.jobPositions && vm.jobPositions.length <= 0) return;
             for(var i = 0; i < vm.jobPositions.length; i++){
                 if(vm.jobPositions[i].id == review.jobPosition.id) {
                     return vm.jobPositions[i].name; 
