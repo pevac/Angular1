@@ -20,6 +20,11 @@ ul.nav-menu{
     background-color: $light-base-color;
     border: none;
     flex-grow: 1;
+
+    .avatar{
+      max-width: 100%;
+      height: auto;
+    }
   }
 
   .panel-heading{
