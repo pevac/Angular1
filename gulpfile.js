@@ -12,8 +12,8 @@ var ngAnnotate             = require("gulp-ng-annotate");
 
 var RELEASE = !!argv.release;
 var AUTOPREFIXER_BROWSERS = [             
-    "ie >= 10",
-    "ie_mob >= 10",
+    "ie >= 9",
+    "ie_mob >= 9",
     "ff >= 30",
     "chrome >= 34",
     "safari >= 7",

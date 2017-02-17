@@ -44,14 +44,17 @@ ul.nav-menu{
     }
     ul{
       display: none;
+      width: 100%;
     }
 
     li{
       display: inline-block;
+      width: 22%;
     }
   }
 
   &:hover .panel-footer ul{
+    display: block;
     display: flex;
   }
   &:hover .panel-footer{

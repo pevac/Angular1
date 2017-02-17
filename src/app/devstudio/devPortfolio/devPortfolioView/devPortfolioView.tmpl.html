@@ -11,7 +11,7 @@
         <h1 class="text-center" ng-bind="vm.project.name"></h1>
         <div class="row">
             <div class="col-sm-3">
-                <img id="photo" ngf-src="vm.image"  alt=""/>
+                <img id="photo" ng-src="{{vm.imageUrl}}"  alt=""/>
             </div>
             <div class="col-sm-9">
                 <div class="description" ng-bind-html="vm.project.description"></div>

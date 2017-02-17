@@ -18,7 +18,7 @@
             <div class="form-group">
                 <label for="inputProjectName" class="col-sm-3   control-label">Назва*</label>
                 <div class="col-sm-9">
-                    <input   type="text" name="projectName"  ng-model="vm.project.name"  class="form-control" id="inputProjectName" ng-maxlength="50" ng-required="true">
+                    <input   type="text" name="projectName"  ng-model="vm.project.name" placement="" class="form-control" id="inputProjectName" ng-maxlength="50" ng-required="true">
                     <div role="alert">
                         <span   class="error" ng-show="portfolioForm.$submitted || portfolioForm.projectName.$touched">
                             <span  ng-show="portfolioForm.projectName.$error.required">Це поле є обов'язкове</span>
@@ -30,7 +30,7 @@
             <div class="form-group">
                 <label for="inputCustomer" class="col-sm-3  control-label">Клієнт*</label>
                 <div class="col-sm-9">
-                    <input   type="text" name="customer"   ng-model="vm.project.customer"  class="form-control" id="inputCustomer" ng-maxlength="50" ng-required="true">
+                    <input   type="text" name="customer"   ng-model="vm.project.customer" placement=""  class="form-control" id="inputCustomer" ng-maxlength="50" ng-required="true">
                     <div role="alert">
                         <span   class="error" ng-show="portfolioForm.$submitted  || portfolioForm.customer.$touched">
                             <span  ng-show="portfolioForm.customer.$error.required">Це поле є обов'язкове</span>
@@ -42,15 +42,16 @@
             <div class="form-group">
                 <label for="inputPreviewImg" class="col-sm-3  control-label">Зображення сайту*</label>
                 <div class="col-sm-9">
-                    <input id="inputPreviewImg" ngf-change ngf-select   class="file" type="file" name="previewImg"  ng-model="vm.previewImg" 
-                    accept="image/*" ngf-max-size="2Mb" required ngf-model-invalid="errorFile" ngf-multiple="false">
+                    <input id="inputPreviewImg" ng-change="vm.hasSupportViewImage()" ngf-select   class="file" type="file" name="previewImg"  ng-model="vm.previewImg" 
+                    accept="image/png" ngf-pattern="image/*" ngf-max-size="2Mb"  required ngf-model-invalid="errorFile" >
                     <span class="custom-file-control" >{{vm.previewImg? vm.previewImg.name: "Завантажити фото" }}</span>
-                    <div class="img-container" ngf-background="vm.previewImg"></div>
+                    <div ng-if="!vm.hasSupportImage" class="img-container" ngf-background="vm.previewImg"></div>
                     <div role="alert">
-                        <span   class="error" ng-if="portfolioForm.$submitted  || portfolioForm.previewImg.$touched">
+                        <span   class="error" ng-if="portfolioForm.$submitted || portfolioForm.$change  || portfolioForm.previewImg.$touched">
                             <span  ng-show="portfolioForm.previewImg.$error.required">Це поле є обов'язкове</span>
                             <span  ng-show="portfolioForm.previewImg.$error.accept">Невірний формат файлу</span>
                             <span  ng-show="portfolioForm.previewImg.$error.maxSize">Занадто великий файл</span>
+                            <span  ng-show="vm.hasSupportImage">Данний браузер не підтримує перегляд файлів</span>
                         </span>
                     </div>
                 </div>
@@ -58,21 +59,21 @@
             <div class="form-group">
                 <label for="inputMainImg" class="col-sm-3  control-label">Зображення сторінки*</label>
                 <div class="col-sm-9">
-                    <input  id="inputMainImg" ngf-select  class="file" type="file" name="mainImg" ng-model="vm.mainImg" 
-                    accept="image/*" ngf-max-size="2Mb" required ngf-model-invalid="errorFile" ngf-multiple="false">
+                    <input  id="inputMainImg" ng-change="vm.hasSupportViewImage()" ngf-select  class="file" type="file" name="mainImg" ng-model="vm.mainImg" 
+                    accept="image/png" ngf-max-size="2Mb" required ngf-model-invalid="errorFile">
                     <span class="custom-file-control" >{{vm.mainImg ? vm.mainImg.name : "Завантажити фото" }}</span>
-                    <div  class="img-container" ngf-background="vm.mainImg"></div>
+                    <div  ng-if="!vm.hasSupportImage" class="img-container" ngf-background="vm.mainImg"></div>
                     <div role="alert">
-                        <span   class="error" ng-if="portfolioForm.$submitted  || portfolioForm.pagePhoto.$touched">
-                            <span  ng-show="portfolioForm.mainImg.$error.validFile">Це поле є обов'язкове</span>
-                            <span  ng-show="portfolioForm.mainImg.$error.validFileType">Невірний формат файлу</span>
-                            <span  ng-show="portfolioForm.mainImg.$error.validFileSize">Занадто великий файл</span>
+                        <span   class="error" ng-if="portfolioForm.$submitted  || portfolioForm.mainImg.$touched">
+                            <span  ng-show="portfolioForm.mainImg.$error.required">Це поле є обов'язкове</span>
+                            <span  ng-show="portfolioForm.mainImg.$error.accept">Невірний формат файлу</span>
+                            <span  ng-show="portfolioForm.mainImg.$error.maxSize">Занадто великий файл</span>
                         </span>
                     </div>
                 </div>
             </div>
             <div class="form-group">
-                <label  class="col-sm-3 control-label" >Опис*</label>
+                <label  class="col-sm-3 control-label">Опис*</label>
                 <div class="col-sm-9">
                     <trix-editor  name="description"  angular-trix ng-model="vm.project.description" class="trix-content" ng-maxlength="250" ng-required="true"></trix-editor>
                     <div role="alert">
@@ -87,7 +88,7 @@
                 <label for="inputStartDate" class="col-sm-3  control-label">Дата початку*</label>
                 <div class="col-sm-9">
                     <p class="input-group">
-                        <input id="inputStartDate" type="text" name="dateStart"  class="form-control"  uib-datepicker-popup="{{vm.format}}" 
+                        <input id="inputStartDate"  type="text" name="dateStart"   class="form-control"  uib-datepicker-popup="{{vm.format}}" 
                                 ng-model="vm.project.dateStart"  uib-datepicker-popup   is-open="vm.popup2.opened" datepicker-options="vm.dateOptions"
                                 close-text="Закрити" clear-text="Очистити" current-text="Сьогодні"   ng-required="true"/>
                         <span class="input-group-btn">
@@ -106,8 +107,8 @@
                 <label for="inputEndDate" class="col-sm-3  control-label">Дата кінця</label>
                 <div class="col-sm-9">
                     <p class="input-group">
-                        <input id="inputEndDate" type="text" name="dateEnd" class="form-control"  uib-datepicker-popup="{{vm.format}}"
-                                ng-model="vm.project.dateEnd" uib-datepicker-popup  is-open="vm.popup1.opened" datepicker-options="vm.dateOptions" 
+                        <input id="inputEndDate"  type="text" name="dateEnd" class="form-control"  uib-datepicker-popup="{{vm.format}}"
+                                ng-model="vm.project.dateEnd"   uib-datepicker-popup  is-open="vm.popup1.opened" datepicker-options="vm.dateOptions" 
                                 close-text="Закрити" clear-text="Очистити" current-text="Сьогодні"  ng-required="false" />
                         <span class="input-group-btn">
                             <button type="button" class="btn btn-default btn-calendar" ng-click="vm.open1()"><i class="glyphicon glyphicon-calendar"></i></button>
@@ -115,6 +116,7 @@
                         <div role="alert">
                             <span   class="error" ng-show="portfolioForm.$submitted || portfolioForm.dateEnd.$touched">
                                 <span  ng-show="portfolioForm.dateEnd.$error.date">Введіть правильний формат</span>
+                                <span  ng-show="portfolioForm.dateEnd.$error.compareTo ">Дата початку  не більше за дату кінця виконання проекту</span>
                             </span>
                         </div>
                     </p>
@@ -133,14 +135,13 @@
             <div class="form-group btn_container">
                 <div class="row">
                     <div class="col-md-4">
-                        <button type="button" ng-disabled=" portfolioForm.$invalid"  ng-click="vm.goToEdit()" class="btn btn-primary btn-save">Переглянути</button>
+                        <button type="submit"  ng-click="!portfolioForm.$invalid && vm.goToEdit()" class="btn btn-primary btn-save">Переглянути</button>
                     </div>
                     <div class="col-md-4">
-                        <button type="submit" ng-disabled="portfolioForm.$invalid" ng-click="vm.addProject(true)" class="btn btn-primary btn-save">Зберегти чорновик</button>
+                        <button type="submit"  ng-click="!portfolioForm.$invalid && vm.addProject(true)" class="btn btn-primary btn-save">Зберегти чорновик</button>
                     </div>
                     <div class="col-md-4">
-                        <button  type="submit" ng-disabled="portfolioForm.$invalid" ng-click="vm.addProject(false)"  class="btn btn-primary btn-save">Опублікувати проект</button>
-                        
+                        <button  type="submit" ng-click="!portfolioForm.$invalid && vm.addProject(false)"  class="btn btn-primary btn-save">Опублікувати проект</button>
                     </div>
                 </div>
             </div>

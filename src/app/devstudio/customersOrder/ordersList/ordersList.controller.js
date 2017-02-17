@@ -2,10 +2,16 @@
     angular.module("orderCustomerModule",[])
         .controller("orderCustomerCtrl", orderCustomerCtrl)
 
-    orderCustomerCtrl.$inject = ["$scope", "serverDataService", "FileSaver", "Blob", "$templateCache", "$compile", "$timeout"];
-    function orderCustomerCtrl($scope, serverDataService, FileSaver, Blob, $templateCache, $compile, $timeout){
+    orderCustomerCtrl.$inject = ["$scope", "serverDataService", "FileSaver", "Blob", "$templateCache", "$compile", "$timeout", "serverActService"];
+    function orderCustomerCtrl($scope, serverDataService, FileSaver, Blob, $templateCache, $compile, $timeout, serverActService){
         var self = this;
         $scope.itemsByPage = 10;
+
+        $scope.deleteCustomerOrder = function(order){
+            serverActService.deleteCustomerOrder(order).then(function (response) {
+                  alert("ahueno");
+            });
+        };
 
         $scope.exportData = function () {
             if(!document.getElementById('fullOrderCustomersTable')) {

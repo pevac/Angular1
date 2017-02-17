@@ -7,6 +7,7 @@
 
     function addDevPortfolioCtrl($scope, $location, serverActService, $timeout, $state, serverDataService, $rootScope) {
         var vm = this;
+       
         var isTop;
         if (vm.project) {  isTop = vm.project.inTop; }
 
@@ -34,10 +35,18 @@
             vm.popup2.opened = true;
         };
 
+        vm.hasSupportViewImage = function(){
+            vm.hasSupportImage = true;
+            var reader = new FileReader();
+            reader.error = function(e){
+                console.log("hello!");
+                vm.hasSupportImage = false;
+            }
+            reader.readAsDataURL(vm.previewImg);
+        }
+
         vm.goToEdit = function () {
-            $rootScope.project = vm.project;
-            $rootScope.previewImg = vm.previewImg;
-            $state.go( 'home.devportfolio.viewportfolio', { previousState : { name : $state.current.name } }, {} );
+            $state.go( 'home.devportfolio.viewportfolio', { previousState : { name : $state.current.name }, data: {project: vm.project, previewImg: vm.previewImg} }, {} );
         };
 
         vm.addProject = function (draft) {
@@ -50,7 +59,7 @@
             },
                 function (response) {
                     console.log(response);
-                });
+            });
         };
 
         vm.changeTop = function (project) {
@@ -91,7 +100,7 @@
                     }, 1000);
                 },
                     function (response) {
-                });
+            });
             });
         };
 
@@ -99,6 +108,7 @@
             var projects = arg;
             var inTop = true;
             var index = 0;
+
             for (var i = 0; i < projects.length; i++) {
                 if (!projects[i].draft && projects[i].inTop) {
                     index++;
@@ -112,19 +122,24 @@
         };
 
         function initForm() {
-            if ($location.path().indexOf("edit") === -1) { return; }
-            vm.project = $rootScope.project;
-            vm.previewImg = $rootScope.previewImg;
-            isTop = vm.project.inTop;
-            if(!vm.previewImg) setImage(vm.project.previewImg, vm.project.id, "previewImg");
-            setImage(vm.project.mainImg, vm.project.id, "mainImg");
-            vm.project.dateStart = new Date(vm.project.dateStart);
-            if (vm.project.dateEnd) vm.project.dateEnd = new Date(vm.project.dateEnd);
+            if ($state.params.data && $state.params.data.project) {
+                vm.project  = $state.params.data.project;
+                vm.previewImg =  $state.params.data.previewImg;
+
+                isTop = vm.project.inTop;
+
+                vm.project.dateStart  = new Date(vm.project.dateStart);
+                if (vm.project.dateEnd) vm.project.dateEnd  = new Date(vm.project.dateEnd);
+
+                if(!vm.previewImg) setImage(vm.project.previewImg, vm.project.id, "previewImg");
+                setImage(vm.project.mainImg, vm.project.id, "mainImg");
+            }
         };
+
 
         function setImage(img, id, name) {
            serverDataService.getDevImage(img, id).then(function (response) {
-                vm[name] =  base64ToFile(response, img); 
+                vm[name]=  base64ToFile(response, img); 
             })
         };
 
@@ -133,19 +148,13 @@
             var blob;
             var arrayBufferView = new Uint8Array(response.data);
             var type = response.headers('content-type') || 'image/WebP';
-         
-            if (window.navigator && window.navigator.msSaveOrOpenBlob) { 
-                blob = new Blob([arrayBufferView], { type: type });
-                blob.name = name;
-                window.navigator.msSaveOrOpenBlob(blob, name); 
-            } else{
-               file = new File([arrayBufferView], name, { type: type });
-            }
+            blob = new Blob([arrayBufferView], { type: type });
+            blob.name = name;
 
-            return file || blob;
+            return  blob;
         };
 
-    }
+    };
 })();
 
 

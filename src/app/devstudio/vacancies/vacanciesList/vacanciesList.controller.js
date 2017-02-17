@@ -3,8 +3,8 @@
     angular.module("vacancyModule", [])
         .controller("vacanciesController",vacanciesController);
 
-    vacanciesController.$inject  = ["$scope", "$rootScope", "serverDataService"];
-    function vacanciesController($scope, $rootScope, serverDataService) {
+    vacanciesController.$inject  = ["$scope", "$rootScope", "serverDataService", "serverActService"];
+    function vacanciesController($scope, $rootScope, serverDataService, serverActService) {
         $scope.goToEdit = function(vacancy) {
             $rootScope.vacancy = vacancy;
         };
@@ -18,6 +18,12 @@
            }
            return jobPosition.name;
         }
+
+        $scope.deleteProject = function(project){
+            serverActService.deleteVacancy(project).then(function (response) {
+                  alert("ahueno");
+            });
+        };
 
         $scope.setProject = function(arg){
             var project = "";

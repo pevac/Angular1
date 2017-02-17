@@ -32,24 +32,32 @@
             })
             .state("home.devportfolio.list", {
                 url: "/list",
-                controller: "devPortfolioListCtrl",
+                controller: "devPortfolioListCtrl as vm",
                 templateUrl:"devstudio/devPortfolio/devPortfolioList/devPortfolioList.tmpl.html"
             })
             .state("home.devportfolio.addportfolio", {
                 url: "/add",
-                controller: "addDevPortfolioCtrl",
-                templateUrl:"devstudio/devPortfolio/devPortfolioForm/devPortfolioForm.tmpl.html"
+                controller: "addDevPortfolioCtrl as vm",
+                templateUrl:"devstudio/devPortfolio/devPortfolioForm/devPortfolioForm.tmpl.html",
+                params : {
+                    data: null
+                }
             })
             .state("home.devportfolio.editportfolio", {
                 url: "/edit?project",
-                controller: "addDevPortfolioCtrl",
-                templateUrl:"devstudio/devPortfolio/devPortfolioForm/devPortfolioForm.tmpl.html"
+                controller: "addDevPortfolioCtrl as vm",
+                templateUrl:"devstudio/devPortfolio/devPortfolioForm/devPortfolioForm.tmpl.html",
+                params : {
+                    data: null
+                }
             })
             .state("home.devportfolio.viewportfolio", {
                 url: "/view?project",
+                controller: "viewDevPortfolioCtrl as vm",
                 templateUrl:"devstudio/devPortfolio/devPortfolioView/devPortfolioView.tmpl.html",
                 params : {
                     previousState: null,
+                    data: null
                 }
             })
 

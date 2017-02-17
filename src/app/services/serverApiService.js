@@ -93,7 +93,7 @@
                     })
             },
 
-              getReviews: function(data){
+            getReviews: function(data){
                 return  $http({
                     method: "GET",
                     url: serverApiConstant.url+serverApiConstant.review,
@@ -102,7 +102,7 @@
                 })
             },
 
-             getDevImage:   function(imgName, id){
+            getDevImage:   function(imgName, id){
                 var url1 =(serverApiConstant.url +serverApiConstant.devImage + id+ '/' + imgName)
                  return    $http.get(
                      url1,
@@ -113,7 +113,7 @@
                 })
             },
 
-               getDevImage1:   function(imgName, id){
+            getDevImage1:   function(imgName, id){
                 return (serverApiConstant.url +serverApiConstant.devImage + id+ '/' + imgName)
             }
 
@@ -134,6 +134,20 @@
                     data: data
                 })
             },
+
+            deleteVacancy: function(data){
+                return  $http({
+                    method: "DELETE",
+                    url: serverApiConstant.url+serverApiConstant.vacancies  + data.id
+                })
+            },
+
+             deleteCustomerOrder: function(data){
+                return  $http({
+                    method: "DELETE",
+                    url: serverApiConstant.url+serverApiConstant.customerRequests  + data.id
+                })
+            },
             
             addReview: function(data){
                 var method = (!data.id || data.id === "") ? "POST" : "PUT";
@@ -152,12 +166,19 @@
                 var method = (!data.id || data.id === "") ? "POST" : "PUT";
                 var url1 = (!data.id || data.id === "") ? 
                     serverApiConstant.url+serverApiConstant.devProjects : 
-                    serverApiConstant.url+serverApiConstant.devProjects + "/" + data.id;
+                    serverApiConstant.url+serverApiConstant.devProjects + data.id;
 
                 return  $http({
                     method: method,
                     url: url1,
                     data: data
+                })
+            },
+
+            deleteProject: function(data){
+                  return  $http({
+                    method: "DELETE",
+                    url: serverApiConstant.url+ serverApiConstant.devProjects + data.id
                 })
             },
 
@@ -187,6 +208,8 @@
                     headers: {"Content-Type": undefined}
                 })
             }
+
+            
         }
     }
 })();
