@@ -15,7 +15,7 @@
                     <th>Який результат ви очікуєте отримати?</th>
                     <th>Ми розглядаємо вашу заявку як співпрацю в сфері розробки повноцінного IT-рішення (веб-додаток, мобільний додаток і т.д)</th>
                 </tr>
-                <tr ng-repeat="customerOrder in customers">
+                <tr ng-repeat="customerOrder in vm.customers">
                     <td>{{customerOrder.company}}</td>
                     <td>{{customerOrder.url}}</td>
                     <td>{{customerOrder.fullName}}</td>

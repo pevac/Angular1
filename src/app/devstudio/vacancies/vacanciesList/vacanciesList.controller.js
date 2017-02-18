@@ -21,8 +21,10 @@
         }
 
         $scope.deleteProject = function(project){
+            var checkDelete = confirm("Видалити вакансії")
+            if(!checkDelete) return;
             serverActService.deleteVacancy(project).then(function (response) {
-                  alert("ahueno");
+            getVacancies();
             });
         };
 

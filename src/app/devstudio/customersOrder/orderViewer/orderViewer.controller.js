@@ -4,12 +4,12 @@
 
     viewOrderCustomerCtrl.$inject = ["$scope", "$stateParams", "serverDataService", "FileSaver", "Blob"]
     function viewOrderCustomerCtrl($scope, $stateParams, serverDataService, FileSaver, Blob) {
-
-        $scope.exportData = function () {
+        var vm = this;
+        vm.exportData = function () {
             var blob = new Blob([document.getElementById('exportOrder').innerHTML], {
                 type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8;"
             });
-            FileSaver.saveAs(blob, "Report.xlsx");
+            FileSaver.saveAs(blob, "Report.xls");
         };
 
         initForm();
@@ -23,7 +23,7 @@
             serverDataService.getCustomerItem(id).then(
                 function(data){
                     console.log(data);
-                    $scope.order = data;
+                    vm.order = data;
                 }
             )
         };

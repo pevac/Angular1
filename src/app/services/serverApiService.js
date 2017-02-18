@@ -4,60 +4,57 @@
         .module("serverApi",[])
         .factory("serverDataService", getData)
         .factory("serverActService", setData)
-        .constant("serverApiConstant",{
-            url : 'http://128.0.169.5:8888/dev-studio/api/',
-            // url : 'http://192.168.10.168:8080/api/',
-            
-            devProjects: "projects/",
-            intProjects: "projects/",
-            vacancies: "vacancies/",
-            workingTimes: "workingtimes/",
-            jobPositions: "jobpositions/",
-            customerRequests: "customerrequests/",
-            devImage: "images/",
-            review: "internshipfeedback/"
-        });
-
-     
-       
+        .constant("serverApiConstant",function(){
+            var rootUrl = 'http://128.0.169.5:8888/dev-studio/api/';
+            return {
+                devProjects: rootUrl +  "projects/",
+                intProjects: "projects/",
+                vacancies: rootUrl +  "vacancies/",
+                workingTimes: rootUrl+ "workingtimes/",
+                jobPositions: rootUrl+ "jobpositions/",
+                customerRequests:rootUrl + "customerrequests/",
+                devImage: rootUrl + "images/",
+                review: rootUrl+ "internshipfeedback/"
+            }
+        }());
 
     function getData($http, serverApiConstant){
          return{
             getDevProjects: function(){
-                return    $http({
-                    method: "GET",
-                    url:serverApiConstant.url + serverApiConstant.devProjects
-                })
+                return $http({
+                        method: "GET",
+                        url:serverApiConstant.devProjects
+                    })
                     .then(function (response) {
                         return response.data;
                     })
             },
 
             getIntProjects: function(){
-                return    $http({
-                    method: "GET",
-                    url:serverApiConstant.url + serverApiConstant.devProjects
-                })
+                return  $http({
+                        method: "GET",
+                        url: serverApiConstant.devProjects
+                    })
                     .then(function (response) {
                         return response.data;
                     })
             },
 
             getVacancies:function(){
-                return    $http({
-                    method: "GET",
-                    url: serverApiConstant.url + serverApiConstant.vacancies
-                })
+                return  $http({
+                        method: "GET",
+                        url: serverApiConstant.vacancies
+                    })
                     .then(function (response) {
                         return response.data;
                     })
             },
 
              getWorkingTimes:function(){
-                return    $http({
-                    method: "GET",
-                    url: serverApiConstant.url+serverApiConstant.workingTimes
-                })
+                return  $http({
+                        method: "GET",
+                        url: serverApiConstant.workingTimes
+                    })
                     .then(function (response) {
                         return response.data;
                     })
@@ -65,9 +62,9 @@
             
             getJobPositions:function(){
                 return    $http({
-                    method: "GET",
-                    url: serverApiConstant.url+serverApiConstant.jobPositions
-                })
+                        method: "GET",
+                        url: serverApiConstant.jobPositions
+                    })
                     .then(function (response) {
                         return response.data;
                     })
@@ -75,9 +72,9 @@
 
             getCustomers:function(){
                 return    $http({
-                    method: "GET",
-                    url: serverApiConstant.url + serverApiConstant.customerRequests
-                })
+                        method: "GET",
+                        url:  serverApiConstant.customerRequests
+                    })
                     .then(function (response) {
                         return response.data;
                     })
@@ -85,9 +82,9 @@
 
             getCustomerItem:function(id){
                 return    $http({
-                    method: "GET",
-                    url: serverApiConstant.url+serverApiConstant.customerRequests  +id
-                })
+                        method: "GET",
+                        url: serverApiConstant.customerRequests  +id
+                    })
                     .then(function (response) {
                         return response.data;
                     })
@@ -96,15 +93,15 @@
             getReviews: function(data){
                 return  $http({
                     method: "GET",
-                    url: serverApiConstant.url+serverApiConstant.review,
+                    url: serverApiConstant.review,
                 }).then(function(response){
                     return response.data;
                 })
             },
 
             getDevImage:   function(imgName, id){
-                var url1 =(serverApiConstant.url +serverApiConstant.devImage + id+ '/' + imgName)
-                 return    $http.get(
+                var url1 =(serverApiConstant.devImage + id+ '/' + imgName)
+                return    $http.get(
                      url1,
                     {responseType: "arraybuffer"}
                 )
@@ -114,7 +111,7 @@
             },
 
             getDevImage1:   function(imgName, id){
-                return (serverApiConstant.url +serverApiConstant.devImage + id+ '/' + imgName)
+                return (serverApiConstant.devImage + id+ '/' + imgName)
             }
 
         }
@@ -125,8 +122,8 @@
             addVacancy: function(data){
                 var method = (!data.id || data.id === "") ? "POST" : "PUT";
                 var url1 = (!data.id || data.id === "") ? 
-                    serverApiConstant.url+serverApiConstant.vacancies : 
-                    serverApiConstant.url+serverApiConstant.vacancies  + data.id;
+                    serverApiConstant.vacancies : 
+                    serverApiConstant.vacancies  + data.id;
 
                 return  $http({
                     method: method,
@@ -138,22 +135,29 @@
             deleteVacancy: function(data){
                 return  $http({
                     method: "DELETE",
-                    url: serverApiConstant.url+serverApiConstant.vacancies  + data.id
+                    url: serverApiConstant.vacancies  + data.id
                 })
             },
+            deleteJobPostion: function(data){
+                return  $http({
+                    method: "DELETE",
+                    url: serverApiConstant.jobPositions  + data.id
+                })
+            },
+
 
              deleteCustomerOrder: function(data){
                 return  $http({
                     method: "DELETE",
-                    url: serverApiConstant.url+serverApiConstant.customerRequests  + data.id
+                    url: serverApiConstant.customerRequests  + data.id
                 })
             },
             
             addReview: function(data){
                 var method = (!data.id || data.id === "") ? "POST" : "PUT";
                 var url1 = (!data.id || data.id === "") ? 
-                    serverApiConstant.url+serverApiConstant.review : 
-                    serverApiConstant.url+serverApiConstant.review + data.id;
+                    serverApiConstant.review : 
+                    serverApiConstant.review + data.id;
 
                 return  $http({
                     method: method,
@@ -165,8 +169,8 @@
             addDevProject: function(data){
                 var method = (!data.id || data.id === "") ? "POST" : "PUT";
                 var url1 = (!data.id || data.id === "") ? 
-                    serverApiConstant.url+serverApiConstant.devProjects : 
-                    serverApiConstant.url+serverApiConstant.devProjects + data.id;
+                    serverApiConstant.devProjects : 
+                    serverApiConstant.devProjects + data.id;
 
                 return  $http({
                     method: method,
@@ -178,15 +182,15 @@
             deleteProject: function(data){
                   return  $http({
                     method: "DELETE",
-                    url: serverApiConstant.url+ serverApiConstant.devProjects + data.id
+                    url:  serverApiConstant.devProjects + data.id
                 })
             },
 
             addIntProject: function(data){
                 var method = (!data.id || data.id === "") ? "POST" : "PUT";
                 var url1 = (!data.id || data.id === "") ? 
-                    serverApiConstant.url+serverApiConstant.devProjects : 
-                    serverApiConstant.url+serverApiConstant.devProjects + "/" + data.id;
+                    serverApiConstant.devProjects : 
+                    serverApiConstant.devProjects + "/" + data.id;
 
                 return  $http({
                     method: method,
@@ -197,7 +201,7 @@
 
             addDevImage:   function(data, id){
                 var method =  "POST";
-                var url1 =serverApiConstant.url+ serverApiConstant.devImage + id
+                var url1 =serverApiConstant.devImage + id
                 var fd = new FormData();
                 fd.append('file', data);
                 return  $http({
@@ -208,7 +212,6 @@
                     headers: {"Content-Type": undefined}
                 })
             }
-
             
         }
     }

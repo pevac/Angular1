@@ -35,16 +35,6 @@
             vm.popup2.opened = true;
         };
 
-        vm.hasSupportViewImage = function(){
-            vm.hasSupportImage = true;
-            var reader = new FileReader();
-            reader.error = function(e){
-                console.log("hello!");
-                vm.hasSupportImage = false;
-            }
-            reader.readAsDataURL(vm.previewImg);
-        }
-
         vm.goToEdit = function () {
             $state.go( 'home.devportfolio.viewportfolio', { previousState : { name : $state.current.name }, data: {project: vm.project, previewImg: vm.previewImg} }, {} );
         };

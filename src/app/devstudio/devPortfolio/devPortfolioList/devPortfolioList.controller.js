@@ -19,7 +19,6 @@
 
         vm.deleteProject = function(project){
             serverActService.deleteProject(project).then(function (response) {
-                  alert("ahueno");
             });
         };
 

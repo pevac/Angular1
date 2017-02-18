@@ -1,4 +1,4 @@
-<div class="viewOrder customers_statement"  ng-controller="viewOrderCustomerCtrl">
+<div class="viewOrder customers_statement"  ng-controller="viewOrderCustomerCtrl as vm">
     <div class="top-nav-container">
         <h2 class="h2">Заявка</h2>
         <ul class="nav navbar-nav navbar-right">
@@ -10,7 +10,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="title_container">
-                <a class="dwl-table" ng-click="exportData()"><span class="icon-dowload" tooltip-placement="left" uib-tooltip="завантажити таблицю" tooltip-trigger="focus"></span></a>
+                <a class="dwl-table" ng-click="vm.exportData()"><span class="icon-dowload" tooltip-placement="left" uib-tooltip="завантажити таблицю" tooltip-trigger="focus"></span></a>
             </div>
         </div>
     </div>

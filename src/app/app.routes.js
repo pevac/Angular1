@@ -68,7 +68,7 @@
             .state("home.ordercustomer.list", {
                 url: "/list",
                 templateUrl:"devstudio/customersOrder/ordersList/ordersList.tmpl.html",
-                controller: "orderCustomerCtrl"
+                controller: "orderCustomerCtrl as vm"
             })
             .state("home.ordercustomer.view", {
                 url: "/view?orderId",
