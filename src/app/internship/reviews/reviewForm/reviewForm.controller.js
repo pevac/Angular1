@@ -1,12 +1,15 @@
 (function(){
  angular.module('reviewsModule',[])
-        .controller('addReviewCtrl', addReviewCtrl);
+        .controller('addReviewController', addReviewController);
 
-    addReviewCtrl.$inject = ["$scope", "$rootScope", "serverActService", "serverDataService", "$state"]
+    addReviewController.$inject = ["$scope", "serverActService", "serverDataService", "$state", "_jobPositions", "_projects"]
 
-    function addReviewCtrl($scope, $rootScope, serverActService,  serverDataService, $state){
+    function addReviewController($scope,  serverActService,  serverDataService, $state, _jobPositions, _projects){
         var vm = this;
-
+        vm.jobPositions = _jobPositions;
+        vm.projects = _projects;
+        
+        
         vm.addReview = function () {
             var review = vm.review;
             var imageUrl = vm.croppedDataUrl;
@@ -17,37 +20,29 @@
             });
         }
 
-        function uploadImage(imageUrl, photo, imageId) {
-            var data = imageId;
+        activate();
+
+        function uploadImage(imageUrl, photo, data) {
             var imageBase64 = imageUrl;
             var image = photo;
             
             var base64ImageContent = imageBase64.replace(/^data:image\/(png|jpg);base64,/, "");
             var file = base64ToFile(base64ImageContent, photo);   
           
-            serverActService.addDevImage(file, data).then(function (response) {
+            serverActService.addReviewImage(file, data.id).then(function (response) {
                var  review  = data;
                review.img = file.name;
                 serverActService.addReview(review).then(function (response) {
                     $state.go("home.reviews.list");
-                })
-
-
-               
+            })
             }, function(data){
                 console.log(data);
             });
         }
 
-        function getJobPositions() {
-            serverDataService.getJobPositions().then(function (data) {
-                vm.jobPositions = data;
-            })
-        };
-
-        function getDevProjects() {
-            serverDataService.getDevProjects().then(function (data) {
-               vm.projects = data;
+        function getReviewImage(name, id) {
+            serverDataService.getReviewImage(name, id).then(function (response) {
+                vm.photo =   ArrayBufferToFile(response, name)
             })
         }; 
         
@@ -74,17 +69,23 @@
             return file;
         }
 
-        function initReview(){
-            if(!$rootScope.review ) return;
-            vm.review = $rootScope.review;
-            console.log($rootScope.review);
+        function ArrayBufferToFile(response, name){
+            var file;
+            var blob;
+            var arrayBufferView = new Uint8Array(response.data);
+            var type = response.headers('content-type') || 'image/WebP';
+            blob = new Blob([arrayBufferView], { type: type });
+            blob.name = name;
+
+            return  blob;
+        };
+
+        function activate(){
+            if(!$state.params.data) return;
+            vm.review = $state.params.data.review;
+            getReviewImage(vm.review.img, vm.review.id);
         }
        
-
-
-        initReview();
-        getJobPositions();
-        getDevProjects();
     }
 })();
    

@@ -10,9 +10,7 @@
             if($state.params.previousState.name.indexOf( "list") !== -1){
             $state.go("home.devportfolio.list");
             }else if($state.params.previousState.name.indexOf( "editportfolio") !== -1){
-                $state.go("home.devportfolio.editportfolio", { previousState : { name : $state.current.name }, data: {project: vm.project, previewImg: vm.image} }, {} );
-            }else if($state.params.previousState.name.indexOf( "addportfolio") !== -1){
-                $state.go("home.devportfolio.addportfolio", { previousState : { name : $state.current.name }, data: {project: vm.project, previewImg: vm.image} }, {} );
+                $state.go("home.devportfolio.editportfolio", { previousState : { name : $state.current.name }, data: {project: vm.project, previewImg: vm.image, mainImg: $state.params.data.mainImg} }, {} );
             }
         };
         
@@ -32,8 +30,6 @@
             if($state.params.data && $state.params.data.previewImg){
                 vm.image = $state.params.data.previewImg;
                 vm.imageUrl = URL.createObjectURL(vm.image);
-                console.log(vm.image);
-                console.log(vm.imageUrl);
             }else{
                 serverDataService.getDevImage(project.previewImg,  project.id).then(function(response){
                     var arrayBufferView = new Uint8Array(response.data);

@@ -3,37 +3,46 @@
     angular.module("vacancyModule", [])
         .controller("vacanciesController",vacanciesController);
 
-    vacanciesController.$inject  = ["$scope", "$rootScope", "serverDataService", "serverActService"];
-    function vacanciesController($scope, $rootScope, serverDataService, serverActService) {
-        $scope.goToEdit = function(vacancy) {
-            $rootScope.vacancy = vacancy;
+    vacanciesController.$inject  = ["$scope", "$state", "serverDataService", "serverActService", "_vacancies", "_jobPositions", "_projects"];
+    function vacanciesController($scope, $state, serverDataService, serverActService, _vacancies, _jobPositions, _projects) {
+        var vm = this;
+
+        vm.vacancies = _vacancies;
+        var jobPositions = _jobPositions;
+        var projects = _projects;
+        
+        vm.goToEdit = function(vacancy, stateToGo) {
+            $state.go( stateToGo, { previousState : { name : $state.current.name }, data: {vacancy: vacancy} }, {} );
         };
 
-        $scope.setJobPosition = function(job){
+        vm.setJobPosition = function(job){
             var jobPosition = "";
-            if(!$scope.jobPositions) return "";
-            for(var i = 0; i< $scope.jobPositions.length; i++){
-               if(job.id == $scope.jobPositions[i].id){
-                   jobPosition =  $scope.jobPositions[i];
+            if(!jobPositions) return "";
+            for(var i = 0; i<jobPositions.length; i++){
+               if(job.id == jobPositions[i].id){
+                   jobPosition =  jobPositions[i];
                }
             }
             return jobPosition.name;
         }
 
-        $scope.deleteProject = function(project){
+        vm.deleteVacancy = function(vacancy, index){
             var checkDelete = confirm("Видалити вакансії")
             if(!checkDelete) return;
-            serverActService.deleteVacancy(project).then(function (response) {
-            getVacancies();
+            serverActService.deleteVacancy(vacancy).then(function (response) {
+                vm.vacancies.splice(index, 1);
+                getJobPositions();
+                getDevProjects()
+                getVacancies();
             });
         };
 
-        $scope.setProject = function(arg){
+        vm.setProject = function(arg){
             var project = "";
-            if(!$scope.projects ) return "";
-           for(var i = 0; i< $scope.projects.length; i++){
-               if(arg.id == $scope.projects[i].id){
-                   project =  $scope.projects[i];
+            if(!projects ) return "";
+           for(var i = 0; i< projects.length; i++){
+               if(arg.id == projects[i].id){
+                   project = projects[i];
                }
            }
            return project.name;
@@ -41,35 +50,22 @@
 
         function getVacancies(){
             serverDataService.getVacancies().then(function (data) {
-                $scope.vacancies = data;
+                vm.vacancies = data;
             });
         };  
 
         function getJobPositions() {
             serverDataService.getJobPositions().then(function (data) {
-                $scope.jobPositions = data;
-            });
-        };
-
-        function getWorkingTimes(){
-            serverDataService.getWorkingTimes().then(function(data){
-                $scope.workingTimes = data;
+                jobPositions = data;
             });
         };
 
         function getDevProjects() {
             serverDataService.getDevProjects().then(function (data) {
-                $scope.projects = data;
+                projects = data;
             })
         };
 
-        
-        (function(){
-            getJobPositions();
-            getDevProjects();
-            getVacancies();
-            getWorkingTimes();
-        })()
     };
 })();
 

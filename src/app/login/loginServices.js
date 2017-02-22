@@ -47,13 +47,13 @@
         authService.login = function (credentials) {
             console.log(credentials);
             return $http
-                .post("http://localhost:8080/dev-studio/api/login", credentials)
+                .post("http://localhost:8888/api/login", credentials)
                 .then(function (res) {
-                    console.log(res);
                     Session.create(res.data.id, res.data.user.id, res.data.user.role);
                     return res.data.user;
                 });
         };
+
 
         authService.isAuthenticated = function () {
             return !!Session.userId;
@@ -126,23 +126,23 @@
         ]);
     }
 
-    // angular.module("angularApp").factory('user', function() {
-    //     var cookieSet;
-    //
-    //     var addCookie = function(val) {
-    //         cookieSet=val;
-    //     }
-    //
-    //     var getCookie = function(){
-    //         return cookieSet;
-    //     }
-    //
-    //     return {
-    //         addCookie : addCookie,
-    //         getCookie : getCookie
-    //     };
-    //
-    // });
+    angular.module("angularApp").factory('user', function() {
+        var cookieSet;
+    
+        var addCookie = function(val) {
+            cookieSet=val;
+        }
+    
+        var getCookie = function(){
+            return cookieSet;
+        }
+    
+        return {
+            addCookie : addCookie,
+            getCookie : getCookie
+        };
+    
+    });
 
 })();
 

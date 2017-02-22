@@ -2,10 +2,12 @@
     angular.module('devPortfolioModule',[])
         .controller('devPortfolioListCtrl', devPortfolioListCtrl);
 
-    devPortfolioListCtrl.$inject = ["$scope", "serverActService", "serverDataService", "$state"];
-    function devPortfolioListCtrl($scope,   serverActService, serverDataService, $state){
+    devPortfolioListCtrl.$inject = ["$scope", "serverActService", "serverDataService", "$state", "_projects"];
+    function devPortfolioListCtrl($scope,   serverActService, serverDataService, $state, _projects){
         var vm = this;
-        
+
+        vm.projects = _projects;
+
         vm.goToEdit = function(project, stateToGo) {
             $state.go( stateToGo, { previousState : { name : $state.current.name }, data: {project: project} }, {} );
         };
@@ -14,17 +16,21 @@
             var newProject = project;
             newProject.draft = !project.draft;
             if(newProject.draft) { newProject.inTop = false }
-            addDevProject(newProject)
+            return addDevProject(newProject)
         };
 
         vm.deleteProject = function(project){
-            serverActService.deleteProject(project).then(function (response) {
-            });
+            return serverActService.deleteProject(project);
         };
 
         vm.changeTop = function(project){
-           serverDataService.getDevProjects().then(function (data) {
-                var _isCheckTop = isCheckTop(data);
+            return serverDataService.getDevProjects().then(function(data){
+                sendInTop (data, project);
+           });
+        };
+
+        function sendInTop (data, project){
+             var _isCheckTop = isCheckTop(data);
                if(_isCheckTop && project.inTop || project.inTop && !_isCheckTop || !project.inTop && _isCheckTop){
                     var newProject = project;
                     newProject.inTop = !newProject.inTop;
@@ -32,16 +38,10 @@
                }else{
                     alert("Кількість проектів з зафарбованою зіркою не більше 4");
                }
-            });
-           
         };
 
-        getProjects();
-
         function  addDevProject(data){
-            serverActService.addDevProject(data).then(function (response) {
-                  getProjects();
-            });
+            return serverActService.addDevProject(data).then(getProjects);
         };
 
         function isCheckTop(arg){
@@ -61,8 +61,9 @@
         }
 
         function getProjects(){
-            serverDataService.getDevProjects().then(function (data) {
+            return serverDataService.getDevProjects().then(function (data) {
                 vm.projects = data;
+                return vm.projects;
             });
         };
 

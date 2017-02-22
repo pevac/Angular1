@@ -1,4 +1,4 @@
-<div class="add-vacancy"  ng-controller="addVacancyCtrl">
+<div class="add-vacancy">
     <div class="top-nav-container">
         <h2 class="h2">Вакансії</h2>
         <ul class="nav navbar-nav navbar-right">
@@ -7,15 +7,18 @@
             </li>
         </ul>
     </div>
+    <div ng-if="vm.dataLoading" class="loader">
+            <svg width='198px' height='198px' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" class="uil-default"><rect x="0" y="0" width="100" height="100" fill="none" class="bk"></rect><rect  x='46.5' y='40' width='7' height='20' rx='5' ry='5' fill='#0a6db1' transform='rotate(0 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0s' repeatCount='indefinite'/></rect><rect  x='46.5' y='40' width='7' height='20' rx='5' ry='5' fill='#0a6db1' transform='rotate(30 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.08333333333333333s' repeatCount='indefinite'/></rect><rect  x='46.5' y='40' width='7' height='20' rx='5' ry='5' fill='#0a6db1' transform='rotate(60 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.16666666666666666s' repeatCount='indefinite'/></rect><rect  x='46.5' y='40' width='7' height='20' rx='5' ry='5' fill='#0a6db1' transform='rotate(90 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.25s' repeatCount='indefinite'/></rect><rect  x='46.5' y='40' width='7' height='20' rx='5' ry='5' fill='#0a6db1' transform='rotate(120 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.3333333333333333s' repeatCount='indefinite'/></rect><rect  x='46.5' y='40' width='7' height='20' rx='5' ry='5' fill='#0a6db1' transform='rotate(150 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.4166666666666667s' repeatCount='indefinite'/></rect><rect  x='46.5' y='40' width='7' height='20' rx='5' ry='5' fill='#0a6db1' transform='rotate(180 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.5s' repeatCount='indefinite'/></rect><rect  x='46.5' y='40' width='7' height='20' rx='5' ry='5' fill='#0a6db1' transform='rotate(210 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.5833333333333334s' repeatCount='indefinite'/></rect><rect  x='46.5' y='40' width='7' height='20' rx='5' ry='5' fill='#0a6db1' transform='rotate(240 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.6666666666666666s' repeatCount='indefinite'/></rect><rect  x='46.5' y='40' width='7' height='20' rx='5' ry='5' fill='#0a6db1' transform='rotate(270 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.75s' repeatCount='indefinite'/></rect><rect  x='46.5' y='40' width='7' height='20' rx='5' ry='5' fill='#0a6db1' transform='rotate(300 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.8333333333333334s' repeatCount='indefinite'/></rect><rect  x='46.5' y='40' width='7' height='20' rx='5' ry='5' fill='#0a6db1' transform='rotate(330 50 50) translate(0 -30)'>  <animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.9166666666666666s' repeatCount='indefinite'/></rect></svg>
+    </div>
     <div class="form-container ">
-        <form class="form-horizontal admin-form" name="vacancyForm" role="form" ng-submit="addVacancy()"  id="formValidate" novalidate>
+        <form class="form-horizontal admin-form" name="vacancyForm" role="form"  id="formValidate" novalidate>
             <div class="form-group text-left">
-                <label for="inputJobPosition" class="col-sm-3   control-label">Позиція</label>
+                <label for="inputJobPosition" class="col-sm-3   control-label">Позиція*</label>
                 <div class="col-sm-9">
                     <span class="arrow"></span>
-                    <select id="inputJobPosition" name="jobPosition" ng-model="vacancy.jobPosition.id"  class="form-control" ng-required="true">
+                    <select id="inputJobPosition" name="jobPosition" ng-model="vm.vacancy.jobPosition.id"  class="form-control" ng-required="true">
                         <option ng-value="">none</option>
-                        <option ng-repeat="jobPosition in jobPositions"  ng-value="jobPosition.id">{{jobPosition.name}}</option>
+                        <option ng-repeat="jobPosition in vm.jobPositions"  ng-value="jobPosition.id">{{jobPosition.name}}</option>
                     </select>
                     <div role="alert">
                         <span   class="error" ng-show="vacancyForm.$submitted || vacancyForm.jobPosition.$touched">
@@ -25,12 +28,12 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="inputProject" class="col-sm-3  control-label">Проект</label>
+                <label for="inputProject" class="col-sm-3  control-label">Проект*</label>
                 <div class="col-sm-9">
                     <span class="arrow"></span>
-                    <select id="inputProject" name="projectName" ng-model="vacancy.project.id"   class="form-control" ng-required="true">
+                    <select id="inputProject" name="projectName" ng-model="vm.vacancy.project.id"   class="form-control" ng-required="true">
                         <option value="">none</option>
-                        <option ng-repeat="project in projects"   ng-value="project.id">{{project.name}}</option>
+                        <option ng-repeat="project in vm.projects"   ng-value="project.id">{{project.name}}</option>
                     </select>
                     <div role="alert">
                         <span   class="error" ng-show="vacancyForm.$submitted || vacancyForm.projectName.$touched">
@@ -40,9 +43,9 @@
                 </div>
             </div>
             <div class="form-group">
-                <label  class="col-sm-3 control-label">Опис вакансії</label>
+                <label  class="col-sm-3 control-label">Опис вакансії*</label>
                 <div class="col-sm-9">
-                    <trix-editor  name="description" angular-trix  ng-model="vacancy.description" class="trix-content" ng-maxlength="250"  ng-required="true"></trix-editor>
+                    <trix-editor  name="description" angular-trix  ng-model="vm.vacancy.description" class="trix-content" ng-maxlength="250"  ng-required="true"></trix-editor>
                     <div role="alert">
                         <span   class="error" ng-show="vacancyForm.$submitted || vacancyForm.description.$touched">
                             <span  ng-show="vacancyForm.description.$error.required">Це поле є обов'язкове</span>
@@ -52,12 +55,12 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="inputEmployment" class="col-sm-3  control-label">Зайнятість</label>
+                <label for="inputEmployment" class="col-sm-3  control-label">Зайнятість*</label>
                 <div class="col-sm-9">
                     <span class="arrow"></span>
-                    <select id="inputEmployment" name="workingTime" ng-model="vacancy.workingTime.id"   class="form-control" ng-required="true">
+                    <select id="inputEmployment" name="workingTime" ng-model="vm.vacancy.workingTime.id"   class="form-control" ng-required="true">
                         <option value="">none</option>
-                        <option ng-repeat="workingTime in workingTimes"  ng-value="workingTime.id">{{workingTime.name}}</option>
+                        <option ng-repeat="workingTime in vm.workingTimes"  ng-value="workingTime.id">{{workingTime.name}}</option>
                     </select>
                     <div role="alert">
                         <span   class="error" ng-show="vacancyForm.$submitted || vacancyForm.workingTime.$touched">
@@ -69,7 +72,7 @@
             <div class="form-group">
                 <label for="inputInfo" class="col-sm-3  control-label">Дод.інф-ція</label>
                 <div class="col-sm-9">
-                    <textarea  id="inputInfo"   name="addDescription" ng-model="vacancy.addDescription"   class="form-control"   ng-maxlength="150"></textarea>
+                    <textarea  id="inputInfo"   name="addDescription" ng-model="vm.vacancy.addDescription"   class="form-control"   ng-maxlength="150"></textarea>
                     <div role="alert">
                         <span   class="error" ng-show="vacancyForm.$submitted || vacancyForm.addDescription.$touched">
                             <span  ng-show="vacancyForm.addDescription.$error.maxlength">Ви ввели занадто велике повідомлення</span>
@@ -78,14 +81,14 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="inputDate" class="col-sm-3  control-label">Дата публікації</label>
+                <label for="inputDate" class="col-sm-3  control-label">Дата публікації*</label>
                 <div class="col-sm-9">
                     <p class="input-group">
-                        <input id="inputDate" type="text" name="date"  class="form-control"  uib-datepicker-popup="{{format}}"
-                               ng-model="vacancy.date" uib-datepicker-popup   is-open="popup.opened" datepicker-options="dateOptions"
-                               close-text="Закрити" clear-text="Очистити" current-text="Сьогодні" ng-required="true"/>
+                        <input id="inputDate" type="text" name="date"  class="form-control"  uib-datepicker-popup="{{vm.format}}"
+                               ng-model="vm.vacancy.date" uib-datepicker-popup   is-open="vm.popup.opened" datepicker-options="vm.dateOptions"
+                               close-text="Закрити" clear-text="Очистити" current-text="Сьогодні" />
                         <span class="input-group-btn">
-                            <button type="button" class="btn btn-default btn-calendar" ng-click="open()"><i class="glyphicon glyphicon-calendar"></i></button>
+                            <button type="button" class="btn btn-default btn-calendar" ng-click="vm.open()"><i class="glyphicon glyphicon-calendar"></i></button>
                         </span>
                     </p>
                     <div role="alert">
@@ -98,7 +101,8 @@
             </div>
             <div class="form-group">
                 <div class="text-center">
-                    <button type="submit"  id="sendBtn" class="btn btn-primary btn-save">Опублікувати</button>
+                    <button type="submit" ng-click="!vacancyForm.$invalid && vm.addVacancy(true, vm.vacancy)"  id="sendBtn" class="btn btn-primary btn-save">Опублікувати</button>
+                    <button type="submit" ng-click="!vacancyForm.$invalid && vm.addVacancy(false, vm.vacancy)"  id="sendBtn1" class="btn btn-primary btn-save">Закрити вакансію</button>
                 </div>
             </div>
         </form>

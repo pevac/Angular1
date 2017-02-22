@@ -38,10 +38,10 @@ var path = {
         img: BUILD_BASE_DIR + "/img",
         index : BUILD_BASE_DIR + "/",
         templates : {
-        dir : BUILD_BASE_DIR + "/js",
-        name : "templates.js",
-        rootPath : ""
-  },
+            dir : BUILD_BASE_DIR + "/js",
+            name : "templates.js",
+            rootPath : ""
+        },
     },
     src: { 
         templates: [ SOURCE_BASE_DIR + '/app/**/*.html' ],
@@ -60,7 +60,8 @@ var path = {
             "./src/assets/lib/ng-file-upload/ng-file-upload-shim.js",
             "./src/assets/lib/ng-file-upload/ng-file-upload-all.js",
             "./src/assets/lib/ng-file-upload/FileApi.js",
-             "./src/assets/lib/ng-img-crop/compile/unminified/ng-img-crop.js",
+            "./src/assets/lib/ng-img-crop/compile/unminified/ng-img-crop.js",
+            "./src/assets/lib/ng-lodash/build/ng-lodash.js"
         ]
         },
         styles: SOURCE_BASE_DIR + "/assets/sass/*.scss",

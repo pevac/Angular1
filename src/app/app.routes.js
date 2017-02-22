@@ -26,34 +26,41 @@
                     }
                 }
             })
+
             .state("home.devportfolio", {
                 url: "devportfolio",
                 template:'<div ng-app="devPortfolioModule"  ui-view ></div>'
             })
             .state("home.devportfolio.list", {
                 url: "/list",
-                controller: "devPortfolioListCtrl as vm",
-                templateUrl:"devstudio/devPortfolio/devPortfolioList/devPortfolioList.tmpl.html"
+                controller: "devPortfolioListCtrl",
+                controllerAs: 'vm',
+                templateUrl:"devstudio/devPortfolio/devPortfolioList/devPortfolioList.tmpl.html",
+                resolve: {
+                    _projects:  function(serverDataService) {
+                       return  serverDataService.getDevProjects();
+                    }
+                }
             })
             .state("home.devportfolio.addportfolio", {
                 url: "/add",
-                controller: "addDevPortfolioCtrl as vm",
+                controller: "addDevPortfolioCtrl",
+                controllerAs: 'vm',
                 templateUrl:"devstudio/devPortfolio/devPortfolioForm/devPortfolioForm.tmpl.html",
-                params : {
-                    data: null
-                }
             })
             .state("home.devportfolio.editportfolio", {
-                url: "/edit?project",
-                controller: "addDevPortfolioCtrl as vm",
+                url: "/edit",
+                controller: "addDevPortfolioCtrl",
+                controllerAs: 'vm',
                 templateUrl:"devstudio/devPortfolio/devPortfolioForm/devPortfolioForm.tmpl.html",
                 params : {
                     data: null
                 }
             })
             .state("home.devportfolio.viewportfolio", {
-                url: "/view?project",
-                controller: "viewDevPortfolioCtrl as vm",
+                url: "/view",
+                controller: "viewDevPortfolioCtrl",
+                controllerAs: 'vm',
                 templateUrl:"devstudio/devPortfolio/devPortfolioView/devPortfolioView.tmpl.html",
                 params : {
                     previousState: null,
@@ -83,22 +90,66 @@
             .state("home.vacancies.list", {
                 url: "/list",
                 templateUrl:"devstudio/vacancies/vacanciesList/vacanciesList.tmpl.html",
-                controller: "vacanciesController"
+                controller: "vacanciesController",
+                controllerAs: 'vm',
+                resolve: {
+                    _vacancies:  function(serverDataService) {
+                       return  serverDataService.getVacancies();
+                    },
+                    _jobPositions:  function(serverDataService) {
+                       return  serverDataService.getJobPositions();
+                    },
+                    _projects:  function(serverDataService) {
+                       return  serverDataService.getDevProjects();
+                    }
+                }
             })
             .state("home.vacancies.addvacancy", {
                 url: "/add",
                 templateUrl:"devstudio/vacancies/vacanciesForm/vacanciesForm.tmpl.html",
-                controller: "addVacancyCtrl"
+                controller: "addVacancyCtrl",
+                controllerAs: 'vm',
+                params : {
+                    previousState: null,
+                },
+                resolve: {
+                    _jobPositions:  function(serverDataService) {
+                       return  serverDataService.getJobPositions();
+                    },
+                    _projects:  function(serverDataService) {
+                       return  serverDataService.getDevProjects();
+                    },
+                    _workingTimes:function(serverDataService) {
+                       return  serverDataService.getWorkingTimes();
+                    } 
+                }
             })
             .state("home.vacancies.edit", {
-                url: "/edit?vacancy",
+                url: "/edit",
                 templateUrl:"devstudio/vacancies/vacanciesForm/vacanciesForm.tmpl.html",
-                controller: "addVacancyCtrl"
+                controller: "addVacancyCtrl",
+                controllerAs: 'vm',
+                params : {
+                    previousState: null,
+                    data: null
+                },
+                resolve: {
+                    _jobPositions:  function(serverDataService) {
+                       return  serverDataService.getJobPositions();
+                    },
+                    _projects:  function(serverDataService) {
+                       return  serverDataService.getDevProjects();
+                    },
+                    _workingTimes:function(serverDataService) {
+                       return  serverDataService.getWorkingTimes();
+                    } 
+                }
             })
             .state("home.vacancies.review", {
                 url: "^/review/list",
                 templateUrl:"devstudio/vacancies/reviewVacancies/reviewVacancies.tmpl.html",
-                controller: "reviewVacanciesController"
+                controller: "reviewVacanciesController",
+                controllerAs: 'vm',
             })
 
             .state("home.intportfolio", {
@@ -128,15 +179,49 @@
             })
             .state("home.reviews.list", {
                 url: "/list",
-                templateUrl:"internship/reviews/listreview/reviews.html"
+                templateUrl:"internship/reviews/listreview/reviews.html",
+                controller: "reviewController",
+                controllerAs: "vm",
+                resolve: {
+                    _reviews:  function(serverDataService) {
+                       return  serverDataService.getReviews();
+                    },
+                    _jobPositions:  function(serverDataService) {
+                       return  serverDataService.getJobPositions();
+                    }
+                }
             })
             .state("home.reviews.addreview", {
                 url: "/add",
-                templateUrl:"internship/reviews/reviewForm/reviewForm.tmpl.html"
+                templateUrl:"internship/reviews/reviewForm/reviewForm.tmpl.html",
+                controller: "addReviewController",
+                controllerAs: "vm",
+                resolve: {
+                    _jobPositions:  function(serverDataService) {
+                       return  serverDataService.getJobPositions();
+                    },
+                    _projects:  function(serverDataService) {
+                       return  serverDataService.getDevProjects();
+                    },
+                }
             })
             .state("home.reviews.editreview", {
-                url: "/edit?review",
-                templateUrl:"internship/reviews/reviewForm/reviewForm.tmpl.html"
+                url: "/edit",
+                templateUrl:"internship/reviews/reviewForm/reviewForm.tmpl.html",
+                controller: "addReviewController",
+                controllerAs: "vm",
+                params : {
+                    previousState: null,
+                    data: null
+                },
+                resolve: {
+                    _jobPositions:  function(serverDataService) {
+                       return  serverDataService.getJobPositions();
+                    },
+                    _projects:  function(serverDataService) {
+                       return  serverDataService.getDevProjects();
+                    },
+                }
             })
 
             .state("home.users", {

@@ -1,71 +1,53 @@
 (function(){
-    angular.module('vacancyModule')
-        .controller('addVacancyCtrl', addVacancyCtrl);
+    angular.module("vacancyModule")
+        .controller("addVacancyCtrl", addVacancyCtrl);
 
-    addVacancyCtrl.$inject = ['$scope', 'serverActService', '$rootScope', 'serverDataService', '$stateParams']
-    function addVacancyCtrl($scope, serverActService, $rootScope,  serverDataService, $stateParams){
+    addVacancyCtrl.$inject = ["$scope", "serverActService", "$state", "serverDataService", "$timeout",  "_projects", "_jobPositions", "_workingTimes"]
+    function addVacancyCtrl($scope, serverActService, $state,  serverDataService, $timeout,  _projects, _jobPositions, _workingTimes){
+        var vm = this;
+        var vacancy = {};
 
-        $scope.clear = function() {
-            $scope.dt = null;
-        };
+        console.log($state);
+        vm.workingTimes = _workingTimes;
+        vm.jobPositions = _jobPositions;
+        vm.projects = _projects;
 
-        $scope.dateOptions = {
+        vm.dateOptions = {
             datepickerMode: "'month'",
             minMode: "month"
         };
-
        
-        $scope.formats = ["MMMM yyyy", "MMMM-yyyy", "yyyy/MM", "dd.MM.yyyy"];
-        $scope.format = $scope.formats[0];
+        vm.formats = ["MMMM yyyy", "MMMM-yyyy", "yyyy/MM", "dd.MM.yyyy"];
+        vm.format = vm.formats[0];
 
-        $scope.popup = {
+        vm.popup = {
             opened: false
         };
 
-        $scope.open = function() {
-            $scope.popup.opened = true;
+        vm.open = function() {
+            vm.popup.opened = true;
         };
 
-
-        $scope.addVacancy = function () {
-            console.log($scope.vacancy)
-            serverActService.addVacancy($scope.vacancy).then(function (response) {
-
+        vm.addVacancy = function (open, vacancy) {
+            vm.dataLoading =true;
+            var newVacancy = vacancy;
+            newVacancy.open = open;
+            serverActService.addVacancy(newVacancy).then(function (response) {
+                $timeout(function () {
+                    vm.dataLoading =false;
+                    $state.go("home.vacancies.list");
+                }, 1000);
             });
         };
 
-       $scope.getJobPositions = function () {
-            serverDataService.getJobPositions().then(function (data) {
-                $scope.jobPositions = data;
-            });
+      
+        activate();
+
+        function activate() {
+            if ($state.params.data && $state.params.data.vacancy) {
+                vm.vacancy  = $state.params.data.vacancy;
+            }
         };
-
-        $scope.getWorkingTimes = function (){
-            serverDataService.getWorkingTimes().then(function(data){
-                $scope.workingTimes = data;
-            });
-        };
-
-        $scope.getDevProjects = function () {
-            serverDataService.getDevProjects().then(function (data) {
-                $scope.projects = data;
-            })
-        };
-
-        (function(){
-            $scope.getJobPositions();
-            $scope.getDevProjects();
-            $scope.getWorkingTimes();
-            initForm();
-        })();
-
-
-
-        function initForm() {
-            if(!$rootScope.vacancy){ return; }
-            $scope.vacancy = $rootScope.vacancy;
-            $rootScope.vacancy = null;
-        }
 
     }
 })();

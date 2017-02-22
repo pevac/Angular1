@@ -2,8 +2,8 @@
     "use strict";
     angular.module("angularApp").controller("LoginController",LoginController );
 
-    LoginController.$inject = ["$scope","$rootScope","AUTH_EVENTS","AuthService","$location",]
-    function LoginController($scope, $rootScope, AUTH_EVENTS, AuthService, $location) {
+    LoginController.$inject = ["$scope","$rootScope","AUTH_EVENTS","AuthService","$location","Session"]
+    function LoginController($scope, $rootScope, AUTH_EVENTS, AuthService, $location, Session) {
         $scope.credentials = {
             login: "",
             password: ""
@@ -35,6 +35,7 @@
                 userName: "vasyl",
                 avatar: "img/admin.jpg"
             };
+            Session.create(2, 2, "admin");
             $location.path("/");
         };
     }

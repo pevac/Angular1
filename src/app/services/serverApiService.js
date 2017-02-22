@@ -110,6 +110,17 @@
                 })
             },
 
+             getReviewImage:   function(imgName, id){
+                var url1 =(serverApiConstant.devImage + id+ '/' + imgName)
+                return    $http.get(
+                     url1,
+                    {responseType: "arraybuffer"}
+                )
+                .then(function(response){
+                    return response;
+                })
+            },
+
             getDevImage1:   function(imgName, id){
                 return (serverApiConstant.devImage + id+ '/' + imgName)
             }
@@ -200,6 +211,20 @@
             },
 
             addDevImage:   function(data, id){
+                var method =  "POST";
+                var url1 =serverApiConstant.devImage + id
+                var fd = new FormData();
+                fd.append('file', data);
+                return  $http({
+                    method: method,
+                    url: url1,
+                    data: fd,
+                    transformRequest:angular.identity,
+                    headers: {"Content-Type": undefined}
+                })
+            },
+
+             addReviewImage:   function(data, id){
                 var method =  "POST";
                 var url1 =serverApiConstant.devImage + id
                 var fd = new FormData();

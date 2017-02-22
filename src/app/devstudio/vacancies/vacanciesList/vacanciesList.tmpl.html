@@ -1,4 +1,4 @@
-<div class="vacancies"  ng-controller="vacanciesController">
+<div class="vacancies">
     <div class="top-nav-container">
         <h2 class="h2">Вакансії</h2>
         <ul class="nav navbar-nav navbar-right">
@@ -9,18 +9,18 @@
     </div>
     <div class="panel-container">
         <div class="row">
-            <div class="col-xs-6 col-sm-4 col-lg-3  col-flex" ng-repeat="vacancy in vacancies" >
+            <div class="col-xs-6 col-sm-4 col-lg-3  col-flex" ng-repeat="vacancy in vm.vacancies" >
                 <div class="panel  panel-default panel-admin">
                     <div class="panel-body">
-                        <h2>{{setJobPosition(vacancy.jobPosition)}}</h2>
-                        <h4>{{setProject(vacancy.project)}}</h4>
+                        <h2>{{vm.setJobPosition(vacancy.jobPosition)}}</h2>
+                        <h4>{{vm.setProject(vacancy.project)}}</h4>
                     </div>
                     <div class="panel-footer" >
                         <ul class="nav-menu">
-                            <li><a ui-sref="home.vacancies.edit" ng-click="goToEdit(vacancy)" tooltip-placement="bottom" uib-tooltip="редагувати" tooltip-trigger="focus"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a></li>
+                            <li><a  ng-click="vm.goToEdit(vacancy, 'home.vacancies.edit')" tooltip-placement="bottom" uib-tooltip="редагувати" tooltip-trigger="focus"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a></li>
                             <!--<li><a ng-click="goToEdit(vacancy)" tooltip-placement="bottom" uib-tooltip="переглянути" tooltip-trigger="focus"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a></li>-->
                             <!--<li><a tooltip-placement="bottom" uib-tooltip="опоблікувати" tooltip-trigger="focus"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span></a></li>-->
-                            <li><a  ng-click="deleteProject(vacancy)"  tooltip-placement="bottom" uib-tooltip="видалити" tooltip-trigger="focus"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></li>
+                            <li><a  ng-click="vm.deleteVacancy(vacancy, $index)"  tooltip-placement="bottom" uib-tooltip="видалити" tooltip-trigger="focus"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></li>
                         </ul>
                     </div>
                 </div>

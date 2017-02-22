@@ -1,4 +1,4 @@
-<div class="devportfolio" ng-controller="devPortfolioListCtrl as vm">
+<div class="devportfolio">
 	<div class="top-nav-container">
 		<h2 class="h2">Портфоліо</h2>
 		<ul class="nav navbar-nav navbar-right">
@@ -26,7 +26,7 @@
 							<li><a  ng-click="vm.goToEdit(project, 'home.devportfolio.viewportfolio')"  tooltip-placement="bottom" uib-tooltip="переглянути" tooltip-trigger="focus"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a></li>
 							<li ng-if="project.draft"><a ng-click="vm.publish(project)"  tooltip-placement="bottom" uib-tooltip="опублікувати" tooltip-trigger="focus"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span></a></li>
 							<li ng-if="!project.draft"><a ng-click="vm.publish(project)" tooltip-placement="bottom"   uib-tooltip="приховати" tooltip-trigger="focus"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span></a></li>
-							<li><a  ng-click="vm.deleteProject(project)"  tooltip-placement="bottom" uib-tooltip="видалити" tooltip-trigger="focus"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></li>
+							<!--<li><a  ng-click="vm.deleteProject(project)"  tooltip-placement="bottom" uib-tooltip="видалити" tooltip-trigger="focus"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></li>-->
 						</ul>
 					</div>
 				</div>

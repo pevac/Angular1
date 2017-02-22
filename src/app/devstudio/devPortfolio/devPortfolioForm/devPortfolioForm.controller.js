@@ -36,7 +36,7 @@
         };
 
         vm.goToEdit = function () {
-            $state.go( 'home.devportfolio.viewportfolio', { previousState : { name : $state.current.name }, data: {project: vm.project, previewImg: vm.previewImg} }, {} );
+            $state.go( 'home.devportfolio.viewportfolio', { previousState : { name : $state.current.name }, data: {project: vm.project, previewImg: vm.previewImg, mainImg: vm.mainImg} }, {} );
         };
 
         vm.addProject = function (draft) {
@@ -57,7 +57,6 @@
                 var _isCheckTop = isCheckTop(data);
 
                 if (project.id && (_isCheckTop && !project.inTop || !project.inTop && !_isCheckTop || project.inTop && _isCheckTop || isTop && project.inTop && !_isCheckTop)) {
-
                 } else {
                     vm.project.inTop = isTop;
                     alert("Кількість проектів з зафарбованою зіркою не більше 4");
@@ -115,6 +114,7 @@
             if ($state.params.data && $state.params.data.project) {
                 vm.project  = $state.params.data.project;
                 vm.previewImg =  $state.params.data.previewImg;
+                vm.mainImg =  $state.params.data.mainImg;
 
                 isTop = vm.project.inTop;
 
@@ -122,7 +122,7 @@
                 if (vm.project.dateEnd) vm.project.dateEnd  = new Date(vm.project.dateEnd);
 
                 if(!vm.previewImg) setImage(vm.project.previewImg, vm.project.id, "previewImg");
-                setImage(vm.project.mainImg, vm.project.id, "mainImg");
+                if(!vm.mainImg) setImage(vm.project.mainImg, vm.project.id, "mainImg");
             }
         };
 
