@@ -1,7 +1,9 @@
 (function(){
     "use strict";
-    angular.module("appModule").config(function($stateProvider, $urlRouterProvider, USER_ROLES) {
+    angular.module("appModule").config(RouterConfig);
+    RouterConfig.$inject = ["$stateProvider", "$urlRouterProvider","USER_ROLES"];
 
+    function RouterConfig($stateProvider, $urlRouterProvider, USER_ROLES) {
         $urlRouterProvider.otherwise("/login");
 
         $stateProvider
@@ -24,7 +26,7 @@
                     authorizedRoles: [USER_ROLES.admin, USER_ROLES.editor]
                 },
                 resolve: {
-                    _auth: function resolveAuthentication(AuthResolver) {
+                    auth: function resolveAuthentication(AuthResolver) {
                         return AuthResolver.resolve();
                     }
                 }
@@ -81,7 +83,7 @@
                 controller: "orderCustomerController",
                 controllerAs: "vm",
                 resolve: {
-                    _customers:  function(serverDataService) {
+                    customers:  function(serverDataService) {
                        return  serverDataService.getCustomers();
                     }
                 }
@@ -289,7 +291,7 @@
                 url: "training",
                 templateUrl:"internship/training/training.html"
             })
-    });
+    };
 })();
 
 

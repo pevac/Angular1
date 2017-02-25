@@ -2,12 +2,12 @@
     angular.module("orderCustomerModule",[])
         .controller("orderCustomerController", orderCustomerController);
 
-    orderCustomerController.$inject = ["$scope", "serverDataService", "FileSaver", "Blob", "$templateCache", "$compile", "$timeout", "serverActService", "_customers"];
-    function orderCustomerController($scope, serverDataService, FileSaver, Blob, $templateCache, $compile, $timeout, serverActService, _customers){
+    orderCustomerController.$inject = ["$scope", "serverDataService", "FileSaver", "Blob", "$templateCache", "$compile", "$timeout", "serverActService", "customers"];
+    function orderCustomerController($scope, serverDataService, FileSaver, Blob, $templateCache, $compile, $timeout, serverActService, customers){
         var vm = this;
         vm.itemsByPage = 10;
 
-        vm.customers = _customers;
+        vm.customers = customers;
         vm.customerCollection = [].concat(vm.customers);
 
         vm.deleteCustomerOrder = function(order){
