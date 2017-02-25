@@ -1,47 +1,39 @@
 (function(){
     angular.module('intPortfolioModule',[])
-        .controller('intPortfolioListCtrl', intPortfolioListCtrl);
+        .controller('IntPortfolioListController', IntPortfolioListController);
 
-    intPortfolioListCtrl.$inject = ["$scope", "$rootScope", "serverActService", "serverDataService"]
+    IntPortfolioListController.$inject = ["$scope", "serverActService", "serverDataService", "$state", "projects"];
 
-    function intPortfolioListCtrl($scope,  $rootScope, serverActService, serverDataService){
+    function IntPortfolioListController($scope,  serverActService, serverDataService, $state, projects){
         
-        $scope.goToEdit = function(project) {
-            $rootScope.project = project;
+        var vm = this;
+
+        vm.projects = projects;
+
+        console.log(vm.projects);
+
+        vm.goToEdit = function(project, stateToGo) {
+            $state.go( stateToGo, { previousState : { name : $state.current.name }, data: {project: project} }, {} );
         };
 
-       
-        $scope.publish = function(project){
-            project.draft = !project.draft;
-              serverActService.addDevProject(project).then(function (response) {
-                  getProjects();
-            },
-            function (response) {
-                console.log(response);
+        vm.publish = function(project){
+            var newProject = project;
+            newProject.visible = !project.visible;
+            return addIntProject(newProject)
+        };
+
+        vm.deleteProject = function(project){
+            return serverActService.deleteProject(project).then(function(){
+                $state.reload();
             });
         };
 
-        $scope.changeTop = function(project){
-            project.inTop = !project.inTop;
-              serverActService.addDevProject(project).then(function (response) {
-                //    $scope.showModal = true;
-                // $scope.open();
-                  getProjects();
-            },
-            function (response) {
-                console.log(response);
+        function  addIntProject(data){
+            return serverActService.addIntProject(data).then(function(){
+                $state.reload();
             });
         };
 
-        function getProjects(){
-            serverDataService.getDevProjects().then(function (data) {
-                $scope.projects = data;
-            });
-        };
-
-        (function(){
-            getProjects();
-        })()
     }
 })();
 

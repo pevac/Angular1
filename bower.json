@@ -12,7 +12,7 @@
     "tests"
   ],
   "dependencies": {
-    "angular": "~1.5.8",
+    "angular": "^1.5.8",
     "angular-sanitize": "^1.5.8",
     "bootstrap-sass": "^3.3.7",
     "angular-bootstrap": "^2.2.0",
@@ -26,5 +26,8 @@
     "ng-img-crop": "ngImgCrop#^0.3.2",
     "ng-lodash": "^0.5.0",
     "ngstorage": "^0.3.11"
+  },
+  "resolutions": {
+    "angular": "^1.5.8"
   }
 }

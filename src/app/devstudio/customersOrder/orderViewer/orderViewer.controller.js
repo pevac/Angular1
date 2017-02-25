@@ -1,10 +1,12 @@
 (function () {
     angular.module("orderCustomerModule")
-        .controller("viewOrderCustomerCtrl", viewOrderCustomerCtrl);
+        .controller("ViewCustomerController", ViewCustomerController);
 
-    viewOrderCustomerCtrl.$inject = ["$scope", "$stateParams", "serverDataService", "FileSaver", "Blob"]
-    function viewOrderCustomerCtrl($scope, $stateParams, serverDataService, FileSaver, Blob) {
+    ViewCustomerController.$inject = ["$scope",  "serverDataService", "FileSaver", "Blob", "order"]
+    function ViewCustomerController($scope,   serverDataService, FileSaver, Blob, order) {
         var vm = this;
+        vm.order = order;
+        
         vm.exportData = function () {
             var blob = new Blob([document.getElementById('exportOrder').innerHTML], {
                 type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8;"
@@ -12,21 +14,6 @@
             FileSaver.saveAs(blob, "customer.xls");
         };
 
-        initForm();
-
-        function initForm() {
-            if(!$stateParams.orderId){ return; }
-            getCustomerItem($stateParams.orderId);
-        }
-
-        function getCustomerItem(id){
-            serverDataService.getCustomerItem(id).then(
-                function(data){
-                    console.log(data);
-                    vm.order = data;
-                }
-            )
-        };
     }
 })();
 

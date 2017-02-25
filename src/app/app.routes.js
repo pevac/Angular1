@@ -23,7 +23,7 @@
                 controller: "HomeController",
                 controllerAs: "vm",
                 data: {
-                    authorizedRoles: [USER_ROLES.admin, USER_ROLES.editor]
+                    authorizedRoles: [USER_ROLES.superAdmin, USER_ROLES.admin, USER_ROLES.editor]
                 },
                 resolve: {
                     auth: function resolveAuthentication(AuthResolver) {
@@ -90,9 +90,18 @@
                 
             })
             .state("home.ordercustomer.view", {
-                url: "/view?orderId",
+                url: "/view",
                 templateUrl:"devstudio/customersOrder/orderViewer/orderViewer.tpml.html",
-                controller: "viewOrderCustomerCtrl"
+                controller: "ViewCustomerController",
+                controllerAs: "vm",
+                params: {
+                    data: null
+                },
+                resolve: {
+                    order:  function(serverDataService, $stateParams) {
+                        return  serverDataService.getCustomerItem($stateParams.data.orderId);
+                    }
+                }
             })
 
             .state("home.vacancies", {
@@ -105,23 +114,8 @@
                 controller: "VacanciesController",
                 controllerAs: 'vm',
                 resolve: {
-                    vacancies:  function(serverDataService, jobPositions, projects, lodash) {
-                        return  serverDataService.getVacancies().then(function(vacancies){
-                            lodash.forEach(vacancies, function(vacancy) {
-                                var jobIndex = lodash.findIndex(jobPositions, function(job) { return job.id == vacancy.jobPosition.id; });
-                                vacancy.jobPosition.name = jobPositions[jobIndex].name;
-                                var projectIndex = lodash.findIndex(_projects, function(project) { return project.id == vacancy.project.id; });
-                                vacancy.project.name = projects[projectIndex].name;
-                            });
-
-                            return vacancies;
-                       });
-                    },
-                    jobPositions:  function(serverDataService) {
-                       return  serverDataService.getJobPositions();
-                    },
-                    projects:  function(serverDataService) {
-                       return  serverDataService.getDevProjects();
+                    vacancies:  function(serverDataService) {
+                        return  serverDataService.getVacancies();
                     }
                 }
             })
@@ -130,6 +124,7 @@
                 templateUrl:"devstudio/vacancies/vacanciesForm/vacanciesForm.tmpl.html",
                 controller: "AddVacancyController",
                 controllerAs: 'vm',
+                cache: true,
                 params : {
                     previousState: null,
                 },
@@ -150,6 +145,7 @@
                 templateUrl:"devstudio/vacancies/vacanciesForm/vacanciesForm.tmpl.html",
                 controller: "AddVacancyController",
                 controllerAs: 'vm',
+                cache: true,
                 params : {
                     previousState: null,
                     data: null
@@ -167,7 +163,7 @@
                 }
             })
             .state("home.vacancies.review", {
-                url: "^/review/list",
+                url: "/review/list",
                 templateUrl:"devstudio/vacancies/reviewVacancies/reviewVacancies.tmpl.html",
                 controller: "reviewVacanciesController",
                 controllerAs: 'vm',
@@ -179,18 +175,30 @@
             })
             .state("home.intportfolio.list", {
                 url: "/list",
-                controller: 'intPortfolioListCtrl',
-                templateUrl:"internship/intPortfolio/intPortfolioList/intPortfolioList.tmpl.html"
+                templateUrl:"internship/intPortfolio/intPortfolioList/intPortfolioList.tmpl.html",
+                controller: 'IntPortfolioListController',
+                controllerAs: "vm",
+                 resolve: {
+                    projects:  function(serverDataService) {
+                       return  serverDataService.getIntProjects();
+                    }
+                }
             })
             .state("home.intportfolio.addportfolio", {
                 url: "/add",
                 controller: "addIntPortfolioCtrl",
-                templateUrl:"internship/intPortfolio/intPortfolioForm/intPortfolioForm.tmpl.html"
+                templateUrl:"internship/intPortfolio/intPortfolioForm/intPortfolioForm.tmpl.html",
+                params: {
+                    data: null
+                }
             })
             .state("home.intportfolio.editportfolio", {
-                url: "/edit?project",
+                url: "/edit",
                 controller: "addIntPortfolioCtrl",
-                templateUrl:"internship/intPortfolio/intPortfolioForm/intPortfolioForm.tmpl.html"
+                templateUrl:"internship/intPortfolio/intPortfolioForm/intPortfolioForm.tmpl.html",
+                params: {
+                    data: null
+                }
             })
 
 
@@ -204,18 +212,8 @@
                 controller: "ReviewController",
                 controllerAs: "vm",
                 resolve: {
-                    reviews:  function(serverDataService, jobPositions, lodash) {
-                        return  serverDataService.getReviews().then(function(reviews){
-                           lodash.forEach(reviews, function(review) {
-                                var jobIndex = lodash.findIndex(jobPositions, function(job) { return job.id == review.jobPosition.id; });
-                                review.jobPosition.name = jobPositions[jobIndex].name;
-                            });
-                            
-                            return reviews;
-                        });
-                    },
-                    jobPositions:  function(serverDataService) {
-                       return  serverDataService.getJobPositions();
+                    reviews:  function(serverDataService) {
+                        return  serverDataService.getReviews();
                     }
                 }
             })
@@ -225,10 +223,10 @@
                 controller: "addReviewController",
                 controllerAs: "vm",
                 resolve: {
-                    _jobPositions:  function(serverDataService) {
+                    jobPositions:  function(serverDataService) {
                        return  serverDataService.getJobPositions();
                     },
-                    _projects:  function(serverDataService) {
+                    projects:  function(serverDataService) {
                        return  serverDataService.getDevProjects();
                     },
                 }
@@ -243,10 +241,10 @@
                     data: null
                 },
                 resolve: {
-                    _jobPositions:  function(serverDataService) {
+                    jobPositions:  function(serverDataService) {
                        return  serverDataService.getJobPositions();
                     },
-                    _projects:  function(serverDataService) {
+                    projects:  function(serverDataService) {
                        return  serverDataService.getDevProjects();
                     },
                 }
@@ -255,7 +253,7 @@
             .state("home.users", {
                 url: "/users",
                 template:'<div ng-app="usersModule"  ui-view ></div>',
-                 data: {
+                data: {
                     authorizedRoles: [USER_ROLES.superAdmin]
                 }
                
@@ -280,10 +278,10 @@
             })
 
 
-                .state("home.works", {
-                    url: "/works",
-                    templateUrl:"work/work.html"
-                })
+            .state("home.works", {
+                url: "/works",
+                templateUrl:"work/work.html"
+            })
                 
         
 

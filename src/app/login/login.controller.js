@@ -38,7 +38,7 @@
             };
             UserService.setUser(currentUser);
 
-            Session.create(2, 2, "admin");
+            Session.create(2, 2, "supperadmin");
             $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
         };
     };

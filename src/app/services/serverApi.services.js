@@ -8,13 +8,13 @@
             var rootUrl = "http://128.0.169.5:8888/dev-studio/api/";
             return {
                 devProjects: rootUrl +  "projects/",
-                intProjects: "projects/",
+                intProjects: rootUrl +  "internshipprojects/",
                 vacancies: rootUrl +  "vacancies/",
                 workingTimes: rootUrl+ "workingtimes/",
                 jobPositions: rootUrl+ "jobpositions/",
                 customerRequests:rootUrl + "customerrequests/",
                 devImage: rootUrl + "images/",
-                review: rootUrl+ "internshipfeedback/"
+                review: rootUrl+ "internshipfeedbacks/"
             }
         }());
 
@@ -33,7 +33,7 @@
             getIntProjects: function(){
                 return  $http({
                         method: "GET",
-                        url: serverApiConstant.devProjects
+                        url: serverApiConstant.intProjects
                     })
                     .then(function (response) {
                         return response.data;
@@ -156,8 +156,7 @@
                 })
             },
 
-
-             deleteCustomerOrder: function(data){
+            deleteCustomerOrder: function(data){
                 return  $http({
                     method: "DELETE",
                     url: serverApiConstant.customerRequests  + data.id
@@ -200,8 +199,8 @@
             addIntProject: function(data){
                 var method = (!data.id || data.id === "") ? "POST" : "PUT";
                 var url1 = (!data.id || data.id === "") ? 
-                    serverApiConstant.devProjects : 
-                    serverApiConstant.devProjects + "/" + data.id;
+                    serverApiConstant.intProjects : 
+                    serverApiConstant.intProjects  + data.id;
 
                 return  $http({
                     method: method,

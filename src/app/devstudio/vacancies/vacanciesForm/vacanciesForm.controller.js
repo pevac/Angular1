@@ -36,13 +36,13 @@
                 $state.go("home.vacancies.list");
             });
         };
-
       
         activate();
 
         function activate() {
             if ($state.params.data && $state.params.data.vacancy) {
                 vm.vacancy  = $state.params.data.vacancy;
+                vm.vacancy.date = new Date(vm.vacancy.date);
             }
         };
 

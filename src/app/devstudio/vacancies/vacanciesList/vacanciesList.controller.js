@@ -11,7 +11,7 @@
         vm.vacancies = vacancies;
         
         vm.goToEdit = function(vacancy, stateToGo) {
-            $state.go( stateToGo, { previousState : { name : $state.current.name }, data: {vacancy: vacancy} }, {} );
+            $state.go( stateToGo, { previousState : { name : $state.current.name }, data: {vacancy: vacancy} }, {reload: true} );
         };
 
         vm.deleteVacancy = function(vacancy, index){

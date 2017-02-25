@@ -27,7 +27,7 @@
             <div class="form-group">
                 <label for="inputCustomer" class="col-sm-3  control-label">Клієнт</label>
                 <div class="col-sm-9">
-                    <input   type="text" name="customer"   ng-model="project.costumer"  class="form-control" id="inputCustomer" ng-maxlength="50" ng-required="true">
+                    <input   type="text" name="customer"   ng-model="project.client"  class="form-control" id="inputCustomer" ng-maxlength="50" ng-required="true">
                     <div role="alert">
                         <span   class="error" ng-show="intPortfolioForm.$submitted  || intPortfolioForm.customer.$touched">
                             <span  ng-show="intPortfolioForm.customer.$error.required">Це поле є обов'язкове</span>
@@ -39,7 +39,7 @@
             <div class="form-group">
                 <label for="inputSitePhoto" class="col-sm-3  control-label">Зображення сайту</label>
                 <div class="col-sm-9">
-                    <input   class="file" type="file" name="sitePhoto" ng-model="project.sitePhoto" id="inputSitePhoto" file-reader
+                    <input   class="file" type="file" name="sitePhoto" ng-model="img" id="inputSitePhoto" file-reader
                              valid-file  valid-file-type="['image/png','image/jpeg','image/gif']"  valid-file-size = "1000000">
                     <span class="custom-file-control" >{{project.sitePhoto.name ? project.sitePhoto.name: "Завантажити фото" }}</span>
                     <div role="alert">
@@ -68,8 +68,8 @@
                 <div class="col-sm-9">
                     <p class="input-group">
                         <input id="inputStartDate" type="text" name="startDate"  class="form-control"  uib-datepicker-popup="{{format}}"
-                               ng-model="project.dateRegist" uib-datepicker-popup   is-open="popup2.opened" datepicker-options="dateOptions"
-                               close-text="Закрити" clear-text="Очистити" current-text="Сьогодні"   ng-pattern="/^((\d{4})-(\d{2})-(\d{2})|(\d{2})\/(\d{2})\/(\d{4}))$/" ng-required="true"/>
+                               ng-model="project.dateStart" uib-datepicker-popup   is-open="popup2.opened" datepicker-options="dateOptions"
+                               close-text="Закрити" clear-text="Очистити" current-text="Сьогодні"   ng-required="true"/>
                         <span class="input-group-btn">
                             <button type="button" class="btn btn-default btn-calendar" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
                         </span>
@@ -83,25 +83,25 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="inputEndDate" class="col-sm-3  control-label">Дата кінця</label>
+                <label for="inputDateEnd" class="col-sm-3  control-label">Дата кінця</label>
                 <div class="col-sm-9">
                     <p class="input-group">
-                        <input id="inputEndDate" type="text" name="endDate" class="form-control"  uib-datepicker-popup="{{format}}"
-                               ng-model="project.endDate" uib-datepicker-popup  is-open="popup1.opened" datepicker-options="dateOptions"
-                               close-text="Закрити" clear-text="Очистити" current-text="Сьогодні"   ng-pattern="/^((\d{4})-(\d{2})-(\d{2})|(\d{2})\/(\d{2})\/(\d{4}))$/" />
+                        <input id="inputDateEnd" type="text" name="dateEnd" class="form-control"  uib-datepicker-popup="{{format}}"
+                               ng-model="project.dateEnd" uib-datepicker-popup  is-open="popup1.opened" datepicker-options="dateOptions"
+                               close-text="Закрити" clear-text="Очистити" current-text="Сьогодні"/>
                         <span class="input-group-btn">
                             <button type="button" class="btn btn-default btn-calendar" ng-click="open1()"><i
                                     class="glyphicon glyphicon-calendar"></i></button>
                         </span>
                     </p>
                     <div role="alert">
-                            <span class="error" ng-show="intPortfolioForm.$submitted || intPortfolioForm.endDate.$touched">
-                                <span  ng-show="intPortfolioForm.endDate.$error.date">Введіть правильний формат</span>
+                            <span class="error" ng-show="intPortfolioForm.$submitted || intPortfolioForm.dateEnd.$touched">
+                                <span  ng-show="intPortfolioForm.dateEnd.$error.date">Введіть правильний формат</span>
                             </span>
                     </div>
                 </div>
             </div>
-            <div class="form-group">
+            <!--<div class="form-group">
                 <label class="col-sm-3  control-label">Галерея</label>
                 <div class="col-sm-9 ">
                     <div class="col-flex">
@@ -127,7 +127,7 @@
                     </span>
                     </div>
                 </div>
-            </div>
+            </div>-->
             <div class="form-group">
                 <div class="text-center">
                     <button type="submit"  id="sendBtn" class="btn btn-primary btn-save">Опублікувати</button>

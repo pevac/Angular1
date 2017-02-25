@@ -15,13 +15,15 @@
 
         vm.publish = function(project){
             var newProject = project;
-            newProject.draft = !project.draft;
-            if(newProject.draft) { newProject.inTop = false }
+            newProject.visible = !project.visible;
+            if(newProject.visible) { newProject.inTop = false }
             return addDevProject(newProject)
         };
 
         vm.deleteProject = function(project){
-            return serverActService.deleteProject(project);
+            return serverActService.deleteProject(project).then(function(data){
+                $state.reload();
+            });
         };
 
         vm.changeTop = function(project){
@@ -42,7 +44,9 @@
         };
 
         function  addDevProject(data){
-            return serverActService.addDevProject(data).then(getProjects);
+            return serverActService.addDevProject(data).then(function(){
+                $state.reload();
+            });
         };
 
         function isCheckTop(arg){
@@ -60,14 +64,6 @@
 
             return inTop;
         }
-
-        function getProjects(){
-            return serverDataService.getDevProjects().then(function (data) {
-                vm.projects = data;
-                return vm.projects;
-            });
-        };
-
 
     }
 })();

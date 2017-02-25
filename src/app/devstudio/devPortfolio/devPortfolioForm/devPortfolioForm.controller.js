@@ -2,9 +2,9 @@
     "use strict";
     
     angular.module("devPortfolioModule").controller("AddDevPortfolioController", AddDevPortfolioController)
-    AddDevPortfolioController.$inject = ["$scope", "$location", "serverActService", "$timeout", "$state", "serverDataService", "$rootScope"];
+    AddDevPortfolioController.$inject = ["$scope", "serverActService", "$timeout", "$state", "serverDataService"];
     
-    function AddDevPortfolioController($scope, $location, serverActService, $timeout, $state, serverDataService, $rootScope) {
+    function AddDevPortfolioController($scope,  serverActService, $timeout, $state, serverDataService) {
         var vm = this;
        
         var isTop;
@@ -63,7 +63,7 @@
             });
         };
 
-        initForm();
+        activate();
 
         function addFullImage(data) {
             var previewImg = vm.previewImg;
@@ -105,7 +105,7 @@
             return inTop;
         };
 
-        function initForm() {
+        function activate() {
             if ($state.params.data && $state.params.data.project) {
                 vm.project  = $state.params.data.project;
                 vm.previewImg =  $state.params.data.previewImg;

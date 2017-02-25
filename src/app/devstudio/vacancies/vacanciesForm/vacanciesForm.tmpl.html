@@ -15,7 +15,7 @@
                 <div class="col-sm-9">
                     <span class="arrow"></span>
                     <select id="inputJobPosition" name="jobPosition" ng-model="vm.vacancy.jobPosition.id"  class="form-control" ng-required="true">
-                        <option ng-value="">none</option>
+                        <option value="">none</option>
                         <option ng-repeat="jobPosition in vm.jobPositions"  ng-value="jobPosition.id">{{jobPosition.name}}</option>
                     </select>
                     <div role="alert">

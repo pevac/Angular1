@@ -2,12 +2,12 @@
  angular.module('reviewsModule',[])
         .controller('addReviewController', addReviewController);
 
-    addReviewController.$inject = ["$scope", "serverActService", "serverDataService", "$state", "_jobPositions", "_projects"]
+    addReviewController.$inject = ["$scope", "serverActService", "serverDataService", "$state", "jobPositions", "projects"]
 
-    function addReviewController($scope,  serverActService,  serverDataService, $state, _jobPositions, _projects){
+    function addReviewController($scope,  serverActService,  serverDataService, $state, jobPositions, projects){
         var vm = this;
-        vm.jobPositions = _jobPositions;
-        vm.projects = _projects;
+        vm.jobPositions = jobPositions;
+        vm.projects = projects;
         
         
         vm.addReview = function () {

@@ -2,8 +2,8 @@
     angular.module("orderCustomerModule",[])
         .controller("orderCustomerController", orderCustomerController);
 
-    orderCustomerController.$inject = ["$scope", "serverDataService", "FileSaver", "Blob", "$templateCache", "$compile", "$timeout", "serverActService", "customers"];
-    function orderCustomerController($scope, serverDataService, FileSaver, Blob, $templateCache, $compile, $timeout, serverActService, customers){
+    orderCustomerController.$inject = ["$scope", "$state", "serverDataService", "FileSaver", "Blob", "$templateCache", "$compile", "$timeout", "serverActService", "customers"];
+    function orderCustomerController($scope, $state, serverDataService, FileSaver, Blob, $templateCache, $compile, $timeout, serverActService, customers){
         var vm = this;
         vm.itemsByPage = 10;
 
@@ -14,8 +14,12 @@
             var checkDelete = confirm("Видалити замовлення");
             if(!checkDelete) return;
             serverActService.deleteCustomerOrder(order).then(function (response) {
-                getCustomers();
+                // getCustomers();
             });
+        };
+
+        vm.goToEdit = function(id, stateToGo) {
+            $state.go( stateToGo, { previousState : { name : $state.current.name }, data: {orderId: id} }, {} );
         };
 
         vm.exportData = function () {

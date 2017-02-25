@@ -2,9 +2,9 @@
     angular.module('intPortfolioModule')
         .controller('addIntPortfolioCtrl', addIntPortfolioCtrl)
 
-    addIntPortfolioCtrl.$inject = ["$scope","$stateParams", "serverActService", "$rootScope"];
+    addIntPortfolioCtrl.$inject = ["$scope", "serverActService", "$timeout", "$state", "serverDataService"];
 
-    function addIntPortfolioCtrl($scope,   serverActService, $rootScope) {
+    function addIntPortfolioCtrl($scope,  serverActService, $timeout, $state, serverDataService) {
         $scope.clear = function() {
             $scope.dt = null;
         };
@@ -41,13 +41,18 @@
             });
         };
 
-        initForm();
+        activate();
 
-        function initForm() {
-            if(!$rootScope.project){ return; }
-            $scope.project = $rootScope.project;
-            $rootScope.project = null;
-        }
+        function activate() {
+            if ($state.params.data && $state.params.data.project) {
+                $scope.project  = $state.params.data.project;
+
+                $scope.project.dateStart  = new Date($scope.project.dateStart);
+                $scope.project.dateEnd  = new Date($scope.project.dateEnd);
+
+                // if(!vm.previewImg) setImage(vm.project.img, vm.project.id, "img");
+            }
+        };
     }
 })();
 
