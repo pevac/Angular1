@@ -1,12 +1,13 @@
 (function(){
-    angular.module('devPortfolioModule',[])
-        .controller('devPortfolioListCtrl', devPortfolioListCtrl);
+    angular.module('devPortfolioModule',[]);
 
-    devPortfolioListCtrl.$inject = ["$scope", "serverActService", "serverDataService", "$state", "_projects"];
-    function devPortfolioListCtrl($scope,   serverActService, serverDataService, $state, _projects){
+    angular.module('devPortfolioModule').controller('DevPortfolioController', DevPortfolioController);
+    DevPortfolioController.$inject = ["$scope", "serverActService", "serverDataService", "$state", "projects"];
+
+    function DevPortfolioController($scope,  serverActService, serverDataService, $state, projects){
         var vm = this;
 
-        vm.projects = _projects;
+        vm.projects = projects;
 
         vm.goToEdit = function(project, stateToGo) {
             $state.go( stateToGo, { previousState : { name : $state.current.name }, data: {project: project} }, {} );

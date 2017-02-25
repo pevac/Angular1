@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default" ng-controller="SidebarController"  role="navigation">
+<nav class="navbar navbar-default"   role="navigation">
 	<!-- Brand and toggle get grouped for better mobile display -->
 	<div class="navbar-header  navbar-fixed-top">
 		<div class="brand-sect">
@@ -12,9 +12,8 @@
 		</button>
 		<div class="account navbar-right">
 			<span class="user-name" ng-bind="currentUser.userName"></span>
-			<span class="link-logout">log out</span>
 			<div class="photo">
-				<img ng-src="{{currentUser.avatar}}" alt="">
+				<img ng-click="logout()" ng-src="{{currentUser.avatar}}" alt="">
 			</div>
 		</div>
 	</div>

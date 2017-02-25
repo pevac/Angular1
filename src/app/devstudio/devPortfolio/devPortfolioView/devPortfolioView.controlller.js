@@ -1,9 +1,10 @@
 (function(){
-    angular.module('devPortfolioModule')
-    .controller('viewDevPortfolioCtrl', viewDevPortfolioCtrl);
+    "use strict";
 
-    viewDevPortfolioCtrl.$inject = ["$scope", "$location",  "$state", "$rootScope","serverDataService"];
-    function viewDevPortfolioCtrl($scope, $location, $state ,$rootScope,  serverDataService) {
+    angular.module('devPortfolioModule').controller('ViewDevPortfolioController', ViewDevPortfolioController);
+    ViewDevPortfolioController.$inject = ["$scope", "$location",  "$state", "serverDataService"];
+    
+    function ViewDevPortfolioController($scope, $location, $state , serverDataService) {
         var vm = this;
 
         vm.goToEdit = function () {

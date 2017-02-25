@@ -1,11 +1,10 @@
 (function () {
     "use strict";
-    angular.module("devPortfolioModule")
-        .controller("addDevPortfolioCtrl", addDevPortfolioCtrl)
-
-    addDevPortfolioCtrl.$inject = ["$scope", "$location", "serverActService", "$timeout", "$state", "serverDataService", "$rootScope"];
-
-    function addDevPortfolioCtrl($scope, $location, serverActService, $timeout, $state, serverDataService, $rootScope) {
+    
+    angular.module("devPortfolioModule").controller("AddDevPortfolioController", AddDevPortfolioController)
+    AddDevPortfolioController.$inject = ["$scope", "$location", "serverActService", "$timeout", "$state", "serverDataService", "$rootScope"];
+    
+    function AddDevPortfolioController($scope, $location, serverActService, $timeout, $state, serverDataService, $rootScope) {
         var vm = this;
        
         var isTop;
@@ -73,10 +72,6 @@
 
             addImage(previewImg, project,"previewImg");
             addImage(mainImg, project, "mainImg");
-            $timeout(function () {
-                vm.dataLoading =false;
-                $state.go("home.devportfolio.list");
-            }, 1000);
         };
 
         function addImage(image, project, name){

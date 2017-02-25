@@ -12,8 +12,8 @@
             <div class="col-xs-6 col-sm-4 col-lg-3  col-flex" ng-repeat="vacancy in vm.vacancies" >
                 <div class="panel  panel-default panel-admin">
                     <div class="panel-body">
-                        <h2>{{vm.setJobPosition(vacancy.jobPosition)}}</h2>
-                        <h4>{{vm.setProject(vacancy.project)}}</h4>
+                        <h2>{{vacancy.jobPosition.name}}</h2>
+                        <h4>{{vacancy.project.name}}</h4>
                     </div>
                     <div class="panel-footer" >
                         <ul class="nav-menu">

@@ -11,6 +11,7 @@
         
         
         vm.addReview = function () {
+            vm.dataLoading =true;
             var review = vm.review;
             var imageUrl = vm.croppedDataUrl;
             var photo = vm.photo;
@@ -33,6 +34,7 @@
                var  review  = data;
                review.img = file.name;
                 serverActService.addReview(review).then(function (response) {
+                    vm.dataLoading =false;
                     $state.go("home.reviews.list");
             })
             }, function(data){

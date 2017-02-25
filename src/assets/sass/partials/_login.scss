@@ -1,22 +1,33 @@
 .flex-container{
   width: 100%;
+  padding: 0;
   margin: 0;
   height: 100%;
-  padding: 0;
+  overflow: auto;
   background: $biruza-base-color;
   background: linear-gradient($biruza-base-color, $dark-base-color);
+  display:-webkit-box;
+  -webkit-box-orient:horizontal;
+	-webkit-box-pack: center;
+	-webkit-box-align: center;
+
   display:flex;
   flex-direction: column;
+  justify-content: center;
 
 
   h1{
     margin: 0;
     float: left;
+    position: absolute;
+    
+    top: 0;
     .navbar-brand{
       height: $navbar-brand-height;
       min-width: $navbar-brand-width;
       background: url("../img/logo.png") no-repeat center;
       background-size: 80%;
+      background-origin: border-box;
     }
   }
 }
@@ -26,8 +37,10 @@
     width: 100%;
   }
   .flex-container{
+    padding-top: 100px;
     h1 {
       margin: 15px 0 0 15px;
+      
     }
   }
 }
@@ -42,10 +55,9 @@
   padding: 30px;
   max-width: 350px;
   width: 100%;
-  margin: auto;
-  //margin-bottom: 30px;
+  // margin-top: 60px;
+  // margin-bottom: 60px;
   background-color: $light-base-color;
-
   align-self: center;
 
   h2{

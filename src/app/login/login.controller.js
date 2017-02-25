@@ -1,16 +1,19 @@
 (function(){
     "use strict";
-    angular.module("angularApp").controller("LoginController",LoginController );
+    angular.module("loginModule", []);
 
-    LoginController.$inject = ["$scope","$rootScope","AUTH_EVENTS","AuthService","$location","Session"]
-    function LoginController($scope, $rootScope, AUTH_EVENTS, AuthService, $location, Session) {
-        $scope.credentials = {
+    angular.module("loginModule").controller("LoginController",LoginController );
+
+    LoginController.$inject = ["$scope","$rootScope","AUTH_EVENTS","AuthService","Session", "UserService"]
+    function LoginController($scope, $rootScope, AUTH_EVENTS, AuthService,  Session, UserService) {
+        var vm = this;
+        vm.credentials = {
             login: "",
             password: ""
         };
 
-        $scope.loginStatus = {
-            type:null,
+        vm.loginStatus = {
+            type: null,
             message: ""
         }
 
@@ -18,26 +21,26 @@
         //     AuthService.login(credentials).then(function (user) {
         //         $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
         //         $rootScope.currentUser = user;
-        //         $location.path("/");
         //     }, function (response) {
-        //         var a = response;
         //         $scope.loginStatus.type = AUTH_EVENTS.loginFailed;
         //         $scope.loginStatus.message = "sdfasdfdasf";
         //         $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
         //     });
         // };
 
-        $scope.login = function (credentials) {
-            $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
-            $rootScope.currentUser = {
+        vm.login = function (credentials) {
+            vm.loginStatus.type = AUTH_EVENTS.loginSuccess;
+            var currentUser = {
                 id: 23,
                 role: "admin",
-                userName: "vasyl",
+                userName: "ivan1",
                 avatar: "img/admin.jpg"
             };
+            UserService.setUser(currentUser);
+
             Session.create(2, 2, "admin");
-            $location.path("/");
+            $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
         };
-    }
+    };
 })();
 

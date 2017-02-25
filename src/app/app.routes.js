@@ -1,56 +1,59 @@
 (function(){
     "use strict";
-    angular.module("angularApp").config(function($stateProvider, $urlRouterProvider, USER_ROLES) {
+    angular.module("appModule").config(function($stateProvider, $urlRouterProvider, USER_ROLES) {
 
-        $urlRouterProvider.otherwise('/');
+        $urlRouterProvider.otherwise("/login");
 
         $stateProvider
             .state("login", {
                 url: "/login",
                 templateUrl: "login/login.tmpl.html",
                 controller: "LoginController",
+                controllerAs: "vm",
                 data: {
                     authorizedRoles: [USER_ROLES.admin, USER_ROLES.editor]
                 }
             })
             .state("home", {
                 abstract: false,
-                url: "/",
+                url: "/app",
                 templateUrl: "shared/home/home.html",
+                controller: "HomeController",
+                controllerAs: "vm",
                 data: {
                     authorizedRoles: [USER_ROLES.admin, USER_ROLES.editor]
                 },
                 resolve: {
-                    auth: function resolveAuthentication(AuthResolver) {
+                    _auth: function resolveAuthentication(AuthResolver) {
                         return AuthResolver.resolve();
                     }
                 }
             })
 
             .state("home.devportfolio", {
-                url: "devportfolio",
+                url: "/devportfolio",
                 template:'<div ng-app="devPortfolioModule"  ui-view ></div>'
             })
             .state("home.devportfolio.list", {
                 url: "/list",
-                controller: "devPortfolioListCtrl",
+                controller: "DevPortfolioController",
                 controllerAs: 'vm',
                 templateUrl:"devstudio/devPortfolio/devPortfolioList/devPortfolioList.tmpl.html",
                 resolve: {
-                    _projects:  function(serverDataService) {
+                    projects:  function(serverDataService) {
                        return  serverDataService.getDevProjects();
                     }
                 }
             })
             .state("home.devportfolio.addportfolio", {
                 url: "/add",
-                controller: "addDevPortfolioCtrl",
+                controller: "AddDevPortfolioController",
                 controllerAs: 'vm',
                 templateUrl:"devstudio/devPortfolio/devPortfolioForm/devPortfolioForm.tmpl.html",
             })
             .state("home.devportfolio.editportfolio", {
                 url: "/edit",
-                controller: "addDevPortfolioCtrl",
+                controller: "AddDevPortfolioController",
                 controllerAs: 'vm',
                 templateUrl:"devstudio/devPortfolio/devPortfolioForm/devPortfolioForm.tmpl.html",
                 params : {
@@ -59,7 +62,7 @@
             })
             .state("home.devportfolio.viewportfolio", {
                 url: "/view",
-                controller: "viewDevPortfolioCtrl",
+                controller: "ViewDevPortfolioController",
                 controllerAs: 'vm',
                 templateUrl:"devstudio/devPortfolio/devPortfolioView/devPortfolioView.tmpl.html",
                 params : {
@@ -69,13 +72,20 @@
             })
 
             .state("home.ordercustomer", {
-                url: "ordercustomer",
+                url: "/ordercustomer",
                 template:'<div ng-app="orderCustomerModule"  ui-view ></div>'
             })
             .state("home.ordercustomer.list", {
                 url: "/list",
                 templateUrl:"devstudio/customersOrder/ordersList/ordersList.tmpl.html",
-                controller: "orderCustomerCtrl as vm"
+                controller: "orderCustomerController",
+                controllerAs: "vm",
+                resolve: {
+                    _customers:  function(serverDataService) {
+                       return  serverDataService.getCustomers();
+                    }
+                }
+                
             })
             .state("home.ordercustomer.view", {
                 url: "/view?orderId",
@@ -84,22 +94,31 @@
             })
 
             .state("home.vacancies", {
-                url: "vacancies",
+                url: "/vacancies",
                 template:'<div ng-app="vacancyModule"  ui-view ></div>'
             })
             .state("home.vacancies.list", {
                 url: "/list",
                 templateUrl:"devstudio/vacancies/vacanciesList/vacanciesList.tmpl.html",
-                controller: "vacanciesController",
+                controller: "VacanciesController",
                 controllerAs: 'vm',
                 resolve: {
-                    _vacancies:  function(serverDataService) {
-                       return  serverDataService.getVacancies();
+                    vacancies:  function(serverDataService, jobPositions, projects, lodash) {
+                        return  serverDataService.getVacancies().then(function(vacancies){
+                            lodash.forEach(vacancies, function(vacancy) {
+                                var jobIndex = lodash.findIndex(jobPositions, function(job) { return job.id == vacancy.jobPosition.id; });
+                                vacancy.jobPosition.name = jobPositions[jobIndex].name;
+                                var projectIndex = lodash.findIndex(_projects, function(project) { return project.id == vacancy.project.id; });
+                                vacancy.project.name = projects[projectIndex].name;
+                            });
+
+                            return vacancies;
+                       });
                     },
-                    _jobPositions:  function(serverDataService) {
+                    jobPositions:  function(serverDataService) {
                        return  serverDataService.getJobPositions();
                     },
-                    _projects:  function(serverDataService) {
+                    projects:  function(serverDataService) {
                        return  serverDataService.getDevProjects();
                     }
                 }
@@ -107,19 +126,19 @@
             .state("home.vacancies.addvacancy", {
                 url: "/add",
                 templateUrl:"devstudio/vacancies/vacanciesForm/vacanciesForm.tmpl.html",
-                controller: "addVacancyCtrl",
+                controller: "AddVacancyController",
                 controllerAs: 'vm',
                 params : {
                     previousState: null,
                 },
                 resolve: {
-                    _jobPositions:  function(serverDataService) {
+                    jobPositions:  function(serverDataService) {
                        return  serverDataService.getJobPositions();
                     },
-                    _projects:  function(serverDataService) {
+                    projects:  function(serverDataService) {
                        return  serverDataService.getDevProjects();
                     },
-                    _workingTimes:function(serverDataService) {
+                    workingTimes:function(serverDataService) {
                        return  serverDataService.getWorkingTimes();
                     } 
                 }
@@ -127,20 +146,20 @@
             .state("home.vacancies.edit", {
                 url: "/edit",
                 templateUrl:"devstudio/vacancies/vacanciesForm/vacanciesForm.tmpl.html",
-                controller: "addVacancyCtrl",
+                controller: "AddVacancyController",
                 controllerAs: 'vm',
                 params : {
                     previousState: null,
                     data: null
                 },
                 resolve: {
-                    _jobPositions:  function(serverDataService) {
+                    jobPositions:  function(serverDataService) {
                        return  serverDataService.getJobPositions();
                     },
-                    _projects:  function(serverDataService) {
+                    projects:  function(serverDataService) {
                        return  serverDataService.getDevProjects();
                     },
-                    _workingTimes:function(serverDataService) {
+                    workingTimes:function(serverDataService) {
                        return  serverDataService.getWorkingTimes();
                     } 
                 }
@@ -153,7 +172,7 @@
             })
 
             .state("home.intportfolio", {
-                url: "internship-portfolio",
+                url: "/internship",
                 template:'<div ng-app="intPortfolioModule"  ui-view ></div>'
             })
             .state("home.intportfolio.list", {
@@ -174,19 +193,26 @@
 
 
             .state("home.reviews", {
-                url: "reviews",
+                url: "/reviews",
                 template:'<div ng-app="reviewsModule"  ui-view ></div>'
             })
             .state("home.reviews.list", {
                 url: "/list",
                 templateUrl:"internship/reviews/listreview/reviews.html",
-                controller: "reviewController",
+                controller: "ReviewController",
                 controllerAs: "vm",
                 resolve: {
-                    _reviews:  function(serverDataService) {
-                       return  serverDataService.getReviews();
+                    reviews:  function(serverDataService, jobPositions, lodash) {
+                        return  serverDataService.getReviews().then(function(reviews){
+                           lodash.forEach(reviews, function(review) {
+                                var jobIndex = lodash.findIndex(jobPositions, function(job) { return job.id == review.jobPosition.id; });
+                                review.jobPosition.name = jobPositions[jobIndex].name;
+                            });
+                            
+                            return reviews;
+                        });
                     },
-                    _jobPositions:  function(serverDataService) {
+                    jobPositions:  function(serverDataService) {
                        return  serverDataService.getJobPositions();
                     }
                 }
@@ -225,12 +251,17 @@
             })
 
             .state("home.users", {
-                url: "users",
-                template:'<div ng-app="usersModule"  ui-view ></div>'
+                url: "/users",
+                template:'<div ng-app="usersModule"  ui-view ></div>',
+                 data: {
+                    authorizedRoles: [USER_ROLES.superAdmin]
+                }
+               
             })
             .state("home.users.list", {
                 url: "/list",
-                templateUrl:"users/list-users/list-users.tmpl.html"
+                templateUrl:"users/list-users/list-users.tmpl.html",
+                 
             })
             .state("home.users.add", {
                 url: "/add",
@@ -241,14 +272,14 @@
                 templateUrl:"users/form-users/form-users.tmpl.html"
             })
             .state("home.users.view", {
-                url: "/view?hello",
+                url: "/view",
                 controller: "viewUserCtrl",
                 templateUrl:"users/view-users/view-users.tmpl.html"
             })
 
 
                 .state("home.works", {
-                    url: "works/",
+                    url: "/works",
                     templateUrl:"work/work.html"
                 })
                 
@@ -259,45 +290,6 @@
                 templateUrl:"internship/training/training.html"
             })
     });
-})();
-
-(function () {
-    'use strict';
-
-    angular.module('angularApp')
-        .provider('previousState', previousStateProvider)
-    .directive('back', ['$window','previousStateProvider', function ($window, previousStateProvider) {
-        return {
-            restrict: 'A',
-            link: function (scope, elem, attrs) {
-                console.log("hello");
-                elem.bind('click', function () {
-                    $window.history.back();
-                });
-            }
-        };
-    }]);
-
-    previousStateProvider.$inject = ['$rootScopeProvider'];
-
-    function previousStateProvider($rootScopeProvider) {
-        this.$get = PreviousState;
-
-        PreviousState.$inject = ['$rootScope'];
-
-        /* @ngInject */
-        function PreviousState($rootScope) {
-            $rootScope.previousParms;
-            $rootScope.previousState;
-            $rootScope.currentState;
-
-            $rootScope.$on('$stateChangeSuccess', function (ev, to, toParams, from, fromParams) {
-                $rootScope.previousParms = fromParams;
-                $rootScope.previousState = from.name;
-                $rootScope.currentState = to.name;
-            });
-        }
-    }
 })();
 
 

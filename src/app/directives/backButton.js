@@ -1,5 +1,5 @@
 (function() {
-    angular.module("angularApp")
+    angular.module("appModule")
         .directive('back', ['$window', function ($window) {
             return {
                 restrict: 'A',

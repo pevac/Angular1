@@ -1,16 +1,15 @@
 (function(){
     angular.module("vacancyModule")
-        .controller("addVacancyCtrl", addVacancyCtrl);
+        .controller("AddVacancyController", AddVacancyController);
 
-    addVacancyCtrl.$inject = ["$scope", "serverActService", "$state", "serverDataService", "$timeout",  "_projects", "_jobPositions", "_workingTimes"]
-    function addVacancyCtrl($scope, serverActService, $state,  serverDataService, $timeout,  _projects, _jobPositions, _workingTimes){
+    AddVacancyController.$inject = ["$scope", "serverActService", "$state",  "projects", "jobPositions", "workingTimes"]
+    function AddVacancyController($scope, serverActService, $state,   projects, jobPositions, workingTimes){
         var vm = this;
         var vacancy = {};
 
-        console.log($state);
-        vm.workingTimes = _workingTimes;
-        vm.jobPositions = _jobPositions;
-        vm.projects = _projects;
+        vm.workingTimes = workingTimes;
+        vm.jobPositions = jobPositions;
+        vm.projects = projects;
 
         vm.dateOptions = {
             datepickerMode: "'month'",
@@ -33,10 +32,8 @@
             var newVacancy = vacancy;
             newVacancy.open = open;
             serverActService.addVacancy(newVacancy).then(function (response) {
-                $timeout(function () {
-                    vm.dataLoading =false;
-                    $state.go("home.vacancies.list");
-                }, 1000);
+                vm.dataLoading =false;
+                $state.go("home.vacancies.list");
             });
         };
 

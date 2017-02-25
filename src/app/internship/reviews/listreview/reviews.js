@@ -1,25 +1,15 @@
 (function(){
-    angular.module('reviewsModule')
-        .controller('reviewController', reviewController);
+    "use strict";
+    
+    angular.module('reviewsModule').controller('ReviewController', ReviewController);
+    ReviewController.$inject = ["$scope",  "$state", "serverDataService", "reviews"];
 
-    reviewController.$inject = ["$scope",  "$state", "serverDataService", "_reviews", "_jobPositions"];
-
-    function reviewController($scope,  $state, serverDataService, _reviews, _jobPositions){
+    function ReviewController($scope,  $state, serverDataService, reviews){
         var vm = this;
-        var jobPositions = _jobPositions;
-        vm.reviews = _reviews;
+        vm.reviews = reviews;
 
         vm.setImage = function(review){
             return  serverDataService.getDevImage1(review.img, review.id);
-        };
-
-        vm.setJobPosition = function(review){
-            if(!jobPositions && jobPositions.length <= 0) return;
-            for(var i = 0; i < jobPositions.length; i++){
-                if(jobPositions[i].id == review.jobPosition.id) {
-                    return jobPositions[i].name; 
-                }
-            }
         };
 
         vm.goToEdit = function(review, stateToGo) {

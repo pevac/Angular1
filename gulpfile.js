@@ -23,7 +23,7 @@ var AUTOPREFIXER_BROWSERS = [
     "bb >= 10"
 ];
 // var DEPLOYMENT_NAME = "bionic_dev_studio";
-var MODULE_NAME = "angularApp";
+var MODULE_NAME = "appModule";
 var SOURCE_BASE_DIR = "./src";
 var TARGET_DIR = "./build";
 var BUILD_BASE_DIR = TARGET_DIR;
@@ -48,6 +48,7 @@ var path = {
         script: {
         app: [ SOURCE_BASE_DIR + '/app/**/*.js' ],
         vendor: ["./src/assets/lib/angular/angular.js",
+            "./src/assets/lib/angular-sanitize/angular-sanitize.min.js",
             "./src/assets/lib/angular-i18n/angular-locale_uk-ua.js",
             "./src/assets/lib/angular-bootstrap/ui-bootstrap-tpls.js",
             "./src/assets/lib/angular-ui-router/release/angular-ui-router.min.js",
@@ -56,12 +57,14 @@ var path = {
             "./src/assets/lib/angular-smart-table/dist/smart-table.min.js",
             "./src/assets/lib/angular-file-saver/dist/angular-file-saver.min.js",
             "./src/assets/lib/angular-file-saver/dist/angular-file-saver.bundle.min.js",
-            "./src/assets/lib/angular-sanitize/angular-sanitize.min.js",
+            "./src/assets/lib/blob-polyfill/Blob.js",
+            "./src/assets/lib/file-saver/dist/FileSaver.js",
             "./src/assets/lib/ng-file-upload/ng-file-upload-shim.js",
             "./src/assets/lib/ng-file-upload/ng-file-upload-all.js",
             "./src/assets/lib/ng-file-upload/FileApi.js",
             "./src/assets/lib/ng-img-crop/compile/unminified/ng-img-crop.js",
-            "./src/assets/lib/ng-lodash/build/ng-lodash.js"
+            "./src/assets/lib/ng-lodash/build/ng-lodash.js",
+            "./src/assets/lib/ngstorage/ngStorage.min.js"
         ]
         },
         styles: SOURCE_BASE_DIR + "/assets/sass/*.scss",
