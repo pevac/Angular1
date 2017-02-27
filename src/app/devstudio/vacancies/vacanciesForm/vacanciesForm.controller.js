@@ -1,15 +1,17 @@
 (function(){
-    angular.module("vacancyModule")
-        .controller("AddVacancyController", AddVacancyController);
+    "use strict";
 
-    AddVacancyController.$inject = ["$scope", "serverActService", "$state",  "projects", "jobPositions", "workingTimes"]
+    angular.module("vacancyModule").controller("AddVacancyController", AddVacancyController);
+    AddVacancyController.$inject = ["$scope", "serverActService", "$state",  "projects", "jobPositions", "workingTimes"];
+    
+    /* @ngInject */
     function AddVacancyController($scope, serverActService, $state,   projects, jobPositions, workingTimes){
         var vm = this;
-        var vacancy = {};
 
         vm.workingTimes = workingTimes;
         vm.jobPositions = jobPositions;
         vm.projects = projects;
+        activate();
 
         vm.dateOptions = {
             datepickerMode: "'month'",
@@ -36,8 +38,6 @@
                 $state.go("home.vacancies.list");
             });
         };
-      
-        activate();
 
         function activate() {
             if ($state.params.data && $state.params.data.vacancy) {
@@ -45,7 +45,6 @@
                 vm.vacancy.date = new Date(vm.vacancy.date);
             }
         };
-
     }
 })();
     

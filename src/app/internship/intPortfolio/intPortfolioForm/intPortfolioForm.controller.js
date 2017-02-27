@@ -1,43 +1,42 @@
 (function(){
-    angular.module('intPortfolioModule')
-        .controller('addIntPortfolioCtrl', addIntPortfolioCtrl)
+    "use strict"
 
-    addIntPortfolioCtrl.$inject = ["$scope", "serverActService", "$timeout", "$state", "serverDataService"];
+    angular.module("intPortfolioModule").controller("AddIntPortfolioController", AddIntPortfolioController)
+    AddIntPortfolioController.$inject = ["$scope", "serverActService", "$timeout", "$state", "serverDataService"];
 
-    function addIntPortfolioCtrl($scope,  serverActService, $timeout, $state, serverDataService) {
-        $scope.clear = function() {
-            $scope.dt = null;
-        };
-
-        $scope.dateOptions = {
+    function AddIntPortfolioController($scope,  serverActService, $timeout, $state, serverDataService) {
+        var vm = this;
+        vm.dateOptions = {
             datepickerMode: "'month'",
             minMode: "month",
             formatMonth: "MMMM"
         };
 
-        $scope.formats = ["MMMM yyyy", "yyyy/MM", "dd.MM.yyyy"];
-        $scope.format = $scope.formats[0];
+        vm.formats = ["MMMM yyyy", "yyyy/MM", "dd.MM.yyyy"];
+        vm.format = vm.formats[0];
 
-        $scope.popup1 = {
+        vm.popup1 = {
             opened: false
         };
 
-        $scope.popup2 = {
+        vm.popup2 = {
             opened: false
         };
 
-        $scope.open1 = function() {
-            $scope.popup1.opened = true;
+        vm.open1 = function() {
+            vm.popup1.opened = true;
         };
 
-        $scope.open2 = function() {
-            $scope.popup2.opened = true;
+        vm.open2 = function() {
+            vm.popup2.opened = true;
         };
 
-        $scope.addProject = function(){
-        console.log($scope.project);
-            serverActService.addIntProject($scope.project).then(function (response) {
-
+        vm.addProject = function(visible){
+            vm.dataLoading =true;
+            var project = angular.copy(vm.project);
+            project.visible = visible;
+            serverActService.addIntProject(project).then(function (response) {
+                addImage(response.data);
             });
         };
 
@@ -45,13 +44,45 @@
 
         function activate() {
             if ($state.params.data && $state.params.data.project) {
-                $scope.project  = $state.params.data.project;
+                vm.project  = $state.params.data.project;
 
-                $scope.project.dateStart  = new Date($scope.project.dateStart);
-                $scope.project.dateEnd  = new Date($scope.project.dateEnd);
+                vm.project.dateStart  = new Date(vm.project.dateStart);
+                vm.project.dateEnd  = new Date(vm.project.dateEnd);
 
-                // if(!vm.previewImg) setImage(vm.project.img, vm.project.id, "img");
+                if(!vm.img) setImage(vm.project.img, vm.project.id);
             }
+        };
+
+        function addImage(data){
+            var image = vm.img;
+            var project = data;
+            if(!image && !image.lastModifiedDate) {return;}
+            serverActService.addIntImage(image, project.id).then(function (response) {
+                project.img = image.name;
+                serverActService.addIntProject(project).then(function (response) {
+                    $timeout(function () {
+                        vm.dataLoading =false;
+                        $state.go("home.intportfolio.list");
+                    }, 1000);
+                });
+            });
+        };
+
+        function setImage(img, id) {
+           serverDataService.getIntImage(img, id).then(function (response) {
+                vm.img=  base64ToFile(response, img); 
+            })
+        };
+
+        function base64ToFile(response, name){
+            var file;
+            var blob;
+            var arrayBufferView = new Uint8Array(response.data);
+            var type = response.headers('content-type') || 'image/WebP';
+            blob = new Blob([arrayBufferView], { type: type });
+            blob.name = name;
+
+            return  blob;
         };
     }
 })();

@@ -1,14 +1,14 @@
 (function(){
- angular.module('reviewsModule',[])
-        .controller('addReviewController', addReviewController);
+    "use strict";
 
-    addReviewController.$inject = ["$scope", "serverActService", "serverDataService", "$state", "jobPositions", "projects"]
+    angular.module("reviewsModule").controller("AddReviewController", AddReviewController);
+    AddReviewController.$inject = ["$scope", "serverActService", "serverDataService", "$state", "jobPositions", "projects", "ImageService"];
 
-    function addReviewController($scope,  serverActService,  serverDataService, $state, jobPositions, projects){
+    function AddReviewController($scope,  serverActService,  serverDataService, $state, jobPositions, projects, ImageService){
         var vm = this;
         vm.jobPositions = jobPositions;
         vm.projects = projects;
-        
+        activate();
         
         vm.addReview = function () {
             vm.dataLoading =true;
@@ -21,14 +21,11 @@
             });
         }
 
-        activate();
-
         function uploadImage(imageUrl, photo, data) {
             var imageBase64 = imageUrl;
             var image = photo;
             
-            var base64ImageContent = imageBase64.replace(/^data:image\/(png|jpg);base64,/, "");
-            var file = base64ToFile(base64ImageContent, photo);   
+            var file = ImageService.base64ToFile(imageBase64, photo);   
           
             serverActService.addReviewImage(file, data.id).then(function (response) {
                var  review  = data;
@@ -44,44 +41,10 @@
 
         function getReviewImage(name, id) {
             serverDataService.getReviewImage(name, id).then(function (response) {
-                vm.photo =   ArrayBufferToFile(response, name)
+                vm.photo =   ImageService.bufferArrayResponceToFile(response, name)
             })
         }; 
         
-        function base64ToFile(base64, photo){
-            var mime = photo.type || '';
-            var sliceSize = photo.size || 1024;
-            var byteChars = window.atob(base64);
-            var byteArrays = [];
-
-            for (var offset = 0, len = byteChars.length; offset < len; offset += sliceSize) {
-                var slice = byteChars.slice(offset, offset + sliceSize);
-
-                var byteNumbers = new Array(slice.length);
-                for (var i = 0; i < slice.length; i++) {
-                     byteNumbers[i] = slice.charCodeAt(i);
-                }
-
-                var byteArray = new Uint8Array(byteNumbers);
-                byteArrays.push(byteArray);
-            }
-
-            var file = new File(byteArrays, photo.name, {type:mime});
-                
-            return file;
-        }
-
-        function ArrayBufferToFile(response, name){
-            var file;
-            var blob;
-            var arrayBufferView = new Uint8Array(response.data);
-            var type = response.headers('content-type') || 'image/WebP';
-            blob = new Blob([arrayBufferView], { type: type });
-            blob.name = name;
-
-            return  blob;
-        };
-
         function activate(){
             if(!$state.params.data) return;
             vm.review = $state.params.data.review;

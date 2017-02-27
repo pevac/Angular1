@@ -1,12 +1,11 @@
 (function () {
     "use strict";
     
-    angular.module("devPortfolioModule").controller("AddDevPortfolioController", AddDevPortfolioController)
-    AddDevPortfolioController.$inject = ["$scope", "serverActService", "$timeout", "$state", "serverDataService"];
+    angular.module("devPortfolioModule").controller("AddDevPortfolioController", AddDevPortfolioController);
+    AddDevPortfolioController.$inject = ["$scope", "serverActService", "$timeout", "$state", "serverDataService", "ImageService"];
     
-    function AddDevPortfolioController($scope,  serverActService, $timeout, $state, serverDataService) {
+    function AddDevPortfolioController($scope,  serverActService, $timeout, $state, serverDataService, ImageService) {
         var vm = this;
-       
         var isTop;
         if (vm.project) {  isTop = vm.project.inTop; }
 
@@ -35,14 +34,28 @@
         };
 
         vm.goToEdit = function () {
-            $state.go( 'home.devportfolio.viewportfolio', { previousState : { name : $state.current.name }, data: {project: vm.project, previewImg: vm.previewImg, mainImg: vm.mainImg} }, {} );
+           var previewImg;
+           var mainImg;
+           ImageService.fileToObject(vm.previewImg).then(function(data){
+               previewImg = data;
+               if(mainImg){
+                    $state.go( 'home.devportfolio.viewportfolio', { previousState : { name : $state.current.name }, data: {project: vm.project, previewImg: previewImg, mainImg: mainImg} }, {} );
+               }
+           });
+            ImageService.fileToObject(vm.mainImg).then(function(data){
+                mainImg = data;
+               if(previewImg){
+                    $state.go( 'home.devportfolio.viewportfolio', { previousState : { name : $state.current.name }, data: {project: vm.project, previewImg: previewImg, mainImg: mainImg} }, {} );
+               }
+           });;
+           
         };
 
-        vm.addProject = function (draft) {
+        vm.addProject = function (visible) {
             vm.dataLoading =true;
             var project = vm.project;
-            project.draft = draft;
-            if (project.draft) { project.inTop = false }
+            project.visible = visible;
+            if (project.visible) { project.inTop = false }
             serverActService.addDevProject(vm.project).then(function (response) {
                 addFullImage(response.data)
             },
@@ -94,7 +107,7 @@
             var index = 0;
 
             for (var i = 0; i < projects.length; i++) {
-                if (!projects[i].draft && projects[i].inTop) {
+                if (projects[i].visible && projects[i].inTop) {
                     index++;
                 }
                 if (index >= 4) {
@@ -107,9 +120,9 @@
 
         function activate() {
             if ($state.params.data && $state.params.data.project) {
-                vm.project  = $state.params.data.project;
-                vm.previewImg =  $state.params.data.previewImg;
-                vm.mainImg =  $state.params.data.mainImg;
+                vm.project  =  $state.params.data.project;
+                vm.previewImg = $state.params.data.previewImg ? ImageService.base64ToFile($state.params.data.previewImg.data, $state.params.data.previewImg) : null;
+                vm.mainImg =  $state.params.data.mainImg ? ImageService.base64ToFile($state.params.data.mainImg.data, $state.params.data.mainImg) : null;
 
                 isTop = vm.project.inTop;
 
@@ -124,19 +137,8 @@
 
         function setImage(img, id, name) {
            serverDataService.getDevImage(img, id).then(function (response) {
-                vm[name]=  base64ToFile(response, img); 
+                vm[name]=  ImageService.bufferArrayResponceToFile(response, img); 
             })
-        };
-
-        function base64ToFile(response, name){
-            var file;
-            var blob;
-            var arrayBufferView = new Uint8Array(response.data);
-            var type = response.headers('content-type') || 'image/WebP';
-            blob = new Blob([arrayBufferView], { type: type });
-            blob.name = name;
-
-            return  blob;
         };
 
     };

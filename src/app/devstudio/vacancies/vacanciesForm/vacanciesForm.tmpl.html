@@ -70,10 +70,10 @@
             <div class="form-group">
                 <label for="inputInfo" class="col-sm-3  control-label">Дод.інф-ція</label>
                 <div class="col-sm-9">
-                    <textarea  id="inputInfo"   name="addDescription" ng-model="vm.vacancy.addDescription"   class="form-control"   ng-maxlength="150"></textarea>
+                    <textarea  id="inputInfo"   name="info" ng-model="vm.vacancy.info"   class="form-control"   ng-maxlength="150"></textarea>
                     <div role="alert">
-                        <span   class="error" ng-show="vacancyForm.$submitted || vacancyForm.addDescription.$touched">
-                            <span  ng-show="vacancyForm.addDescription.$error.maxlength">Ви ввели занадто велике повідомлення</span>
+                        <span   class="error" ng-show="vacancyForm.$submitted || vacancyForm.info.$touched">
+                            <span  ng-show="vacancyForm.info.$error.maxlength">Ви ввели занадто велике повідомлення</span>
                         </span>
                     </div>
                 </div>

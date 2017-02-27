@@ -1,17 +1,16 @@
 (function () {
     "use strict"
-    angular.module("vacancyModule", []);
     
-    angular.module("vacancyModule")
-        .controller("VacanciesController", VacanciesController);
+    angular.module("vacancyModule").controller("VacanciesController", VacanciesController);
+    VacanciesController.$inject  = ["$scope", "$state", "serverActService", "vacancies"];
 
-    VacanciesController.$inject  = ["$scope", "$state", "serverDataService", "serverActService", "vacancies"];
-    function VacanciesController($scope, $state, serverDataService, serverActService, vacancies) {
+    /* @ngInject */
+    function VacanciesController($scope, $state,  serverActService, vacancies) {
         var vm = this;
         vm.vacancies = vacancies;
         
         vm.goToEdit = function(vacancy, stateToGo) {
-            $state.go( stateToGo, { previousState : { name : $state.current.name }, data: {vacancy: vacancy} }, {reload: true} );
+            $state.go( stateToGo, {  data: {vacancy: vacancy} }, { } );
         };
 
         vm.deleteVacancy = function(vacancy, index){

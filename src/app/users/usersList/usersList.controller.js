@@ -1,10 +1,10 @@
 (function(){
-    angular.module('usersModule',[])
-        .controller('usersCtrl', usersCtrl);
+    "use strict"
+    
+    angular.module("usersModule").controller("UsersController", UsersController);
+    UsersController.$inject = ["$scope", "serverDataService"]
 
-    usersCtrl.$inject = ["$scope", "serverDataService"]
-
-    function usersCtrl($scope, serverDataService){
+    function UsersController($scope, serverDataService){
         
         $scope.getProjects = function(){
             $scope.projects = serverDataService.getIntProjects().then(function (data) {

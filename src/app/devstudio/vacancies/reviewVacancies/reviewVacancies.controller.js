@@ -1,12 +1,12 @@
 (function () {
     "use strict"
-    angular.module("vacancyModule")
-        .controller("reviewVacanciesController",reviewVacanciesController)
 
-
-    reviewVacanciesController.$inject  = ["$scope", "serverDataService"]
-    function reviewVacanciesController($scope, serverDataService) {
-        var self = this;
+    angular.module("vacancyModule").controller("ReviewVacanciesController",ReviewVacanciesController);
+    ReviewVacanciesController.$inject  = ["$scope", "serverDataService"];
+    
+    /* @ngInject */
+    function ReviewVacanciesController($scope, serverDataService) {
+        var vm = this;
         $scope.itemsByPage = 10;
 
         $scope.getVacancies = function(){
@@ -15,10 +15,6 @@
                 $scope.vacancies = data;
                 $scope.vacanciesCollection = [].concat($scope.vacancies);
             });
-        };
-
-        $scope.vacancyJson = function (obj) {
-            return JSON.stringify(obj);
         };
 
         (function(){

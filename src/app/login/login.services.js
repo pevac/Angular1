@@ -40,7 +40,7 @@
         return authService;
     };
 
-    UserService.$inject = ["$sessionStorage"];
+    Session.$inject = ["$sessionStorage"];
     function Session($sessionStorage) {
         var vm = {};
         var cookieSet = $sessionStorage;

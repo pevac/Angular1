@@ -1,8 +1,8 @@
 (function(){
     "use strict";
     angular.module("loginModule")
-        .run(initLogin)
-        .config(requestProvider)
+        .run(InitLogin)
+        .config(RequestProvider)
         .constant("AUTH_EVENTS", {
             loginSuccess: "auth-login-success",
             loginFailed: "auth-login-failed",
@@ -13,14 +13,12 @@
         })
         .constant("USER_ROLES", {
             all: "*",
-            superAdmin: "superAdmin",
             admin: "admin",
-            editor: "editor",
-            guest: "guest"
+            expert: "expert"
         });
     
-    initLogin.$inject = ["$rootScope", "AUTH_EVENTS","AuthService","$location", "UserService"];
-    function initLogin($rootScope, AUTH_EVENTS, AuthService, $location, UserService) {
+    InitLogin.$inject = ["$rootScope", "AUTH_EVENTS","AuthService","$location"];
+    function InitLogin($rootScope, AUTH_EVENTS, AuthService, $location) {
         // enumerate routes that don't need authentication
         var routesThatDontRequireAuth = ['/login'];
         var routesApp = "/app";
@@ -73,8 +71,8 @@
         });
     };
 
-    requestProvider.$inject = ["$httpProvider"];
-    function requestProvider($httpProvider)  {
+    RequestProvider.$inject = ["$httpProvider"];
+    function RequestProvider($httpProvider)  {
         $httpProvider.interceptors.push([
             "$injector",
             function ($injector) {

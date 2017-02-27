@@ -1,43 +1,34 @@
 (function(){
     "use strict";
 
-    angular.module('devPortfolioModule').controller('ViewDevPortfolioController', ViewDevPortfolioController);
-    ViewDevPortfolioController.$inject = ["$scope", "$location",  "$state", "serverDataService"];
+    angular.module("devPortfolioModule").controller("ViewDevPortfolioController", ViewDevPortfolioController);
+    ViewDevPortfolioController.$inject = ["$scope", "$state", "serverDataService", "ImageService"];
     
-    function ViewDevPortfolioController($scope, $location, $state , serverDataService) {
+    function ViewDevPortfolioController($scope, $state , serverDataService, ImageService) {
         var vm = this;
 
         vm.goToEdit = function () {
-            if($state.params.previousState.name.indexOf( "list") !== -1){
-            $state.go("home.devportfolio.list");
-            }else if($state.params.previousState.name.indexOf( "editportfolio") !== -1){
-                $state.go("home.devportfolio.editportfolio", { previousState : { name : $state.current.name }, data: {project: vm.project, previewImg: vm.image, mainImg: $state.params.data.mainImg} }, {} );
-            }
+            $state.go($state.params.previousState.name, {previousState : { name : $state.current.name }, data: {project: vm.project, previewImg: $state.params.data.previewImg, mainImg: $state.params.data.mainImg} }, {} );
         };
         
-        initForm();
+        activate();
        
-        function initForm() {
+        function activate() {
             if($state.params.data && $state.params.data.project){ 
                 vm.project = $state.params.data.project;
                 setImage();
             }
-            
         }
 
         function setImage()
         {
-            var project = vm.project;
+            var project = angular.copy(vm.project);
             if($state.params.data && $state.params.data.previewImg){
                 vm.image = $state.params.data.previewImg;
-                vm.imageUrl = URL.createObjectURL(vm.image);
+                vm.imageUrl = vm.image.data;
             }else{
                 serverDataService.getDevImage(project.previewImg,  project.id).then(function(response){
-                    var arrayBufferView = new Uint8Array(response.data);
-                    var type = response.headers('content-type') || 'image/WebP';
-                    var blob = new Blob([arrayBufferView], { type: type });
-                    blob.name = project.previewImg;
-                    vm.image = blob;
+                    vm.image = ImageService.bufferArrayResponceToFile(response, project.previewImg);
                     vm.imageUrl = URL.createObjectURL(vm.image);
                 });
             }

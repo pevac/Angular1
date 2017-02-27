@@ -1,8 +1,9 @@
 (function () {
-    angular.module("orderCustomerModule")
-        .controller("ViewCustomerController", ViewCustomerController);
+    "use strict";
 
-    ViewCustomerController.$inject = ["$scope",  "serverDataService", "FileSaver", "Blob", "order"]
+    angular.module("orderCustomerModule").controller("ViewCustomerController", ViewCustomerController);
+    ViewCustomerController.$inject = ["$scope",  "serverDataService", "FileSaver", "Blob", "order"];
+
     function ViewCustomerController($scope,   serverDataService, FileSaver, Blob, order) {
         var vm = this;
         vm.order = order;
@@ -13,7 +14,6 @@
             });
             FileSaver.saveAs(blob, "customer.xls");
         };
-
     }
 })();
 

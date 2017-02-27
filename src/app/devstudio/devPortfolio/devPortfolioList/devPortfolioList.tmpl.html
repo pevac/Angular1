@@ -9,7 +9,7 @@
 	</div>
 	<div class="panel-container">
 		<div class="row">
-			<div class="col-xs-6 col-sm-4 col-lg-3  col-flex" ng-repeat="project in vm.projects  | orderBy:'!inTop' | orderBy: 'draft'">
+			<div class="col-xs-6 col-sm-4 col-lg-3  col-flex" ng-repeat="project in vm.projects  | orderBy:'!inTop' | orderBy: '!visible'">
 				<div class="panel  panel-default panel-admin">
 					<div class="panel-body" >
 						<div class="text-right clearfix">
@@ -26,7 +26,6 @@
 							<li><a  ng-click="vm.goToEdit(project, 'home.devportfolio.viewportfolio')"  tooltip-placement="bottom" uib-tooltip="переглянути" tooltip-trigger="focus"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a></li>
 							<li ng-if="project.visible"><a ng-click="vm.publish(project)"  tooltip-placement="bottom" uib-tooltip="опублікувати" tooltip-trigger="focus"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span></a></li>
 							<li ng-if="!project.visible"><a ng-click="vm.publish(project)" tooltip-placement="bottom"   uib-tooltip="приховати" tooltip-trigger="focus"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span></a></li>
-							<!--<li><a  ng-click="vm.deleteProject(project)"  tooltip-placement="bottom" uib-tooltip="видалити" tooltip-trigger="focus"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></li>-->
 						</ul>
 					</div>
 				</div>

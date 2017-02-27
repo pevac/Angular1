@@ -1,10 +1,10 @@
 (function(){
-    angular.module('usersModule')
-        .controller('addUsersCtrl', addUsersCtrl)
+    "use strict"
 
-    addUsersCtrl.$inject = ["$scope","$stateParams",  "serverActService"];
+    angular.module("usersModule").controller("AddUserController", AddUserController);
+    AddUserController.$inject = ["$scope","$stateParams",  "serverActService"];
 
-    function addUsersCtrl($scope,  $stateParams,   serverActService) {
+    function AddUserController($scope,  $stateParams,   serverActService) {
         $scope.upload = function (dataUrl, foto) {
             var image = dataUrl;
             var base64ImageContent = image.replace(/^data:image\/(png|jpg);base64,/, "");

@@ -1,10 +1,9 @@
 (function(){
     "use strict";
-    angular.module("loginModule", []);
 
     angular.module("loginModule").controller("LoginController",LoginController );
-
-    LoginController.$inject = ["$scope","$rootScope","AUTH_EVENTS","AuthService","Session", "UserService"]
+    LoginController.$inject = ["$scope","$rootScope","AUTH_EVENTS","AuthService","Session", "UserService"];
+    
     function LoginController($scope, $rootScope, AUTH_EVENTS, AuthService,  Session, UserService) {
         var vm = this;
         vm.credentials = {
@@ -38,7 +37,7 @@
             };
             UserService.setUser(currentUser);
 
-            Session.create(2, 2, "supperadmin");
+            Session.create(2, 2, "admin");
             $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
         };
     };

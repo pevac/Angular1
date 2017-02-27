@@ -2,6 +2,7 @@
  angular.module('workModule',[])
         .controller('workController', workController);
 
+    workController.$inject = ["$scope", "$http","serverApiConstant", "serverActService", "serverDataService"];
 
     function workController($scope, $http,serverApiConstant, serverActService, serverDataService){
 

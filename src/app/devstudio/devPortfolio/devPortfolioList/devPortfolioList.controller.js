@@ -1,7 +1,7 @@
 (function(){
-    angular.module('devPortfolioModule',[]);
+    "use strict";
 
-    angular.module('devPortfolioModule').controller('DevPortfolioController', DevPortfolioController);
+    angular.module("devPortfolioModule").controller("DevPortfolioController", DevPortfolioController);
     DevPortfolioController.$inject = ["$scope", "serverActService", "serverDataService", "$state", "projects"];
 
     function DevPortfolioController($scope,  serverActService, serverDataService, $state, projects){
@@ -10,7 +10,8 @@
         vm.projects = projects;
 
         vm.goToEdit = function(project, stateToGo) {
-            $state.go( stateToGo, { previousState : { name : $state.current.name }, data: {project: project} }, {} );
+            var project1 = angular.copy(project);
+            $state.go( stateToGo, { previousState : { name : $state.current.name }, data: {project: project1} }, {} );
         };
 
         vm.publish = function(project){
@@ -20,16 +21,10 @@
             return addDevProject(newProject)
         };
 
-        vm.deleteProject = function(project){
-            return serverActService.deleteProject(project).then(function(data){
-                $state.reload();
-            });
-        };
-
         vm.changeTop = function(project){
             return serverDataService.getDevProjects().then(function(data){
                 sendInTop (data, project);
-           });
+            });
         };
 
         function sendInTop (data, project){
@@ -54,7 +49,7 @@
             var inTop = true;
             var index=0;
             for(var i = 0; i < projects.length; i++){
-                if(!projects[i].draft  && projects[i].inTop) {
+                if(projects[i].visible  && projects[i].inTop) {
                     index++;
                 }
                 if(index >= 4){

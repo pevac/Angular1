@@ -2,8 +2,8 @@
     "use strict";
     angular
         .module("serverApi",[])
-        .factory("serverDataService", getData)
-        .factory("serverActService", setData)
+        .factory("serverDataService", serverDataService)
+        .factory("serverActService", serverActService)
         .constant("serverApiConstant",function(){
             var rootUrl = "http://128.0.169.5:8888/dev-studio/api/";
             return {
@@ -14,11 +14,13 @@
                 jobPositions: rootUrl+ "jobpositions/",
                 customerRequests:rootUrl + "customerrequests/",
                 devImage: rootUrl + "images/",
+                intImage: rootUrl + "images/",
                 review: rootUrl+ "internshipfeedbacks/"
             }
         }());
 
-    function getData($http, serverApiConstant){
+    serverDataService.$inject = ["$http", "serverApiConstant"];
+    function serverDataService($http, serverApiConstant){
          return{
             getDevProjects: function(){
                 return $http({
@@ -110,6 +112,17 @@
                 })
             },
 
+            getIntImage:   function(imgName, id){
+                var url1 =(serverApiConstant.intImage + id+ '/' + imgName)
+                return    $http.get(
+                     url1,
+                    {responseType: "arraybuffer"}
+                )
+                .then(function(response){
+                    return response;
+                })
+            },
+
              getReviewImage:   function(imgName, id){
                 var url1 =(serverApiConstant.devImage + id+ '/' + imgName)
                 return    $http.get(
@@ -128,7 +141,8 @@
         }
     }
 
-    function setData($http, serverApiConstant){
+    serverActService.$inject = ["$http", "serverApiConstant"];
+    function serverActService($http, serverApiConstant){
         return{
             addVacancy: function(data){
                 var method = (!data.id || data.id === "") ? "POST" : "PUT";
@@ -189,13 +203,6 @@
                 })
             },
 
-            deleteProject: function(data){
-                  return  $http({
-                    method: "DELETE",
-                    url:  serverApiConstant.devProjects + data.id
-                })
-            },
-
             addIntProject: function(data){
                 var method = (!data.id || data.id === "") ? "POST" : "PUT";
                 var url1 = (!data.id || data.id === "") ? 
@@ -212,6 +219,20 @@
             addDevImage:   function(data, id){
                 var method =  "POST";
                 var url1 =serverApiConstant.devImage + id
+                var fd = new FormData();
+                fd.append('file', data);
+                return  $http({
+                    method: method,
+                    url: url1,
+                    data: fd,
+                    transformRequest:angular.identity,
+                    headers: {"Content-Type": undefined}
+                })
+            },
+
+            addIntImage:   function(data, id){
+                var method =  "POST";
+                var url1 =serverApiConstant.intImage + id
                 var fd = new FormData();
                 fd.append('file', data);
                 return  $http({

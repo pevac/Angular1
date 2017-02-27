@@ -1,9 +1,10 @@
 (function () {
-    angular.module("orderCustomerModule",[])
-        .controller("orderCustomerController", orderCustomerController);
+    "use strict";
 
-    orderCustomerController.$inject = ["$scope", "$state", "serverDataService", "FileSaver", "Blob", "$templateCache", "$compile", "$timeout", "serverActService", "customers"];
-    function orderCustomerController($scope, $state, serverDataService, FileSaver, Blob, $templateCache, $compile, $timeout, serverActService, customers){
+    angular.module("orderCustomerModule").controller("OrderCustomerController", OrderCustomerController);
+    OrderCustomerController.$inject = ["$scope", "$state", "serverDataService", "FileSaver", "Blob", "$templateCache", "$compile", "$timeout", "serverActService", "customers"];
+    
+    function OrderCustomerController($scope, $state, serverDataService, FileSaver, Blob, $templateCache, $compile, $timeout, serverActService, customers){
         var vm = this;
         vm.itemsByPage = 10;
 
@@ -14,7 +15,7 @@
             var checkDelete = confirm("Видалити замовлення");
             if(!checkDelete) return;
             serverActService.deleteCustomerOrder(order).then(function (response) {
-                // getCustomers();
+                $state.reload();
             });
         };
 
@@ -53,25 +54,14 @@
                         document.getElementById('exportTable').append(el);
                     }
                     $timeout(function () {
-                        var  blob = new Blob([document.getElementById('exportOrder').innerHTML], {type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;"});
+                        var  blob = new Blob([document.getElementById('exportOrder').innerHTML], 
+                        {type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;"});
                         FileSaver.saveAs(blob, "Report.xls");
                     }, 100);
 
                 }
             )
         };
-
-        function getCustomers(){
-            serverDataService.getCustomers().then(
-                function(data){
-                    vm.customers = [];
-                    vm.customers = data;
-                    vm.customerCollection = [].concat(vm.customers);
-                }
-            )
-        };
-
-       
     }
 })();
 
