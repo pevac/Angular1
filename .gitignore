@@ -9,4 +9,5 @@ launch.json
 .idea
 .vscode
 src/assets/lib
+admin.war
 

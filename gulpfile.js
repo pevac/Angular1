@@ -1,6 +1,6 @@
 var gulp = require("gulp");
-var jshint = require("gulp-jshint");
 var del = require("del");
+var pngquant = require('imagemin-pngquant');
 var runSequence = require("run-sequence");
 var browserSync = require("browser-sync").create();
 var spa         = require("browser-sync-spa");
@@ -9,6 +9,7 @@ var $ = require("gulp-load-plugins")();
 var angularTemplateCache   = require("gulp-angular-templatecache");
 var angularFilesort        = require("gulp-angular-filesort");
 var ngAnnotate             = require("gulp-ng-annotate");
+var bowerComponent = require("./vendor");
 
 var RELEASE = !!argv.release;
 var AUTOPREFIXER_BROWSERS = [             
@@ -16,19 +17,18 @@ var AUTOPREFIXER_BROWSERS = [
     "ie_mob >= 9",
     "ff >= 30",
     "chrome >= 34",
-    "safari >= 7",
+    "safari >= 5",
     "opera >= 23",
     "ios >= 7",
     "android >= 4.4",
     "bb >= 10"
 ];
-// var DEPLOYMENT_NAME = "bionic_dev_studio";
+
 var MODULE_NAME = "appModule";
 var SOURCE_BASE_DIR = "./src";
 var TARGET_DIR = "./build";
 var BUILD_BASE_DIR = TARGET_DIR;
 var PROXY_PATHS = BUILD_BASE_DIR;
-
 
 var path = {
     build: { 
@@ -46,32 +46,13 @@ var path = {
     src: { 
         templates: [ SOURCE_BASE_DIR + '/app/**/*.html' ],
         script: {
-        app: [ SOURCE_BASE_DIR + '/app/**/*.js' ],
-        vendor: ["./src/assets/lib/angular/angular.js",
-            "./src/assets/lib/angular-sanitize/angular-sanitize.min.js",
-            "./src/assets/lib/angular-i18n/angular-locale_uk-ua.js",
-            "./src/assets/lib/angular-bootstrap/ui-bootstrap-tpls.js",
-            "./src/assets/lib/angular-ui-router/release/angular-ui-router.min.js",
-            "./src/assets/lib/angular-trix/dist/angular-trix.min.js",
-            "./src/assets/lib/trix/dist/trix.js",
-            "./src/assets/lib/angular-smart-table/dist/smart-table.min.js",
-            "./src/assets/lib/angular-file-saver/dist/angular-file-saver.min.js",
-            "./src/assets/lib/angular-file-saver/dist/angular-file-saver.bundle.min.js",
-            "./src/assets/lib/blob-polyfill/Blob.js",
-            "./src/assets/lib/file-saver/dist/FileSaver.js",
-            "./src/assets/lib/ng-file-upload/ng-file-upload-shim.js",
-            "./src/assets/lib/ng-file-upload/ng-file-upload-all.js",
-            "./src/assets/lib/ng-file-upload/FileApi.js",
-            "./src/assets/lib/ng-img-crop/compile/unminified/ng-img-crop.js",
-            "./src/assets/lib/ng-lodash/build/ng-lodash.js",
-            "./src/assets/lib/ngstorage/ngStorage.min.js"
-        ]
+            app: [ SOURCE_BASE_DIR + '/app/**/*.js' ],
+            vendor: bowerComponent
         },
         styles: SOURCE_BASE_DIR + "/assets/sass/*.scss",
         fonts: [SOURCE_BASE_DIR + "/assets/fonts/**/*.*", "./src/assets/lib/bootstrap-sass/assets/fonts/**/*.*"],
         img: SOURCE_BASE_DIR + "/assets/img/**/*.*",
         index : SOURCE_BASE_DIR + "/index.html"
-  
     },
     watch: { 
         templates: SOURCE_BASE_DIR + "/app/**/*.html",
@@ -83,12 +64,26 @@ var path = {
         index : SOURCE_BASE_DIR + "/index.html",
         reload: BUILD_BASE_DIR + "/**/*.*"
     },
-    clean: BUILD_BASE_DIR,
+    zip: {
+        src: BUILD_BASE_DIR  + "/**/*.*",
+        dest: "./"
+    },
+    clean: BUILD_BASE_DIR
 };
 
 gulp.task("sass:build", function () {
     return gulp.src(path.src.styles)
-        .pipe($.plumber())
+        .pipe($.plumber({errorHandler:  function(err) {
+            const type = err.type || '';
+            const message = err.message || '';
+            const extract = err.extract || [];
+            const line = err.line || '';
+            const column = err.column || '';
+            $.util.log($.util.colors.red.bold('[Sass error]') +' '+ $.util.colors.bgRed(type) +' ('+ line +':'+ column +')');
+            $.util.log($.util.colors.bold('message:') +' '+ message);
+            $.util.log($.util.colors.bold('codeframe:') +'\n'+ extract.join('\n'));
+            this.emit('end');
+        }}))
         .pipe($.if(!RELEASE, $.sourcemaps.init()))
         .pipe($.sass())
         .pipe($.autoprefixer({browsers: AUTOPREFIXER_BROWSERS}))
@@ -97,8 +92,9 @@ gulp.task("sass:build", function () {
             suffix: ".min",
             extname: ".css"
         }))
-        .pipe($.if(!RELEASE, $.sourcemaps.write({sourceRoot: './src/sass'})))
-        .pipe(gulp.dest(path.build.styles));
+        .pipe($.if(!RELEASE, $.sourcemaps.write({sourceRoot: "./src/sass"})))
+        .pipe(gulp.dest(path.build.styles))
+        .pipe($.size({title: "styles"}));
 });
 
 gulp.task("vendor:build", function(){
@@ -111,100 +107,144 @@ gulp.task("vendor:build", function(){
             extname: ".js"
         }))
         .pipe($.if(!RELEASE, $.sourcemaps.write()))
-        .pipe(gulp.dest(path.build.script));
+        .pipe(gulp.dest(path.build.script))
+        .pipe($.size({title: "vendor"}));
 });
 
 gulp.task("script:build", function() {
-  return gulp.src(path.src.script.app)
-      .pipe($.if(!RELEASE, $.sourcemaps.init()))
-      .pipe(angularFilesort())
-      .pipe($.concat("app.js"))
-      .pipe($.if(RELEASE, ngAnnotate()))
-      .pipe($.if(RELEASE, $.uglify()))
-      .pipe($.rename({
+    return gulp.src(path.src.script.app)
+        .pipe($.plumber({errorHandler:  function(err) {
+            const type = err.type || '';
+            const message = err.message || '';
+            const extract = err.extract || [];
+            const line = err.line || '';
+            const column = err.column || '';
+            $.util.log($.util.colors.red.bold('[Sass error]') +' '+ $.util.colors.bgRed(type) +' ('+ line +':'+ column +')');
+            $.util.log($.util.colors.bold('message:') +' '+ message);
+            $.util.log($.util.colors.bold('codeframe:') +'\n'+ extract.join('\n'));
+            this.emit('end');
+        }}))
+        .pipe($.if(!RELEASE, $.sourcemaps.init()))
+        .pipe(angularFilesort())
+        .pipe($.concat("app.js"))
+        .pipe($.if(RELEASE, ngAnnotate()))
+        .pipe($.if(RELEASE, $.uglify()))
+        .pipe($.rename({
             suffix: ".min",
             extname: ".js"
-      }))
-      .pipe($.if(!RELEASE, $.sourcemaps.write()))
-      .pipe(gulp.dest(path.build.script));
+        }))
+        .pipe($.if(!RELEASE, $.sourcemaps.write()))
+        .pipe(gulp.dest(path.build.script))
+        .pipe($.size({title: "app"}));
+
 });
 
 gulp.task("templates:build", function() {
-  return gulp.src(path.src.templates)
-       .pipe($.if(RELEASE, $.htmlmin({
+    return gulp.src(path.src.templates)
+        .pipe($.if(RELEASE, $.htmlmin({
             removeComments: true,
             collapseWhitespace: true,
             minifyJS: true,
             removeEmptyAttributes: true
         })))
-      .pipe(angularTemplateCache(path.build.templates.name, {
-        module : MODULE_NAME, root : path.build.templates.rootPath
-      }))
-    .pipe($.rename({
+        .pipe(angularTemplateCache(path.build.templates.name, {
+            module : MODULE_NAME, root : path.build.templates.rootPath
+        }))
+        .pipe($.rename({
             suffix: ".min",
             extname: ".js"
-      }))
-      .pipe(gulp.dest(path.build.templates.dir));
+        }))
+        .pipe(gulp.dest(path.build.templates.dir))
+        .pipe($.size({title: "templates"}));
 });
 
 gulp.task("index:build", function() {
-  var appScriptSources = gulp.src([path.build.script + "/**/*.js"])
+    var appScriptSources = gulp.src([path.build.script + "/**/*.js"])
                              .pipe($.ignore.exclude(path.build.script  +"/vendor.min.js"))
                              .pipe(angularFilesort());
   
-  var otherSources = gulp.src(["/" +"vendor.min.js",
+    var otherSources = gulp.src(["/" +"vendor.min.js",
                                path.build.styles + "/*.css"], {read: false});
-  var sources = $.merge(otherSources, appScriptSources);
+    var sources = $.merge(otherSources, appScriptSources);
 
-  return gulp.src(path.src.index)
-      .pipe($.inject(sources, { ignorePath:"../build/", relative : true }))
-      .pipe($.if(RELEASE, $.htmlmin({
+    return gulp.src(path.src.index)
+        .pipe($.inject(sources, { ignorePath:"../build/", relative : true }))
+        .pipe($.if(RELEASE, $.htmlmin({
           removeComments: true,
             collapseWhitespace: true,
             minifyJS: true
         })))
-      .pipe(gulp.dest(path.build.index));
+        .pipe(gulp.dest(path.build.index))
+        .pipe($.size({title: "index"}));
 });
 
 gulp.task("fonts:build", function() {
     return gulp.src(path.src.fonts)
-        .pipe(gulp.dest(path.build.fonts));
+        .pipe(gulp.dest(path.build.fonts))
 });
 
 gulp.task('image:build', function () {
    return gulp.src(path.src.img)
+        .pipe($.changed(path.build.img))
+        .pipe($.cache($.imagemin({
+            progressive: true,
+            svgoPlugins: [{removeViewBox: false}],
+            use: [pngquant()],
+            interlaced: true
+        })))
         .pipe(gulp.dest(path.build.img))
+        .pipe($.size({title: "images"}));
 });
 
 gulp.task("clean", del.bind(null, path.clean));
 
-gulp.task("build", ["clean"],  function (cb) {
+gulp.task("build", ["clean"], function (cb) {
     runSequence(["sass:build","templates:build", "vendor:build", "script:build",  "fonts:build","image:build"],"index:build", cb);
+});
+
+gulp.task("public",  function (cb) {
+    RELEASE = true;
+    runSequence("build", cb);
+});
+
+gulp.task("del:war", del.bind(null, "./admin.war"));
+
+gulp.task("war",  ["del:war", "public"],  function() {
+    return gulp.src(path.zip.src)
+        .pipe($.war({
+            welcome: "index.html",
+            displayName: "Gulp WAR",
+        }))
+        .pipe($.zip("admin.war"))
+        .pipe(gulp.dest(path.zip.dest))
+        .pipe($.size({title: "war"}));
 });
 
 gulp.task("browser-sync", function () {
     browserSync.init({
         server: {
-            baseDir: PROXY_PATHS
+            baseDir: PROXY_PATHS,
+            notify: false,
+            logPrefix: "RSK"
         }
     });
+
     browserSync.watch(path.watch.reload).on("change", browserSync.reload);
+
+    browserSync.use(spa({
+        selector: "[ng-app]",
+        history: {
+            index: PROXY_PATHS + '/index.html'
+        }
+    }));
 });
-
-browserSync.use(spa({
-    selector: "[ng-app]",
-    history: {
-        index: PROXY_PATHS + '/index.html'
-    }
-}));
-
 
 gulp.task("watch", function(){
     $.watch([path.watch.index], function(event, cb) {
         gulp.start("index:build");
     });
 
-      $.watch([path.watch.templates], function(event, cb) {
+    $.watch([path.watch.templates], function(event, cb) {
         gulp.start("templates:build");
     });
   
@@ -220,17 +260,13 @@ gulp.task("watch", function(){
         gulp.start("fonts:build");
     });
 
-      $.watch([path.watch.img], function(event, cb) {
+    $.watch([path.watch.img], function(event, cb) {
         gulp.start("image:build");
     });
 });
 
 gulp.task("serve", function (cb) {
     runSequence("build", ["browser-sync","watch"], cb);
-});
-
-gulp.task("storm", function (cb) {
-    runSequence("build",  "watch", cb);
 });
 
 gulp.task("default", ["serve"]);
