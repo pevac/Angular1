@@ -1,18 +1,24 @@
-var gulp = require("gulp");
-var del = require("del");
-var pngquant = require('imagemin-pngquant');
-var runSequence = require("run-sequence");
-var browserSync = require("browser-sync").create();
-var spa         = require("browser-sync-spa");
-var argv = require("minimist")(process.argv.slice(2));
-var $ = require("gulp-load-plugins")();
-var angularTemplateCache   = require("gulp-angular-templatecache");
-var angularFilesort        = require("gulp-angular-filesort");
-var ngAnnotate             = require("gulp-ng-annotate");
-var bowerComponent = require("./vendor");
+"use strict";
 
-var RELEASE = !!argv.release;
-var AUTOPREFIXER_BROWSERS = [             
+const gulp = require("gulp");
+const del = require("del");
+const pngquant = require('imagemin-pngquant');
+const sequence  = require("run-sequence");
+const browserSync = require("browser-sync").create();
+const spa         = require("browser-sync-spa");
+const argv = require("minimist")(process.argv.slice(2));
+const $ = require("gulp-load-plugins")();
+const angularTemplateCache   = require("gulp-angular-templatecache");
+const angularFilesort        = require("gulp-angular-filesort");
+const ngAnnotate             = require("gulp-ng-annotate");
+const bowerComponent = require("./vendor");
+const events = require("events");
+const emitter = new events.EventEmitter();
+const combiner = require('stream-combiner2').obj;
+
+let currentTask = "";
+let RELEASE = !!argv.release;
+const AUTOPREFIXER_BROWSERS = [             
     "ie >= 9",
     "ie_mob >= 9",
     "ff >= 30",
@@ -24,13 +30,13 @@ var AUTOPREFIXER_BROWSERS = [
     "bb >= 10"
 ];
 
-var MODULE_NAME = "appModule";
-var SOURCE_BASE_DIR = "./src";
-var TARGET_DIR = "./build";
-var BUILD_BASE_DIR = TARGET_DIR;
-var PROXY_PATHS = BUILD_BASE_DIR;
+const MODULE_NAME = "appModule";
+const SOURCE_BASE_DIR = "./src";
+const TARGET_DIR = "./build";
+const BUILD_BASE_DIR = TARGET_DIR;
+const PROXY_PATHS = BUILD_BASE_DIR;
 
-var path = {
+const path = {
     build: { 
         script: BUILD_BASE_DIR + "/js",
         styles: BUILD_BASE_DIR + "/css",
@@ -71,162 +77,160 @@ var path = {
     clean: BUILD_BASE_DIR
 };
 
-gulp.task("sass:build", function () {
-    return gulp.src(path.src.styles)
-        .pipe($.plumber({errorHandler:  function(err) {
-            const type = err.type || '';
-            const message = err.message || '';
-            const extract = err.extract || [];
-            const line = err.line || '';
-            const column = err.column || '';
-            $.util.log($.util.colors.red.bold('[Sass error]') +' '+ $.util.colors.bgRed(type) +' ('+ line +':'+ column +')');
-            $.util.log($.util.colors.bold('message:') +' '+ message);
-            $.util.log($.util.colors.bold('codeframe:') +'\n'+ extract.join('\n'));
-            this.emit('end');
-        }}))
-        .pipe($.if(!RELEASE, $.sourcemaps.init()))
-        .pipe($.sass())
-        .pipe($.autoprefixer({browsers: AUTOPREFIXER_BROWSERS}))
-        .pipe($.if(RELEASE, $.cssmin()))
-        .pipe($.rename({
+gulp.task("sass:build", function(){
+    currentTask = this.currentTask;
+    return combiner( gulp.src(path.src.styles),
+        $.if(!RELEASE, $.sourcemaps.init()),
+        $.sass(),
+        $.autoprefixer({browsers: AUTOPREFIXER_BROWSERS}),
+        $.if(RELEASE, $.cssmin()),
+        $.rename({
             suffix: ".min",
             extname: ".css"
-        }))
-        .pipe($.if(!RELEASE, $.sourcemaps.write({sourceRoot: "./src/sass"})))
-        .pipe(gulp.dest(path.build.styles))
-        .pipe($.size({title: "styles"}));
+        }),
+        $.if(!RELEASE, $.sourcemaps.write({sourceRoot: "./src/sass"})),
+        gulp.dest(path.build.styles),
+        $.size({title: "styles"}),
+        browserSync.stream()
+    ).on("error", reportError)
 });
 
 gulp.task("vendor:build", function(){
-    return gulp.src(path.src.script.vendor)
-        .pipe($.if(!RELEASE, $.sourcemaps.init()))
-        .pipe($.concat("vendor.js"))
-        .pipe($.if(RELEASE,$.uglify()))
-        .pipe($.rename({
+    return combiner(gulp.src(path.src.script.vendor),
+        $.if(!RELEASE, $.sourcemaps.init()),
+        $.concat("vendor.js"),
+        $.if(RELEASE,$.uglify()),
+        $.rename({
             suffix: ".min",
             extname: ".js"
-        }))
-        .pipe($.if(!RELEASE, $.sourcemaps.write()))
-        .pipe(gulp.dest(path.build.script))
-        .pipe($.size({title: "vendor"}));
+        }),
+        $.if(!RELEASE, $.sourcemaps.write()),
+        gulp.dest(path.build.script),
+        $.size({title: "vendor"})
+    )
 });
 
 gulp.task("script:build", function() {
-    return gulp.src(path.src.script.app)
-        .pipe($.plumber({errorHandler:  function(err) {
-            const type = err.type || '';
-            const message = err.message || '';
-            const extract = err.extract || [];
-            const line = err.line || '';
-            const column = err.column || '';
-            $.util.log($.util.colors.red.bold('[Sass error]') +' '+ $.util.colors.bgRed(type) +' ('+ line +':'+ column +')');
-            $.util.log($.util.colors.bold('message:') +' '+ message);
-            $.util.log($.util.colors.bold('codeframe:') +'\n'+ extract.join('\n'));
-            this.emit('end');
-        }}))
-        .pipe($.if(!RELEASE, $.sourcemaps.init()))
-        .pipe(angularFilesort())
-        .pipe($.concat("app.js"))
-        .pipe($.if(RELEASE, ngAnnotate()))
-        .pipe($.if(RELEASE, $.uglify()))
-        .pipe($.rename({
+    currentTask = this.currentTask;
+    return combiner( gulp.src(path.src.script.app),
+        $.if(!RELEASE, $.sourcemaps.init()),
+        angularFilesort(),
+        $.concat("app.js"),
+        $.if(RELEASE, ngAnnotate()),
+        $.if(RELEASE, $.uglify()),
+        $.rename({
             suffix: ".min",
             extname: ".js"
-        }))
-        .pipe($.if(!RELEASE, $.sourcemaps.write()))
-        .pipe(gulp.dest(path.build.script))
-        .pipe($.size({title: "app"}));
-
+        }),
+        $.if(!RELEASE, $.sourcemaps.write()),
+        gulp.dest(path.build.script),
+        $.size({title: "app"})
+    ).on("error", reportError)
 });
 
 gulp.task("templates:build", function() {
-    return gulp.src(path.src.templates)
-        .pipe($.if(RELEASE, $.htmlmin({
+    return combiner(gulp.src(path.src.templates),
+        $.if(RELEASE, $.htmlmin({
             removeComments: true,
             collapseWhitespace: true,
             minifyJS: true,
-            removeEmptyAttributes: true
-        })))
-        .pipe(angularTemplateCache(path.build.templates.name, {
+            removeEmptyAttributes:true
+        })),
+        angularTemplateCache(path.build.templates.name, {
             module : MODULE_NAME, root : path.build.templates.rootPath
-        }))
-        .pipe($.rename({
+        }),
+        $.rename({
             suffix: ".min",
             extname: ".js"
-        }))
-        .pipe(gulp.dest(path.build.templates.dir))
-        .pipe($.size({title: "templates"}));
+        }),
+        gulp.dest(path.build.templates.dir),
+        $.size({title: "templates"})
+    )
 });
 
 gulp.task("index:build", function() {
-    var appScriptSources = gulp.src([path.build.script + "/**/*.js"])
-                             .pipe($.ignore.exclude(path.build.script  +"/vendor.min.js"))
-                             .pipe(angularFilesort());
+    var appScriptSources = combiner(gulp.src([path.build.script + "/**/*.js"]),
+                             $.ignore.exclude(path.build.script  +"/vendor.min.js"),
+                             angularFilesort());
   
-    var otherSources = gulp.src(["/" +"vendor.min.js",
-                               path.build.styles + "/*.css"], {read: false});
+    var otherSources = gulp.src(["/" +"vendor.min.js", path.build.styles + "/*.css"], {read: false});
     var sources = $.merge(otherSources, appScriptSources);
-
-    return gulp.src(path.src.index)
-        .pipe($.inject(sources, { ignorePath:"../build/", relative : true }))
-        .pipe($.if(RELEASE, $.htmlmin({
-          removeComments: true,
+    return combiner(gulp.src(path.src.index),
+        $.inject(sources, { ignorePath:"../build/", relative : true }),
+        $.if(RELEASE, $.htmlmin({
+            removeComments: true,
             collapseWhitespace: true,
             minifyJS: true
-        })))
-        .pipe(gulp.dest(path.build.index))
-        .pipe($.size({title: "index"}));
+        })),
+        gulp.dest(path.build.index),
+        $.size({title: "index"})
+    )
 });
 
 gulp.task("fonts:build", function() {
-    return gulp.src(path.src.fonts)
-        .pipe(gulp.dest(path.build.fonts))
+    return combiner( gulp.src(path.src.fonts), gulp.dest(path.build.fonts))
 });
 
 gulp.task('image:build', function () {
-   return gulp.src(path.src.img)
-        .pipe($.changed(path.build.img))
-        .pipe($.cache($.imagemin({
+    currentTask = this.currentTask;
+    return combiner(gulp.src(path.src.img),
+        $.plumber({errorHandler:  reportError}),
+        $.changed(path.build.img),
+        $.cache($.imagemin({
             progressive: true,
             svgoPlugins: [{removeViewBox: false}],
             use: [pngquant()],
             interlaced: true
-        })))
-        .pipe(gulp.dest(path.build.img))
-        .pipe($.size({title: "images"}));
+        })),
+        gulp.dest(path.build.img),
+        $.size({title: "images"})
+    ).on("error", reportError)
 });
 
 gulp.task("clean", del.bind(null, path.clean));
 
+gulp.task("clean:war", del.bind(null, "./admin.war"));
+
 gulp.task("build", ["clean"], function (cb) {
-    runSequence(["sass:build","templates:build", "vendor:build", "script:build",  "fonts:build","image:build"],"index:build", cb);
+    sequence (["sass:build","templates:build", "vendor:build", "script:build",  "fonts:build","image:build"],"index:build", cb);
 });
 
 gulp.task("public",  function (cb) {
     RELEASE = true;
-    runSequence("build", cb);
+    sequence ("build", cb);
 });
 
-gulp.task("del:war", del.bind(null, "./admin.war"));
-
-gulp.task("war",  ["del:war", "public"],  function() {
-    return gulp.src(path.zip.src)
-        .pipe($.war({
+gulp.task("war",  ["clean:war", "public"],  function() {
+    return combiner(gulp.src(path.zip.src),
+        $.war({
             welcome: "index.html",
             displayName: "Gulp WAR",
-        }))
-        .pipe($.zip("admin.war"))
-        .pipe(gulp.dest(path.zip.dest))
-        .pipe($.size({title: "war"}));
+        }),
+        $.zip("admin.war"),
+        gulp.dest(path.zip.dest),
+        $.size({title: "war"}),
+        $.notify({
+            title   : "Gulp Task Complete",
+            message : "Archiving have been compiled",
+            sound: false
+        })
+    )
 });
 
 gulp.task("browser-sync", function () {
     browserSync.init({
         server: {
             baseDir: PROXY_PATHS,
-            notify: false,
-            logPrefix: "RSK"
-        }
+            directory: true
+        },
+        ui: {
+            port: 8889
+        },
+        port: 8888,
+        open: true,
+        notify: false,
+        ghostMode: false,
+        logFileChanges: true
     });
 
     browserSync.watch(path.watch.reload).on("change", browserSync.reload);
@@ -239,7 +243,7 @@ gulp.task("browser-sync", function () {
     }));
 });
 
-gulp.task("watch", function(){
+gulp.task("watch", function(cb){
     $.watch([path.watch.index], function(event, cb) {
         gulp.start("index:build");
     });
@@ -266,7 +270,40 @@ gulp.task("watch", function(){
 });
 
 gulp.task("serve", function (cb) {
-    runSequence("build", ["browser-sync","watch"], cb);
+    sequence ("build", ["browser-sync","watch"], cb);
 });
 
 gulp.task("default", ["serve"]);
+
+function reportError(error) {
+    var lineNumber = (error.line) ? "LINE " + error.line + " -- " : "";
+    var pluginName = (!error.plugin) ? ": ["+error.plugin+"]" : "["+currentTask+"]";
+ 
+    $.notify({
+        title: "Task Failed "+ pluginName,
+        message: lineNumber + "See console.",
+        sound: false
+    }).write(error);
+
+    var report = "";
+    var chalk = $.util.colors.white.bgRed;
+ 
+    report += chalk("TASK:") + pluginName+"\n";
+    report += chalk("ERROR:") + " " + error.message + "\n";
+    if (error.line) { report += chalk("LINE:") + " " + error.line + "\n"; }
+    if (error.file) { report += chalk("FILE:") + " " + error.file + "\n"; }
+ 
+    console.error(report);
+    this.emit("end");
+}
+
+var _gulpStart = gulp.Gulp.prototype.start;
+
+gulp.Gulp.prototype.start = function (taskName) {
+    this.currentTask = taskName;
+
+    _gulpStart.apply(this, arguments);
+};
+
+
+

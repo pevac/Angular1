@@ -7,7 +7,8 @@
     "start": "gulp",
     "public": "gulp build --release",
     "prestart": "npm install && bower install",
-    "bower-install": "bower install"
+    "bower-install": "bower install",
+    "war": "gulp war"
   },
   "author": "",
   "license": "ISC",
@@ -15,7 +16,8 @@
     "browser-sync": "^2.18.2",
     "browser-sync-spa": "^1.0.3",
     "del": "^2.2.2",
-    "gulp": "3.9.1",
+    "events": "^1.1.1",
+    "gulp": "^3.9.1",
     "gulp-angular-filesort": "^1.1.1",
     "gulp-angular-templatecache": "^2.0.0",
     "gulp-autoprefixer": "^3.1.1",
@@ -31,6 +33,7 @@
     "gulp-load-plugins": "^1.4.0",
     "gulp-merge": "^0.1.1",
     "gulp-ng-annotate": "^2.0.0",
+    "gulp-notify": "^3.0.0",
     "gulp-plumber": "^1.1.0",
     "gulp-rename": "^1.2.2",
     "gulp-sass": "2.3.2",
@@ -43,6 +46,7 @@
     "gulp-zip": "^4.0.0",
     "imagemin-pngquant": "^5.0.0",
     "minimist": "^1.2.0",
-    "run-sequence": "^1.2.2"
+    "run-sequence": "^1.2.2",
+    "stream-combiner2": "^1.1.1"
   }
 }
