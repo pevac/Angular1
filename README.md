@@ -1,5 +1,13 @@
-# angular-file-upload-bower
+Початок роботи
 
-bower distribution of [angular-file-upload](https://github.com/danialfarid/angular-file-upload).
-All issues and pull request must be sumbitted to [angular-file-upload](https://github.com/danialfarid/angular-file-upload)
+1. Встановити NodeJS.
+2. Встановити git bash.
+3. Відкрити   консоль і виконати наступні команди:
+3.1 npm install gulp -g  - встановлюєм gulp глобально.
+3.2 npm install bower -g  - встановлюєм bower глобально.
 
+
+4. Відкриваємо консоль в кореневій папці проекту і виконуємо наступні команди:
+3.3 npm install
+3.4 bower install
+3.5 npm run public - production упаковка проекта

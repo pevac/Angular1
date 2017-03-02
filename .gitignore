@@ -10,4 +10,5 @@ launch.json
 .vscode
 src/assets/lib
 admin.war
+manifest
 

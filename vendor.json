@@ -1,7 +1,7 @@
-["./src/assets/lib/angular/angular.js",
+["./src/assets/lib/angular/angular.min.js",
 "./src/assets/lib/angular-sanitize/angular-sanitize.min.js",
 "./src/assets/lib/angular-i18n/angular-locale_uk-ua.js",
-"./src/assets/lib/angular-bootstrap/ui-bootstrap-tpls.js",
+"./src/assets/lib/angular-bootstrap/ui-bootstrap-tpls.min.js",
 "./src/assets/lib/angular-ui-router/release/angular-ui-router.min.js",
 "./src/assets/lib/angular-trix/dist/angular-trix.min.js",
 "./src/assets/lib/trix/dist/trix.js",
@@ -14,6 +14,7 @@
 "./src/assets/lib/ng-file-upload/ng-file-upload-all.js",
 "./src/assets/lib/ng-file-upload/FileApi.js",
 "./src/assets/lib/ng-img-crop/compile/unminified/ng-img-crop.js",
-"./src/assets/lib/ng-lodash/build/ng-lodash.js",
-"./src/assets/lib/ngstorage/ngStorage.min.js"
+"./src/assets/lib/ng-lodash/build/ng-lodash.min.js",
+"./src/assets/lib/ngstorage/ngStorage.min.js",
+"./src/assets/lib/angular-touch/angular-touch.min.js"
 ]
