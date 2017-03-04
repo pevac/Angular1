@@ -9,18 +9,23 @@ let RELEASE = !!argv.release;
 
 module.exports =  function(options){
     return function(){
-        var appScriptSources = combine(gulp.src([options.path.build.app + "/**/*.js"]),
-                             $.ignore.exclude(options.path.build.script  +"/vendor.js"),
+        var appScriptSources = combine(gulp.src([options.path.build.app + "/**/*.js", "!"+options.path.build.app +"/vendor.js"]),
                              $.angularFilesort()).on("error", function(error){
                                 error.taskName = options.taskName;
                                 options.reportError.call(this, error);
                             });
 
+        var appInjectOptions = {
+            starttag: "<!-- inject:app -->",
+            ignorePath: "../build/",
+            addRootSlash: false,
+            relative : true
+        };
              
-        var otherSources = gulp.src(["/" +"vendor.js", options.path.build.styles + "/*.css"], {read: false});
-        var sources = $.merge(otherSources, appScriptSources);
+        var otherSources = gulp.src([options.path.build.app  +"/vendor.js", options.path.build.styles + "/*.css"], {read: false});
         return combine(gulp.src(options.path.src.html),
-            $.inject(sources, { ignorePath:"../build/", relative : true }),
+            $.inject(appScriptSources, appInjectOptions),
+            $.inject(otherSources, { ignorePath:"../build/", relative : true }),
             $.if(RELEASE, $.htmlmin({
                 removeComments: true,
                 collapseWhitespace: true,
