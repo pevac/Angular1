@@ -59,7 +59,7 @@ exports.path = {
         dest: "./"
     },
     clean: {build: BUILD_BASE_DIR,
-        zip: "./admin.zip",
+        zip: "./admin.war",
     },
     server: PROXY_PATHS
 };

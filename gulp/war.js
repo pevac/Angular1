@@ -14,7 +14,7 @@ module.exports =  function(options){
                 welcome: "index.html",
                 displayName: "Gulp WAR",
             }),
-            $.zip("admin.zip"),
+            $.zip("admin.war"),
             gulp.dest(options.path.zip.dest),
             $.size({title: "war"}),
             $.notify({
