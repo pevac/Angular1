@@ -13,12 +13,15 @@ module.exports =  function(options){
             $.if(!RELEASE, $.sourcemaps.init()),
             $.sass(),
             $.autoprefixer({browsers: options.AUTOPREFIXER_BROWSERS}),
-            $.if(RELEASE, $.cssmin()),
-            $.if(RELEASE, combine( $.rename({suffix: ".min", extname: ".css" }),  $.rev())),
+            $.csscomb(),
+            $.if(RELEASE, combine($.csso(), $.rename({suffix: ".min", extname: ".css" }),  $.rev())),
             $.if(!RELEASE, $.sourcemaps.write({sourceRoot: "./src/sass"})),
             gulp.dest(options.path.build.styles),
             $.size({title: "styles"}),
             $.if(RELEASE, combine($.rev.manifest("css.json"), gulp.dest("./manifest") ))
-        ).on("error", options.reportError)
+        ).on("error", function(error){
+            error.taskName = options.taskName;
+            options.reportError.call(this, error);
+        })
     }
 }

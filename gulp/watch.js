@@ -6,8 +6,8 @@ const $ = require("gulp-load-plugins")();
 
 module.exports =  function(options){
     return function(){
-        $.watch([options.path.watch.index], function(event, cb) {
-            gulp.start("index:build");
+        $.watch([options.path.watch.html], function(event, cb) {
+            gulp.start("html:build");
         });
 
         $.watch([options.path.watch.templates], function(event, cb) {
@@ -18,8 +18,8 @@ module.exports =  function(options){
             gulp.start("sass:build");
         });
 
-        $.watch([options.path.watch.script], function(event, cb) {
-            gulp.start("script:build");
+        $.watch([options.path.watch.app], function(event, cb) {
+            gulp.start("app:build");
         });
 
         $.watch([options.path.watch.fonts], function(event, cb) {
@@ -28,6 +28,10 @@ module.exports =  function(options){
 
         $.watch([options.path.watch.img], function(event, cb) {
             gulp.start("image:build");
+        });
+
+        $.watch([options.path.watch.vendor], function(event, cb) {
+            gulp.start(["vendor:build"]);
         });
     }
 }

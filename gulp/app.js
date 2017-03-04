@@ -9,15 +9,18 @@ let RELEASE = !!argv.release;
 
 module.exports =  function(options){
     return function(){
-        return combine( gulp.src(options.path.src.script.app),
-        $.if(!RELEASE, $.sourcemaps.init()),
-        $.angularFilesort(),
-        $.concat("app.js"),
-        $.if(RELEASE, combine($.ngAnnotate(), $.uglify(),  $.rename({suffix: ".min",extname: ".js"}), $.rev() )),
-        $.if(!RELEASE, $.sourcemaps.write("app")),
-        gulp.dest(options.path.build.script),
-        $.size({title: "app"}),
-        $.if(RELEASE, combine($.rev.manifest("app.json"), gulp.dest("./manifest") ))
-    ).on("error", options.reportError)
+        return combine( gulp.src(options.path.src.app),
+            $.if(!RELEASE, $.sourcemaps.init()),
+            $.angularFilesort(),
+            $.concat("app.js"),
+            $.if(RELEASE, combine($.ngAnnotate(), $.uglify(),  $.rename({suffix: ".min",extname: ".js"}), $.rev() )),
+            $.if(!RELEASE, $.sourcemaps.write("app")),
+            gulp.dest(options.path.build.app),
+            $.size({title: "app"}),
+            $.if(RELEASE, combine($.rev.manifest("app.json"), gulp.dest("./manifest") ))
+        ).on("error", function(error){
+            error.taskName = options.taskName;
+            options.reportError.call(this, error);
+        })
     }
 }

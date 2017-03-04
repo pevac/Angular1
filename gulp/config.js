@@ -22,11 +22,12 @@ const PROXY_PATHS = BUILD_BASE_DIR;
 
 exports.path = {
     build: { 
-        script: BUILD_BASE_DIR + "/js",
+        vendor: BUILD_BASE_DIR + "/js",
+        app: BUILD_BASE_DIR + "/js",
         styles: BUILD_BASE_DIR + "/css",
         fonts: BUILD_BASE_DIR + "/fonts",
         img: BUILD_BASE_DIR + "/img",
-        index : BUILD_BASE_DIR + "/",
+        html : BUILD_BASE_DIR + "/",
         templates : {
             dir : BUILD_BASE_DIR + "/js",
             name : "templateCacheHtml.js",
@@ -36,23 +37,21 @@ exports.path = {
     },
     src: { 
         templates: [ SOURCE_BASE_DIR + '/app/**/*.html' ],
-        script: {
-            app: [ SOURCE_BASE_DIR + '/app/**/*.js' ],
-            vendor: bowerComponent
-        },
+        app: [ SOURCE_BASE_DIR + '/app/**/*.js' ],
+        vendor: bowerComponent,
         styles: SOURCE_BASE_DIR + "/assets/sass/*.scss",
         fonts: [SOURCE_BASE_DIR + "/assets/fonts/**/*.*", "./src/assets/lib/bootstrap-sass/assets/fonts/**/*.*"],
         img: SOURCE_BASE_DIR + "/assets/img/**/*.*",
-        index : SOURCE_BASE_DIR + "/index.html"
+        html : SOURCE_BASE_DIR + "/*.html"
     },
     watch: { 
         templates: SOURCE_BASE_DIR + "/app/**/*.html",
-        views: SOURCE_BASE_DIR + '/app/**/*.html',
-        script: SOURCE_BASE_DIR + "/app/**/*.js",
+        app: SOURCE_BASE_DIR + "/app/**/*.js",
         styles: SOURCE_BASE_DIR + "/assets/sass/**/*.scss",
         fonts: SOURCE_BASE_DIR + "/assets/fonts/**/*.*",
         img: SOURCE_BASE_DIR + "/assets/img/**/*.*",
-        index : SOURCE_BASE_DIR + "/index.html",
+        html : SOURCE_BASE_DIR + "/*.html",
+        vendor : "./vendor.json",
         reload: BUILD_BASE_DIR + "/**/*.*"
     },
     zip: {
@@ -60,25 +59,27 @@ exports.path = {
         dest: "./"
     },
     clean: {build: BUILD_BASE_DIR,
-        war: "./admin.war",
+        zip: "./admin.zip",
     },
     server: PROXY_PATHS
 };
 
-exports.reportError = function reportError(error) {
+exports.reportError = function reportError(error, taskName ) {
     var lineNumber = (error.line) ? "LINE " + error.line + " -- " : "";
-    var pluginName = (error.plugin) ? ": ["+error.plugin+"]" : "["+currentTask+"]";
- 
+    var pluginName =  "["+ error.plugin+"]";
+    var taskName =  "["+error.taskName+"]";
+    
     $.notify({
-        title: "Task Failed "+ pluginName,
+        title: "Task Failed "+ taskName,
         message: lineNumber + "See console.",
         sound: false
     }).write(error);
 
     var report = "";
     var chalk = $.util.colors.white.bgRed;
- 
-    report += chalk("TASK:") + pluginName+"\n";
+
+    report += chalk("TASK:") + taskName+"\n";
+    report += chalk("Plugin:") + pluginName+"\n";
     report += chalk("ERROR:") + " " + error.message + "\n";
     if (error.line) { report += chalk("LINE:") + " " + error.line + "\n"; }
     if (error.file) { report += chalk("FILE:") + " " + error.file + "\n"; }

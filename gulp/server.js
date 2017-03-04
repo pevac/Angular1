@@ -2,12 +2,14 @@
 
 const browserSync = require("browser-sync").create();
 const spa         = require("browser-sync-spa");
+const config = require("./config");
+
 
 module.exports =  function(options){
     return function(){
         browserSync.init({
             server: {
-                baseDir: options.path.server,
+                baseDir: config.path.server,
                 directory: true
             },
             ui: {
@@ -20,12 +22,12 @@ module.exports =  function(options){
             logFileChanges: true
         });
 
-        browserSync.watch(options.path.watch.reload).on("change", browserSync.reload);
+        browserSync.watch(config.path.watch.reload).on("change", browserSync.reload);
 
         browserSync.use(spa({
             selector: "[ng-app]",
             history: {
-                index: options.path.server + '/index.html'
+                index: config.path.server + '/index.html'
             }
         }));
     }

@@ -48,7 +48,6 @@
                     $state.go( 'home.devportfolio.viewportfolio', { previousState : { name : $state.current.name }, data: {project: vm.project, previewImg: previewImg, mainImg: mainImg} }, {} );
                }
            });;
-           
         };
 
         vm.addProject = function (visible) {

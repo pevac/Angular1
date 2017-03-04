@@ -40,7 +40,7 @@
             <div class="form-group">
                 <label for="inputPreviewImg" class="col-sm-3  control-label">Зображення сайту*</label>
                 <div class="col-sm-9">
-                    <input id="inputPreviewImg" ng-change="vm.hasSupportViewImage()" ngf-select   class="file" type="file" name="previewImg"  ng-model="vm.previewImg" 
+                    <input id="inputPreviewImg"  ngf-select   class="file" type="file" name="previewImg"  ng-model="vm.previewImg" 
                     accept="image/png" ngf-pattern="image/*" ngf-max-size="2Mb"  required ngf-model-invalid="errorFile" >
                     <span class="custom-file-control" >{{vm.previewImg? vm.previewImg.name: "Завантажити фото" }}</span>
                     <div ng-if="!vm.hasSupportImage" class="img-container" ngf-background="vm.previewImg"></div>

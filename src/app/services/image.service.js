@@ -49,7 +49,6 @@
 
             function base64ToFile(base64, file){
                 var blob = base64ToBlob(base64, file);
-                console.log(blob);
                 
                 var file =  new File([blob], file.name, {type: file.type});
                 return file;

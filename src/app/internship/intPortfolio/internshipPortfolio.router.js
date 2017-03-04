@@ -29,6 +29,11 @@
                 templateUrl:"internship/intPortfolio/intPortfolioForm/intPortfolioForm.tmpl.html",
                 controller: "AddIntPortfolioController",
                 controllerAs: "vm",
+                params: {
+                    data: null
+                },
+                onEnter: saveProjectInSessionStorage,
+                onExit: clearSessionStorage
             })
             .state("home.intportfolio.editportfolio", {
                 url: "/edit",
@@ -38,16 +43,39 @@
                 params: {
                     data: null
                 },
-                  onEnter: ["$stateParams", "$sessionStorage", function($stateParams, $sessionStorage) {
-                        if($stateParams.data) {
-                            $sessionStorage.$default({stateParams: {data: $stateParams.data}} );
-                        } else {
-                            $stateParams.data = $sessionStorage.$default().stateParams.data;
-                        }
-                }],
-                onExit: ["$stateParams", "$sessionStorage", function($stateParams, $sessionStorage) {
-                        delete    $sessionStorage.$default().stateParams;
-                }]
+                onEnter: saveProjectInSessionStorage,
+                onExit: clearSessionStorage
             })
+            .state("home.intportfolio.viewportfolio", {
+                url: "/view",
+                templateUrl:"internship/intPortfolio/intPortfolioView/intPortfolioView.tmpl.html",
+                controller: "IntPortfolioViewController",
+                controllerAs: "vm",
+                params: {
+                    data: null,
+                    previousState: null
+                },
+                onEnter: saveProjectInSessionStorage,
+                onExit: clearSessionStorage
+            });
+
+            clearSessionStorage.$inject = [ "$sessionStorage"];
+            function clearSessionStorage($sessionStorage){
+                delete    $sessionStorage.stateParams;
+            }
+
+            saveProjectInSessionStorage.$inject = [ "$stateParams", "$sessionStorage"];
+            function saveProjectInSessionStorage($stateParams, $sessionStorage){
+                if(!$sessionStorage.stateParams){
+                    var stateParams = angular.copy($stateParams);
+                    $sessionStorage.$default({stateParams: stateParams} );
+                } 
+                if($stateParams.data) {
+                    var stateParams = angular.copy($stateParams);
+                    $sessionStorage.stateParams = stateParams;
+                } else {
+                    $stateParams.data = $sessionStorage.$default().stateParams.data;
+                }
+            }
     }
 })();

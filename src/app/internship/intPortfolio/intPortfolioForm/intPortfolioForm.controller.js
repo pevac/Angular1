@@ -2,9 +2,9 @@
     "use strict"
 
     angular.module("intPortfolioModule").controller("AddIntPortfolioController", AddIntPortfolioController)
-    AddIntPortfolioController.$inject = ["$scope", "serverActService", "$timeout", "$state", "serverDataService"];
+    AddIntPortfolioController.$inject = ["$scope", "serverActService", "$timeout", "$state", "serverDataService", "ImageService"];
 
-    function AddIntPortfolioController($scope,  serverActService, $timeout, $state, serverDataService) {
+    function AddIntPortfolioController($scope,  serverActService, $timeout, $state, serverDataService, ImageService) {
         var vm = this;
         vm.dateOptions = {
             datepickerMode: "'month'",
@@ -31,6 +31,14 @@
             vm.popup2.opened = true;
         };
 
+         vm.goToEdit = function () {
+           var previewImg;
+           ImageService.fileToObject(vm.img).then(function(data){
+               previewImg = data;
+                    $state.go( 'home.intportfolio.viewportfolio', { previousState : { name : $state.current.name }, data: {project: vm.project, previewImg: previewImg} }, {} );
+           });
+        };
+
         vm.addProject = function(visible){
             vm.dataLoading =true;
             var project = angular.copy(vm.project);
@@ -45,6 +53,8 @@
         function activate() {
             if ($state.params.data && $state.params.data.project) {
                 vm.project  = $state.params.data.project;
+
+                vm.img  = $state.params.data.previewImg ? ImageService.base64ToFile($state.params.data.previewImg.data, $state.params.data.previewImg) : null;
 
                 vm.project.dateStart  = new Date(vm.project.dateStart);
                 vm.project.dateEnd  = new Date(vm.project.dateEnd);

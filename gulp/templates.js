@@ -8,7 +8,6 @@ const combine = require("stream-combiner2").obj;
 let RELEASE = !!argv.release;
 
 module.exports =  function(options){
-    let currentTask = options.taskName;
     return function(){
        return combine(gulp.src(options.path.src.templates),
             $.if(RELEASE, $.htmlmin({
@@ -18,7 +17,8 @@ module.exports =  function(options){
                 removeEmptyAttributes:true
             })),
             $.angularTemplatecache(options.path.build.templates.name, {
-                module : options.path.build.templates.module, root : options.path.build.templates.rootPath
+                module : options.path.build.templates.module, 
+                root : options.path.build.templates.rootPath
             }),
             $.if(RELEASE, combine($.rename({suffix: ".min", extname: ".js" }), $.rev() )),
             gulp.dest(options.path.build.templates.dir),

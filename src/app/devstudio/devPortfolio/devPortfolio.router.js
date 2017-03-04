@@ -29,6 +29,11 @@
                 controller: "AddDevPortfolioController",
                 controllerAs: 'vm',
                 templateUrl:"devstudio/devPortfolio/devPortfolioForm/devPortfolioForm.tmpl.html",
+                params: {
+                    data: null
+                },
+                onEnter: saveProjectInSessionStorage,
+                onExit: clearSessionStorage
             })
             .state("home.devportfolio.editportfolio", {
                 url: "/edit",
@@ -36,22 +41,10 @@
                 controller: "AddDevPortfolioController",
                 controllerAs: 'vm',
                 params : {
-                    data: null,
-                    // previousState: null
+                    data: null
                 },
-                onEnter: ["$stateParams", "$sessionStorage", function($stateParams, $sessionStorage) {
-                        if(!$sessionStorage.stateParams){
-                            $sessionStorage.$default({stateParams: { data: $stateParams.data}} );
-                        } 
-                        if($stateParams.data) {
-                            $sessionStorage.stateParams = { data: $stateParams.data};
-                        } else {
-                            $stateParams.data = $sessionStorage.$default().stateParams.data;
-                        }
-                }],
-                onExit: ["$stateParams", "$sessionStorage", function($stateParams, $sessionStorage) {
-                        delete    $sessionStorage.stateParams;
-                }]
+                onEnter: saveProjectInSessionStorage,
+                onExit: clearSessionStorage
             })
             .state("home.devportfolio.viewportfolio", {
                 url: "/view",
@@ -62,21 +55,27 @@
                     previousState: null,
                     data: null
                 },
-                onEnter: ["$stateParams", "$sessionStorage", function($stateParams, $sessionStorage) {
-                        if($sessionStorage.stateParams){
-                            $sessionStorage.$default({stateParams: {previousState: $stateParams.previousState, data: $stateParams.data}} );
-                        } 
-                        if($stateParams.previousState&&$stateParams.data) {
-                            $sessionStorage.stateParams = {previousState: $stateParams.previousState, data: $stateParams.data};
-                        } else {
-                            $stateParams.previousState = $sessionStorage.$default().stateParams.previousState;
-                            $stateParams.data = $sessionStorage.$default().stateParams.data;
-                        }
-                        
-                }],
-                onExit: ["$stateParams", "$sessionStorage", function($stateParams, $sessionStorage) {
-                        delete    $sessionStorage.stateParams;
-                }]
+                onEnter: saveProjectInSessionStorage,
+                onExit: clearSessionStorage
             });
+
+            clearSessionStorage.$inject = [ "$sessionStorage"];
+            function clearSessionStorage($sessionStorage){
+                delete    $sessionStorage.stateParams;
+            }
+
+            saveProjectInSessionStorage.$inject = [ "$stateParams", "$sessionStorage"];
+            function saveProjectInSessionStorage($stateParams, $sessionStorage){
+                if(!$sessionStorage.stateParams){
+                    var stateParams = angular.copy($stateParams);
+                    $sessionStorage.$default({stateParams: stateParams} );
+                } 
+                if($stateParams.data) {
+                    var stateParams = angular.copy($stateParams);
+                    $sessionStorage.stateParams = stateParams;
+                } else {
+                    $stateParams.data = $sessionStorage.$default().stateParams.data;
+                }
+            }
     }
 })();

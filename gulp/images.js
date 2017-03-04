@@ -2,9 +2,10 @@
 
 const gulp = require("gulp");
 const argv = require("minimist")(process.argv.slice(2));
-const $ = require("gulp-load-plugins")();
+const $ = require("gulp-load-plugins")({
+    pattern: ["gulp-*", "imagemin-pngquant"]
+});
 const combine = require("stream-combiner2").obj;
-const pngquant = require('imagemin-pngquant');
 
 let RELEASE = !!argv.release;
 
@@ -15,11 +16,14 @@ module.exports =  function(options){
             $.cache($.imagemin({
                 progressive: true,
                 svgoPlugins: [{removeViewBox: false}],
-                use: [pngquant()],
+                use: [$.imageminPngquant()],
                 interlaced: true
             })),
             gulp.dest(options.path.build.img),
             $.size({title: "images"})
-        ).on("error", options.reportError)
+        ).on("error", function(error){
+            error.taskName = options.taskName;
+            options.reportError.call(this, error);
+        })
     }
 }

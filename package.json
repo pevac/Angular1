@@ -1,13 +1,13 @@
 {
-  "name": "dev-studio",
+  "name": "bionic",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "start": "gulp",
-    "public": "gulp build --release",
     "prestart": "npm install && bower install",
-    "bower-install": "bower install",
+    "public": "gulp build --release",
+    "prepublic": "npm install && bower install",
     "zip": "gulp zip --release"
   },
   "author": "",
@@ -15,16 +15,16 @@
   "devDependencies": {
     "browser-sync": "^2.18.2",
     "browser-sync-spa": "^1.0.3",
-    "chalk": "^1.1.3",
     "del": "^2.2.2",
-    "gulp": "^3.9.1",
+    "gulp": "~3.9.1",
     "gulp-angular-filesort": "^1.1.1",
     "gulp-angular-templatecache": "^2.0.0",
     "gulp-autoprefixer": "^3.1.1",
     "gulp-cache": "^0.4.5",
     "gulp-changed": "^2.0.0",
     "gulp-concat": "^2.6.0",
-    "gulp-cssmin": "^0.1.7",
+    "gulp-csscomb": "^3.0.8",
+    "gulp-csso": "^2.0.0",
     "gulp-htmlmin": "^3.0.0",
     "gulp-if": "^2.0.1",
     "gulp-ignore": "^2.0.2",
@@ -40,6 +40,7 @@
     "gulp-size": "^2.1.0",
     "gulp-sourcemaps": "^2.2.0",
     "gulp-uglify": "^2.0.0",
+    "gulp-useref": "^3.1.2",
     "gulp-util": "^3.0.8",
     "gulp-war": "^0.1.4",
     "gulp-watch": "^4.3.10",
@@ -47,6 +48,7 @@
     "imagemin-pngquant": "^5.0.0",
     "minimist": "^1.2.0",
     "run-sequence": "^1.2.2",
-    "stream-combiner2": "^1.1.1"
+    "stream-combiner2": "^1.1.1",
+    "uglify-save-license": "^0.4.1"
   }
 }

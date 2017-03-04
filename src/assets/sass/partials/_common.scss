@@ -50,9 +50,16 @@ body, html{
 
 @font-face {
   font-family: 'Proxima';
-  src: url('../fonts/ProximaNova/Proxima Nova Semibold.otf')  format('opentype');
-   font-style: normal;
+  src: url('../fonts/ProximaNova/Proxima Nova Bold.otf')  format('opentype');
+  font-style: normal;
   font-weight: bold;
+}
+
+@font-face {
+  font-family: 'Proxima';
+  src: url('../fonts/ProximaNova/Proxima Nova Semibold.otf')  format('opentype');
+  font-style: normal;
+  font-weight: 800;
 }
 
 @font-face {

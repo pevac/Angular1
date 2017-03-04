@@ -43,7 +43,7 @@
             <div class="form-group">
                 <label  class="col-sm-3 control-label">Опис вакансії*</label>
                 <div class="col-sm-9">
-                    <trix-editor  name="description" angular-trix  ng-model="vm.vacancy.description" class="trix-content" ng-maxlength="250"  ng-required="true"></trix-editor>
+                    <trix-editor  name="description" angular-trix  ng-model="vm.vacancy.description" class="trix-content" ng-maxlength="450"  ng-required="true"></trix-editor>
                     <div role="alert">
                         <span   class="error" ng-show="vacancyForm.$submitted || vacancyForm.description.$touched">
                             <span  ng-show="vacancyForm.description.$error.required">Це поле є обов'язкове</span>
@@ -70,7 +70,7 @@
             <div class="form-group">
                 <label for="inputInfo" class="col-sm-3  control-label">Дод.інф-ція</label>
                 <div class="col-sm-9">
-                    <textarea  id="inputInfo"   name="info" ng-model="vm.vacancy.info"   class="form-control"   ng-maxlength="150"></textarea>
+                    <textarea  id="inputInfo" resize-text-area  name="info" ng-model="vm.vacancy.info"   class="form-control"   ng-maxlength="350"></textarea>
                     <div role="alert">
                         <span   class="error" ng-show="vacancyForm.$submitted || vacancyForm.info.$touched">
                             <span  ng-show="vacancyForm.info.$error.maxlength">Ви ввели занадто велике повідомлення</span>
