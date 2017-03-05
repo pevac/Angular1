@@ -2,12 +2,11 @@
     "use strict";
 
     angular.module("reviewsModule").controller("AddReviewController", AddReviewController);
-    AddReviewController.$inject = ["$scope", "serverActService", "serverDataService", "$state", "jobPositions", "projects", "ImageService"];
+    AddReviewController.$inject = ["$scope", "serverActService", "serverDataService", "$state", "jobPositions", "ImageService", "Resources"];
 
-    function AddReviewController($scope,  serverActService,  serverDataService, $state, jobPositions, projects, ImageService){
+    function AddReviewController($scope,  serverActService,  serverDataService, $state, jobPositions,  ImageService, Resources){
         var vm = this;
         vm.jobPositions = jobPositions;
-        vm.projects = projects;
         activate();
         
         vm.addReview = function () {
@@ -16,8 +15,8 @@
             var imageUrl = vm.croppedDataUrl;
             var photo = vm.photo;
 
-            serverActService.addReview(review).then(function (response) {
-                uploadImage(imageUrl, photo, response.data);
+            Resources.Reviews.save(review).then(function (response) {
+                uploadImage(imageUrl, photo, response);
             });
         }
 
@@ -27,10 +26,10 @@
             
             var file = ImageService.base64ToFile(imageBase64, photo);   
           
-            serverActService.addReviewImage(file, data.id).then(function (response) {
-               var  review  = data;
-               review.img = file.name;
-                serverActService.addReview(review).then(function (response) {
+            Resources.Reviews.saveFile(file, data.id).then(function (response) {
+                var  review  = data;
+                review.img = file.name;
+                Resources.Reviews.save(review).then(function (response) {
                     vm.dataLoading =false;
                     $state.go("home.reviews.list");
             })
@@ -40,7 +39,7 @@
         }
 
         function getReviewImage(name, id) {
-            serverDataService.getReviewImage(name, id).then(function (response) {
+            Resources.Reviews.getFileById(name, id).then(function (response) {
                 vm.photo =   ImageService.bufferArrayResponceToFile(response, name)
             })
         }; 

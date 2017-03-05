@@ -2,9 +2,9 @@
     "use strict"
 
     angular.module("intPortfolioModule").controller("AddIntPortfolioController", AddIntPortfolioController)
-    AddIntPortfolioController.$inject = ["$scope", "serverActService", "$timeout", "$state", "serverDataService", "ImageService"];
+    AddIntPortfolioController.$inject = ["$scope",  "$timeout", "$state",  "ImageService", "Resources"];
 
-    function AddIntPortfolioController($scope,  serverActService, $timeout, $state, serverDataService, ImageService) {
+    function AddIntPortfolioController($scope,   $timeout, $state,  ImageService, Resources) {
         var vm = this;
         vm.dateOptions = {
             datepickerMode: "'month'",
@@ -43,8 +43,8 @@
             vm.dataLoading =true;
             var project = angular.copy(vm.project);
             project.visible = visible;
-            serverActService.addIntProject(project).then(function (response) {
-                addImage(response.data);
+            Resources.IntProjects.save(project).then(function (response) {
+                addImage(response);
             });
         };
 
@@ -67,9 +67,9 @@
             var image = vm.img;
             var project = data;
             if(!image && !image.lastModifiedDate) {return;}
-            serverActService.addIntImage(image, project.id).then(function (response) {
+            Resources.IntProjects.saveFile(image, project.id).then(function (response) {
                 project.img = image.name;
-                serverActService.addIntProject(project).then(function (response) {
+                Resources.IntProjects.save(project).then(function (response) {
                     $timeout(function () {
                         vm.dataLoading =false;
                         $state.go("home.intportfolio.list");
@@ -79,21 +79,11 @@
         };
 
         function setImage(img, id) {
-           serverDataService.getIntImage(img, id).then(function (response) {
-                vm.img=  base64ToFile(response, img); 
+           Resources.IntProjects.getFileById(img, id).then(function (response) {
+                vm.img=  ImageService.bufferArrayResponceToFile(response, img); 
             })
         };
 
-        function base64ToFile(response, name){
-            var file;
-            var blob;
-            var arrayBufferView = new Uint8Array(response.data);
-            var type = response.headers('content-type') || 'image/WebP';
-            blob = new Blob([arrayBufferView], { type: type });
-            blob.name = name;
-
-            return  blob;
-        };
     }
 })();
 

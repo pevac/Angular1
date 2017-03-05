@@ -2,9 +2,9 @@
     "use strict";
 
     angular.module("devPortfolioModule").controller("ViewDevPortfolioController", ViewDevPortfolioController);
-    ViewDevPortfolioController.$inject = ["$scope", "$state", "serverDataService", "ImageService"];
+    ViewDevPortfolioController.$inject = ["$scope", "$state", "ImageService", "Resources"];
     
-    function ViewDevPortfolioController($scope, $state , serverDataService, ImageService) {
+    function ViewDevPortfolioController($scope, $state ,  ImageService, Resources) {
         var vm = this;
 
         vm.goToEdit = function () {
@@ -27,7 +27,7 @@
                 vm.image = $state.params.data.previewImg;
                 vm.imageUrl = vm.image.data;
             }else{
-                serverDataService.getDevImage(project.previewImg,  project.id).then(function(response){
+                Resources.DevProjects.getFileById(project.previewImg,  project.id).then(function(response){
                     vm.image = ImageService.bufferArrayResponceToFile(response, project.previewImg);
                     vm.imageUrl = URL.createObjectURL(vm.image);
                 });

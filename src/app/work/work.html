@@ -1,36 +1,8 @@
-<div ng-app="workModule"  ng-controller="workController">
-  
-    <div class="form-container">
-        <form id="formValidate" class="form-horizontal admin-form" name="reviewForm" role="form" novalidate>
-            <div class="form-group">
-                <label for="inputName" class="col-sm-3  control-label">Час роботи</label>
-                <div class="col-sm-6">
-                    <input   type="hidden" name="workingtimes1" ng-model="workingtimes.id"  class="form-control" id="inputName" ng-maxlength="50" ng-required="true">
-                    
-                    <input   type="text" name="workingtimes" ng-model="workingtimes.name"  class="form-control" id="inputName" ng-maxlength="50" ng-required="true">
-                </div>
-                 <div class="col-sm-3">
-                    <button ng-click="addWorkTimes(workingtimes)"  id="sendBtn" class="btn btn-primary btn-save">Відправити</button>
-                </div>
-            </div>
-
-                <div class="form-group">
-                <label for="inputjobPosition" class="col-sm-3  control-label">Позиція</label>
-                <div class="col-sm-6">
-                    <input   type="hidden" name="workingtimes1" ng-model="jobPosition.id"  class="form-control" id="inputName" ng-maxlength="50" ng-required="true">
-                    <input   type="text" name="workingtimes" ng-model="jobPosition.name"  class="form-control" id="inputjobPosition" ng-maxlength="50" ng-required="true">
-                </div>
-                 <div class="col-sm-3">
-                    <button ng-click="addJobPosition(jobPosition)"  id="sendBtn1" class="btn btn-primary btn-save">Відправити</button>
-                </div>
-            </div>
-        </form>
-    </div>
-
+<div ng-app="workModule">
      <div class="row">
             <div class="col-md-12">
                 <div  class="table_container">
-                    <table  st-table="customerCollection" st-safe-src="customers" >
+                    <table  >
                         <thead>
                             <tr>
                                 <th>Позиція</th>
@@ -38,18 +10,27 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="jobPosition in jobPositions">
+                            <tr ng-repeat="jobPosition in vm.jobPositions">
                                 <td>{{jobPosition.name}}</td>
                                 <td class="collapse-padding" >
-                                    <a class="btn btn-default btn-save" ng-click="deleteJob(jobPosition)"  tooltip-placement="bottom" uib-tooltip="delete" tooltip-trigger="focus" ><span class="glyphicon glyphicon-eye-open"></span></a>
-                                    <a class="btn btn-default btn-save" ng-click="editJob(jobPosition)"  tooltip-placement="bottom" uib-tooltip="edit" tooltip-trigger="focus"><span class="glyphicon glyphicon-download"></span></a></td>
+                                    <!--<a class="btn btn-default btn-save" ng-click="vm.deleteJob(jobPosition)"  tooltip-placement="bottom" uib-tooltip="delete" tooltip-trigger="focus" ><span class="glyphicon glyphicon-trash"></span></a>-->
+                                    <a class="btn btn-default btn-save" ng-click="vm.editJob(jobPosition)"  tooltip-placement="bottom" uib-tooltip="edit" tooltip-trigger="focus"><span class="glyphicon glyphicon-pencil"></span></a></td>
+                            </tr>
+                            <tr>
+                                <form id="formValidate" class="form-horizontal admin-form" name="reviewForm" role="form" novalidate>
+                                    <div class="form-group">
+                                    <label for="inputjobPosition" class="col-sm-3  control-label">Позиція</label>
+                                    <div class="col-sm-6">
+                                        <input   type="hidden" name="workingtimes1" ng-model="jobPosition.id"  class="form-control" id="inputName" ng-maxlength="50" ng-required="true">
+                                        <input   type="text" name="workingtimes" ng-model="jobPosition.name"  class="form-control" id="inputjobPosition" ng-maxlength="50" ng-required="true">
+                                    </div>
+                                        <div class="col-sm-3">
+                                            <button ng-click="vm.addJobPosition(jobPosition)"  id="sendBtn1" class="btn btn-primary btn-save">Відправити</button>
+                                        </div>
+                                    </div>
+                                </form>
                             </tr>
                         </tbody>
-                        <tfoot>
-                            <tr>
-                                <td class="text-center" st-pagination="" st-items-by-page="itemsByPage" st-template="pagination/pagination.html"  colspan="6"></td>
-                            </tr>
-                        </tfoot>
                     </table>
                 </div>
             </div>
@@ -59,7 +40,7 @@
            <div class="row">
             <div class="col-md-12">
                 <div  class="table_container">
-                    <table  st-table="customerCollection" st-safe-src="customers" >
+                    <table >
                         <thead>
                             <tr>
                                 <th>Час роботи</th>
@@ -67,18 +48,28 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="workingTime in workingTimes">
+                            <tr ng-repeat="workingTime in vm.workingTimes">
                                 <td>{{workingTime.name}}</td>
                                 <td class="collapse-padding" >
-                                    <a class="btn btn-default btn-save" ng-click="deleteWorkingTime(workingTime)"  tooltip-placement="bottom" uib-tooltip="delete" tooltip-trigger="focus" ><span class="glyphicon glyphicon-eye-open"></span></a>
-                                    <a class="btn btn-default btn-save" ng-click="editWorkingTime(workingTime)"  tooltip-placement="bottom" uib-tooltip="edit" tooltip-trigger="focus"><span class="glyphicon glyphicon-download"></span></a></td>
+                                    <!--<a class="btn btn-default btn-save" ng-click="vm.deleteWorkingTime(workingTime)"  tooltip-placement="bottom" uib-tooltip="delete" tooltip-trigger="focus" ><span class="glyphicon glyphicon-trash"></span></a>-->
+                                    <a class="btn btn-default btn-save" ng-click="vm.editWorkingTime(workingTime)"  tooltip-placement="bottom" uib-tooltip="edit" tooltip-trigger="focus"><span class="glyphicon glyphicon-pencil"></span></a></td>
+                            </tr>
+                            <tr>
+                                <form class="form-horizontal admin-form">
+                                     <div class="form-group">
+                                        <label for="inputName" class="col-sm-3  control-label">Час роботи</label>
+                                        <div class="col-sm-6">
+                                            <input   type="hidden" name="workingtimes1" ng-model="workingtime.id"  class="form-control" id="inputName" ng-maxlength="50" ng-required="true">
+                                            
+                                            <input   type="text" name="workingtimes" ng-model="workingtime.name"  class="form-control" id="inputName" ng-maxlength="50" ng-required="true">
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <button ng-click="vm.addWorkTimes(workingtime)"  id="sendBtn" class="btn btn-primary btn-save">Відправити</button>
+                                        </div>
+                                    </div>
+                                </form>
                             </tr>
                         </tbody>
-                        <tfoot>
-                            <tr>
-                                <td class="text-center" st-pagination="" st-items-by-page="itemsByPage" st-template="pagination/pagination.html"  colspan="6"></td>
-                            </tr>
-                        </tfoot>
                     </table>
                 </div>
             </div>

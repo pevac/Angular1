@@ -1,7 +1,7 @@
 (function(){
     "use strict";
-    angular.module("homeModule", ["bu.validation",  "serverApi", "imageService",  "devPortfolioModule", "intPortfolioModule", "orderCustomerModule", "vacancyModule", 
-        "reviewsModule", "usersModule", "workModule", "resize"]);
+    angular.module("homeModule", [ "devPortfolioModule", "intPortfolioModule", "orderCustomerModule", "vacancyModule", 
+        "reviewsModule", "usersModule", "workModule"]);
 
     angular.module("homeModule")
         .run(PaginationTemplate)

@@ -2,10 +2,10 @@
     "use strict"
     
     angular.module("vacancyModule").controller("VacanciesController", VacanciesController);
-    VacanciesController.$inject  = ["$scope", "$state", "serverActService", "vacancies"];
+    VacanciesController.$inject  = ["$scope", "$state", "serverActService", "vacancies", "Resources"];
 
     /* @ngInject */
-    function VacanciesController($scope, $state,  serverActService, vacancies) {
+    function VacanciesController($scope, $state,  serverActService, vacancies, Resources) {
         var vm = this;
         vm.vacancies = vacancies;
         
@@ -16,7 +16,7 @@
         vm.deleteVacancy = function(vacancy, index){
             var checkDelete = confirm("Видалити вакансії")
             if(!checkDelete) return;
-            serverActService.deleteVacancy(vacancy).then(function (response) {
+            Resources.Vacancies.remove(vacancy.id).then(function (response) {
                 vm.vacancies.splice(index, 1);
                 $state.reload();
             });

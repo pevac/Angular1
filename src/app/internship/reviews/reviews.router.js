@@ -19,8 +19,8 @@
                 controllerAs: "vm",
                 resolve: {
                     /* @ngInject */
-                    reviews:  function(serverDataService) {
-                        return  serverDataService.getReviews();
+                    reviews:  function(Resources) {
+                        return  Resources.Reviews.getAll();
                     }
                 }
             })
@@ -29,16 +29,17 @@
                 templateUrl:"internship/reviews/reviewForm/reviewForm.tmpl.html",
                 controller: "AddReviewController",
                 controllerAs: "vm",
+                params : {
+                    data: null
+                },
                 resolve: {
-                    /* @ngInject */
-                    jobPositions:  function(serverDataService) {
-                       return  serverDataService.getJobPositions();
-                    },
-                    /* @ngInject */
-                    projects:  function(serverDataService) {
-                       return  serverDataService.getDevProjects();
-                    },
-                }
+                  /* @ngInject */
+                    jobPositions:  function(Resources) {
+                       return  Resources.JobPositions.getAll();
+                    }
+                },
+                onEnter: saveSessionStorage,
+                onExit: clearSessionStorage
             })
             .state("home.reviews.editreview", {
                 url: "/edit",
@@ -51,25 +52,31 @@
                 },
                 resolve: {
                     /* @ngInject */
-                    jobPositions:  function(serverDataService) {
-                       return  serverDataService.getJobPositions();
-                    },
-                    /* @ngInject */
-                    projects:  function(serverDataService) {
-                       return  serverDataService.getDevProjects();
-                    },
+                    jobPositions:  function(Resources) {
+                       return  Resources.JobPositions.getAll();
+                    }
                 },
-                onEnter: ["$stateParams", "$sessionStorage", function($stateParams, $sessionStorage) {
-                        if($stateParams.data) {
-                            $sessionStorage.$default({stateParams: {data: $stateParams.data, previousState: $stateParams.previousState}} );
-                        } else {
-                            $stateParams.data = $sessionStorage.$default().stateParams.data;
-                            $stateParams.previousState = $sessionStorage.$default().stateParams.previousState;
-                        }
-                }],
-                onExit: ["$stateParams", "$sessionStorage", function($stateParams, $sessionStorage) {
-                        delete    $sessionStorage.$default().stateParams;
-                }]
-            })
+                onEnter: saveSessionStorage,
+                onExit: clearSessionStorage
+            });
+
+            clearSessionStorage.$inject = [ "$sessionStorage"];
+            function clearSessionStorage($sessionStorage){
+                delete    $sessionStorage.stateParams;
+            }
+
+            saveSessionStorage.$inject = [ "$stateParams", "$sessionStorage"];
+            function saveSessionStorage($stateParams, $sessionStorage){
+                if(!$sessionStorage.stateParams){
+                    var stateParams = angular.copy($stateParams);
+                    $sessionStorage.$default({stateParams: stateParams} );
+                } 
+                if($stateParams.data) {
+                    var stateParams = angular.copy($stateParams);
+                    $sessionStorage.stateParams = stateParams;
+                } else {
+                    $stateParams.data = $sessionStorage.$default().stateParams.data;
+                }
+            }
     }
 })();

@@ -1,4 +1,5 @@
 ["./src/assets/lib/angular/angular.min.js",
+"./src/assets/lib/angular-cookies/angular-cookies.min.js",
 "./src/assets/lib/angular-sanitize/angular-sanitize.min.js",
 "./src/assets/lib/angular-i18n/angular-locale_uk-ua.js",
 "./src/assets/lib/angular-bootstrap/ui-bootstrap-tpls.min.js",
@@ -16,5 +17,6 @@
 "./src/assets/lib/ng-img-crop/compile/unminified/ng-img-crop.js",
 "./src/assets/lib/ng-lodash/build/ng-lodash.min.js",
 "./src/assets/lib/ngstorage/ngStorage.min.js",
-"./src/assets/lib/angular-touch/angular-touch.min.js"
+"./src/assets/lib/angular-touch/angular-touch.min.js",
+"./src/assets/lib/angular-resource/angular-resource.min.js"
 ]

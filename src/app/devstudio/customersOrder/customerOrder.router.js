@@ -19,8 +19,8 @@
                 controllerAs: "vm",
                 resolve: {
                     /* @ngInject */
-                    customers:  function(serverDataService) {
-                       return  serverDataService.getCustomers();
+                    customers:  function(Resources) {
+                       return  Resources.Customers.getAll();
                     }
                 }
             })
@@ -34,11 +34,9 @@
                 },
                 resolve: {
                     /* @ngInject */
-                    order:  function(serverDataService, orderId) {
-                        return  serverDataService.getCustomerItem(orderId);
-                    },
-                    orderId: function($sessionStorage, $stateParams){
-                        return $stateParams.data ? $stateParams.data.orderId : $sessionStorage.$default().stateParams.data.orderId;
+                    order:  function(Resources, $sessionStorage, $stateParams) {
+                        var id = $stateParams.data ? $stateParams.data.orderId : $sessionStorage.$default().stateParams.data.orderId;
+                        return  Resources.Customers.getById(id);
                     }
                 },
                  onEnter: ["$stateParams", "$sessionStorage", function($stateParams, $sessionStorage) {

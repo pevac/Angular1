@@ -1,6 +1,6 @@
  (function(){
      angular.module("appModule", ["ui.bootstrap", "ngTouch", "angularTrix", "ui.router", "ngStorage", "ngLodash", "ngFileUpload","ngImgCrop", "ngSanitize","smart-table", 
-        "ngFileSaver", "loginModule", "homeModule"])
+      "ngResource",  "ngFileSaver", "loginModule", "homeModule",  "bu.validation" , "resize",  "serverApi", "imageService", "resourceModule" ])
  })();
 
 

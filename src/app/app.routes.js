@@ -33,10 +33,7 @@
                     }
                 }
             })
-            .state("home.works", {
-                url: "/works",
-                templateUrl:"work/work.html"
-            })
+            
     };
 })();
 

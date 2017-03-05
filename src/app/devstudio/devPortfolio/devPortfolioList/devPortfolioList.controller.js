@@ -2,9 +2,9 @@
     "use strict";
 
     angular.module("devPortfolioModule").controller("DevPortfolioController", DevPortfolioController);
-    DevPortfolioController.$inject = ["$scope", "serverActService", "serverDataService", "$state", "projects"];
+    DevPortfolioController.$inject = ["$scope", "$state", "projects", "Resources"];
 
-    function DevPortfolioController($scope,  serverActService, serverDataService, $state, projects){
+    function DevPortfolioController($scope,  $state, projects, Resources){
         var vm = this;
 
         vm.projects = projects;
@@ -22,7 +22,7 @@
         };
 
         vm.changeTop = function(project){
-            return serverDataService.getDevProjects().then(function(data){
+            return Resources.DevProjects.getAll().then(function(data){
                 sendInTop (data, project);
             });
         };
@@ -39,7 +39,7 @@
         };
 
         function  addDevProject(data){
-            return serverActService.addDevProject(data).then(function(){
+            return Resources.DevProjects.save(data).then(function(){
                 $state.reload();
             });
         };

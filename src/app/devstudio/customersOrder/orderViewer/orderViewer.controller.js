@@ -2,9 +2,9 @@
     "use strict";
 
     angular.module("orderCustomerModule").controller("ViewCustomerController", ViewCustomerController);
-    ViewCustomerController.$inject = ["$scope",  "serverDataService", "FileSaver", "Blob", "order"];
+    ViewCustomerController.$inject = ["$scope", "FileSaver", "Blob", "order"];
 
-    function ViewCustomerController($scope,   serverDataService, FileSaver, Blob, order) {
+    function ViewCustomerController($scope,  FileSaver, Blob, order) {
         var vm = this;
         vm.order = order;
         

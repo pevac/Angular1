@@ -2,9 +2,9 @@
     "use strict";
 
     angular.module("intPortfolioModule").controller("IntPortfolioListController", IntPortfolioListController);
-    IntPortfolioListController.$inject = ["$scope", "serverActService", "serverDataService", "$state", "projects"];
+    IntPortfolioListController.$inject = ["$scope", "$state", "projects", "Resources"];
 
-    function IntPortfolioListController($scope,  serverActService, serverDataService, $state, projects){
+    function IntPortfolioListController($scope,  $state, projects, Resources){
         var vm = this;
 
         vm.projects = projects;
@@ -20,7 +20,7 @@
         };
 
         function  addIntProject(data){
-            return serverActService.addIntProject(data).then(function(){
+            return Resources.IntProjects.save(data).then(function(){
                 $state.reload();
             });
         };

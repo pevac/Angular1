@@ -2,9 +2,9 @@
     "use strict";
     
     angular.module("devPortfolioModule").controller("AddDevPortfolioController", AddDevPortfolioController);
-    AddDevPortfolioController.$inject = ["$scope", "serverActService", "$timeout", "$state", "serverDataService", "ImageService"];
+    AddDevPortfolioController.$inject = ["$scope", "$timeout", "$state",  "ImageService", "Resources"];
     
-    function AddDevPortfolioController($scope,  serverActService, $timeout, $state, serverDataService, ImageService) {
+    function AddDevPortfolioController($scope,  $timeout, $state,  ImageService, Resources) {
         var vm = this;
         var isTop;
         if (vm.project) {  isTop = vm.project.inTop; }
@@ -52,11 +52,12 @@
 
         vm.addProject = function (visible) {
             vm.dataLoading =true;
-            var project = vm.project;
+            var project = angular.copy(vm.project);
             project.visible = visible;
             if (project.visible) { project.inTop = false }
-            serverActService.addDevProject(vm.project).then(function (response) {
-                addFullImage(response.data)
+            Resources.DevProjects.save(project).then(function (data) {
+                project.id = data.id;
+                addFullImage(project);
             },
                 function (response) {
                     console.log(response);
@@ -64,9 +65,9 @@
         };
 
         vm.changeTop = function (project) {
-            serverDataService.getDevProjects().then(function (data) {
+            return Resources.DevProjects.getAll().then(function (data) {
                 var _isCheckTop = isCheckTop(data);
-
+                console.log(data);
                 if (project.id && (_isCheckTop && !project.inTop || !project.inTop && !_isCheckTop || project.inTop && _isCheckTop || isTop && project.inTop && !_isCheckTop)) {
                 } else {
                     vm.project.inTop = isTop;
@@ -80,17 +81,24 @@
         function addFullImage(data) {
             var previewImg = vm.previewImg;
             var mainImg = vm.mainImg;
-            var project = data;
+            var project = angular.copy(data);
 
             addImage(previewImg, project,"previewImg");
             addImage(mainImg, project, "mainImg");
         };
 
         function addImage(image, project, name){
-            if(!image && !image.lastModifiedDate) {return;}
-            serverActService.addDevImage(image, project.id).then(function (response) {
+            if(image && !image.lastModifiedDate) {
+                vm.dataLoading =false;
+                 $timeout(function () {
+                       $state.go("home.devportfolio.list");
+                }, 1000);
+                return;
+            }
+
+            Resources.DevProjects.saveFile(image, project.id).then(function (response) {
                 project[name] = image.name;
-                serverActService.addDevProject(project).then(function (response) {
+                Resources.DevProjects.save(project).then(function (response) {
                     $timeout(function () {
                        $state.go("home.devportfolio.list");
                     }, 1000);
@@ -134,9 +142,9 @@
         };
 
 
-        function setImage(img, id, name) {
-           serverDataService.getDevImage(img, id).then(function (response) {
-                vm[name]=  ImageService.bufferArrayResponceToFile(response, img); 
+        function setImage(imgName, id, name) {
+           Resources.DevProjects.getFileById(imgName, id).then(function (response) {
+                vm[name]=  ImageService.bufferArrayResponceToFile(response, imgName); 
             })
         };
 

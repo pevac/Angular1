@@ -2,10 +2,10 @@
     "use strict";
 
     angular.module("vacancyModule").controller("AddVacancyController", AddVacancyController);
-    AddVacancyController.$inject = ["$scope", "serverActService", "$state",  "projects", "jobPositions", "workingTimes"];
+    AddVacancyController.$inject = ["$scope",  "$state",  "projects", "jobPositions", "workingTimes", "Resources"];
     
     /* @ngInject */
-    function AddVacancyController($scope, serverActService, $state,   projects, jobPositions, workingTimes){
+    function AddVacancyController($scope,  $state,   projects, jobPositions, workingTimes, Resources){
         var vm = this;
 
         vm.workingTimes = workingTimes;
@@ -31,9 +31,9 @@
 
         vm.addVacancy = function (open, vacancy) {
             vm.dataLoading =true;
-            var newVacancy = vacancy;
+            var newVacancy = angular.copy(vacancy);
             newVacancy.open = open;
-            serverActService.addVacancy(newVacancy).then(function (response) {
+            Resources.Vacancies.save(newVacancy).then(function (response) {
                 vm.dataLoading =false;
                 $state.go("home.vacancies.list");
             });

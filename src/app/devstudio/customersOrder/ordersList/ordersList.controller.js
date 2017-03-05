@@ -2,9 +2,9 @@
     "use strict";
 
     angular.module("orderCustomerModule").controller("OrderCustomerController", OrderCustomerController);
-    OrderCustomerController.$inject = ["$scope", "$state", "serverDataService", "FileSaver", "Blob", "$templateCache", "$compile", "$timeout", "serverActService", "customers"];
+    OrderCustomerController.$inject = ["$scope", "$state",  "FileSaver", "Blob", "$templateCache", "$compile", "$timeout",  "customers", "Resources"];
     
-    function OrderCustomerController($scope, $state, serverDataService, FileSaver, Blob, $templateCache, $compile, $timeout, serverActService, customers){
+    function OrderCustomerController($scope, $state,  FileSaver, Blob, $templateCache, $compile, $timeout,  customers, Resources){
         var vm = this;
         vm.itemsByPage = 10;
 
@@ -14,7 +14,7 @@
         vm.deleteCustomerOrder = function(order){
             var checkDelete = confirm("Видалити замовлення");
             if(!checkDelete) return;
-            serverActService.deleteCustomerOrder(order).then(function (response) {
+            Resources.Customers.remove(order.id).then(function (response) {
                 $state.reload();
             });
         };
@@ -42,7 +42,7 @@
         };
 
         vm.saveData = function (data){
-            serverDataService.getCustomerItem(data.id).then(
+            Resources.Customers.getById(data.id).then(
                 function(data){
                     $scope.order = vm.order = data;
                     if(!document.getElementById('exportOrder')) {

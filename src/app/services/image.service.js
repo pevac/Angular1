@@ -19,7 +19,6 @@
                 var type = response.headers('content-type') || 'image/WebP';
                 blob = new Blob([arrayBufferView], { type: type });
                 blob.name = name;
-
                 return  blob;
             };
 
@@ -38,8 +37,7 @@
                         byteNumbers[i] = slice.charCodeAt(i);
                     }
 
-                    var byteArray = new Uint8Array(byteNumbers);
-                    byteArrays.push(byteArray);
+                    byteArrays.push(new Uint8Array(byteNumbers));
                 }
 
                 var blob = new Blob(byteArrays,  {type:mime});

@@ -2,14 +2,14 @@
     "use strict";
     
     angular.module('reviewsModule').controller('ReviewController', ReviewController);
-    ReviewController.$inject = ["$scope",  "$state", "serverDataService", "reviews"];
+    ReviewController.$inject = ["$scope",  "$state", "serverDataService", "reviews", "Resources" ];
 
-    function ReviewController($scope,  $state, serverDataService, reviews){
+    function ReviewController($scope,  $state, serverDataService, reviews, Resources){
         var vm = this;
         vm.reviews = reviews;
 
         vm.setImage = function(review){
-            return  serverDataService.getDevImage1(review.img, review.id);
+            return  Resources.Reviews.getImageUrl(review.img, review.id);
         };
 
         vm.goToEdit = function(review, stateToGo) {

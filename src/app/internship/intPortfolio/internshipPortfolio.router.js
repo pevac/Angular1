@@ -19,8 +19,8 @@
                 controllerAs: "vm",
                  resolve: {
                      /* @ngInject */
-                    projects:  function(serverDataService) {
-                       return  serverDataService.getIntProjects();
+                    projects:  function(Resources) {
+                       return  Resources.IntProjects.getAll();
                     }
                 }
             })

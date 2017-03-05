@@ -19,8 +19,8 @@
                 controllerAs: 'vm',
                 resolve: {
                     /* @ngInject */
-                    vacancies:  function(serverDataService) {
-                        return  serverDataService.getVacancies();
+                    vacancies:  function(Resources) {
+                        return  Resources.Vacancies.getAll();
                     }
                 }
             })
@@ -31,18 +31,20 @@
                 controllerAs: 'vm',
                 resolve: {
                     /* @ngInject */
-                    jobPositions:  function(serverDataService) {
-                       return  serverDataService.getJobPositions();
+                    jobPositions:  function(Resources) {
+                       return  Resources.JobPositions.getAll();
                     },
                     /* @ngInject */
-                    projects:  function(serverDataService) {
-                       return  serverDataService.getDevProjects();
+                    projects:  function(Resources) {
+                       return  Resources.DevProjects.getAll();
                     },
                     /* @ngInject */
-                    workingTimes:function(serverDataService) {
-                       return  serverDataService.getWorkingTimes();
+                    workingTimes:function(Resources) {
+                       return  Resources.WorkingTimes.getAll();
                     } 
-                }
+                },
+                onEnter: saveSessionStorage,
+                onExit: clearSessionStorage
             })
             .state("home.vacancies.edit", {
                 url: "/edit",
@@ -54,34 +56,46 @@
                 },
                 resolve: {
                     /* @ngInject */
-                    jobPositions:  function(serverDataService) {
-                       return  serverDataService.getJobPositions();
+                    jobPositions:  function(Resources) {
+                       return  Resources.JobPositions.getAll();
                     },
                     /* @ngInject */
-                    projects:  function(serverDataService) {
-                       return  serverDataService.getDevProjects();
+                    projects:  function(Resources) {
+                       return  Resources.DevProjects.getAll();
                     },
                     /* @ngInject */
-                    workingTimes:function(serverDataService) {
-                       return  serverDataService.getWorkingTimes();
+                    workingTimes:function(Resources) {
+                       return  Resources.WorkingTimes.getAll();
                     } 
                 },
-                // onEnter: ["$stateParams", "$sessionStorage", function($stateParams, $sessionStorage) {
-                //         if($stateParams.data) {
-                //             $sessionStorage.$default({stateParams: {data:  $stateParams.data }} );
-                //         } else {
-                //             $stateParams.data = $sessionStorage.$default().stateParams.data;
-                //         }
-                // }],
-                // onExit: ["$stateParams", "$sessionStorage", function($stateParams, $sessionStorage) {
-                //         delete    $sessionStorage.$default().stateParams;
-                // }]
+                onEnter: saveSessionStorage,
+                onExit: clearSessionStorage
             })
             .state("home.vacancies.review", {
                 url: "/review",
                 templateUrl:"devstudio/vacancies/reviewVacancies/reviewVacancies.tmpl.html",
                 controller: "ReviewVacanciesController",
                 controllerAs: 'vm',
-            })
+            });
+
+            clearSessionStorage.$inject = [ "$sessionStorage"];
+            function clearSessionStorage($sessionStorage){
+                delete    $sessionStorage.stateParams;
+            }
+
+            saveSessionStorage.$inject = [ "$stateParams", "$sessionStorage"];
+            function saveSessionStorage($stateParams, $sessionStorage){
+                if(!$sessionStorage.stateParams){
+                    var stateParams = angular.copy($stateParams);
+                    $sessionStorage.$default({stateParams: stateParams} );
+                } 
+                if($stateParams.data) {
+                    var stateParams = angular.copy($stateParams);
+                    $sessionStorage.stateParams = stateParams;
+                } else {
+                    $stateParams.data = $sessionStorage.$default().stateParams.data;
+                }
+            }
+              
     }
 })();
