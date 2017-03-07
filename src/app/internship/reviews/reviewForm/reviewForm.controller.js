@@ -2,9 +2,9 @@
     "use strict";
 
     angular.module("reviewsModule").controller("AddReviewController", AddReviewController);
-    AddReviewController.$inject = ["$scope", "serverActService", "serverDataService", "$state", "jobPositions", "ImageService", "Resources"];
+    AddReviewController.$inject = ["$scope", "$state", "jobPositions", "ImageService", "Resources"];
 
-    function AddReviewController($scope,  serverActService,  serverDataService, $state, jobPositions,  ImageService, Resources){
+    function AddReviewController($scope,  $state, jobPositions,  ImageService, Resources){
         var vm = this;
         vm.jobPositions = jobPositions;
         activate();
@@ -47,6 +47,7 @@
         }; 
         
         function activate(){
+            vm.review = new  Resources.Reviews();
             if(!$state.params.data) return;
             vm.review = $state.params.data.review;
             getReviewImage();

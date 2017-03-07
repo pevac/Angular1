@@ -46,7 +46,9 @@
                         if($stateParams.data) {
                             $sessionStorage.stateParams = { data: $stateParams.data};
                         } else {
-                            $stateParams.data = $sessionStorage.$default().stateParams.data;
+                            for(var key in $sessionStorage.$default().stateParams){
+                                $stateParams[key] = $sessionStorage.$default().stateParams[key];
+                            }
                         }
                 }],
                 onExit: ["$stateParams", "$sessionStorage", function($stateParams, $sessionStorage) {

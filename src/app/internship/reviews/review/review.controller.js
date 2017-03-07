@@ -10,6 +10,8 @@
         vm.goToEdit = function () {
             $state.go($state.params.previousState.name, { data: {review: vm.review, previewImg: $state.params.data.previewImg} }, {} );
         };
+
+       
         
         activate();
        
@@ -30,7 +32,6 @@
                     vm.imageUrl = URL.createObjectURL(vm.image);
                 });
             }
-
         }
 
     }

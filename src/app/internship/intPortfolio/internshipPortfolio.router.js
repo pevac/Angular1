@@ -74,7 +74,9 @@
                     var stateParams = angular.copy($stateParams);
                     $sessionStorage.stateParams = stateParams;
                 } else {
-                    $stateParams = $sessionStorage.$default().stateParams;
+                    for(var key in $sessionStorage.$default().stateParams){
+                        $stateParams[key] = $sessionStorage.$default().stateParams[key];
+                    }
                 }
             }
     }

@@ -12,6 +12,15 @@
             return  Resources.ReviewImageURl(review.img, review.id);
         };
 
+        vm.publish = function(review){
+            review.visible = !review.visible;
+            updateReview(review)
+        };
+
+        function  updateReview(review){
+            review.$update(function(){ $state.reload()});
+        };
+
         vm.deleteReview = function(review, index){
             var checkDelete = confirm("Видалити вакансії")
             if(!checkDelete) return;

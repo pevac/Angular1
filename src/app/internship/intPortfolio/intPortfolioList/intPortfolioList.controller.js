@@ -19,10 +19,7 @@
         };
 
         function  updateIntProject(project){
-            var action = project.id ? "$update" : "$save";
-            project[action](function(){
-                $state.reload();
-            });
+            project.$update(function(){ $state.reload()});
         };
     }
 })();
