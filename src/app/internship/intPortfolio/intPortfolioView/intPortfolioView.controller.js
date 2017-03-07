@@ -5,10 +5,10 @@
     IntPortfolioViewController.$inject = ["$scope", "$state", "Resources", "ImageService"];
 
     function IntPortfolioViewController($scope, $state , Resources, ImageService){
-            var vm = this;
+        var vm = this;
 
         vm.goToEdit = function () {
-            $state.go($state.params.previousState.name, {previousState : { name : $state.current.name }, data: {project: vm.project, previewImg: $state.params.data.previewImg} }, {} );
+            $state.go($state.params.previousState.name, { data: {project: vm.project, previewImg: $state.params.data.previewImg} }, {} );
         };
         
         activate();
@@ -22,13 +22,12 @@
 
         function setImage()
         {
-            var project = angular.copy(vm.project);
             if($state.params.data && $state.params.data.previewImg){
                 vm.image = $state.params.data.previewImg;
                 vm.imageUrl = vm.image.data;
             }else{
-                Resources.IntProjects.getFileById(project.img,  project.id).then(function(response){
-                    vm.image = ImageService.bufferArrayResponceToFile(response, project.previewImg);
+                Resources.IntProjectFile.getFile({name: vm.project.img,  id: vm.project.id},function(response){
+                    vm.image = ImageService.bufferArrayResponceToFile(response, vm.project.img);
                     vm.imageUrl = URL.createObjectURL(vm.image);
                 });
             }

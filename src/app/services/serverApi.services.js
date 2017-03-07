@@ -5,7 +5,7 @@
         .factory("serverDataService", serverDataService)
         .factory("serverActService", serverActService)
         .constant("serverApiConstant",function(){
-            var rootUrl = "http://62.80.173.67:8888/dev-studio/api/";
+            var rootUrl = "http://www.edu.bionic-university.com:2101/dev-studio/api/";
             return {
                 devProjects: rootUrl +  "projects/",
                 intProjects: rootUrl +  "internshipprojects/",

@@ -11,43 +11,45 @@
         
         vm.addReview = function () {
             vm.dataLoading =true;
-            var review = vm.review;
             var imageUrl = vm.croppedDataUrl;
             var photo = vm.photo;
 
-            Resources.Reviews.save(review).then(function (response) {
+            saveReview(function (response) {
                 uploadImage(imageUrl, photo, response);
             });
+        };
+
+        function saveReview(succesHandler){
+            var action = vm.review.id ? "$update": "$save";
+            vm.review[action](function(data){succesHandler(data)});
         }
 
-        function uploadImage(imageUrl, photo, data) {
+
+        function uploadImage(imageUrl, photo, review) {
             var imageBase64 = imageUrl;
             var image = photo;
-            
+            vm.review.id  = review.id;
             var file = ImageService.base64ToFile(imageBase64, photo);   
           
-            Resources.Reviews.saveFile(file, data.id).then(function (response) {
-                var  review  = data;
-                review.img = file.name;
-                Resources.Reviews.save(review).then(function (response) {
+            Resources.ReviewFile.saveFile({data: file, id: vm.review.id },function () {
+                vm.review.img = file.name;
+                saveReview(function () {
                     vm.dataLoading =false;
                     $state.go("home.reviews.list");
-            })
-            }, function(data){
-                console.log(data);
+                })
             });
         }
 
-        function getReviewImage(name, id) {
-            Resources.Reviews.getFileById(name, id).then(function (response) {
-                vm.photo =   ImageService.bufferArrayResponceToFile(response, name)
+        function getReviewImage() {
+            Resources.ReviewFile.getFile({name: vm.review.img, id:  vm.review.id},function (response) {
+                vm.photo =   ImageService.bufferArrayResponceToFile(response, vm.review.img)
             })
         }; 
         
         function activate(){
             if(!$state.params.data) return;
             vm.review = $state.params.data.review;
-            getReviewImage(vm.review.img, vm.review.id);
+            getReviewImage();
         }
        
     }

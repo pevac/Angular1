@@ -10,38 +10,34 @@
         vm.projects = projects;
 
         vm.goToEdit = function(project, stateToGo) {
-            var project1 = angular.copy(project);
-            $state.go( stateToGo, { previousState : { name : $state.current.name }, data: {project: project1} }, {} );
+            $state.go( stateToGo, { previousState : { name : $state.current.name }, data: {project: project} }, {} );
         };
 
         vm.publish = function(project){
-            var newProject = project;
-            newProject.visible = !project.visible;
-            if(newProject.visible) { newProject.inTop = false }
-            return addDevProject(newProject)
+            project.visible = !project.visible;
+            if(project.visible) { project.inTop = false }
+            updateDevProject(project);
         };
 
         vm.changeTop = function(project){
-            return Resources.DevProjects.getAll().then(function(data){
+            Resources.DevProjects.query(function(data){
                 sendInTop (data, project);
             });
+        };
+
+        function  updateDevProject(project){
+            project.$update(function(){ $state.reload()});
         };
 
         function sendInTop (data, project){
              var _isCheckTop = isCheckTop(data);
                if(_isCheckTop && project.inTop || project.inTop && !_isCheckTop || !project.inTop && _isCheckTop){
-                    var newProject = project;
-                    newProject.inTop = !newProject.inTop;
-                    addDevProject(project);
+                    project.inTop = !project.inTop;
+                    updateDevProject(project);
                }else{
+                    $state.reload();
                     alert("Кількість проектів з зафарбованою зіркою не більше 4");
                }
-        };
-
-        function  addDevProject(data){
-            return Resources.DevProjects.save(data).then(function(){
-                $state.reload();
-            });
         };
 
         function isCheckTop(arg){
@@ -54,9 +50,9 @@
                 }
                 if(index >= 4){
                     inTop = false;
+                    return inTop;
                 }
             }
-
             return inTop;
         }
 

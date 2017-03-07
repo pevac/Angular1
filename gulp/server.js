@@ -10,17 +10,17 @@ module.exports =  function(options){
         browserSync.init({
             server: {
                 baseDir: config.path.server,
-                // directory: true
+                directory: true
             },
-            // ui: {
-            //     port: 8889
-            // },
-            // port: 8888,
-            // open: true,
-            // notify: false,
-            // ghostMode: false,
-            // logFileChanges: true,
-            browser: "safari"
+            ui: {
+                port: 8889
+            },
+            port: 8888,
+            open: true,
+            notify: false,
+            ghostMode: false,
+            logFileChanges: true,
+            // browser: "safari"
         });
 
         browserSync.watch(config.path.watch.reload).on("change", browserSync.reload);

@@ -2,7 +2,7 @@
     "use strict";
 
     angular.module("vacancyModule").controller("AddVacancyController", AddVacancyController);
-    AddVacancyController.$inject = ["$scope",  "$state",  "projects", "jobPositions", "workingTimes", "Resources"];
+    AddVacancyController.$inject = ["$scope",  "$state",  "projects", "jobPositions", "workingTimes",  "Resources"];
     
     /* @ngInject */
     function AddVacancyController($scope,  $state,   projects, jobPositions, workingTimes, Resources){
@@ -11,6 +11,7 @@
         vm.workingTimes = workingTimes;
         vm.jobPositions = jobPositions;
         vm.projects = projects;
+
         activate();
 
         vm.dateOptions = {
@@ -29,17 +30,20 @@
             vm.popup.opened = true;
         };
 
-        vm.addVacancy = function (open, vacancy) {
+        vm.addVacancy = function (open) {
+            var action = vm.vacancy.id ? "$update" : "$save";
             vm.dataLoading =true;
-            var newVacancy = angular.copy(vacancy);
-            newVacancy.open = open;
-            Resources.Vacancies.save(newVacancy).then(function (response) {
-                vm.dataLoading =false;
-                $state.go("home.vacancies.list");
-            });
+            vm.vacancy.open = open;
+            vm.vacancy[action](
+                function (response) {
+                    vm.dataLoading =false;
+                    $state.go("home.vacancies.list");
+                }
+            );
         };
 
         function activate() {
+            vm.vacancy = new Resources.Vacancies();
             if ($state.params.data && $state.params.data.vacancy) {
                 vm.vacancy  = $state.params.data.vacancy;
                 vm.vacancy.date = new Date(vm.vacancy.date);

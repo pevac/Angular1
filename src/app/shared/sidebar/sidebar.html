@@ -1,5 +1,4 @@
-<nav class="navbar navbar-default"   role="navigation">
-	<!-- Brand and toggle get grouped for better mobile display -->
+<nav class="navbar navbar-default"  role="navigation" >
 	<div class="navbar-header  navbar-fixed-top">
 		<div class="brand-sect">
 		<h1><span class="navbar-brand"></span></h1>
@@ -11,9 +10,9 @@
 			<span class="icon-bar"></span>
 		</button>
 		<div class="account navbar-right">
-			<span class="user-name" ng-bind="currentUser.userName"></span>
+			<span class="user-name" ng-bind="$parent.currentUser.userName"></span>
 			<div class="photo">
-				<img ng-click="logout()" ng-src="{{currentUser.avatar}}" alt="">
+				<img ng-click="vm.logout()" ng-src="{{$parent.currentUser.avatar}}" alt="">
 			</div>
 		</div>
 	</div>

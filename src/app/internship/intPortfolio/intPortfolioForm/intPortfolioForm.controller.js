@@ -2,9 +2,9 @@
     "use strict"
 
     angular.module("intPortfolioModule").controller("AddIntPortfolioController", AddIntPortfolioController)
-    AddIntPortfolioController.$inject = ["$scope",  "$timeout", "$state",  "ImageService", "Resources"];
+    AddIntPortfolioController.$inject = ["$scope",  "$state",  "ImageService", "Resources"];
 
-    function AddIntPortfolioController($scope,   $timeout, $state,  ImageService, Resources) {
+    function AddIntPortfolioController($scope,   $state,  ImageService, Resources) {
         var vm = this;
         vm.dateOptions = {
             datepickerMode: "'month'",
@@ -41,46 +41,47 @@
 
         vm.addProject = function(visible){
             vm.dataLoading =true;
-            var project = angular.copy(vm.project);
-            project.visible = visible;
-            Resources.IntProjects.save(project).then(function (response) {
-                addImage(response);
-            });
+            vm.project.visible = visible;
+            saveProject(saveImage);
         };
+
+        function saveProject(succesHandler){
+            var action = vm.project.id ? "$update": "$save";
+            vm.project[action](function(data){succesHandler(data)});
+        }
 
         activate();
 
         function activate() {
+            vm.project = new Resources.IntProjects();
+            
             if ($state.params.data && $state.params.data.project) {
+                
                 vm.project  = $state.params.data.project;
-
                 vm.img  = $state.params.data.previewImg ? ImageService.base64ToFile($state.params.data.previewImg.data, $state.params.data.previewImg) : null;
-
                 vm.project.dateStart  = new Date(vm.project.dateStart);
                 vm.project.dateEnd  = new Date(vm.project.dateEnd);
 
-                if(!vm.img) setImage(vm.project.img, vm.project.id);
+                if(!vm.img) setImage();
             }
         };
 
-        function addImage(data){
+        function saveImage(data){
             var image = vm.img;
-            var project = data;
+            vm.project.id = data.id;
             if(!image && !image.lastModifiedDate) {return;}
-            Resources.IntProjects.saveFile(image, project.id).then(function (response) {
-                project.img = image.name;
-                Resources.IntProjects.save(project).then(function (response) {
-                    $timeout(function () {
+            Resources.IntProjectFile.saveFile({data :image, id: vm.project.id},function () {
+                vm.project.img = image.name;
+                saveProject(function (data) {
                         vm.dataLoading =false;
                         $state.go("home.intportfolio.list");
-                    }, 1000);
                 });
             });
         };
 
-        function setImage(img, id) {
-           Resources.IntProjects.getFileById(img, id).then(function (response) {
-                vm.img=  ImageService.bufferArrayResponceToFile(response, img); 
+        function setImage() {
+           Resources.IntProjectFile.getFile({name: vm.project.img, id: vm.project.id},function (response) {
+                vm.img=  ImageService.bufferArrayResponceToFile(response, vm.project.img); 
             })
         };
 

@@ -11,10 +11,11 @@
         vm.customers = customers;
         vm.customerCollection = [].concat(vm.customers);
 
-        vm.deleteCustomerOrder = function(order){
+        vm.deleteCustomerOrder = function(order, index){
             var checkDelete = confirm("Видалити замовлення");
             if(!checkDelete) return;
-            Resources.Customers.remove(order.id).then(function (response) {
+            order.$remove(function () {
+                vm.vacancies.splice(index, 1);
                 $state.reload();
             });
         };
@@ -41,9 +42,9 @@
             }, 100);
         };
 
-        vm.saveData = function (data){
-            Resources.Customers.getById(data.id).then(
-                function(data){
+        vm.saveData = function (customer){
+           customer.$get(
+              function(data){
                     $scope.order = vm.order = data;
                     if(!document.getElementById('exportOrder')) {
                         var el = document.createElement("div");
@@ -60,7 +61,7 @@
                     }, 100);
 
                 }
-            )
+            );
         };
     }
 })();

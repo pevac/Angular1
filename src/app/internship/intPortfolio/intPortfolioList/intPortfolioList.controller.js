@@ -2,9 +2,9 @@
     "use strict";
 
     angular.module("intPortfolioModule").controller("IntPortfolioListController", IntPortfolioListController);
-    IntPortfolioListController.$inject = ["$scope", "$state", "projects", "Resources"];
+    IntPortfolioListController.$inject = ["$scope", "$state", "projects"];
 
-    function IntPortfolioListController($scope,  $state, projects, Resources){
+    function IntPortfolioListController($scope,  $state, projects){
         var vm = this;
 
         vm.projects = projects;
@@ -14,13 +14,13 @@
         };
 
         vm.publish = function(project){
-            var newProject = project;
-            newProject.visible = !project.visible;
-            return addIntProject(newProject)
+            project.visible = !project.visible;
+            updateIntProject(project)
         };
 
-        function  addIntProject(data){
-            return Resources.IntProjects.save(data).then(function(){
+        function  updateIntProject(project){
+            var action = project.id ? "$update" : "$save";
+            project[action](function(){
                 $state.reload();
             });
         };

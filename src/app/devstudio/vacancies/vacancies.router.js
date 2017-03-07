@@ -9,8 +9,11 @@
         $stateProvider
             .state("home.vacancies", {
                 url: "/vacancies",
-                template:'<div  ui-view ></div>',
-                abstract: true
+                template:"<div  ui-view ></div>",
+                abstract: true,
+                resolve: {
+                    Resources: "Resources"
+                }
             })
             .state("home.vacancies.list", {
                 url: "/list",
@@ -20,7 +23,7 @@
                 resolve: {
                     /* @ngInject */
                     vacancies:  function(Resources) {
-                        return  Resources.Vacancies.getAll();
+                        return  Resources.Vacancies.query().$promise;
                     }
                 }
             })
@@ -32,15 +35,15 @@
                 resolve: {
                     /* @ngInject */
                     jobPositions:  function(Resources) {
-                       return  Resources.JobPositions.getAll();
+                       return  Resources.JobPositions.query().$promise;
                     },
                     /* @ngInject */
                     projects:  function(Resources) {
-                       return  Resources.DevProjects.getAll();
+                       return  Resources.DevProjects.query().$promise;
                     },
                     /* @ngInject */
                     workingTimes:function(Resources) {
-                       return  Resources.WorkingTimes.getAll();
+                       return  Resources.WorkingTimes.query().$promise;
                     } 
                 },
                 onEnter: saveSessionStorage,
@@ -57,15 +60,15 @@
                 resolve: {
                     /* @ngInject */
                     jobPositions:  function(Resources) {
-                       return  Resources.JobPositions.getAll();
+                       return  Resources.JobPositions.query().$promise;
                     },
                     /* @ngInject */
                     projects:  function(Resources) {
-                       return  Resources.DevProjects.getAll();
+                       return  Resources.DevProjects.query().$promise;
                     },
                     /* @ngInject */
                     workingTimes:function(Resources) {
-                       return  Resources.WorkingTimes.getAll();
+                       return  Resources.WorkingTimes.query().$promise;
                     } 
                 },
                 onEnter: saveSessionStorage,
@@ -87,11 +90,11 @@
             function saveSessionStorage($stateParams, $sessionStorage){
                 if(!$sessionStorage.stateParams){
                     var stateParams = angular.copy($stateParams);
-                    $sessionStorage.$default({stateParams: stateParams} );
+                    $sessionStorage.$default({stateParams: $stateParams} );
                 } 
                 if($stateParams.data) {
                     var stateParams = angular.copy($stateParams);
-                    $sessionStorage.stateParams = stateParams;
+                    $sessionStorage.stateParams = $stateParams;
                 } else {
                     $stateParams.data = $sessionStorage.$default().stateParams.data;
                 }

@@ -19,10 +19,7 @@
         // $scope.login = function (credentials) {
         //     AuthService.login(credentials).then(function (user) {
         //         $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
-        //         $rootScope.currentUser = user;
         //     }, function (response) {
-        //         $scope.loginStatus.type = AUTH_EVENTS.loginFailed;
-        //         $scope.loginStatus.message = "sdfasdfdasf";
         //         $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
         //     });
         // };

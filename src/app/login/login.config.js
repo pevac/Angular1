@@ -20,7 +20,7 @@
     InitLogin.$inject = ["$rootScope", "AUTH_EVENTS","AuthService","$location"];
     function InitLogin($rootScope, AUTH_EVENTS, AuthService, $location) {
         // enumerate routes that don't need authentication
-        var routesThatDontRequireAuth = ['/login'];
+        var routesThatDontRequireAuth = ["/login"];
         var routesApp = "/app";
         var nextRoute = "/app";
 
@@ -40,7 +40,7 @@
             $location.path("/login");
         });
         $rootScope.$on(AUTH_EVENTS.notAuthorized, function(){
-            $location.path("/login");
+            alert("Ви маєте недостатньо прав.")
         });
         $rootScope.$on(AUTH_EVENTS.logoutSuccess, function(){
             $location.path("/login");

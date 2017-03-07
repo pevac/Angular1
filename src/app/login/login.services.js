@@ -80,14 +80,14 @@
         };
     };
 
-    AuthResolver.$inject = ["$rootScope", "$q","$state", "UserService"];
-    function AuthResolver($rootScope, $q, $state, UserService) {
-       $rootScope.currentUser = UserService.getUser();
+AuthResolver.$inject = ["$q","$state", "UserService"];
+    function AuthResolver( $q, $state, UserService) {
 
         return {
             resolve: function () {
+                var currentUser = UserService.getUser();
+               
                 var deferred = $q.defer();
-                var unwatch = $rootScope.$watch("currentUser", function (currentUser) {
                     if (angular.isDefined(currentUser)) {
                         if (currentUser) {
                             deferred.resolve(currentUser);
@@ -95,9 +95,7 @@
                             deferred.reject();
                             $state.go('login');
                         }
-                        unwatch();
                     }
-                });
                 return deferred.promise;
             }
         };

@@ -9,7 +9,7 @@
         $stateProvider
             .state("home.intportfolio", {
                 url: "/internship",
-                template:'<div ui-view ></div>',
+                template:"<div ui-view ></div>",
                 abstract: true
             })
             .state("home.intportfolio.list", {
@@ -20,7 +20,7 @@
                  resolve: {
                      /* @ngInject */
                     projects:  function(Resources) {
-                       return  Resources.IntProjects.getAll();
+                       return  Resources.IntProjects.query().$promise;
                     }
                 }
             })
@@ -74,7 +74,7 @@
                     var stateParams = angular.copy($stateParams);
                     $sessionStorage.stateParams = stateParams;
                 } else {
-                    $stateParams.data = $sessionStorage.$default().stateParams.data;
+                    $stateParams = $sessionStorage.$default().stateParams;
                 }
             }
     }

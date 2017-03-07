@@ -9,7 +9,7 @@
         $stateProvider
             .state("home.ordercustomer", {
                 url: "/ordercustomer",
-                template:'<div  ui-view ></div>',
+                template:"<div  ui-view ></div>",
                 abstract: true
             })
             .state("home.ordercustomer.list", {
@@ -20,7 +20,7 @@
                 resolve: {
                     /* @ngInject */
                     customers:  function(Resources) {
-                       return  Resources.Customers.getAll();
+                       return  Resources.Customers.query().$promise;
                     }
                 }
             })
@@ -36,7 +36,7 @@
                     /* @ngInject */
                     order:  function(Resources, $sessionStorage, $stateParams) {
                         var id = $stateParams.data ? $stateParams.data.orderId : $sessionStorage.$default().stateParams.data.orderId;
-                        return  Resources.Customers.getById(id);
+                        return  Resources.Customers.get({id: id}).$promise;
                     }
                 },
                  onEnter: ["$stateParams", "$sessionStorage", function($stateParams, $sessionStorage) {

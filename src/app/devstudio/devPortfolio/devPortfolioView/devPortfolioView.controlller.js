@@ -22,15 +22,16 @@
 
         function setImage()
         {
-            var project = angular.copy(vm.project);
             if($state.params.data && $state.params.data.previewImg){
                 vm.image = $state.params.data.previewImg;
                 vm.imageUrl = vm.image.data;
             }else{
-                Resources.DevProjects.getFileById(project.previewImg,  project.id).then(function(response){
-                    vm.image = ImageService.bufferArrayResponceToFile(response, project.previewImg);
-                    vm.imageUrl = URL.createObjectURL(vm.image);
-                });
+                Resources.DevProjectFile.getFile( {name: vm.project.previewImg, id: vm.project.id}, 
+                    function(response){
+                        vm.image = ImageService.bufferArrayResponceToFile(response, vm.project.previewImg);
+                        vm.imageUrl = URL.createObjectURL(vm.image);
+                    }
+                );
             }
 
         }

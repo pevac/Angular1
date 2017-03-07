@@ -9,18 +9,18 @@
         $stateProvider
             .state("home.reviews", {
                 url: "/reviews",
-                template:'<div ui-view ></div>',
+                template:"<div ui-view ></div>",
                 abstract: true
             })
             .state("home.reviews.list", {
                 url: "/list",
                 templateUrl:"internship/reviews/listreview/reviews.html",
-                controller: "ReviewController",
+                controller: "ReviewListController",
                 controllerAs: "vm",
                 resolve: {
                     /* @ngInject */
                     reviews:  function(Resources) {
-                        return  Resources.Reviews.getAll();
+                        return  Resources.Reviews.query().$promise;
                     }
                 }
             })
@@ -35,7 +35,7 @@
                 resolve: {
                   /* @ngInject */
                     jobPositions:  function(Resources) {
-                       return  Resources.JobPositions.getAll();
+                       return  Resources.JobPositions.query().$promise;
                     }
                 },
                 onEnter: saveSessionStorage,
@@ -47,14 +47,25 @@
                 controller: "AddReviewController",
                 controllerAs: "vm",
                 params : {
-                    previousState: null,
                     data: null
                 },
                 resolve: {
                     /* @ngInject */
                     jobPositions:  function(Resources) {
-                       return  Resources.JobPositions.getAll();
+                       return  Resources.JobPositions.query().$promise;
                     }
+                },
+                onEnter: saveSessionStorage,
+                onExit: clearSessionStorage
+            })
+            .state("home.reviews.view", {
+                url: "/view",
+                templateUrl:"internship/reviews/review/review.tmpl.html",
+                controller: "ReviewController",
+                controllerAs: "vm",
+                params : {
+                    previousState: null,
+                    data: null
                 },
                 onEnter: saveSessionStorage,
                 onExit: clearSessionStorage
@@ -75,7 +86,7 @@
                     var stateParams = angular.copy($stateParams);
                     $sessionStorage.stateParams = stateParams;
                 } else {
-                    $stateParams.data = $sessionStorage.$default().stateParams.data;
+                    $stateParams = $sessionStorage.$default().stateParams;
                 }
             }
     }

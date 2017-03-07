@@ -1,12 +1,15 @@
 (function(){
-    angular.module("homeModule").controller("SidebarController", SidebarController);
+    angular.module("sidebarModule", []).controller("SidebarController", SidebarController);
 
-    SidebarController.$inject = ["$scope","$rootScope", "$location", "USER_ROLES", "AuthService"];
+    SidebarController.$inject = ["$scope","$rootScope", "AUTH_EVENTS", "AuthService"];
     
-    function SidebarController($scope,$rootScope, $location, USER_ROLES,AuthService) {
-            $scope.currentUser = $rootScope.currentUser;
-            $scope.userRoles = USER_ROLES;
-            $scope.isAuthorized = AuthService.isAuthorized;
+    function SidebarController($scope,$rootScope, AUTH_EVENTS, AuthService) {
+        var vm = this;
+
+        vm.logout = function(){
+            AuthService.logout();
+            $rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
+        };
             
     }
 })();

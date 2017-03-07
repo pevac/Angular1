@@ -16,10 +16,12 @@
         vm.deleteVacancy = function(vacancy, index){
             var checkDelete = confirm("Видалити вакансії")
             if(!checkDelete) return;
-            Resources.Vacancies.remove(vacancy.id).then(function (response) {
-                vm.vacancies.splice(index, 1);
-                $state.reload();
-            });
+            vacancy.$remove(
+                function () {
+                    vm.vacancies.splice(index, 1);
+                    $state.reload();
+                }
+            );
         };
 
     };
