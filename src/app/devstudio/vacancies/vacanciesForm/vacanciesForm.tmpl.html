@@ -18,10 +18,8 @@
                         <option value="">none</option>
                         <option ng-repeat="jobPosition in vm.jobPositions"  ng-value="jobPosition.id">{{jobPosition.name}}</option>
                     </select>
-                    <div role="alert">
-                        <span   class="error" ng-show="vacancyForm.$submitted || vacancyForm.jobPosition.$touched">
-                            <span  ng-show="vacancyForm.jobPosition.$error.required">Це поле є обов'язкове</span>
-                        </span>
+                    <div class="error" ng-if="vacancyForm.$submitted || vacancyForm.jobPosition.$touched" ng-messages="vacancyForm.jobPosition.$error" role="alert">
+                        <div ng-messages-include="shared/messages/messages.tmpl.html"></div>
                     </div>
                 </div>
             </div>
@@ -33,22 +31,17 @@
                         <option value="">none</option>
                         <option ng-repeat="project in vm.projects"   ng-value="project.id">{{project.name}}</option>
                     </select>
-                    <div role="alert">
-                        <span   class="error" ng-show="vacancyForm.$submitted || vacancyForm.projectName.$touched">
-                            <span  ng-show="vacancyForm.projectName.$error.required">Це поле є обов'язкове</span>
-                        </span>
+                    <div class="error" ng-if="vacancyForm.$submitted || vacancyForm.projectName.$touched" ng-messages="vacancyForm.projectName.$error" role="alert">
+                        <div ng-messages-include="shared/messages/messages.tmpl.html"></div>
                     </div>
                 </div>
             </div>
             <div class="form-group">
                 <label  class="col-sm-3 control-label">Опис вакансії*</label>
                 <div class="col-sm-9">
-                    <trix-editor  name="description" angular-trix  ng-model="vm.vacancy.description" class="trix-content" ng-maxlength="450"  ng-required="true"></trix-editor>
-                    <div role="alert">
-                        <span   class="error" ng-show="vacancyForm.$submitted || vacancyForm.description.$touched">
-                            <span  ng-show="vacancyForm.description.$error.required">Це поле є обов'язкове</span>
-                            <span  ng-show="vacancyForm.description.$error.maxlength">Ви ввели занадто велике повідомлення</span>
-                        </span>
+                    <trix-editor  name="description" angular-trix  ng-model="vm.vacancy.description" class="trix-content" ng-maxlength="500"  ng-required="true"></trix-editor>
+                     <div class="error" ng-if="vacancyForm.$submitted || vacancyForm.description.$touched" ng-messages="vacancyForm.description.$error" role="alert">
+                        <div ng-messages-include="shared/messages/messages.tmpl.html"></div>
                     </div>
                 </div>
             </div>
@@ -60,21 +53,17 @@
                         <option value="">none</option>
                         <option ng-repeat="workingTime in vm.workingTimes"  ng-value="workingTime.id">{{workingTime.name}}</option>
                     </select>
-                    <div role="alert">
-                        <span   class="error" ng-show="vacancyForm.$submitted || vacancyForm.workingTime.$touched">
-                            <span  ng-show="vacancyForm.workingTime.$error.required">Це поле є обов'язкове</span>
-                        </span>
+                    <div class="error" ng-if="vacancyForm.$submitted || vacancyForm.workingTime.$touched" ng-messages="vacancyForm.workingTime.$error" role="alert">
+                        <div ng-messages-include="shared/messages/messages.tmpl.html"></div>
                     </div>
                 </div>
             </div>
             <div class="form-group">
                 <label for="inputInfo" class="col-sm-3  control-label">Дод.інф-ція</label>
                 <div class="col-sm-9">
-                    <textarea  id="inputInfo" resize-text-area  name="info" ng-model="vm.vacancy.info"   class="form-control"   ng-maxlength="350"></textarea>
-                    <div role="alert">
-                        <span   class="error" ng-show="vacancyForm.$submitted || vacancyForm.info.$touched">
-                            <span  ng-show="vacancyForm.info.$error.maxlength">Ви ввели занадто велике повідомлення</span>
-                        </span>
+                    <textarea  id="inputInfo" resize-text-area  name="info" ng-model="vm.vacancy.info"   class="form-control"   ng-maxlength="500"></textarea>
+                    <div class="error" ng-if="vacancyForm.$submitted || vacancyForm.workingTime.$touched" ng-messages="vacancyForm.workingTime.$error" role="alert">
+                        <div ng-messages-include="shared/messages/messages.tmpl.html"></div>
                     </div>
                 </div>
             </div>
@@ -84,17 +73,14 @@
                     <p class="input-group">
                         <input id="inputDate" type="text" name="date"  class="form-control"  uib-datepicker-popup="{{vm.format}}"
                                ng-model="vm.vacancy.date" uib-datepicker-popup   is-open="vm.popup.opened" datepicker-options="vm.dateOptions"
-                               close-text="Закрити" clear-text="Очистити" current-text="Сьогодні" />
+                               close-text="Закрити" clear-text="Очистити" current-text="Сьогодні"  ng-required="true"/>
                         <span class="input-group-btn">
                             <button type="button" class="btn btn-default btn-calendar" ng-click="vm.open()"><i class="glyphicon glyphicon-calendar"></i></button>
                         </span>
+                        <div class="error" ng-if="vacancyForm.$submitted || vacancyForm.date.$touched" ng-messages="vacancyForm.date.$error" role="alert">
+                            <div ng-messages-include="shared/messages/messages.tmpl.html"></div>
+                        </div>
                     </p>
-                    <div role="alert">
-                        <span   class="error" ng-show="vacancyForm.$submitted || vacancyForm.date.$touched">
-                            <span  ng-show="vacancyForm.date.$error.required">Це поле є обов'язкове</span>
-                            <span  ng-show="vacancyForm.date.$error.date">Введіть правильний формат</span>
-                        </span>
-                    </div>
                 </div>
             </div>
             <div class="form-group">

@@ -2,10 +2,10 @@
     "use strict"
     
     angular.module("vacancyModule").controller("VacanciesController", VacanciesController);
-    VacanciesController.$inject  = ["$scope", "$state", "serverActService", "vacancies", "Resources"];
+    VacanciesController.$inject  = ["$scope", "$state", "vacancies", "Resources"];
 
     /* @ngInject */
-    function VacanciesController($scope, $state,  serverActService, vacancies, Resources) {
+    function VacanciesController($scope, $state,  vacancies, Resources) {
         var vm = this;
         vm.vacancies = vacancies;
         

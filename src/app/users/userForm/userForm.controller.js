@@ -2,42 +2,62 @@
     "use strict"
 
     angular.module("usersModule").controller("AddUserController", AddUserController);
-    AddUserController.$inject = ["$scope","$stateParams",  "serverActService"];
+    AddUserController.$inject = ["$scope","$stateParams",  "Resources", "ImageService"];
 
-    function AddUserController($scope,  $stateParams,   serverActService) {
-        $scope.upload = function (dataUrl, foto) {
-            var image = dataUrl;
-            var base64ImageContent = image.replace(/^data:image\/(png|jpg);base64,/, "");
-            var file = base64ToFile(base64ImageContent, foto);   
+    function AddUserController($scope,  $state,  Resources, ImageService) {
+        var vm = this;
+        // activate();
+        
+        vm.addUser = function () {
+            vm.dataLoading =true;
+            saveUser(function (response) {
+                uploadImage(response);
+            });
+        };
 
-            serverActService.addDevImage(file, 2).then(function (response) {
-                            console.log(response);
+        vm.goToEdit = function () {
+            var file = ImageService.base64ToFile(vm.croppedDataUrl, vm.photo);   
+            
+           ImageService.fileToObject(file).then(function(data){
+                $state.go( "home.user.view", { previousState : { name : $state.current.name }, data: {user: vm.user, previewImg: data} }, {} );
+           });
+        };
+
+        function saveUser(succesHandler){
+            var action = vm.user.id ? "$update": "$save";
+            vm.user[action](function(data){succesHandler(data)});
+        }
+
+
+        function uploadImage(user) {
+            var imageBase64 = vm.croppedDataUrl;
+            var image = vm.photo;
+            vm.user.id  = user.id;
+            var file = ImageService.base64ToFile(imageBase64, photo);   
+          
+            Resources.UserFile.saveFile({data: file, id: vm.user.id },function () {
+                vm.user.img = file.name;
+                saveUser(function () {
+                    vm.dataLoading =false;
+                    $state.go("home.users.list");
+                })
             });
         }
 
-         function base64ToFile(base64, foto){
-                mime = foto.type || '';
-                var sliceSize = foto.size || 1024;
-                var byteChars = window.atob(base64);
-                var byteArrays = [];
+        function getUserImage() {
+            Resources.UserFile.getFile({name: vm.user.img, id:  vm.user.id},function (response) {
+                vm.photo =   ImageService.bufferArrayResponceToFile(response, vm.user.img)
+            })
+        }; 
+        
+        function activate(){
+            vm.user = new  Resources.Users();
+            if(!$state.params.data) return;
+            vm.user = $state.params.data.user;
+            vm.photo =  $state.params.data.previewImg ? ImageService.base64ToFile($state.params.data.previewImg.data, $state.params.data.previewImg) : null;
 
-                for (var offset = 0, len = byteChars.length; offset < len; offset += sliceSize) {
-                    var slice = byteChars.slice(offset, offset + sliceSize);
-
-                    var byteNumbers = new Array(slice.length);
-                    for (var i = 0; i < slice.length; i++) {
-                        byteNumbers[i] = slice.charCodeAt(i);
-                    }
-
-                    var byteArray = new Uint8Array(byteNumbers);
-
-                    byteArrays.push(byteArray);
-                }
-
-                var file = new File(byteArrays, foto.name, {type:mime});
-                
-                return file;
-            }
+            if(!vm.photo) getUserImage();
+        }
 
     }
 })();

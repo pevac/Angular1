@@ -23,7 +23,7 @@
             };
 
             function base64ToBlob(base64, file){
-                var base64ImageContent = base64.replace(/^data:image\/(png|jpg);base64,/, "");
+                var base64ImageContent = base64.replace(/^data:image\/(png|jpg|jpeg|gif);base64,/, "");
                 var mime = file.type || '';
                 var sliceSize = file.size || 1024;
                 var byteChars = window.atob(base64ImageContent);
@@ -58,8 +58,6 @@
                     name: file.name,
                     size: file.size,
                     type: file.type,
-                    $ngfBlobUrl: file.$ngfBlobUrl,
-                    $ngfName: file.$ngfName
                 }
                 return fileRead(file).then(function(data){
                     newfile.data = data;

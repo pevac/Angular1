@@ -9,70 +9,64 @@
 	</div>
 
 	<div class="form-container">
-		<form class="form-horizontal admin-form" method="POST" enctype="multipart/form-data"  name="portfolioForm" role="form"  novalidate>
+		<form class="form-horizontal admin-form"  enctype="multipart/form-data"  name="portfolioForm" role="form"  novalidate>
             <div class="form-group ">
-                <input   type="hidden" name="id"  ng-model="project.id"   id="inpuId">
+                <input   type="hidden" name="id"  ng-model="user.id"   id="inpuId">
             </div>
             <div class="form-group">
-                <label for="inputProjectName" class="col-sm-3   control-label">ПІБ</label>
+                <label for="inputUserName" class="col-sm-3   control-label">ПІБ*</label>
                 <div class="col-sm-9">
-                    <input   type="text" name="projectName"  ng-model="project.name"  class="form-control" id="inputProjectName" ng-maxlength="50" ng-required="true">
-                    <div role="alert">
-                        <span   class="error" ng-show="portfolioForm.$submitted || portfolioForm.projectName.$touched">
-                            <span  ng-show="portfolioForm.projectName.$error.required">Це поле є обов'язкове</span>
-                            <span  ng-show="portfolioForm.projectName.$error.maxlength">Ви ввели занадто велике повідомлення</span>
-                        </span>
+                    <input   type="text" name="name"  ng-model="vm.user.name"  class="form-control" id="inputUserName" ng-maxlength="50" ng-required="true">
+                    <div class="error" ng-if="portfolioForm.$submitted || portfolioForm.name.$touched" ng-messages="portfolioForm.name.$error" role="alert">
+                        <div ng-messages-include="shared/messages/messages.tmpl.html"></div>
                     </div>
                 </div>
             </div>
             <div class="form-group">
-                <label for="inputCustomer" class="col-sm-3  control-label">E-mail</label>
+                <label for="inputEmail" class="col-sm-3  control-label">E-mail*</label>
                 <div class="col-sm-9">
-                    <input   type="text" name="customer"   ng-model="project.customer"  class="form-control" id="inputCustomer" ng-maxlength="50" ng-required="true">
-                    <div role="alert">
-                        <span   class="error" ng-show="portfolioForm.$submitted  || portfolioForm.customer.$touched">
-                            <span  ng-show="portfolioForm.customer.$error.required">Це поле є обов'язкове</span>
-                            <span  ng-show="portfolioForm.customer.$error.maxlength">Ви ввели занадто велике повідомлення</span>
-                        </span>
+                    <input   type="email" name="mail"   ng-model="vm.user.mail"  class="form-control" id="inputEmail" ng-maxlength="50" ng-required="true">
+                    <div class="error" ng-if="portfolioForm.$submitted || portfolioForm.mail.$touched" ng-messages="portfolioForm.mail.$error" role="alert">
+                        <div ng-messages-include="shared/messages/messages.tmpl.html"></div>
                     </div>
                 </div>
             </div>
             <div class="form-group">
-                <label for="inputSitePhoto" class="col-sm-3  control-label">Фото</label>
-                <div class="col-sm-9">
-									<div class="col-flex">
-										<span class="btn-file">
-		                        			<span class="glyphicon glyphicon-plus"></span>
-		                        			<!--<input class="file" ngf-select type="file"  name="gallery1" ng-model="sitePhoto" file-reader
-		                               			valid-file  valid-file-type="['image/png','image/jpeg','image/gif']"  valid-file-size = "10000">-->
-												   	<input class="file" ngf-select  type="file"  name="gallery1" ng-model="sitePhoto" file-reader>
-		                    			</span>
-										
-									</div>
-									
-									  <div ngf-drop ng-model="sitePhoto" ngf-pattern="image/*"  class="cropArea">
-            								<img-crop image="sitePhoto  | ngfDataUrl"  
-												result-image="croppedDataUrl" ng-init="croppedDataUrl=''">
-											</img-crop>
-        								</div>
+                <label for="inputUserPhoto" class="col-sm-3  control-label">Фото</label>
+               <div class="col-sm-9">
+				    <div class="col-flex">
+		                <span class="custom-file-control" >{{vm.photo ? vm.photo.name : "Завантажити фото" }}</span>
+						<input id="inputUserPhoto" type="file"  name="photo" class="file" ng-model="vm.photo" ngf-select 
+                            ngf-pattern="image/*" ngf-max-size="2Mb"  ngf-model-invalid="errorFile" ng-required="true">
+					</div>
+					<div ngf-drop ng-model="vm.photo" ngf-pattern="image/*"  class="cropArea">
+            			<img-crop image="vm.photo  | ngfDataUrl"  result-image="vm.croppedDataUrl" ng-init="vm.croppedDataUrl=''"></img-crop>
+        			</div>
+                    <div class="error" ng-if="portfolioForm.$submitted || portfolioForm.$change  || portfolioForm.photo.$touched" ng-messages="portfolioForm.photo.$error" 
+                        ng-messages-multiple  role="alert">
+                        <div ng-messages-include="shared/messages/messages.tmpl.html"></div>
+                    </div>
                 </div>
             </div>
             <div class="form-group">
 				<div class="radio">
   					<label>
-    					<input type="radio" name="users" id="userAdm" class="form-check-input" value="option1" checked>
-    						<b>Адміністратор</b>
+    					<input type="radio" name="role" id="userAdm" class="form-check-input" value="admin" checked>
+    						Адміністратор
   					</label>
 				</div>
 				<div class="radio">
 				  	<label>
-				    	<input type="radio" name="users" id="userExp" class="form-check-input" value="option2">
-				    		<b>Експерт</b>
+				    	<input type="radio"  ng-model="checked" name="role" id="userExp" class="form-check-input" value="expert">
+				    		Експерт
 				  	</label>
 				</div>
             </div>
-
-			 <button ng-click="upload(croppedDataUrl, sitePhoto)">Submit</button> 
+			<div class="form-group">
+                    <div class="text-center">
+                        <button  type="submit" ng-click="!portfolioForm.$invalid && vm.addUser()"  class="btn btn-primary btn-save">Створити користувача</button>
+                    </div>
+            </div>
         </form>
 	</div>
 </div>

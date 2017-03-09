@@ -32,7 +32,7 @@
                 params: {
                     data: null
                 },
-                onEnter: saveProjectInSessionStorage,
+                onEnter: saveSessionStorage,
                 onExit: clearSessionStorage
             })
             .state("home.devportfolio.editportfolio", {
@@ -43,7 +43,7 @@
                 params : {
                     data: null
                 },
-                onEnter: saveProjectInSessionStorage,
+                onEnter: saveSessionStorage,
                 onExit: clearSessionStorage
             })
             .state("home.devportfolio.viewportfolio", {
@@ -55,7 +55,7 @@
                     previousState: null,
                     data: null
                 },
-                onEnter: saveProjectInSessionStorage,
+                onEnter: saveSessionStorage,
                 onExit: clearSessionStorage
             });
 
@@ -64,8 +64,8 @@
                 delete    $sessionStorage.stateParams;
             }
 
-            saveProjectInSessionStorage.$inject = [ "$stateParams", "$sessionStorage"];
-            function saveProjectInSessionStorage($stateParams, $sessionStorage){
+            saveSessionStorage.$inject = [ "$stateParams", "$sessionStorage"];
+            function saveSessionStorage($stateParams, $sessionStorage){
                 if(!$sessionStorage.stateParams){
                     var stateParams = angular.copy($stateParams);
                     $sessionStorage.$default({stateParams: stateParams} );

@@ -22,9 +22,8 @@
                         return AuthResolver.resolve();
                     }
                 }
-                
-            })
-            
+            });
+
     };
 })();
 

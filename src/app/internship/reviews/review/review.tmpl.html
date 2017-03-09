@@ -8,13 +8,16 @@
 		</ul>
     </div>
     <div class="row row_flex">
-            <div class="col-md-8 information">
-            <h5 ng-bind="vm.project.name"></h5>
-            <h6><img ng-src="{{vm.imageUrl}}" alt=""><span ng-bind-html="vm.review.shortDescription"></span></h6>
-            <div class="both"></div>
-            <p ng-bind-html="vm.review.description"></p>
-            <p>Sponsored link</p>
-        </div>
+         	<div class="col-md-4">
+				<a class="thumbnail">
+					<div class="review">
+					    <img alt="" class="img-circle" ng-src="{{vm.imageUrl}}">
+					    <p><span class="span_visible" ng-bind-html="vm.review.description"></span></p>
+					    <h3>{{vm.review.name}}</h3>
+					    <h4>{{vm.review.jobPosition.name}}</h4>
+					</div>
+				</a>
+			</div>  
     </div>
 </div>
 

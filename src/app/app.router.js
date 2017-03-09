@@ -1,8 +1,7 @@
 (function(){
     "use strict";
     angular.module("appModule")
-        .config(RouterConfig)
-        // .run(StateParams);
+        .config(RouterConfig);
 
     RouterConfig.$inject = ["$urlRouterProvider"];
     // Using @ngInject annotations
@@ -23,11 +22,5 @@
             
     }
 
-    StateParams.$inject = ["$stateParams", "$sessionStorage", "$rootScope"];
-    function StateParams($stateParams, $sessionStorage, $rootScope){
-        $rootScope.$on("$stateChangeStart", function (event, next) {
-         
-        });
-    }
 })();
 

@@ -74,8 +74,8 @@
                 onEnter: saveSessionStorage,
                 onExit: clearSessionStorage
             })
-            .state("home.vacancies.review", {
-                url: "/review",
+            .state("home.vacancies.feedback", {
+                url: "/feedback",
                 templateUrl:"devstudio/vacancies/reviewVacancies/reviewVacancies.tmpl.html",
                 controller: "ReviewVacanciesController",
                 controllerAs: 'vm',

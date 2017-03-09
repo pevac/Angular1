@@ -1,6 +1,6 @@
  (function(){
-     angular.module("appModule", ["ui.bootstrap", "ngTouch", "angularTrix", "ui.router", "ngStorage", "ngLodash", "ngFileUpload","ngImgCrop", "ngSanitize","smart-table", 
-      "ngResource",  "ngFileSaver", "loginModule", "homeModule",  "bu.validation" , "resize",  "serverApi", "imageService", "resourceModule" ])
+     angular.module("appModule", ["ui.bootstrap", "ngTouch", "ngSanitize", "ngAria","ngAnimate",  "ngMessages", "ui.router", "ngStorage", "ngLodash", "ngFileUpload","ngImgCrop", "smart-table", 
+      "ngResource",  "ngFileSaver", "loginModule", "homeModule", "angularTrix",  "bu.validation", "resize", "imageService", "resourceModule" ])
  })();
 
 

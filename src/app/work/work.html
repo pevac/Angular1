@@ -1,4 +1,7 @@
 <div ng-app="workModule">
+    <div class="top-nav-container">
+		<h2 class="h2"></h2>
+	</div>
      <div class="row">
             <div class="col-md-12">
                 <div  class="table_container">
@@ -13,7 +16,6 @@
                             <tr ng-repeat="jobPosition in vm.jobPositions">
                                 <td>{{jobPosition.name}}</td>
                                 <td class="collapse-padding" >
-                                    <!--<a class="btn btn-default btn-save" ng-click="vm.deleteJob(jobPosition)"  tooltip-placement="bottom" uib-tooltip="delete" tooltip-trigger="focus" ><span class="glyphicon glyphicon-trash"></span></a>-->
                                     <a class="btn btn-default btn-save" ng-click="vm.editJob(jobPosition)"  tooltip-placement="bottom" uib-tooltip="edit" tooltip-trigger="focus"><span class="glyphicon glyphicon-pencil"></span></a></td>
                             </tr>
                             <tr>
@@ -21,8 +23,8 @@
                                     <div class="form-group">
                                     <label for="inputjobPosition" class="col-sm-3  control-label">Позиція</label>
                                     <div class="col-sm-6">
-                                        <input   type="hidden" name="workingtimes1" ng-model="jobPosition.id"  class="form-control" id="inputName" ng-maxlength="50" ng-required="true">
-                                        <input   type="text" name="workingtimes" ng-model="jobPosition.name"  class="form-control" id="inputjobPosition" ng-maxlength="50" ng-required="true">
+                                        <input   type="hidden" name="workingtimes1" ng-model="vm.jobPosition.id"  class="form-control" id="inputName" ng-maxlength="50" ng-required="true">
+                                        <input   type="text" name="workingtimes" ng-model="vm.jobPosition.name"  class="form-control" id="inputjobPosition" ng-maxlength="50" ng-required="true">
                                     </div>
                                         <div class="col-sm-3">
                                             <button ng-click="vm.addJobPosition(jobPosition)"  id="sendBtn1" class="btn btn-primary btn-save">Відправити</button>
@@ -51,7 +53,6 @@
                             <tr ng-repeat="workingTime in vm.workingTimes">
                                 <td>{{workingTime.name}}</td>
                                 <td class="collapse-padding" >
-                                    <!--<a class="btn btn-default btn-save" ng-click="vm.deleteWorkingTime(workingTime)"  tooltip-placement="bottom" uib-tooltip="delete" tooltip-trigger="focus" ><span class="glyphicon glyphicon-trash"></span></a>-->
                                     <a class="btn btn-default btn-save" ng-click="vm.editWorkingTime(workingTime)"  tooltip-placement="bottom" uib-tooltip="edit" tooltip-trigger="focus"><span class="glyphicon glyphicon-pencil"></span></a></td>
                             </tr>
                             <tr>
@@ -59,9 +60,9 @@
                                      <div class="form-group">
                                         <label for="inputName" class="col-sm-3  control-label">Час роботи</label>
                                         <div class="col-sm-6">
-                                            <input   type="hidden" name="workingtimes1" ng-model="workingtime.id"  class="form-control" id="inputName" ng-maxlength="50" ng-required="true">
+                                            <input   type="hidden" name="workingtimes1" ng-model="vm.workingtime.id"  class="form-control" id="inputName" ng-maxlength="50" ng-required="true">
                                             
-                                            <input   type="text" name="workingtimes" ng-model="workingtime.name"  class="form-control" id="inputName" ng-maxlength="50" ng-required="true">
+                                            <input   type="text" name="workingtimes" ng-model="vm.workingtime.name"  class="form-control" id="inputName" ng-maxlength="50" ng-required="true">
                                         </div>
                                         <div class="col-sm-3">
                                             <button ng-click="vm.addWorkTimes(workingtime)"  id="sendBtn" class="btn btn-primary btn-save">Відправити</button>

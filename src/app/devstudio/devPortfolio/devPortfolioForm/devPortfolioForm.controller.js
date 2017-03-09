@@ -39,13 +39,13 @@
            ImageService.fileToObject(vm.previewImg).then(function(data){
                previewImg = data;
                if(mainImg){
-                    $state.go( 'home.devportfolio.viewportfolio', { previousState : { name : $state.current.name }, data: {project: vm.project, previewImg: previewImg, mainImg: mainImg} }, {} );
+                    $state.go( "home.devportfolio.viewportfolio", { previousState : { name : $state.current.name }, data: {project: vm.project, previewImg: previewImg, mainImg: mainImg} }, {} );
                }
            });
             ImageService.fileToObject(vm.mainImg).then(function(data){
                 mainImg = data;
                if(previewImg){
-                    $state.go( 'home.devportfolio.viewportfolio', { previousState : { name : $state.current.name }, data: {project: vm.project, previewImg: previewImg, mainImg: mainImg} }, {} );
+                    $state.go( "home.devportfolio.viewportfolio", { previousState : { name : $state.current.name }, data: {project: vm.project, previewImg: previewImg, mainImg: mainImg} }, {} );
                }
            });;
         };
@@ -58,6 +58,7 @@
         };
 
         vm.changeTop = function (project) {
+            console.log($scope);
              Resources.DevProjects.query(function (data) {
                 var _isCheckTop = isCheckTop(data);
                 if (project.id && (_isCheckTop && !project.inTop || !project.inTop && !_isCheckTop || project.inTop && _isCheckTop || isTop && project.inTop && !_isCheckTop)) {

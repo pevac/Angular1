@@ -18,7 +18,9 @@
                 devImage: rootUrl + "images/:id/\:name/",
                 intImage: rootUrl + "images/:id/\:name/",
                 reviewImage: rootUrl + "images/:id/\:name/",
-                review: rootUrl+ "internshipfeedbacks/:id/"
+                review: rootUrl+ "internshipfeedbacks/:id/",
+                users: rootUrl+ "internshipfeedbacks/:id/",
+                userImage: rootUrl + "images/:id/\:name/"
             }
         }());
 
@@ -47,7 +49,6 @@
             saveFile: {
                 method: "POST",
                 transformRequest: function(request) {
-
                     var fd = new FormData();
                     fd.append("file", request.data);
                     return fd;
@@ -76,6 +77,12 @@
         var  ReviewImageURl =  function(imgName, id){
                  return serverResourcesConstant.reviewImage.replace(":id/\:name/", id + "/" + imgName);
         };
+
+        var  Users =  $resource(serverResourcesConstant.users, mainParams, mainConfig);
+        var  UsersFile =  $resource(serverResourcesConstant.userImage, fileParams, fileConfig);
+        var  UserImageURl =  function(imgName, id){
+                 return serverResourcesConstant.userImage.replace(":id/\:name/", id + "/" + imgName);
+        };
         
         return {
             DevProjects:  DevProjects,
@@ -88,7 +95,10 @@
             IntProjectFile: IntProjectFile,
             Reviews:  Reviews,
             ReviewFile: ReviewFile,
-            ReviewImageURl: ReviewImageURl
+            ReviewImageURl: ReviewImageURl,
+            Users:  Users,
+            UsersFile: UsersFile,
+            UserImageURl: UserImageURl
         };
     };
 

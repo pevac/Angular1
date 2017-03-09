@@ -30,17 +30,17 @@
 @import "../lib/bootstrap-sass/assets/stylesheets/bootstrap/navs";
 @import "../lib/bootstrap-sass/assets/stylesheets/bootstrap/navbar";
 @import "./partials/sidebar";
-// @import "../lib/bootstrap-sass/assets/stylesheets/bootstrap/breadcrumbs";
+@import "../lib/bootstrap-sass/assets/stylesheets/bootstrap/breadcrumbs";
  @import "../lib/bootstrap-sass/assets/stylesheets/bootstrap/pagination";
 // @import "../lib/bootstrap-sass/assets/stylesheets/bootstrap/pager";
  @import "../lib/bootstrap-sass/assets/stylesheets/bootstrap/labels";
 // @import "../lib/bootstrap-sass/assets/stylesheets/bootstrap/badges";
 // @import "../lib/bootstrap-sass/assets/stylesheets/bootstrap/jumbotron";
 // @import "../lib/bootstrap-sass/assets/stylesheets/bootstrap/thumbnails";
-// @import "../lib/bootstrap-sass/assets/stylesheets/bootstrap/alerts";
+@import "../lib/bootstrap-sass/assets/stylesheets/bootstrap/alerts";
 // @import "../lib/bootstrap-sass/assets/stylesheets/bootstrap/progress-bars";
 // @import "../lib/bootstrap-sass/assets/stylesheets/bootstrap/media";
-// @import "../lib/bootstrap-sass/assets/stylesheets/bootstrap/list-group";
+@import "../lib/bootstrap-sass/assets/stylesheets/bootstrap/list-group";
  @import "../lib/bootstrap-sass/assets/stylesheets/bootstrap/panels";
 // @import "../lib/bootstrap-sass/assets/stylesheets/bootstrap/responsive-embed";
 // @import "../lib/bootstrap-sass/assets/stylesheets/bootstrap/wells";
@@ -56,6 +56,10 @@
 @import "../lib/bootstrap-sass/assets/stylesheets/bootstrap/utilities";
 @import "../lib/bootstrap-sass/assets/stylesheets/bootstrap/responsive-utilities";
 
+
+// animate.css
+@import "../lib/animate.css/animate";
+
 // added by me
 //------------------------------
 @import "./partials/common";
@@ -66,8 +70,6 @@
 @import "./partials/tables";
 
 
-@import "./partials/vacancies";
 @import "../lib/trix/dist/trix";
 @import "./partials/orderCustomer";
-@import "./partials/users";
 //-------------------------------

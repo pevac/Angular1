@@ -9,14 +9,23 @@
         vm.jobPositions = jobPositions;
         activate();
         
-        vm.addReview = function () {
+        vm.addReview = function (visible) {
             vm.dataLoading =true;
+            vm.review.visible = visible;
             var imageUrl = vm.croppedDataUrl;
             var photo = vm.photo;
 
             saveReview(function (response) {
                 uploadImage(imageUrl, photo, response);
             });
+        };
+
+        vm.goToEdit = function () {
+            var file = ImageService.base64ToFile(vm.croppedDataUrl, vm.photo);   
+            
+           ImageService.fileToObject(file).then(function(data){
+                $state.go( "home.reviews.view", { previousState : { name : $state.current.name }, data: {review: vm.review, previewImg: data} }, {} );
+           });
         };
 
         function saveReview(succesHandler){
@@ -50,7 +59,9 @@
             vm.review = new  Resources.Reviews();
             if(!$state.params.data) return;
             vm.review = $state.params.data.review;
-            getReviewImage();
+            vm.photo =  $state.params.data.previewImg ? ImageService.base64ToFile($state.params.data.previewImg.data, $state.params.data.previewImg) : null;
+
+            if(!vm.photo) getReviewImage();
         }
        
     }

@@ -35,7 +35,7 @@
            var previewImg;
            ImageService.fileToObject(vm.img).then(function(data){
                previewImg = data;
-                    $state.go( 'home.intportfolio.viewportfolio', { previousState : { name : $state.current.name }, data: {project: vm.project, previewImg: previewImg} }, {} );
+                    $state.go( "home.intportfolio.viewportfolio", { previousState : { name : $state.current.name }, data: {project: vm.project, previewImg: previewImg} }, {} );
            });
         };
 

@@ -2,30 +2,25 @@
  angular.module('workModule',[])
         .controller('WorkController', WorkController);
 
-    WorkController.$inject = ["$scope", "$http", "Resources", "workingTimes", "jobPositions"];
+    WorkController.$inject = ["$scope", "$http", "$state", "Resources", "workingTimes", "jobPositions"];
 
-    function WorkController($scope, $http, Resources, workingTimes, jobPositions){
+    function WorkController($scope,  $http, $state, Resources, workingTimes, jobPositions){
         var vm = this;
        vm.jobPositions = jobPositions;
        vm.workingTimes = workingTimes;
 
+       vm.jobPosition = new Resources.JobPositions();
+       vm.workingtime = new Resources.WorkingTimes();
 
-       vm.addWorkTimes = function (data) {
-            return Resources.WorkingTimes.save(data);
+       vm.addWorkTimes = function () {
+            var action = vm.workingtime.id ? "$update" : "$save";
+            vm.workingtime[action](function(){$state.reload()});
         }
 
-        vm.addJobPosition = function (data) {
-           return  Resources.JobPositions.save(data);
+        vm.addJobPosition = function () {
+            var action = vm.jobPosition.id ? "$update" : "$save";
+            vm.jobPosition[action](function(){ $state.reload()});
         }
-
-       vm.deleteJob = function(job){
-            return  Resources.JobPositions.remove(job.id);
-        }
-
-        vm.deleteTime = function(job){
-            return  Resources.JobPositions.remove(job);
-        }
-
 
        vm.editJob = function(job){
            vm.jobPosition = angular.copy(job);
@@ -44,19 +39,19 @@ angular.module("workModule").config(RouterConfig1);
     function RouterConfig1($stateProvider, $urlRouterProvider, USER_ROLES){
 
         $stateProvider
-            .state("home.works", {
-                url: "/works",
+            .state("home.dictionares", {
+                url: "/dictionares",
                 templateUrl:"work/work.html",
                 controller: "WorkController",
                 controllerAs: "vm",
                 resolve: {
                     /* @ngInject */
                     jobPositions:  function(Resources) {
-                       return  Resources.JobPositions.getAll();
+                       return  Resources.JobPositions.query().$promise;
                     },
                     /* @ngInject */
                     workingTimes:function(Resources) {
-                       return  Resources.WorkingTimes.getAll();
+                       return  Resources.WorkingTimes.query().$promise;
                     } 
                 },
             })

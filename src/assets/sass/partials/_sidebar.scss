@@ -35,11 +35,38 @@
     margin: 0;
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+
+    .user{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      vertical-align: middle;
+      padding-top: 5px;
+    }
 
     .user-name{
       display: block;
+      align-self: flex-end;
+      font-size: 20px;
+      margin: 0;
+      padding: 0;
+      line-height: 1;
     }
+
+    .logout-btn{
+      font-size: 12px;
+      align-self: flex-end;
+      cursor: pointer;
+      margin: 0;
+      padding: 0;
+      text-decoration: none;
+      line-height: 1;
+
+      &:hover{
+        color: green;
+      }
+    }
+
 
     .photo{
       margin: 5px;
@@ -70,9 +97,7 @@
     padding: 25px 0 0 0;
     margin: 0 0 25px 0;
     border: none;
-    //position: static;
     ul{
-      //position: static;
       border: none;
       float: none;
     }
@@ -110,6 +135,7 @@
 
       a .icon {
         background-size: contain;
+        background-repeat: no-repeat;
         width: 35px;
         height: 35px;
       }
@@ -123,16 +149,19 @@
         transform: rotate(180deg);
       }
       .home-icon {
-        background: url("../img/home-icon.png") no-repeat;
+        background: url("../img/home-icon.png");
       }
       .dev-studio-icon {
-        background: url("../img/dev-studio-icon.png") no-repeat;
+        background: url("../img/dev-studio-icon.png");
       }
       .internship-icon {
-        background: url("../img/internship-icon.png") no-repeat;
+        background: url("../img/internship-icon.png");
       }
       .users-icon{
-        background: url("../img/users-icon.png")
+        background: url("../img/users-icon.png");
+      }
+      .dictionares-icon{
+        background: url("../img/users-icon.png");
       }
     }
 
@@ -147,7 +176,8 @@
     a:hover,
     a:focus,
     a:active{
-    background-color:$navbar-li-main-bg-hover;}
+      background-color:$navbar-li-main-bg-hover;
+    }
 
     .nav-second{
       margin: 0;
@@ -168,15 +198,20 @@
       }
 
       li.active a,
-      li.active a:hover,
       li.active a:focus,
-      a:hover,
       a:focus,
       a:active{
         color: $navbar-link-color;
         background-color: $navbar-li-main-bg-hover;
       }
+
+     
+      a:hover{
+        color: $navbar-link-color;
+        background-color: $navbar-li-main-bg-hover * 0.8;
+      }
     }
+
   }
 }
 

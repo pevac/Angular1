@@ -10,9 +10,12 @@
 			<span class="icon-bar"></span>
 		</button>
 		<div class="account navbar-right">
-			<span class="user-name" ng-bind="$parent.currentUser.userName"></span>
+			<div class="user">
+				<span class="user-name" ng-bind="$parent.currentUser.userName"></span>
+				<a class="logout-btn" ng-click="vm.logout()">log out</a>
+			</div>
 			<div class="photo">
-				<img ng-click="vm.logout()" ng-src="{{$parent.currentUser.avatar}}" alt="">
+				<img  ng-src="{{$parent.currentUser.avatar}}" alt="">
 			</div>
 		</div>
 	</div>
@@ -29,27 +32,27 @@
 						</a>
 					</li>
 					<li ng-class='{"active": !isDevStudioOpen}'>
-							<a   ng-init="isDevStudioOpen=true" ng-click="isDevStudioOpen=!isDevStudioOpen; isInternshipOpen=true; isUsersOpen=true">
+							<a   ng-init="isDevStudioOpen= !(vm.isActiveState('devportfolio') || vm.isActiveState('ordercustomer') || vm.isActiveState('vacancies'))" ng-click="isDevStudioOpen=!isDevStudioOpen; isInternshipOpen=true; isUsersOpen=true">
 								<span class="icon dev-studio-icon"></span>
 								<span>Dev Studio</span>
 								<span class="arrow"></span>
 							</a>
 							<ul class="nav nav-second"  uib-collapse="isDevStudioOpen">
-								<li ui-sref-active="active" class="active" ><a  ui-sref=".devportfolio.list"><span>Портфоліо</span></a></li>
-								<li ui-sref-active="active" class="active"><a  ui-sref=".ordercustomer.list"><span>Заявки клієнтів</span></a></li>
-								<li ui-sref-active="active" class="active"><a  ui-sref=".vacancies.list"><span>Вакансії</span></a></li>
-								<li ui-sref-active="active" class="active"><a  ui-sref=".vacancies.review"><span>Відгуки на вакансії</span></a></li>
+								<li ng-class="{'active': vm.isActiveState('devportfolio')}" ><a  ui-sref=".devportfolio.list"><span>Портфоліо</span></a></li>
+								<li ng-class="{'active': vm.isActiveState('ordercustomer')}" ><a  ui-sref=".ordercustomer.list"><span>Заявки клієнтів</span></a></li>
+								<li ng-class="{'active': (vm.isActiveState('vacancies/list') || vm.isActiveState('vacancies/edit') || vm.isActiveState('vacancies/add') )}"><a  ui-sref=".vacancies.list"><span>Вакансії</span></a></li>
+								<li ng-class="{'active': vm.isActiveState('vacancies/feedback')}"><a  ui-sref=".vacancies.feedback"><span>Відгуки на вакансії</span></a></li>
 							</ul>
 					</li>
 					<li ng-class='{"active": !isInternshipOpen}'>
-						<a ng-init="isInternshipOpen=true" ng-click="isInternshipOpen=!isInternshipOpen; isDevStudioOpen=true; isUsersOpen=true">
+						<a ng-init="isInternshipOpen= !(vm.isActiveState('internship') || vm.isActiveState('reviews'))" ng-click="isInternshipOpen=!isInternshipOpen; isDevStudioOpen=true; isUsersOpen=true">
 							<span class="icon internship-icon"></span>
 							<span>Internship</span>
 							<span class="arrow"></span>
 						</a>
 						<ul class="nav nav-second"  uib-collapse="isInternshipOpen">
-							<li ui-sref-active="active" class="active"><a ui-sref=".intportfolio.list"><span>Портфоліо</span></a></li>
-							<li ui-sref-active="active" class="active"><a ui-sref=".reviews.list"><span>Відгуки</span></a></li>
+							<li ng-class="{'active': vm.isActiveState('internship')}"><a ui-sref=".intportfolio.list"><span>Портфоліо</span></a></li>
+							<li ng-class="{'active': vm.isActiveState('reviews')}"><a ui-sref=".reviews.list"><span>Відгуки</span></a></li>
 						</ul>
 					</li>
 					<li ng-class='{"active": !isUsersOpen}'>
@@ -60,8 +63,8 @@
 						</a>
 					</li>
 					<li >
-						<a  ui-sref="home.works" >
-							<span class="icon users-icon"></span>
+						<a  ui-sref="home.dictionares" >
+							<span class="icon dictionares-icon"></span>
 							<span>Dictionaries</span>
 							<span class="arrow"></span>
 						</a>

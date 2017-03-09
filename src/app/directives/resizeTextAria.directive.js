@@ -7,7 +7,7 @@
         return {
             restrict: "A",
             link: function(scope,el,attrs,ctrl){
-
+                resize();
                 el.on("keyup change past cut keydown blur",  resize);
 
                 function resize(){

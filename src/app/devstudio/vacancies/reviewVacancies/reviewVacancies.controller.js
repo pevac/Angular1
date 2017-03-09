@@ -2,19 +2,19 @@
     "use strict"
 
     angular.module("vacancyModule").controller("ReviewVacanciesController",ReviewVacanciesController);
-    ReviewVacanciesController.$inject  = ["$scope", "serverDataService"];
+    ReviewVacanciesController.$inject  = ["$scope"];
     
     /* @ngInject */
-    function ReviewVacanciesController($scope, serverDataService) {
+    function ReviewVacanciesController($scope) {
         var vm = this;
         $scope.itemsByPage = 10;
 
         $scope.getVacancies = function(){
-                serverDataService.getVacancies().then(function (data) {
-                $scope.vacancies = [];
-                $scope.vacancies = data;
-                $scope.vacanciesCollection = [].concat($scope.vacancies);
-            });
+            //     serverDataService.getVacancies().then(function (data) {
+            //     $scope.vacancies = [];
+            //     $scope.vacancies = data;
+            //     $scope.vacanciesCollection = [].concat($scope.vacancies);
+            // });
         };
 
         (function(){

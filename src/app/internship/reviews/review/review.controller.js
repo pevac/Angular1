@@ -11,8 +11,6 @@
             $state.go($state.params.previousState.name, { data: {review: vm.review, previewImg: $state.params.data.previewImg} }, {} );
         };
 
-       
-        
         activate();
        
         function activate() {
@@ -33,7 +31,6 @@
                 });
             }
         }
-
     }
 })();
 

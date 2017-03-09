@@ -9,75 +9,61 @@
     </div>
     <div ng-if="vm.dataLoading" class="loader"></div>
     <div class="form-container ">
-        <form class="form-horizontal admin-form" method="POST" enctype="multipart/form-data"  name="portfolioForm" role="form"  novalidate>
+        <form class="form-horizontal admin-form"  enctype="multipart/form-data"  name="portfolioForm" role="form"  novalidate>
             <div class="form-group ">
                 <input   type="hidden" name="id"  ng-model="project.id"   id="inpuId">
             </div>
-            <div class="form-group">
-                <label for="inputProjectName" class="col-sm-3   control-label">Назва*</label>
+            <!--ng-class="{ 'has-error': userForm.name.$touched && userForm.name.$invalid }-->
+            <div class="form-group"> 
+                <label for="inputName" class="col-sm-3   control-label">Назва*</label>
                 <div class="col-sm-9">
-                    <input   type="text" name="projectName"  ng-model="vm.project.name" placement="" class="form-control" id="inputProjectName" ng-maxlength="50" ng-required="true">
-                    <div role="alert">
-                        <span   class="error" ng-show="portfolioForm.$submitted || portfolioForm.projectName.$touched">
-                            <span  ng-show="portfolioForm.projectName.$error.required">Це поле є обов'язкове</span>
-                            <span  ng-show="portfolioForm.projectName.$error.maxlength">Ви ввели занадто велике повідомлення</span>
-                        </span>
+                    <input  id="inputName"  type="text" name="name" class="form-control"  ng-model="vm.project.name"   ng-maxlength="50" ng-required="true">
+                    <div class="error" ng-if="portfolioForm.$submitted || portfolioForm.name.$touched" ng-messages="portfolioForm.name.$error" role="alert">
+                        <div ng-messages-include="shared/messages/messages.tmpl.html" ></div>
                     </div>
                 </div>
             </div>
             <div class="form-group">
                 <label for="inputCustomer" class="col-sm-3  control-label">Клієнт*</label>
                 <div class="col-sm-9">
-                    <input   type="text" name="customer"   ng-model="vm.project.customer" placement=""  class="form-control" id="inputCustomer" ng-maxlength="50" ng-required="true">
-                    <div role="alert">
-                        <span   class="error" ng-show="portfolioForm.$submitted  || portfolioForm.customer.$touched">
-                            <span  ng-show="portfolioForm.customer.$error.required">Це поле є обов'язкове</span>
-                            <span  ng-show="portfolioForm.customer.$error.maxlength">Ви ввели занадто велике повідомлення</span>
-                        </span>
+                    <input  id="inputCustomer"  type="text" name="customer" class="form-control"   ng-model="vm.project.customer"  ng-maxlength="60" ng-required="true">
+                    <div class="error" ng-if="portfolioForm.$submitted || portfolioForm.customer.$touched" ng-messages="portfolioForm.customer.$error" role="alert">
+                        <div ng-messages-include="shared/messages/messages.tmpl.html" ></div>
                     </div>
                 </div>
             </div>
             <div class="form-group">
                 <label for="inputPreviewImg" class="col-sm-3  control-label">Зображення сайту*</label>
                 <div class="col-sm-9">
-                    <input id="inputPreviewImg"  ngf-select   class="file" type="file" name="previewImg"  ng-model="vm.previewImg" 
-                    accept="image/png" ngf-pattern="image/*" ngf-max-size="2Mb"  required ngf-model-invalid="errorFile" >
+                    <input id="inputPreviewImg" type="file" name="previewImg" class="file"  ng-model="vm.previewImg"  ngf-select 
+                        ngf-pattern="image/*" ngf-max-size="2Mb"  ngf-model-invalid="errorFile" ng-required="true">
                     <span class="custom-file-control" >{{vm.previewImg? vm.previewImg.name: "Завантажити фото" }}</span>
-                    <div ng-if="!vm.hasSupportImage" class="img-container" ngf-background="vm.previewImg"></div>
-                    <div role="alert">
-                        <span   class="error" ng-if="portfolioForm.$submitted || portfolioForm.$change  || portfolioForm.previewImg.$touched">
-                            <span  ng-show="portfolioForm.previewImg.$error.required">Це поле є обов'язкове</span>
-                            <span  ng-show="portfolioForm.previewImg.$error.accept">Невірний формат файлу</span>
-                            <span  ng-show="portfolioForm.previewImg.$error.maxSize">Занадто великий файл</span>
-                        </span>
+                    <div  class="img-container" ngf-background="vm.previewImg"></div>
+                    <div class="error" ng-if="portfolioForm.$submitted || portfolioForm.$change  || portfolioForm.previewImg.$touched" ng-messages="portfolioForm.previewImg.$error" 
+                        ng-messages-multiple  role="alert">
+                        <div ng-messages-include="shared/messages/messages.tmpl.html"></div>
                     </div>
                 </div>
             </div>
             <div class="form-group">
                 <label for="inputMainImg" class="col-sm-3  control-label">Зображення сторінки*</label>
                 <div class="col-sm-9">
-                    <input  id="inputMainImg" ng-change="vm.hasSupportViewImage()" ngf-select  class="file" type="file" name="mainImg" ng-model="vm.mainImg" 
-                    accept="image/png" ngf-max-size="2Mb" required ngf-model-invalid="errorFile">
+                    <input  id="inputMainImg" type="file" name="mainImg" class="file"  ng-model="vm.mainImg"  ngf-select  
+                         ngf-pattern="image/*" ngf-max-size="2Mb"  ngf-model-invalid="errorFile" ng-required="true">
                     <span class="custom-file-control" >{{vm.mainImg ? vm.mainImg.name : "Завантажити фото" }}</span>
-                    <div  ng-if="!vm.hasSupportImage" class="img-container" ngf-background="vm.mainImg"></div>
-                    <div role="alert">
-                        <span   class="error" ng-if="portfolioForm.$submitted  || portfolioForm.mainImg.$touched">
-                            <span  ng-show="portfolioForm.mainImg.$error.required">Це поле є обов'язкове</span>
-                            <span  ng-show="portfolioForm.mainImg.$error.accept">Невірний формат файлу</span>
-                            <span  ng-show="portfolioForm.mainImg.$error.maxSize">Занадто великий файл</span>
-                        </span>
+                    <div   class="img-container" ngf-background="vm.mainImg"></div>
+                    <div class="error" ng-if="portfolioForm.$submitted || portfolioForm.$change  || portfolioForm.mainImg.$touched" ng-messages="portfolioForm.mainImg.$error" 
+                         ng-messages-multiple role="alert">
+                        <div ng-messages-include="shared/messages/messages.tmpl.html"></div>
                     </div>
                 </div>
             </div>
             <div class="form-group">
                 <label  class="col-sm-3 control-label">Опис*</label>
                 <div class="col-sm-9">
-                    <trix-editor  name="description"  angular-trix ng-model="vm.project.description" class="trix-content" ng-maxlength="250" ng-required="true"></trix-editor>
-                    <div role="alert">
-                        <span   class="error" ng-show="portfolioForm.$submitted || portfolioForm.description.$touched">
-                            <span  ng-show="portfolioForm.description.$error.required">Це поле є обов'язкове</span>
-                            <span  ng-show="portfolioForm.description.$error.maxlength">Ви ввели занадто велике повідомлення</span>
-                        </span>
+                    <trix-editor  name="description" class="trix-content"  angular-trix ng-model="vm.project.description"  ng-maxlength="500" ng-required="true"></trix-editor>
+                    <div class="error" ng-if="portfolioForm.$submitted || portfolioForm.cusdescriptiontomer.$touched" ng-messages="portfolioForm.description.$error" role="alert">
+                        <div ng-messages-include="shared/messages/messages.tmpl.html"></div>
                     </div>
                 </div>
             </div>
@@ -91,11 +77,8 @@
                         <span class="input-group-btn">
                             <button type="button" class="btn btn-default btn-calendar" ng-click="vm.open2()"><i class="glyphicon glyphicon-calendar"></i></button>
                         </span>
-                        <div role="alert">
-                            <span   class="error" ng-show="portfolioForm.$submitted || portfolioForm.dateStart.$touched">
-                                <span  ng-show="portfolioForm.dateStart.$error.required">Це поле є обов'язкове</span>
-                                <span  ng-show="portfolioForm.dateStart.$error.date">Введіть правильний формат</span>
-                            </span>
+                        <div class="error" ng-if="portfolioForm.$submitted || portfolioForm.dateStart.$touched" ng-messages="portfolioForm.dateStart.$error" role="alert">
+                            <div ng-messages-include="shared/messages/messages.tmpl.html"></div>
                         </div>
                     </p>
                 </div>
@@ -110,11 +93,8 @@
                         <span class="input-group-btn">
                             <button type="button" class="btn btn-default btn-calendar" ng-click="vm.open1()"><i class="glyphicon glyphicon-calendar"></i></button>
                         </span>
-                        <div role="alert">
-                            <span   class="error" ng-show="portfolioForm.$submitted || portfolioForm.dateEnd.$touched">
-                                <span  ng-show="portfolioForm.dateEnd.$error.date">Введіть правильний формат</span>
-                                <span  ng-show="portfolioForm.dateEnd.$error.compareTo ">Дата початку  не більше за дату кінця виконання проекту</span>
-                            </span>
+                        <div class="error" ng-if="portfolioForm.$submitted || portfolioForm.dateEnd.$touched" ng-messages="portfolioForm.dateEnd.$error" role="alert">
+                            <div ng-messages-include="shared/messages/messages.tmpl.html"></div>
                         </div>
                     </p>
                 </div>
@@ -124,7 +104,7 @@
                 <div class="col-sm-6">
                     <div class="form-check">
                         <label class="form-check-inline control-label">
-                            <input id="inputPriority" ng-change="vm.changeTop(vm.project)" class="form-check-input" ng-model="vm.project.inTop" type="checkbox">
+                            <input id="inputPriority" type="checkbox" class="form-check-input" ng-model="vm.project.inTop" ng-change="vm.changeTop(vm.project)">
                         </label>
                     </div>
                 </div>

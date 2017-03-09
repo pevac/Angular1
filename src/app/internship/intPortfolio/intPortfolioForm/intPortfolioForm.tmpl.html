@@ -16,11 +16,8 @@
                 <label for="inputProjectName" class="col-sm-3   control-label">Назва*</label>
                 <div class="col-sm-9">
                     <input   type="text" name="projectName"  ng-model="vm.project.name"  class="form-control" id="inputProjectName" ng-maxlength="50" ng-required="true">
-                    <div role="alert">
-                        <span   class="error" ng-show="intPortfolioForm.$submitted || intPortfolioForm.projectName.$touched">
-                            <span  ng-show="intPortfolioForm.projectName.$error.required">Це поле є обов'язкове</span>
-                            <span  ng-show="intPortfolioForm.projectName.$error.maxlength">Ви ввели занадто велике повідомлення</span>
-                    </span>
+                    <div class="error" ng-if="intPortfolioForm.$submitted || intPortfolioForm.projectName.$touched" ng-messages="intPortfolioForm.projectName.$error" role="alert">
+                        <div ng-messages-include="shared/messages/messages.tmpl.html"></div>
                     </div>
                 </div>
             </div>
@@ -29,50 +26,39 @@
                 <label for="inputCustomer" class="col-sm-3  control-label">Клієнт*</label>
                 <div class="col-sm-9">
                     <input   type="text" name="customer"   ng-model="vm.project.client"  class="form-control" id="inputCustomer" ng-maxlength="50" ng-required="true">
-                    <div role="alert">
-                        <span   class="error" ng-show="intPortfolioForm.$submitted  || intPortfolioForm.customer.$touched">
-                            <span  ng-show="intPortfolioForm.customer.$error.required">Це поле є обов'язкове</span>
-                            <span  ng-show="intPortfolioForm.customer.$error.maxlength">Ви ввели занадто велике повідомлення</span>
-                        </span>
+                    <div class="error" ng-if="intPortfolioForm.$submitted || intPortfolioForm.customer.$touched" ng-messages="intPortfolioForm.customer.$error" role="alert">
+                        <div ng-messages-include="shared/messages/messages.tmpl.html"></div>
                     </div>
                 </div>
             </div>
             <div class="form-group">
                 <label for="inputImg" class="col-sm-3  control-label">Зображення сайту*</label>
                 <div class="col-sm-9">
-                    <input id="inputImg"  ngf-select   class="file" type="file" name="img"  ng-model="vm.img" 
-                    accept="image/png" ngf-pattern="image/*" ngf-max-size="2Mb"  required ngf-model-invalid="errorFile" >
+                    <input id="inputImg" type="file" name="img"  class="file"   ng-model="vm.img"  ngf-select 
+                        ngf-pattern="image/*" ngf-max-size="2Mb"  ngf-model-invalid="errorFile" ng-required="true">
                     <span class="custom-file-control" >{{vm.img? vm.img.name: "Завантажити фото" }}</span>
                     <div  class="img-container" ngf-background="vm.img"></div>
-                    <div role="alert">
-                        <span   class="error" ng-if="portfolioForm.$submitted || portfolioForm.$change  || portfolioForm.img.$touched">
-                            <span  ng-show="portfolioForm.img.$error.required">Це поле є обов'язкове</span>
-                            <span  ng-show="portfolioForm.img.$error.accept">Невірний формат файлу</span>
-                            <span  ng-show="portfolioForm.img.$error.maxSize">Занадто великий файл</span>
-                        </span>
+                    <div class="error" ng-if="intPortfolioForm.$submitted || intPortfolioForm.$change  || intPortfolioForm.img.$touched" ng-messages="intPortfolioForm.img.$error" 
+                        ng-messages-multiple  role="alert">
+                        <div ng-messages-include="shared/messages/messages.tmpl.html"></div>
                     </div>
                 </div>
             </div>
             <div class="form-group">
                 <label for="inputInfo" class="col-sm-3  control-label">Опис*</label>
                 <div class="col-sm-9">
-                    <textarea  id="inputInfo" resize-text-area   name="info" ng-model="vm.project.shortDescription"   class="form-control"   ng-maxlength="450"></textarea>
-                    <div role="alert">
-                        <span   class="error" ng-show="vacancyForm.$submitted || vacancyForm.info.$touched">
-                            <span  ng-show="vacancyForm.info.$error.maxlength">Ви ввели занадто велике повідомлення</span>
-                        </span>
+                    <textarea  id="inputInfo" resize-text-area   name="info" ng-model="vm.project.shortDescription"   class="form-control"   ng-maxlength="500" ng-required="true"></textarea>
+                    <div class="error" ng-if="intPortfolioForm.$submitted || intPortfolioForm.info.$touched" ng-messages="intPortfolioForm.info.$error" role="alert">
+                        <div ng-messages-include="shared/messages/messages.tmpl.html"></div>
                     </div>
                 </div>
             </div>
             <div class="form-group">
                 <label  class="col-sm-3 control-label" >Детальна інформація*</label>
                 <div class="col-sm-9">
-                    <trix-editor  name="description"  angular-trix ng-model="vm.project.description" class="trix-content" ng-maxlength="350" ng-required="true"></trix-editor>
-                    <div role="alert">
-                        <span   class="error" ng-show="intPortfolioForm.$submitted || intPortfolioForm.description.$touched">
-                            <span  ng-show="intPortfolioForm.description.$error.required">Це поле є обов'язкове</span>
-                            <span  ng-show="intPortfolioForm.description.$error.maxlength">Ви ввели занадто велике повідомлення</span>
-                        </span>
+                    <trix-editor  name="description"  angular-trix ng-model="vm.project.description" class="trix-content" ng-maxlength="500" ng-required="true"></trix-editor>
+                    <div class="error" ng-if="intPortfolioForm.$submitted || intPortfolioForm.description.$touched" ng-messages="intPortfolioForm.description.$error" role="alert">
+                        <div ng-messages-include="shared/messages/messages.tmpl.html"></div>
                     </div>
                 </div>
             </div>
@@ -86,11 +72,8 @@
                         <span class="input-group-btn">
                             <button type="button" class="btn btn-default btn-calendar" ng-click="vm.open2()"><i class="glyphicon glyphicon-calendar"></i></button>
                         </span>
-                        <div role="alert">
-                            <span   class="error" ng-show="intPortfolioForm.$submitted || intPortfolioForm.startDate.$touched">
-                                <span  ng-show="intPortfolioForm.startDate.$error.required">Це поле є обов'язкове</span>
-                                <span  ng-show="intPortfolioForm.startDate.$error.date">Введіть правильний формат</span>
-                            </span>
+                        <div class="error" ng-if="intPortfolioForm.$submitted || intPortfolioForm.startDate.$touched" ng-messages="intPortfolioForm.startDate.$error" role="alert">
+                            <div ng-messages-include="shared/messages/messages.tmpl.html"></div>
                         </div>
                     </p>
                 </div>
@@ -99,31 +82,29 @@
                 <label for="inputDateEnd" class="col-sm-3  control-label">Дата кінця</label>
                 <div class="col-sm-9">
                     <p class="input-group">
-                        <input id="inputDateEnd" type="text" name="dateEnd" class="form-control"  uib-datepicker-popup="{{vm.format}}"
+                        <input id="inputDateEnd" type="text" name="endDate" class="form-control"  uib-datepicker-popup="{{vm.format}}"
                                ng-model="vm.project.dateEnd" uib-datepicker-popup  is-open="vm.popup1.opened" datepicker-options="vm.dateOptions"
-                               close-text="Закрити" clear-text="Очистити" current-text="Сьогодні"/>
+                               close-text="Закрити" clear-text="Очистити" current-text="Сьогодні" ng-required="false" />
                         <span class="input-group-btn">
                             <button type="button" class="btn btn-default btn-calendar" ng-click="vm.open1()"><i
                                     class="glyphicon glyphicon-calendar"></i></button>
                         </span>
+                        <div class="error" ng-if="intPortfolioForm.$submitted || intPortfolioForm.endDate.$touched" ng-messages="intPortfolioForm.endDate.$error" role="alert">
+                            <div ng-messages-include="shared/messages/messages.tmpl.html"></div>
+                        </div>
                     </p>
-                    <div role="alert">
-                            <span class="error" ng-show="intPortfolioForm.$submitted || intPortfolioForm.dateEnd.$touched">
-                                <span  ng-show="intPortfolioForm.dateEnd.$error.date">Введіть правильний формат</span>
-                            </span>
-                    </div>
                 </div>
             </div>
             <div class="form-group btn_container">
                   <div class="row">
                     <div class="col-md-4">
-                        <button type="submit"  ng-click="!portfolioForm.$invalid && vm.goToEdit()" class="btn btn-primary btn-save">Переглянути</button>
+                        <button type="submit"  ng-click="!intPortfolioForm.$invalid && vm.goToEdit()" class="btn btn-primary btn-save">Переглянути</button>
                     </div>
                     <div class="col-md-4">
-                        <button type="submit"  ng-click="!portfolioForm.$invalid && vm.addProject(false)" class="btn btn-primary btn-save">Зберегти чорновик</button>
+                        <button type="submit"  ng-click="!intPortfolioForm.$invalid && vm.addProject(false)" class="btn btn-primary btn-save">Зберегти чорновик</button>
                     </div>
                     <div class="col-md-4">
-                        <button  type="submit" ng-click="!portfolioForm.$invalid && vm.addProject(true)"  class="btn btn-primary btn-save">Опублікувати проект</button>
+                        <button  type="submit" ng-click="!intPortfolioForm.$invalid && vm.addProject(true)"  class="btn btn-primary btn-save">Опублікувати проект</button>
                     </div>
                 </div>
             </div>
