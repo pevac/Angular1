@@ -12,5 +12,6 @@ launch.json
 src/assets/lib
 .war
 .zip
+admin.war
 manifest
 

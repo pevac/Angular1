@@ -52,7 +52,7 @@
             <div class="form-group">
                 <label  class="col-sm-3 control-label">Відгук*</label>
                 <div class="col-sm-9">
-                    <trix-editor  angular-trix name="description" ng-model="vm.review.description" class="trix-content" ng-maxlength="500"  ng-required="true"></trix-editor>
+                    <trix-editor  angular-trix name="description" ng-model="vm.review.description" class="trix-content" ng-maxlength="250"  ng-required="true"></trix-editor>
                     <div class="error" ng-if="reviewForm.$submitted || reviewForm.description.$touched" ng-messages="reviewForm.description.$error" role="alert">
                         <div ng-messages-include="shared/messages/messages.tmpl.html"></div>
                     </div>

@@ -61,7 +61,7 @@
             <div class="form-group">
                 <label  class="col-sm-3 control-label">Опис*</label>
                 <div class="col-sm-9">
-                    <trix-editor  name="description" class="trix-content"  angular-trix ng-model="vm.project.description"  ng-maxlength="500" ng-required="true"></trix-editor>
+                    <trix-editor  name="description" class="trix-content"  angular-trix ng-model="vm.project.description"  ng-maxlength="250" ng-required="true"></trix-editor>
                     <div class="error" ng-if="portfolioForm.$submitted || portfolioForm.cusdescriptiontomer.$touched" ng-messages="portfolioForm.description.$error" role="alert">
                         <div ng-messages-include="shared/messages/messages.tmpl.html"></div>
                     </div>

@@ -58,8 +58,7 @@
         };
 
         vm.changeTop = function (project) {
-            console.log($scope);
-             Resources.DevProjects.query(function (data) {
+            Resources.DevProjects.query(function (data) {
                 var _isCheckTop = isCheckTop(data);
                 if (project.id && (_isCheckTop && !project.inTop || !project.inTop && !_isCheckTop || project.inTop && _isCheckTop || isTop && project.inTop && !_isCheckTop)) {
                 } else {

@@ -47,7 +47,7 @@
             <div class="form-group">
                 <label for="inputInfo" class="col-sm-3  control-label">Опис*</label>
                 <div class="col-sm-9">
-                    <textarea  id="inputInfo" resize-text-area   name="info" ng-model="vm.project.shortDescription"   class="form-control"   ng-maxlength="500" ng-required="true"></textarea>
+                    <textarea  id="inputInfo" resize-text-area   name="info" ng-model="vm.project.shortDescription"   class="form-control"   ng-maxlength="250" ng-required="true"></textarea>
                     <div class="error" ng-if="intPortfolioForm.$submitted || intPortfolioForm.info.$touched" ng-messages="intPortfolioForm.info.$error" role="alert">
                         <div ng-messages-include="shared/messages/messages.tmpl.html"></div>
                     </div>
@@ -56,7 +56,7 @@
             <div class="form-group">
                 <label  class="col-sm-3 control-label" >Детальна інформація*</label>
                 <div class="col-sm-9">
-                    <trix-editor  name="description"  angular-trix ng-model="vm.project.description" class="trix-content" ng-maxlength="500" ng-required="true"></trix-editor>
+                    <trix-editor  name="description"  angular-trix ng-model="vm.project.description" class="trix-content" ng-maxlength="250" ng-required="true"></trix-editor>
                     <div class="error" ng-if="intPortfolioForm.$submitted || intPortfolioForm.description.$touched" ng-messages="intPortfolioForm.description.$error" role="alert">
                         <div ng-messages-include="shared/messages/messages.tmpl.html"></div>
                     </div>
