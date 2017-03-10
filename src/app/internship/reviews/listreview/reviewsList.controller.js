@@ -18,7 +18,7 @@
         };
 
         function  updateReview(review){
-            review.$update(function(){ $state.reload()});
+            review.$update();
         };
 
         vm.deleteReview = function(review, index){
@@ -26,7 +26,6 @@
             if(!checkDelete) return;
             review.$remove(function(){
                 vm.reviews.splice(index, 1);
-                $state.reload();
             })
         };
 

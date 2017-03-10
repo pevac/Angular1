@@ -5,7 +5,7 @@
     
     function SidebarController($scope,$rootScope, $location, AUTH_EVENTS, AuthService) {
         var vm = this;
-
+console.log("sidebar");
         vm.logout = function(){
             AuthService.logout();
             $rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);

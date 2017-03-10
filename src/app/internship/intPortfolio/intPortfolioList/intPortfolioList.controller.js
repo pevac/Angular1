@@ -19,7 +19,7 @@
         };
 
         function  updateIntProject(project){
-            project.$update(function(){ $state.reload()});
+            project.$update();
         };
     }
 })();

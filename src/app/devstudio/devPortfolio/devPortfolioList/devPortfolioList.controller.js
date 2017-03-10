@@ -26,7 +26,7 @@
         };
 
         function  updateDevProject(project){
-            project.$update(function(){ $state.reload()});
+            project.$update();
         };
 
         function sendInTop (data, project){

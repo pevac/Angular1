@@ -19,7 +19,6 @@
             vacancy.$remove(
                 function () {
                     vm.vacancies.splice(index, 1);
-                    $state.reload();
                 }
             );
         };

@@ -15,8 +15,7 @@
             var checkDelete = confirm("Видалити замовлення");
             if(!checkDelete) return;
             order.$remove(function () {
-                vm.vacancies.splice(index, 1);
-                $state.reload();
+                vm.customers.splice(index, 1);
             });
         };
 
