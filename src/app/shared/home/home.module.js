@@ -2,24 +2,10 @@
     "use strict";
 
     angular.module("homeModule", [ "devPortfolioModule", "intPortfolioModule", "orderCustomerModule", "vacancyModule", 
-        "reviewsModule", "usersModule", "sidebarModule", "workModule"]);
+        "reviewsModule", "usersModule", "sidebarModule", "dictionariesModule"]);
 
     angular.module("homeModule")
-        .run(PaginationTemplate)
         .run(LocalDateTime);
-
-    PaginationTemplate.$inject = ["$templateCache"];
-    function PaginationTemplate($templateCache) {
-        $templateCache.put("pagination/pagination.html",
-            "<nav ng-if=\"numPages && pages.length >= 2\"><ul class=\"pagination\">\n" +
-            "<li  ng-class=\"{disabled: currentPage === 1 ||ngDisabled}\" class=\"pagination-first\"><a href=\"javascript: void(0);\" ng-click=\"selectPage(1, $event)\" ng-disabled=\"currentPage === 1 || ngDisabled\" uib-tabindex-toggle><<</a></li>\n" +
-            "<li  ng-class=\"{disabled: currentPage === 1||ngDisabled}\" class=\"pagination-prev\"><a href=\"javascript: void(0);\" ng-click=\"selectPage(currentPage - 1, $event)\" ng-disabled=\"currentPage === 1 || ngDisabled\" uib-tabindex-toggle><</a></li>\n" +
-            "<li ng-repeat=\"page in pages track by $index\" ng-class=\"{active: page==currentPage,disabled: ngDisabled&&!page.active}\" class=\"pagination-page\"><a href=\"javascript: void(0);\" ng-click=\"selectPage(page, $event)\" ng-disabled=\"ngDisabled&&!page.active\" uib-tabindex-toggle>{{page}}</a></li>\n" +
-            "<li  ng-class=\"{disabled: currentPage === numPages ||ngDisabled}\" class=\"pagination-next\"><a href=\"javascript: void(0);\" ng-click=\"selectPage(currentPage + 1, $event)\" ng-disabled=\"currentPage === numPages || ngDisabled\" uib-tabindex-toggle>></a></li>\n" +
-            "<li  ng-class=\"{disabled: currentPage ===numPages ||ngDisabled}\" class=\"pagination-last\"><a href=\"javascript: void(0);\" ng-click=\"selectPage(numPages, $event)\" ng-disabled=\"currentPage === numPages ||ngDisabled\" uib-tabindex-toggle>>></a></li>\n" +
-            "</ul></nav>" +
-            "");
-    };
 
     LocalDateTime.$inject = ["$locale"];
     function LocalDateTime($locale) {
@@ -36,6 +22,6 @@
             "\u0436\u043e\u0432\u0442\u0435\u043d\u044c",
             "\u043b\u0438\u0441\u0442\u043e\u043f\u0430\u0434",
             "\u0433\u0440\u0443\u0434\u0435\u043d\u044c"]
-    };
+    }
 
 })();

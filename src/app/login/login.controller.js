@@ -6,11 +6,7 @@
     
     function LoginController($scope, $rootScope, AUTH_EVENTS, AuthService,  Session, UserService) {
         var vm = this;
-        vm.credentials = {
-            login: "",
-            password: ""
-        };
-
+       
         vm.loginStatus = {
             type: null,
             message: ""
@@ -24,7 +20,7 @@
         //     });
         // };
 
-        vm.login = function (credentials) {
+        vm.login = function () {
             vm.loginStatus.type = AUTH_EVENTS.loginSuccess;
             var currentUser = {
                 id: 23,
@@ -37,6 +33,6 @@
             Session.create(2, 2, "admin");
             $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
         };
-    };
+    }
 })();
 

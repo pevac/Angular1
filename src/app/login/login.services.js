@@ -38,7 +38,7 @@
         };
 
         return authService;
-    };
+    }
 
     Session.$inject = ["$sessionStorage"];
     function Session($sessionStorage) {
@@ -63,7 +63,7 @@
         };
 
         return vm;
-    };
+    }
 
     AuthInterceptor.$inject = ["$rootScope", "$q","AUTH_EVENTS"];
     function AuthInterceptor($rootScope, $q, AUTH_EVENTS) {
@@ -78,9 +78,9 @@
                 return $q.reject(response);
             }
         };
-    };
+    }
 
-AuthResolver.$inject = ["$q","$state", "UserService"];
+    AuthResolver.$inject = ["$q","$state", "UserService"];
     function AuthResolver( $q, $state, UserService) {
 
         return {
@@ -99,7 +99,7 @@ AuthResolver.$inject = ["$q","$state", "UserService"];
                 return deferred.promise;
             }
         };
-    };
+    }
 
     UserService.$inject = ["$sessionStorage"];
     function UserService($sessionStorage) {
@@ -118,7 +118,7 @@ AuthResolver.$inject = ["$q","$state", "UserService"];
             getUser : getUser
         };
     
-    };
+    }
 
 })();
 

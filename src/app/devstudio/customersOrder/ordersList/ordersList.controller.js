@@ -2,9 +2,9 @@
     "use strict";
 
     angular.module("orderCustomerModule").controller("OrderCustomerController", OrderCustomerController);
-    OrderCustomerController.$inject = ["$scope", "$state",  "FileSaver", "Blob", "$templateCache", "$compile", "$timeout",  "customers", "Resources"];
+    OrderCustomerController.$inject = ["$scope", "$state",  "FileSaver", "Blob", "$templateCache", "$compile", "$timeout",  "customers"];
     
-    function OrderCustomerController($scope, $state,  FileSaver, Blob, $templateCache, $compile, $timeout,  customers, Resources){
+    function OrderCustomerController($scope, $state,  FileSaver, Blob, $templateCache, $compile, $timeout,  customers){
         var vm = this;
         vm.itemsByPage = 10;
 

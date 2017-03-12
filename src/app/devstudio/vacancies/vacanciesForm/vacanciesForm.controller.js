@@ -35,7 +35,7 @@
             vm.dataLoading =true;
             vm.vacancy.open = open;
             vm.vacancy[action](
-                function (response) {
+                function () {
                     vm.dataLoading =false;
                     $state.go("home.vacancies.list");
                 }
@@ -48,7 +48,7 @@
                 vm.vacancy  = $state.params.data.vacancy;
                 vm.vacancy.date = new Date(vm.vacancy.date);
             }
-        };
+        }
     }
 })();
     

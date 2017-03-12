@@ -39,15 +39,15 @@
            ImageService.fileToObject(vm.previewImg).then(function(data){
                previewImg = data;
                if(mainImg){
-                    $state.go( "home.devportfolio.viewportfolio", { previousState : { name : $state.current.name }, data: {project: vm.project, previewImg: previewImg, mainImg: mainImg} }, {} );
+                    $state.go( "home.devportfolio.viewportfolio", { previousState : { name: $state.current.name }, data: {project: vm.project, previewImg: previewImg, mainImg: mainImg} }, {} );
                }
            });
             ImageService.fileToObject(vm.mainImg).then(function(data){
                 mainImg = data;
                if(previewImg){
-                    $state.go( "home.devportfolio.viewportfolio", { previousState : { name : $state.current.name }, data: {project: vm.project, previewImg: previewImg, mainImg: mainImg} }, {} );
+                    $state.go( "home.devportfolio.viewportfolio", { previousState : { name: $state.current.name }, data: {project: vm.project, previewImg: previewImg, mainImg: mainImg} }, {} );
                }
-           });;
+           });
         };
 
         vm.addProject = function (visible) {
@@ -60,11 +60,10 @@
         vm.changeTop = function (project) {
             Resources.DevProjects.query(function (data) {
                 var _isCheckTop = isCheckTop(data);
-                if (project.id && (_isCheckTop && !project.inTop || !project.inTop && !_isCheckTop || project.inTop && _isCheckTop || isTop && project.inTop && !_isCheckTop)) {
-                } else {
+                if (!(project.id && (_isCheckTop && !project.inTop || !project.inTop && !_isCheckTop || project.inTop && _isCheckTop || isTop && project.inTop && !_isCheckTop))) {
                     vm.project.inTop = isTop;
                     alert("Кількість проектів з зафарбованою зіркою не більше 4");
-                }
+                } 
             });
         };
 
@@ -77,7 +76,7 @@
 
             addImage(previewImg, "previewImg");
             addImage(mainImg, "mainImg");
-        };
+        }
 
         function addImage(image, name){
             if(image && !image.lastModifiedDate) {
@@ -86,19 +85,19 @@
             }
 
             Resources.DevProjectFile.saveFile( {data: image, id:  vm.project.id},
-                function (response) {
+                function () {
                     vm.project[name] = image.name;
                     saveProject(goToList);
                 }
             );
-        };
+        }
 
         function goToList(){
             $timeout(function () {
                 vm.dataLoading =false;
                 $state.go("home.devportfolio.list");
             }, 500);
-        };
+        }
 
         function saveProject(succesHandler){
             var action = vm.project.id ? "$update": "$save";
@@ -120,7 +119,7 @@
             }
 
             return inTop;
-        };
+        }
 
         function activate() {
             vm.project = new Resources.DevProjects();
@@ -137,7 +136,7 @@
                 if(!vm.previewImg) setImage(vm.project.previewImg,  "previewImg");
                 if(!vm.mainImg) setImage(vm.project.mainImg,  "mainImg");
             }
-        };
+        }
 
 
         function setImage(imgName,  name) {
@@ -146,9 +145,9 @@
                     vm[name]=  ImageService.bufferArrayResponceToFile(response, imgName); 
                 }
            )
-        };
+        }
 
-    };
+    }
 })();
 
 

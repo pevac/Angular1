@@ -20,7 +20,8 @@
 
         function  updateIntProject(project){
             project.$update();
-        };
+        }
+        
     }
 })();
 

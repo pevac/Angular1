@@ -2,9 +2,9 @@
     "use strict";
 
     angular.module("devPortfolioModule").config(DevPortfolioRouterConfig);
-    DevPortfolioRouterConfig.$inject = ["$stateProvider", "$urlRouterProvider","USER_ROLES"];
+    DevPortfolioRouterConfig.$inject = ["$stateProvider"];
 
-    function DevPortfolioRouterConfig($stateProvider, $urlRouterProvider, USER_ROLES){
+    function DevPortfolioRouterConfig($stateProvider){
 
         $stateProvider
             .state("home.devportfolio", {
@@ -66,12 +66,13 @@
 
             saveSessionStorage.$inject = [ "$stateParams", "$sessionStorage"];
             function saveSessionStorage($stateParams, $sessionStorage){
+                var stateParams;
                 if(!$sessionStorage.stateParams){
-                    var stateParams = angular.copy($stateParams);
+                    stateParams = angular.copy($stateParams);
                     $sessionStorage.$default({stateParams: stateParams} );
                 } 
                 if($stateParams.data) {
-                    var stateParams = angular.copy($stateParams);
+                    stateParams = angular.copy($stateParams);
                     $sessionStorage.stateParams = stateParams;
                 } else {
                     for(var key in $sessionStorage.$default().stateParams){

@@ -36,7 +36,6 @@
 
         function uploadImage(imageUrl, photo, review) {
             var imageBase64 = imageUrl;
-            var image = photo;
             vm.review.id  = review.id;
             var file = ImageService.base64ToFile(imageBase64, photo);   
           
@@ -45,7 +44,7 @@
                 saveReview(function () {
                     vm.dataLoading =false;
                     $state.go("home.reviews.list");
-                })
+                });
             });
         }
 
@@ -53,7 +52,7 @@
             Resources.ReviewFile.getFile({name: vm.review.img, id:  vm.review.id},function (response) {
                 vm.photo =   ImageService.bufferArrayResponceToFile(response, vm.review.img)
             })
-        }; 
+        }
         
         function activate(){
             vm.review = new  Resources.Reviews();

@@ -27,7 +27,7 @@
 
         function  updateDevProject(project){
             project.$update();
-        };
+        }
 
         function sendInTop (data, project){
              var _isCheckTop = isCheckTop(data);
@@ -35,10 +35,10 @@
                     project.inTop = !project.inTop;
                     updateDevProject(project);
                }else{
-                    $state.reload();
+                    // $state.reload();
                     alert("Кількість проектів з зафарбованою зіркою не більше 4");
                }
-        };
+        }
 
         function isCheckTop(arg){
             var projects = arg;

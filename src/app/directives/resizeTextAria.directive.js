@@ -6,7 +6,7 @@
     function resizeTextArea(){
         return {
             restrict: "A",
-            link: function(scope,el,attrs,ctrl){
+            link: function(scope,el){
                 resize();
                 el.on("keyup change past cut keydown blur",  resize);
 

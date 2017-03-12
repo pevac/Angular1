@@ -2,9 +2,9 @@
     "use strict";
 
     angular.module("reviewsModule").config(ReviewsRouterConfig);
-    ReviewsRouterConfig.$inject = ["$stateProvider", "$urlRouterProvider","USER_ROLES"];
+    ReviewsRouterConfig.$inject = ["$stateProvider"];
 
-    function ReviewsRouterConfig($stateProvider, $urlRouterProvider, USER_ROLES){
+    function ReviewsRouterConfig($stateProvider){
 
         $stateProvider
             .state("home.reviews", {
@@ -49,12 +49,12 @@
                 params : {
                     data: null
                 },
-                resolve: {
-                    /* @ngInject */
-                    jobPositions:  function(Resources) {
-                       return  Resources.JobPositions.query().$promise;
-                    }
-                },
+                // resolve: {
+                //     /* @ngInject */
+                //     jobPositions:  function(Resources) {
+                //        return  Resources.JobPositions.query().$promise;
+                //     }
+                // },
                 onEnter: saveSessionStorage,
                 onExit: clearSessionStorage
             })
@@ -78,12 +78,13 @@
 
             saveSessionStorage.$inject = [ "$stateParams", "$sessionStorage"];
             function saveSessionStorage($stateParams, $sessionStorage){
+                var stateParams;
                 if(!$sessionStorage.stateParams){
-                    var stateParams = angular.copy($stateParams);
+                    stateParams = angular.copy($stateParams);
                     $sessionStorage.$default({stateParams: stateParams} );
                 } 
                 if($stateParams.data) {
-                    var stateParams = angular.copy($stateParams);
+                    stateParams = angular.copy($stateParams);
                     $sessionStorage.stateParams = stateParams;
                 } else {
                     for(var key in $sessionStorage.$default().stateParams){

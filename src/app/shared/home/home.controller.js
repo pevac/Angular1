@@ -8,5 +8,5 @@
         $scope.currentUser = UserService.getUser();
         $scope.userRoles = USER_ROLES;
         $scope.isAuthorized = AuthService.isAuthorized;
-    };
+    }
 })();

@@ -20,7 +20,7 @@
                 blob = new Blob([arrayBufferView], { type: type });
                 blob.name = name;
                 return  blob;
-            };
+            }
 
             function base64ToBlob(base64, file){
                 var base64ImageContent = base64.replace(/^data:image\/(png|jpg|jpeg|gif);base64,/, "");
@@ -45,15 +45,14 @@
                 return blob;
             }
 
-            function base64ToFile(base64, file){
-                var blob = base64ToBlob(base64, file);
+            function base64ToFile(base64, image){
+                var blob = base64ToBlob(base64, image);
                 
-                var file =  new File([blob], file.name, {type: file.type});
+                var file =  new File([blob], image.name, {type: image.type});
                 return file;
             }
 
             function fileToObject(file){
-                var reader = new FileReader();
                 var newfile = {
                     name: file.name,
                     size: file.size,
@@ -63,7 +62,7 @@
                     newfile.data = data;
                     return newfile;
                 })                
-            };
+            }
 
             function fileRead(file) {
                 var deferred = $q.defer();
@@ -77,7 +76,6 @@
                 reader.readAsDataURL(file);
 
                 return deferred.promise;
-            };
+            }
         }
-
 })();

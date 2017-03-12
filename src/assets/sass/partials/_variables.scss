@@ -18,13 +18,14 @@ $body-bg:$gray-base-color;
 
 //navbar
 $navbar-top-height: 60px;
-$sidebar-width: 230px;
+$sidebar-width: 210px;
 $navbar-brand-width: $sidebar-width;
 $navbar-brand-height:$navbar-top-height;
 
 //nav background
 $navbar-bg: $light-base-color;
 $sidebar-bg:$dark-base-color;
+$sidebar-color: $light-base-color;
 
 //color nav
 $navbar-link-color:$light-base-color;

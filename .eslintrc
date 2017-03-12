@@ -1,0 +1,16 @@
+{
+  "extends": "eslint:recommended",
+  "plugins": ["angular"],
+  "env": {
+    "browser": true
+  },
+  "globals": {
+    "angular": true,
+    "module": true,
+    "inject": true,
+    "Uint8Array": true
+  },
+  "rule": {
+     "no-unused-vars": ["error", { "vars": "all", "args": "none", "ignoreRestSiblings": false }]
+  }
+}

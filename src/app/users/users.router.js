@@ -2,9 +2,9 @@
     "use strict";
 
     angular.module("usersModule").config(UsersRouterConfig);
-    UsersRouterConfig.$inject = ["$stateProvider", "$urlRouterProvider","USER_ROLES"];
+    UsersRouterConfig.$inject = ["$stateProvider"];
 
-    function UsersRouterConfig($stateProvider, $urlRouterProvider, USER_ROLES){
+    function UsersRouterConfig($stateProvider){
         $stateProvider
             .state("home.users", {
                 url: "/users",
@@ -66,12 +66,13 @@
 
             saveSessionStorage.$inject = [ "$stateParams", "$sessionStorage"];
             function saveSessionStorage($stateParams, $sessionStorage){
+                var stateParams
                 if(!$sessionStorage.stateParams){
-                    var stateParams = angular.copy($stateParams);
+                    stateParams = angular.copy($stateParams);
                     $sessionStorage.$default({stateParams: stateParams} );
                 } 
                 if($stateParams.data) {
-                    var stateParams = angular.copy($stateParams);
+                    stateParams = angular.copy($stateParams);
                     $sessionStorage.stateParams = stateParams;
                 } else {
                     for(var key in $sessionStorage.$default().stateParams){

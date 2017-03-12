@@ -28,12 +28,12 @@
     function resourceRun($http, $sessionStorage){
         $http.defaults.headers.post["X-CSRFToken"] = $sessionStorage.$default().csrftoken;
         $http.defaults.headers.common["X-CSRFToken"] = $sessionStorage.$default().csrftoken;
-    };
+    }
 
     resourceProvider.$inject = ["$resourceProvider"];
     function resourceProvider($resourceProvider){
         $resourceProvider.defaults.stripTrailingSlashes = false;
-    };
+    }
 
     Resources.$inject = [ "$resource", "serverResourcesConstant"];
     function Resources($resource, serverResourcesConstant){
@@ -100,6 +100,6 @@
             UsersFile: UsersFile,
             UserImageURl: UserImageURl
         };
-    };
+    }
 
 }());

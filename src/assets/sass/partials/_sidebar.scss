@@ -90,39 +90,43 @@
   margin-top: 2*$navbar-top-height;
   width: 100%;
   z-index: 100;
-
   background-color: $sidebar-bg;
 
-  .sidebar-nav{
-    padding: 25px 0 0 0;
-    margin: 0 0 25px 0;
-    border: none;
-    ul{
-      border: none;
-      float: none;
+    .panel{
+      border: none; 
+      border-radius: 0; 
+      background-color: $sidebar-bg; 
+      margin: 0;
     }
 
-    .dropdown-menu {
-      background-color: $sidebar-bg;
+    .panel-heading{
+      border: none;
+      padding: 0;
     }
-  }
+
+    .sidebar-nav{
+      padding: 50px 0 0 0;
+      margin: 0 0 25px 0;
+      border: none;
+      ul{
+        border: none;
+        float: none;
+      }
+    }
+
+    .nav > li> div > a {
+      position: relative;
+      display: block;
+      padding: 10px 15px;
+    }
 
   .nav-main {
     margin: 0;
 
-
-    li> a:focus,
-    li> a:active{
-      background-color: $navbar-li-main-bg-hover;
-      & .arrow{
-        transform: rotate(0deg);
-      }
-    }
-
     li {
       cursor: pointer;
       a {
-        font-size: 18px;
+        font-size: 16px;
         color: $navbar-link-color;
         position: relative;
       }
@@ -143,11 +147,13 @@
       .arrow {
         background-size: contain;
         background: url("../img/arrow.png") no-repeat center;
-        width: 20px;
-        height: 35px;
+        width: 15px;
+        height: 25px;
+        margin-top: 5px;
         float: right;
         transform: rotate(180deg);
       }
+
       .home-icon {
         background: url("../img/home-icon.png");
       }
@@ -163,21 +169,26 @@
       .dictionares-icon{
         background: url("../img/users-icon.png");
       }
+
+      a:hover,
+      a:focus,
+      a:active{
+        text-decoration: none;
+        background-color:$navbar-li-main-bg-hover;
+      }
     }
 
-    li.active>a,
-    li.active>a:hover
+    li.active>div>a,
+    li.active>div>a:hover
     {
+      text-decoration: none;
+      background-color:$navbar-li-main-bg-hover;
       & .arrow{
         transform: rotate(0deg);
       }
     }
 
-    a:hover,
-    a:focus,
-    a:active{
-      background-color:$navbar-li-main-bg-hover;
-    }
+ 
 
     .nav-second{
       margin: 0;
@@ -186,7 +197,7 @@
         margin: 0;
 
         a{
-          font-size: 14px;
+          font-size: 13px;
           color: $navbar-link-color;
           padding: 10px 10px 10px 45px;
         }
@@ -198,17 +209,16 @@
       }
 
       li.active a,
-      li.active a:focus,
+      li.active a:focus{
+        color: $navbar-link-color;
+        background-color: $navbar-li-main-bg-hover * 0.7;
+      }
+     
+      a:hover,
       a:focus,
       a:active{
         color: $navbar-link-color;
-        background-color: $navbar-li-main-bg-hover;
-      }
-
-     
-      a:hover{
-        color: $navbar-link-color;
-        background-color: $navbar-li-main-bg-hover * 0.8;
+        background-color: $navbar-li-main-bg-hover * 0.7;
       }
     }
 

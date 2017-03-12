@@ -2,9 +2,9 @@
     "use strict";
 
     angular.module("vacancyModule").config(VacancyConfig);
-    VacancyConfig.$inject = ["$stateProvider", "$urlRouterProvider","USER_ROLES"];
+    VacancyConfig.$inject = ["$stateProvider"];
 
-    function VacancyConfig($stateProvider, $urlRouterProvider, USER_ROLES){
+    function VacancyConfig($stateProvider){
 
         $stateProvider
             .state("home.vacancies", {
@@ -74,10 +74,10 @@
                 onEnter: saveSessionStorage,
                 onExit: clearSessionStorage
             })
-            .state("home.vacancies.feedback", {
+            .state("home.feedback", {
                 url: "/feedback",
-                templateUrl:"devstudio/vacancies/reviewVacancies/reviewVacancies.tmpl.html",
-                controller: "ReviewVacanciesController",
+                templateUrl:"devstudio/vacancies/vacancyFeedback/vacancyFeedback.tmpl.html",
+                controller: "VacanciesFeedbackController",
                 controllerAs: 'vm',
             });
 
@@ -88,19 +88,19 @@
 
             saveSessionStorage.$inject = [ "$stateParams", "$sessionStorage"];
             function saveSessionStorage($stateParams, $sessionStorage){
+                var stateParams;
                 if(!$sessionStorage.stateParams){
-                    var stateParams = angular.copy($stateParams);
-                    $sessionStorage.$default({stateParams: $stateParams} );
+                    stateParams = angular.copy($stateParams);
+                    $sessionStorage.$default({stateParams: stateParams} );
                 } 
                 if($stateParams.data) {
-                    var stateParams = angular.copy($stateParams);
-                    $sessionStorage.stateParams = $stateParams;
+                    stateParams = angular.copy($stateParams);
+                    $sessionStorage.stateParams = stateParams;
                 } else {
                     for(var key in $sessionStorage.$default().stateParams){
                         $stateParams[key] = $sessionStorage.$default().stateParams[key];
                     }
                 }
             }
-              
     }
 })();

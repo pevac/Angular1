@@ -8,7 +8,7 @@
         var vm = this;
 
         vm.goToEdit = function () {
-            $state.go($state.params.previousState.name, {previousState : { name : $state.current.name }, data: {project: vm.project, previewImg: $state.params.data.previewImg, mainImg: $state.params.data.mainImg} }, {} );
+            $state.go($state.params.previousState.name, { data: {project: vm.project, previewImg: $state.params.data.previewImg, mainImg: $state.params.data.mainImg} }, {} );
         };
         
         activate();

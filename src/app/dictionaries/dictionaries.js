@@ -1,10 +1,10 @@
 (function(){
- angular.module('workModule',[])
-        .controller('WorkController', WorkController);
+ angular.module("dictionariesModule",[])
+        .controller("DictionariesController", DictionariesController);
 
-    WorkController.$inject = ["$scope", "$http", "$state", "Resources", "workingTimes", "jobPositions"];
+    DictionariesController.$inject = ["$scope", "$http", "$state", "Resources", "workingTimes", "jobPositions"];
 
-    function WorkController($scope,  $http, $state, Resources, workingTimes, jobPositions){
+    function DictionariesController($scope,  $http, $state, Resources, workingTimes, jobPositions){
         var vm = this;
        vm.jobPositions = jobPositions;
        vm.workingTimes = workingTimes;
@@ -33,16 +33,16 @@
         
     }
 
-angular.module("workModule").config(RouterConfig1);
-    RouterConfig1.$inject = ["$stateProvider", "$urlRouterProvider","USER_ROLES"];
+angular.module("dictionariesModule").config(RouterConfig1);
+    RouterConfig1.$inject = ["$stateProvider"];
 
-    function RouterConfig1($stateProvider, $urlRouterProvider, USER_ROLES){
+    function RouterConfig1($stateProvider){
 
         $stateProvider
             .state("home.dictionares", {
                 url: "/dictionares",
-                templateUrl:"work/work.html",
-                controller: "WorkController",
+                templateUrl:"dictionaries/dictionaries.tmpl.html",
+                controller: "DictionariesController",
                 controllerAs: "vm",
                 resolve: {
                     /* @ngInject */

@@ -19,7 +19,7 @@
 
         function  updateReview(review){
             review.$update();
-        };
+        }
 
         vm.deleteReview = function(review, index){
             var checkDelete = confirm("Видалити вакансії")

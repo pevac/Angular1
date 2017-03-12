@@ -10,7 +10,7 @@
             scope: {
                 messageModel: "="
             },
-            link: function(scope, elem, attrs, ngModel){
+            link: function(scope, elem, attrs){
                 var messageModel = {};
                 var valid = ["ngMaxlength", "ngMinlength"]
                 for(var i = 0; i< valid.length; i++){
@@ -37,7 +37,7 @@
                 });
 
                 // observe the other value and re-validate on change
-                attrs.$observe('compareTo', function (val) {
+                attrs.$observe('compareTo', function () {
                     validate();
                 });
 

@@ -2,10 +2,10 @@
     "use strict"
     
     angular.module("vacancyModule").controller("VacanciesController", VacanciesController);
-    VacanciesController.$inject  = ["$scope", "$state", "vacancies", "Resources"];
+    VacanciesController.$inject  = ["$scope", "$state", "vacancies"];
 
     /* @ngInject */
-    function VacanciesController($scope, $state,  vacancies, Resources) {
+    function VacanciesController($scope, $state,  vacancies) {
         var vm = this;
         vm.vacancies = vacancies;
         
@@ -23,7 +23,7 @@
             );
         };
 
-    };
+    }
 })();
 
 

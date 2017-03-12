@@ -2,7 +2,7 @@
 
 const gulp = require("gulp");
 const $ = require("gulp-load-plugins")();
-
+const path = require("path");
 
 module.exports =  function(options){
     return function(){
@@ -20,6 +20,9 @@ module.exports =  function(options){
 
         $.watch([options.path.watch.app], function(event, cb) {
             gulp.start("app:build");
+        }).on("unlink", function(filePath){
+            delete $.cached.caches["eslint"][path.resolve(filePath)];
+            $.remember.forget("eslint", path.resolve(filePath));
         });
 
         $.watch([options.path.watch.fonts], function(event, cb) {

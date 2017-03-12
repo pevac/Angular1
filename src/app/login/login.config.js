@@ -69,7 +69,7 @@
             }
 
         });
-    };
+    }
 
     RequestProvider.$inject = ["$httpProvider"];
     function RequestProvider($httpProvider)  {
@@ -79,6 +79,6 @@
                 return $injector.get("AuthInterceptor");
             }
         ]);
-    };
+    }
 
 })();

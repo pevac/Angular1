@@ -6,7 +6,7 @@
 
     function AddUserController($scope,  $state,  Resources, ImageService) {
         var vm = this;
-        // activate();
+        activate();
         
         vm.addUser = function () {
             vm.dataLoading =true;
@@ -31,9 +31,8 @@
 
         function uploadImage(user) {
             var imageBase64 = vm.croppedDataUrl;
-            var image = vm.photo;
             vm.user.id  = user.id;
-            var file = ImageService.base64ToFile(imageBase64, photo);   
+            var file = ImageService.base64ToFile(imageBase64, vm.photo);   
           
             Resources.UserFile.saveFile({data: file, id: vm.user.id },function () {
                 vm.user.img = file.name;
@@ -48,7 +47,7 @@
             Resources.UserFile.getFile({name: vm.user.img, id:  vm.user.id},function (response) {
                 vm.photo =   ImageService.bufferArrayResponceToFile(response, vm.user.img)
             })
-        }; 
+        }
         
         function activate(){
             vm.user = new  Resources.Users();

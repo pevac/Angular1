@@ -22,8 +22,7 @@ module.exports =  function(options){
             gulp.dest(options.path.build.img),
             $.size({title: "images"})
         ).on("error", function(error){
-            error.taskName = options.taskName;
-            options.reportError.call(this, error);
-        })
+            options.reportError.call(this, error, options.taskName);
+        });
     }
 }

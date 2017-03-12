@@ -64,7 +64,7 @@
 
                 if(!vm.img) setImage();
             }
-        };
+        }
 
         function saveImage(data){
             var image = vm.img;
@@ -72,18 +72,18 @@
             if(!image && !image.lastModifiedDate) {return;}
             Resources.IntProjectFile.saveFile({data :image, id: vm.project.id},function () {
                 vm.project.img = image.name;
-                saveProject(function (data) {
+                saveProject(function () {
                         vm.dataLoading =false;
                         $state.go("home.intportfolio.list");
                 });
             });
-        };
+        }
 
         function setImage() {
            Resources.IntProjectFile.getFile({name: vm.project.img, id: vm.project.id},function (response) {
                 vm.img=  ImageService.bufferArrayResponceToFile(response, vm.project.img); 
             })
-        };
+        }
 
     }
 })();

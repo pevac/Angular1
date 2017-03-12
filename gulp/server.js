@@ -19,8 +19,7 @@ module.exports =  function(options){
             open: true,
             notify: false,
             ghostMode: false,
-            logFileChanges: true,
-            // browser: "safari"
+            logFileChanges: true
         });
 
         browserSync.watch(config.path.watch.reload).on("change", browserSync.reload);

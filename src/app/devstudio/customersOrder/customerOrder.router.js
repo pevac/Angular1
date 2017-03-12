@@ -2,9 +2,9 @@
     "use strict";
 
     angular.module("orderCustomerModule").config(CustomerConfig);
-    CustomerConfig.$inject = ["$stateProvider", "$urlRouterProvider","USER_ROLES"];
+    CustomerConfig.$inject = ["$stateProvider"];
 
-    function CustomerConfig($stateProvider, $urlRouterProvider, USER_ROLES){
+    function CustomerConfig($stateProvider){
 
         $stateProvider
             .state("home.ordercustomer", {
