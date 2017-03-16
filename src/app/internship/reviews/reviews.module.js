@@ -1,3 +1,3 @@
 (function(){
-    angular.module('reviewsModule',[])
+    angular.module("reviewsModule",[]);
 })();

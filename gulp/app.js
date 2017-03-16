@@ -15,12 +15,12 @@ module.exports =  function(options){
             $.cached("eslint"),
             $.eslint(),
             $.eslint.format(),
-            $.eslint.failOnError(),
             $.eslint.result(function (result) {
 			    if (result.warningCount > 0 || result.errorCount > 0) {
 				    delete $.cached.caches.eslint[path.resolve(result.filePath)]
 			    }
 		    }),
+            $.eslint.failAfterError(),
             $.remember("eslint"),
             $.if(!RELEASE, $.sourcemaps.init()),
             $.angularFilesort(),
@@ -30,9 +30,14 @@ module.exports =  function(options){
             gulp.dest(options.path.build.app),
             $.size({title: "app"}),
             $.if(RELEASE, combine($.rev.manifest("app.json"), gulp.dest("./manifest") ))
-        ).on("error", function(error){
-            options.reportError.call(this, error, options.taskName);
-        })
+        ).on('error', function(error) {
+                $.notify({
+                    title: "Task Failed " + options.taskName,
+                    message: "-- " + "See console.",
+                    sound: false
+                }).write(error);
+                this.emit("end");
+            })
     }
 }
 

@@ -56,7 +56,7 @@
         
         function activate(){
             vm.review = new  Resources.Reviews();
-            if(!$state.params.data) return;
+            if(!$state.params.data  && $state.params.data.review) return;
             vm.review = $state.params.data.review;
             vm.photo =  $state.params.data.previewImg ? ImageService.base64ToFile($state.params.data.previewImg.data, $state.params.data.previewImg) : null;
 

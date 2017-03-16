@@ -33,6 +33,11 @@ module.exports =  function(options){
             })),
             gulp.dest(options.path.build.html),
             $.size({title: "index"})
-        )
+        ).on("error", function(error){
+            options.reportError.call(this, error, options.taskName);
+        });
     }
 }
+
+
+ 

@@ -24,6 +24,8 @@ module.exports =  function(options){
             gulp.dest(options.path.build.templates.dir),
             $.size({title: "templates"}),
             $.if(RELEASE, combine($.rev.manifest("templateCacheHtml.json"), gulp.dest("./manifest") ))
-        )
+        ).on("error", function(error){
+            options.reportError.call(this, error, options.taskName);
+        });
     }
 }

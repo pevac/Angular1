@@ -19,7 +19,6 @@
                 $location.replace().path(normalized);
             }
         });
-            
     }
 
 })();

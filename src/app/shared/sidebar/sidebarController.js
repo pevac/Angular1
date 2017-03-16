@@ -13,7 +13,7 @@
 
         vm.isActive = function(state){
             var active = state.split(".")[1];
-            return ($state.current.name.indexOf(active) != -1);
+            return ($state.current.name.indexOf(active) !== -1);
         };
 
         vm.goTo = function(state){

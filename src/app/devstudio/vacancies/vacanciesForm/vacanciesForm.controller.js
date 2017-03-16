@@ -35,7 +35,7 @@
             vm.dataLoading =true;
             vm.vacancy.open = open;
             vm.vacancy[action](
-                function (response) {
+                function () {
                     vm.dataLoading =false;
                     $state.go("home.vacancies.list");
                 }

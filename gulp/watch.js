@@ -34,7 +34,7 @@ module.exports =  function(options){
         });
 
         $.watch([options.path.watch.vendor], function(event, cb) {
-            gulp.start(["vendor:build"]);
+            gulp.start("vendor:build" );
         });
     }
 }

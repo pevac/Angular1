@@ -1,17 +1,19 @@
 npm-debug.log
 debug.log
-node
+
 build
 node_modules
 bower_components
-target
-test-results.xml
-launch.json
+src/assets/lib
+manifest
+coverage
+
 .idea
 .vscode
-src/assets/lib
+
 .war
 .zip
 admin.war
-manifest
+admin.zip
+
 

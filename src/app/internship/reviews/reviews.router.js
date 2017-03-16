@@ -49,12 +49,12 @@
                 params : {
                     data: null
                 },
-                // resolve: {
-                //     /* @ngInject */
-                //     jobPositions:  function(Resources) {
-                //        return  Resources.JobPositions.query().$promise;
-                //     }
-                // },
+                resolve: {
+                    /* @ngInject */
+                    jobPositions:  function(Resources) {
+                       return  Resources.JobPositions.query().$promise;
+                    }
+                },
                 onEnter: saveSessionStorage,
                 onExit: clearSessionStorage
             })

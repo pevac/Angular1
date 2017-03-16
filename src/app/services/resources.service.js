@@ -1,6 +1,6 @@
 (function () {
     "use strict";
-    angular.module('resourceModule',[]);
+    angular.module("resourceModule",[]);
 
      angular.module("resourceModule")
         .config(resourceProvider)

@@ -1,6 +1,6 @@
 const $ = require("gulp-load-plugins")();
 
-const bowerComponent = require("../vendor");
+let bowerComponent = require("../vendor");
 
 exports.AUTOPREFIXER_BROWSERS = [             
     "ie >= 9",
@@ -37,7 +37,7 @@ exports.path = {
     },
     src: { 
         templates: [ SOURCE_BASE_DIR + '/app/**/*.html' ],
-        app: [ SOURCE_BASE_DIR + '/app/**/*.js' ],
+        app: [ SOURCE_BASE_DIR + '/app/**/!(*.spec|*.mock).js' ],
         vendor: bowerComponent,
         styles: SOURCE_BASE_DIR + "/assets/sass/*.scss",
         fonts: [SOURCE_BASE_DIR + "/assets/fonts/**/*.*", "./src/assets/lib/bootstrap-sass/assets/fonts/**/*.*"],

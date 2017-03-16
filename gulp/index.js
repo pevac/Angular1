@@ -19,7 +19,8 @@ task("app:build", path.resolve("./gulp/app"), {
     reportError: config.reportError
 });
 task("templates:build", path.resolve("./gulp/templates"), {
-    path: config.path
+    path: config.path,
+    reportError: config.reportError
 });
 task("html:build", path.resolve("./gulp/html"), {
     path: config.path,
@@ -45,6 +46,11 @@ task("war", path.resolve("./gulp/war"),  {
     path: config.path
 });
 
+task("test", path.resolve("./gulp/unit-tests"), {singleRun: true});
+
+task("test:auto", path.resolve("./gulp/unit-tests"), {singleRun: false});
+
+
 gulp.task("build", ["clear:cache", "clean"], function (cb) {
     sequence (["sass:build","templates:build", "vendor:build", "app:build",  "fonts:build","image:build"],"html:build", cb);
 });
@@ -54,7 +60,7 @@ gulp.task("zip",["clean:war"], function(cb) {
 });
 
 gulp.task("serve",  function (cb) {
-    sequence ("build", ["browser-sync","watch"], cb);
+    sequence ("build",  ["browser-sync","watch"], cb);
 });
 
 gulp.task("default", ["serve"]);
