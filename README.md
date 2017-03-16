@@ -10,4 +10,9 @@
 4. Відкриваємо консоль в кореневій папці проекту і виконуємо наступні команди:
 3.3 npm install
 3.4 bower install
-3.5 npm run public - production упаковка проекта
+
+Команди:
+
+npm run public - production упаковка проекта
+npm run zip - архівування проекта з розширенням .war
+npm run start - 
