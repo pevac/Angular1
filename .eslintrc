@@ -1,6 +1,7 @@
 {
   "extends": "eslint:recommended",
   "plugins": ["angular"],
+  "ecmaVersion": 6,
   "env": {
     "browser": true,
     "jasmine": true

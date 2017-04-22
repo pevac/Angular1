@@ -5,8 +5,8 @@ const spa         = require("browser-sync-spa");
 const config = require("./config");
 
 
-module.exports =  function(options){
-    return function(){
+module.exports =  (options) => {
+    return () => {
         browserSync.init({
             server: {
                 baseDir: config.path.server,

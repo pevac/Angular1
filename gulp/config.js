@@ -1,4 +1,6 @@
-const $ = require("gulp-load-plugins")();
+const $ = require("gulp-load-plugins")({
+    pattern: ["gulp-*", "chalk"]
+});
 
 let bowerComponent = require("../vendor");
 
@@ -64,7 +66,7 @@ exports.path = {
     server: PROXY_PATHS
 };
 
-exports.reportError = function reportError(error, taskName) {
+exports.reportError = (error, taskName) => {
     var lineNumber = error.line || error.lineNumber || null;
     var file = error.file || error.fileName || null;
     
@@ -78,7 +80,7 @@ exports.reportError = function reportError(error, taskName) {
     }).write(error);
 
     var report = "";
-    var chalk = $.util.colors.white.bgRed;
+    var chalk = $.chalk.white.bgRed;
 
     if (taskName) {report += chalk("TASK:") + taskName+"\n";}
     report += chalk("Plugin:") + error.plugin+"\n";

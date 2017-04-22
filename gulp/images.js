@@ -9,8 +9,8 @@ const combine = require("stream-combiner2").obj;
 
 let RELEASE = !!argv.release;
 
-module.exports =  function(options){
-    return function(){
+module.exports =  (options) => {
+    return () => {
         return combine(gulp.src(options.path.src.img),
             $.changed(options.path.build.img),
             $.cache($.imagemin({
@@ -21,7 +21,7 @@ module.exports =  function(options){
             })),
             gulp.dest(options.path.build.img),
             $.size({title: "images"})
-        ).on("error", function(error){
+        ).on("error", (error) => {
             options.reportError.call(this, error, options.taskName);
         });
     }

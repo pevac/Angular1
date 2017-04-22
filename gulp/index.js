@@ -3,6 +3,7 @@
 const gulp = require("gulp");
 const sequence  = require("run-sequence");
 const path = require("path");
+const $ = require("gulp-load-plugins")();
 const task = require("./loader");
 const config = require("./config")
 
@@ -45,23 +46,22 @@ task("watch", path.resolve("./gulp/watch"), {
 task("war", path.resolve("./gulp/war"),  {
     path: config.path
 });
-
 task("test", path.resolve("./gulp/unit-tests"), {singleRun: true});
-
 task("test:auto", path.resolve("./gulp/unit-tests"), {singleRun: false});
 
 
-gulp.task("build", ["clear:cache", "clean"], function (cb) {
+gulp.task("build", ["clear:cache", "clean"],  (cb) => {
     sequence (["sass:build","templates:build", "vendor:build", "app:build",  "fonts:build","image:build"],"html:build", cb);
 });
 
-gulp.task("zip",["clean:war"], function(cb) {
+gulp.task("zip",["clean:war"], (cb) => {
       sequence ( "build", "war", cb);
 });
 
-gulp.task("serve",  function (cb) {
+gulp.task("serve",  (cb) => {
     sequence ("build",  ["browser-sync","watch"], cb);
 });
 
 gulp.task("default", ["serve"]);
 
+ 

@@ -7,10 +7,10 @@ const combine = require("stream-combiner2").obj;
 
 let RELEASE = !!argv.release;
 
-module.exports =  function(options){
-    return function(){
+module.exports =  (options) => {
+    return () => {
         var appScriptSources = combine(gulp.src([options.path.build.app + "/**/*.js", "!"+options.path.build.app +"/vendor.js"]),
-                             $.angularFilesort()).on("error", function(error){
+                             $.angularFilesort()).on("error", (error) => {
                                 error.taskName = options.taskName;
                                 options.reportError.call(this, error);
                             });
@@ -33,7 +33,7 @@ module.exports =  function(options){
             })),
             gulp.dest(options.path.build.html),
             $.size({title: "index"})
-        ).on("error", function(error){
+        ).on("error", (error) => {
             options.reportError.call(this, error, options.taskName);
         });
     }

@@ -9,13 +9,16 @@ const path = require("path");
 
 let RELEASE = !!argv.release;
 
-module.exports =  function(options){
-    return function(){
+module.exports =  (options) => {
+    return () => {
         return combine( gulp.src(options.path.src.app),
+         $.babel({
+                presets: ["es2015"]
+            }),
             $.cached("eslint"),
             $.eslint(),
             $.eslint.format(),
-            $.eslint.result(function (result) {
+            $.eslint.result((result) => {
 			    if (result.warningCount > 0 || result.errorCount > 0) {
 				    delete $.cached.caches.eslint[path.resolve(result.filePath)]
 			    }
@@ -23,6 +26,7 @@ module.exports =  function(options){
             $.eslint.failAfterError(),
             $.remember("eslint"),
             $.if(!RELEASE, $.sourcemaps.init()),
+           
             $.angularFilesort(),
             $.concat("app.js"),
             $.if(!RELEASE, $.sourcemaps.write("app")),
@@ -30,7 +34,7 @@ module.exports =  function(options){
             gulp.dest(options.path.build.app),
             $.size({title: "app"}),
             $.if(RELEASE, combine($.rev.manifest("app.json"), gulp.dest("./manifest") ))
-        ).on('error', function(error) {
+        ).on("error", function (error)  {
                 $.notify({
                     title: "Task Failed " + options.taskName,
                     message: "-- " + "See console.",

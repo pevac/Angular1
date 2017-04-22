@@ -13,17 +13,17 @@ var pathSrcHtml = [
 var pathSrcJs = [
   "./src/app/**/!(*.html|*.spec|*.mock).js"
 ];
-module.exports =  function(options){
-    return function  (done) {
+module.exports =  (options) => {
+    return   (done) => {
         var reporters = ["progress"];
         var preprocessors = {};
 
-        pathSrcHtml.forEach(function(path) {
+        pathSrcHtml.forEach((path) => {
             preprocessors[path] = ["ng-html2js"];
         });
 
         if (options.singleRun) {
-            pathSrcJs.forEach(function(path) {
+            pathSrcJs.forEach((path) => {
                 preprocessors[path] = ["coverage"];
             });
             reporters.push("coverage")
@@ -37,7 +37,7 @@ module.exports =  function(options){
             preprocessors: preprocessors
         };
 
-        var server = new karma.Server(localConfig, function(failCount) {
+        var server = new karma.Server(localConfig, (failCount) => {
             done(failCount ? new Error("Failed " + failCount + " tests.") : null);
         })
         server.start();

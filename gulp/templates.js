@@ -7,8 +7,8 @@ const combine = require("stream-combiner2").obj;
 
 let RELEASE = !!argv.release;
 
-module.exports =  function(options){
-    return function(){
+module.exports =  (options) => {
+    return () => {
        return combine(gulp.src(options.path.src.templates),
             $.if(RELEASE, $.htmlmin({
                 removeComments: true,
@@ -24,7 +24,7 @@ module.exports =  function(options){
             gulp.dest(options.path.build.templates.dir),
             $.size({title: "templates"}),
             $.if(RELEASE, combine($.rev.manifest("templateCacheHtml.json"), gulp.dest("./manifest") ))
-        ).on("error", function(error){
+        ).on("error", (error) => {
             options.reportError.call(this, error, options.taskName);
         });
     }

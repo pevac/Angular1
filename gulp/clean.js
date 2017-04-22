@@ -2,8 +2,8 @@
 
 const del = require("del");
 
-module.exports =  function(options){
-    return function(){
+module.exports =  (options) => {
+    return () => {
         return del(options.clean);
     }
 }

@@ -2,8 +2,8 @@
 
 const cache = require("gulp-cache");
 
-module.exports =  function(options){
-    return  function (done) {
+module.exports =  (options) => {
+    return   (done) => {
         return cache.clearAll(done);
     }
 }

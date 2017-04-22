@@ -10,8 +10,8 @@ const combine = require("stream-combiner2").obj;
 
 let RELEASE = !!argv.release;
 
-module.exports =  function(options){
-    return function(){
+module.exports =  (options) => {
+    return () => {
         return combine( gulp.src(JSON.parse(fs.readFileSync('./vendor.json'))),
             $.if(!RELEASE, $.sourcemaps.init()),
             $.concat("vendor.js"),

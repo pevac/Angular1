@@ -7,8 +7,8 @@ const combine = require("stream-combiner2").obj;
 
 let RELEASE = !!argv.release;
 
-module.exports =  function(options){
-    return function(){
+module.exports =  (options) => {
+    return () => {
         return combine( gulp.src(options.path.src.styles),
             $.if(!RELEASE, $.sourcemaps.init()),
             $.sass(),
@@ -18,7 +18,7 @@ module.exports =  function(options){
             gulp.dest(options.path.build.styles),
             $.size({title: "styles"}),
             $.if(RELEASE, combine($.rev.manifest("css.json"), gulp.dest("./manifest") ))
-        ).on("error", function(error){
+        ).on("error", (error) => {
             options.reportError.call(this, error, options.taskName);
         });
     }
