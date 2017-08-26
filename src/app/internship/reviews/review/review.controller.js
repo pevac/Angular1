@@ -7,12 +7,14 @@
     function ReviewController($scope, $state , Resources, ImageService){
         var vm = this;
 
+        vm.$onInit = function () {
+            activate();
+        };
+
         vm.goToEdit = function () {
             $state.go($state.params.previousState.name, { data: {review: vm.review, previewImg: $state.params.data.previewImg} }, {} );
         };
 
-        activate();
-       
         function activate() {
             if($state.params.data && $state.params.data.review){ 
                 vm.review = $state.params.data.review;
@@ -33,5 +35,3 @@
         }
     }
 })();
-
-

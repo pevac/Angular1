@@ -24,10 +24,12 @@
             }
         }());
 
-    resourceRun.$inject = ["$http", "$sessionStorage"];
-    function resourceRun($http, $sessionStorage){
-        $http.defaults.headers.post["X-CSRFToken"] = $sessionStorage.$default().csrftoken;
-        $http.defaults.headers.common["X-CSRFToken"] = $sessionStorage.$default().csrftoken;
+    resourceRun.$inject = ["$http", "Session"];
+    function resourceRun($http, Session){
+        Session.getAsync().then(function(data){
+            $http.defaults.headers.common["X-CSRF-Token"] = data.csrftoken;
+        })
+      
     }
 
     resourceProvider.$inject = ["$resourceProvider"];

@@ -6,6 +6,7 @@ const $ = require("gulp-load-plugins")({
     pattern: ["gulp-*", "imagemin-pngquant"]
 });
 const combine = require("stream-combiner2").obj;
+const util = require("util");
 
 let RELEASE = !!argv.release;
 
@@ -22,7 +23,7 @@ module.exports =  (options) => {
             gulp.dest(options.path.build.img),
             $.size({title: "images"})
         ).on("error", (error) => {
-            options.reportError.call(this, error, options.taskName);
+            util.reportError.call(this, error, options.taskName);
         });
     }
 }

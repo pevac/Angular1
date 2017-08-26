@@ -10,16 +10,11 @@
             .state("home.vacancies", {
                 url: "/vacancies",
                 template:"<div  ui-view ></div>",
-                abstract: true,
-                resolve: {
-                    Resources: "Resources"
-                }
+                abstract: true
             })
             .state("home.vacancies.list", {
                 url: "/list",
-                templateUrl:"devstudio/vacancies/vacanciesList/vacanciesList.tmpl.html",
-                controller: "VacanciesController",
-                controllerAs: 'vm',
+                component: "vacancies",
                 resolve: {
                     /* @ngInject */
                     vacancies:  function(Resources) {
@@ -29,9 +24,7 @@
             })
             .state("home.vacancies.addvacancy", {
                 url: "/add",
-                templateUrl:"devstudio/vacancies/vacanciesForm/vacanciesForm.tmpl.html",
-                controller: "AddVacancyController",
-                controllerAs: 'vm',
+                component: "vacanciesForm",
                 resolve: {
                     /* @ngInject */
                     jobPositions:  function(Resources) {
@@ -51,9 +44,7 @@
             })
             .state("home.vacancies.edit", {
                 url: "/edit",
-                templateUrl:"devstudio/vacancies/vacanciesForm/vacanciesForm.tmpl.html",
-                controller: "AddVacancyController",
-                controllerAs: 'vm',
+                component: "vacanciesForm",
                 params : {
                     data: null
                 },
@@ -76,9 +67,7 @@
             })
             .state("home.feedback", {
                 url: "/feedback",
-                templateUrl:"devstudio/vacancies/vacancyFeedback/vacancyFeedback.tmpl.html",
-                controller: "VacanciesFeedbackController",
-                controllerAs: 'vm',
+                component: "vacancyFeedback"
             });
 
             clearSessionStorage.$inject = [ "$sessionStorage"];
@@ -98,7 +87,9 @@
                     $sessionStorage.stateParams = stateParams;
                 } else {
                     for(var key in $sessionStorage.$default().stateParams){
-                        $stateParams[key] = $sessionStorage.$default().stateParams[key];
+                        if($sessionStorage.$default().stateParams[key]) {
+                            $stateParams[key] = $sessionStorage.$default().stateParams[key];
+                        }
                     }
                 }
             }

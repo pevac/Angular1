@@ -19,7 +19,7 @@
                         <option ng-repeat="jobPosition in vm.jobPositions"  ng-value="jobPosition.id">{{jobPosition.name}}</option>
                     </select>
                     <div class="error" ng-if="vacancyForm.$submitted || vacancyForm.jobPosition.$touched" ng-messages="vacancyForm.jobPosition.$error" role="alert">
-                        <div ng-messages-include="shared/messages/messages.tmpl.html"></div>
+                        <div ng-messages-include="app/shared/messages/messages.tmpl.html"></div>
                     </div>
                 </div>
             </div>
@@ -32,7 +32,7 @@
                         <option ng-repeat="project in vm.projects"   ng-value="project.id">{{project.name}}</option>
                     </select>
                     <div class="error" ng-if="vacancyForm.$submitted || vacancyForm.projectName.$touched" ng-messages="vacancyForm.projectName.$error" role="alert">
-                        <div ng-messages-include="shared/messages/messages.tmpl.html"></div>
+                        <div ng-messages-include="app/shared/messages/messages.tmpl.html"></div>
                     </div>
                 </div>
             </div>
@@ -41,7 +41,7 @@
                 <div class="col-sm-9">
                     <trix-editor  name="description" angular-trix  ng-model="vm.vacancy.description" class="trix-content" ng-maxlength="250"  ng-required="true"></trix-editor>
                      <div class="error" ng-if="vacancyForm.$submitted || vacancyForm.description.$touched" ng-messages="vacancyForm.description.$error" role="alert">
-                        <div ng-messages-include="shared/messages/messages.tmpl.html"></div>
+                        <div ng-messages-include="app/shared/messages/messages.tmpl.html"></div>
                     </div>
                 </div>
             </div>
@@ -54,7 +54,7 @@
                         <option ng-repeat="workingTime in vm.workingTimes"  ng-value="workingTime.id">{{workingTime.name}}</option>
                     </select>
                     <div class="error" ng-if="vacancyForm.$submitted || vacancyForm.workingTime.$touched" ng-messages="vacancyForm.workingTime.$error" role="alert">
-                        <div ng-messages-include="shared/messages/messages.tmpl.html"></div>
+                        <div ng-messages-include="app/shared/messages/messages.tmpl.html"></div>
                     </div>
                 </div>
             </div>
@@ -63,7 +63,7 @@
                 <div class="col-sm-9">
                     <textarea  id="inputInfo" resize-text-area  name="info" ng-model="vm.vacancy.info"   class="form-control"   ng-maxlength="500"></textarea>
                     <div class="error" ng-if="vacancyForm.$submitted || vacancyForm.workingTime.$touched" ng-messages="vacancyForm.workingTime.$error" role="alert">
-                        <div ng-messages-include="shared/messages/messages.tmpl.html"></div>
+                        <div ng-messages-include="app/shared/messages/messages.tmpl.html"></div>
                     </div>
                 </div>
             </div>
@@ -78,7 +78,7 @@
                             <button type="button" class="btn btn-default btn-calendar" ng-click="vm.open()"><i class="glyphicon glyphicon-calendar"></i></button>
                         </span>
                         <div class="error" ng-if="vacancyForm.$submitted || vacancyForm.date.$touched" ng-messages="vacancyForm.date.$error" role="alert">
-                            <div ng-messages-include="shared/messages/messages.tmpl.html"></div>
+                            <div ng-messages-include="app/shared/messages/messages.tmpl.html"></div>
                         </div>
                     </p>
                 </div>

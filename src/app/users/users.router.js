@@ -13,7 +13,7 @@
             })
             .state("home.users.list", {
                 url: "/list",
-                templateUrl:"users/usersList/usersList.tmpl.html",
+                templateUrl:"app/users/usersList/usersList.tmpl.html",
                 controller: "UsersController",
                 controllerAs: "vm",
                 resolve: {
@@ -25,7 +25,7 @@
             })
             .state("home.users.add", {
                 url: "/add",
-                templateUrl:"users/userForm/userForm.tmpl.html",
+                templateUrl:"app/users/userForm/userForm.tmpl.html",
                 controller: "AddUserController",
                 controllerAs: "vm",
                 params : {
@@ -37,7 +37,7 @@
             })
             .state("home.users.edit", {
                 url: "/edit",
-                templateUrl:"users/userForm/userForm.tmpl.html",
+                templateUrl:"app/users/userForm/userForm.tmpl.html",
                 controller: "AddUserController",
                 controllerAs: "vm",
                 params : {
@@ -48,7 +48,7 @@
             })
             .state("home.users.view", {
                 url: "/view",
-                templateUrl:"users/userView/userView.tmpl.html",
+                templateUrl:"app/users/userView/userView.tmpl.html",
                 controller: "ViewUserController",
                 controllerAs: "vm" ,
                 params : {

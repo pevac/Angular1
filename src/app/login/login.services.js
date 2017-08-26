@@ -5,24 +5,31 @@
         .service("Session", Session)
         .factory("AuthInterceptor", AuthInterceptor)
         .factory("AuthResolver",AuthResolver)
-        .factory('UserService', UserService);
+        .factory('UserService', UserService)
+        .factory("IdleService", IdleService);
 
-    AuthService.$inject = ["$http", "Session","UserService"];
-    function AuthService($http, Session, UserService) {
+    AuthService.$inject = ["$http", "Session","UserService", "IdleService"];
+    function AuthService($http, Session, UserService, IdleService) {
         var authService = {};
 
         authService.login = function (credentials) {
             return $http
                 .post("http://localhost:8888/api/login", credentials)
                 .then(function (res) {
-                    UserService.setUser(res.data.user);
-                    Session.create(res.data.id, res.data.user.id, res.data.user.role);
-                    return res.data.user;
+                    if(res.token) {
+                        $http.defaults.headers.common["X-CSRF-Token"] = res.token;
+                        Session.create(res.data.id, res.token, res.data.user.id, res.data.user.role);
+                        UserService.setUser(res.data.user);
+                        IdleService.startTimer();
+                        return true;
+                    }
+                    return false;
                 });
         };
 
         authService.logout = function () {
-             Session.destroy();
+            Session.destroy();
+            $http.defaults.headers.common["X-CSRF-Token"] = "";
         };
 
         authService.isAuthenticated = function () {
@@ -40,27 +47,41 @@
         return authService;
     }
 
-    Session.$inject = ["$sessionStorage"];
-    function Session($sessionStorage) {
+    Session.$inject = ["$sessionStorage", "$q"];
+    function Session($sessionStorage, $q) {
         var vm = {};
         var cookieSet = $sessionStorage;
-        var session = {};
 
-        vm.create = function (sessionId, userId, userRole) {
+        vm.create = function (sessionId, token, userId, userRole) {
+            var session = {};
             session.id = sessionId;
             session.userId = userId;
             session.userRole = userRole;
+            session.csrftoken = token;
             cookieSet.$default({session:  session});
         };
 
         vm.destroy = function () {
             cookieSet.$reset();
-            
         };
 
-        vm.get = function () {
+        vm.getAsync = function () {
+            var session =  cookieSet.$default().session;
+            var deferred = $q.defer();
+            if (angular.isDefined(session)) {
+                if (session) {
+                    deferred.resolve(session);
+                } else {
+                    deferred.reject();
+                }
+            }
+            return deferred.promise;
+        };
+
+        vm.get= function () {
             return cookieSet.$default().session;
         };
+
 
         return vm;
     }
@@ -118,6 +139,35 @@
             getUser : getUser
         };
     
+    }
+
+    IdleService.$inject = ["$rootScope", "$timeout", "$log", "AUTH_EVENTS"];
+    function IdleService($rootScope, $timeout, $log, AUTH_EVENTS) {
+        var idleTimer = null;
+        var   startTimer = function () {
+                $log.log("Starting timer");
+                idleTimer = $timeout(timerExpiring, 50000);
+        };
+        var  stopTimer = function () {
+                if (idleTimer) {
+                    $timeout.cancel(idleTimer);
+                }
+        };
+        var resetTimer = function () {
+                stopTimer();
+                startTimer();
+        };
+        var timerExpiring = function () {
+                stopTimer();
+                $rootScope.$broadcast(AUTH_EVENTS.sessionTimeout);
+                $log.log("Timer expiring ..");
+        };
+     
+        return {
+            startTimer: startTimer,
+            stopTimer: stopTimer,
+            resetTimer: resetTimer
+        }
     }
 
 })();

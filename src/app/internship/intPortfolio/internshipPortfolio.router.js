@@ -14,10 +14,8 @@
             })
             .state("home.intportfolio.list", {
                 url: "/list",
-                templateUrl:"internship/intPortfolio/intPortfolioList/intPortfolioList.tmpl.html",
-                controller: 'IntPortfolioListController',
-                controllerAs: "vm",
-                 resolve: {
+                component: "intPortfolioList",
+                resolve: {
                      /* @ngInject */
                     projects:  function(Resources) {
                        return  Resources.IntProjects.query().$promise;
@@ -26,9 +24,7 @@
             })
             .state("home.intportfolio.addportfolio", {
                 url: "/add",
-                templateUrl:"internship/intPortfolio/intPortfolioForm/intPortfolioForm.tmpl.html",
-                controller: "AddIntPortfolioController",
-                controllerAs: "vm",
+                component: "intPortfolioForm",
                 params: {
                     data: null
                 },
@@ -37,9 +33,7 @@
             })
             .state("home.intportfolio.editportfolio", {
                 url: "/edit",
-                templateUrl:"internship/intPortfolio/intPortfolioForm/intPortfolioForm.tmpl.html",
-                controller: "AddIntPortfolioController",
-                controllerAs: "vm",
+                component: "intPortfolioForm",
                 params: {
                     data: null
                 },
@@ -48,9 +42,7 @@
             })
             .state("home.intportfolio.viewportfolio", {
                 url: "/view",
-                templateUrl:"internship/intPortfolio/intPortfolioView/intPortfolioView.tmpl.html",
-                controller: "IntPortfolioViewController",
-                controllerAs: "vm",
+                component: "intPortfolioViewer",
                 params: {
                     data: null,
                     previousState: null
@@ -76,7 +68,9 @@
                     $sessionStorage.stateParams = stateParams;
                 } else {
                     for(var key in $sessionStorage.$default().stateParams){
-                        $stateParams[key] = $sessionStorage.$default().stateParams[key];
+                        if($sessionStorage.$default().stateParams[key]) {
+                            $stateParams[key] = $sessionStorage.$default().stateParams[key];
+                        }
                     }
                 }
             }

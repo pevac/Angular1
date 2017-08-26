@@ -7,12 +7,14 @@
     function IntPortfolioViewController($scope, $state , Resources, ImageService){
         var vm = this;
 
+        vm.$onInit = function () {
+            activate();
+        };
+
         vm.goToEdit = function () {
             $state.go($state.params.previousState.name, {previousState : { name : $state.current.name }, data: {project: vm.project, previewImg: $state.params.data.previewImg} }, {} );
         };
         
-        activate();
-       
         function activate() {
             if($state.params.data && $state.params.data.project){ 
                 vm.project = $state.params.data.project;

@@ -46,7 +46,7 @@
 }
 
 .draft{
-  background: url("../img/draft.png") center no-repeat;
+  background: url("../assets/img/draft.png") center no-repeat;
   display: block;
   background-size: contain;
   min-width: 50px;
@@ -105,11 +105,19 @@
 	}
 }
 
+
+
 .review-view{
   margin: 0 auto;
 
   .thumbnail:hover, .thumbnail:focus {
     text-decoration: none;
+    border: none;
+  }
+
+  .thumbnail{
+    text-decoration: none;
+    border: none;
   }
 
   .review{

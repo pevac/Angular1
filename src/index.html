@@ -4,19 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin</title>
-    <link rel="shortcut icon" href="img/title.png" type="image/x-icon">
+    <link rel="shortcut icon" href="assets/img/title.png" type="image/x-icon">
+    <!-- build:css({.tmp/serve,build}) css/main.css -->
     <!-- inject:css -->
     <!-- endinject -->
+    <!-- endbuild -->
 </head>
 <body>
     <!--[if lt IE 10]>
         <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
     <app></app>
-  <!-- inject:js -->
+  <!-- build:js(src) js/vendor.js -->
+  <!-- inject:vendor -->
   <!-- endinject -->
+  <!-- endbuild -->
+
+  <!-- build:js({.tmp/serve,.tmp/partials,build,src}) js/app.js -->
   <!-- inject:app -->
   <!-- endinject -->
-  
+  <!-- inject:partials -->
+  <!-- endinject -->
+  <!-- endbuild -->
+
+  <!--removeIf(production)-->
+    <script src="//unpkg.com/@uirouter/visualizer@4"></script>
+    <script>
+        var Visualizer = window['ui-router-visualizer'].Visualizer;
+        angular.module("appModule").run(function($uiRouter) {
+            var pluginInstance = $uiRouter.plugin(Visualizer);
+        });
+    </script>
+  <!--endRemoveIf(production)-->
 </body>
 </html>

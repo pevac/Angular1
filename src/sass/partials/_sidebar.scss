@@ -3,7 +3,7 @@
   margin-bottom: 0;
   border-radius: 0;
   position: relative;
-  z-index: 100;
+  z-index: 1;
 }
 
 .link-logout{
@@ -21,7 +21,7 @@
     .navbar-brand{
       height: $navbar-brand-height;
       min-width: $navbar-brand-width;
-      background: url("../img/logo.png") no-repeat center;
+      background: url("../assets/img/logo.png") no-repeat center;
       background-size: 80%;
     }
   }
@@ -146,7 +146,7 @@
 
       .arrow {
         background-size: contain;
-        background: url("../img/arrow.png") no-repeat center;
+        background: url("../assets/img/arrow.png") no-repeat center;
         width: 15px;
         height: 25px;
         margin-top: 5px;
@@ -155,19 +155,19 @@
       }
 
       .home-icon {
-        background: url("../img/home-icon.png");
+        background: url("../assets/img/home-icon.png");
       }
       .dev-studio-icon {
-        background: url("../img/dev-studio-icon.png");
+        background: url("../assets/img/dev-studio-icon.png");
       }
       .internship-icon {
-        background: url("../img/internship-icon.png");
+        background: url("../assets/img/internship-icon.png");
       }
       .users-icon{
-        background: url("../img/users-icon.png");
+        background: url("../assets/img/users-icon.png");
       }
       .dictionares-icon{
-        background: url("../img/users-icon.png");
+        background: url("../assets/img/users-icon.png");
       }
 
       a:hover,

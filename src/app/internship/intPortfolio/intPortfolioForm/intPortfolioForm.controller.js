@@ -1,11 +1,12 @@
 (function(){
     "use strict"
 
-    angular.module("intPortfolioModule").controller("AddIntPortfolioController", AddIntPortfolioController)
-    AddIntPortfolioController.$inject = ["$scope",  "$state",  "ImageService", "Resources"];
+    angular.module("intPortfolioModule").controller("IntPortfolioFormController", IntPortfolioFormController)
+    IntPortfolioFormController.$inject = ["$scope",  "$state",  "ImageService", "Resources"];
 
-    function AddIntPortfolioController($scope,   $state,  ImageService, Resources) {
+    function IntPortfolioFormController($scope,   $state,  ImageService, Resources) {
         var vm = this;
+
         vm.dateOptions = {
             datepickerMode: "'month'",
             minMode: "month",
@@ -23,6 +24,10 @@
             opened: false
         };
 
+        vm.$onInit = function () {
+            activate();
+        };
+
         vm.open1 = function() {
             vm.popup1.opened = true;
         };
@@ -33,6 +38,7 @@
 
          vm.goToEdit = function () {
            var previewImg;
+
            ImageService.fileToObject(vm.img).then(function(data){
                previewImg = data;
                     $state.go( "home.intportfolio.viewportfolio", { previousState : { name : $state.current.name }, data: {project: vm.project, previewImg: previewImg} }, {} );
@@ -47,10 +53,11 @@
 
         function saveProject(succesHandler){
             var action = vm.project.id ? "$update": "$save";
+
             vm.project[action](function(data){succesHandler(data)});
         }
 
-        activate();
+        
 
         function activate() {
             vm.project = new Resources.IntProjects();
@@ -62,14 +69,19 @@
                 vm.project.dateStart  = new Date(vm.project.dateStart);
                 vm.project.dateEnd  = new Date(vm.project.dateEnd);
 
-                if(!vm.img) setImage();
+                if(!vm.img) {
+                    setImage();
+                }
             }
         }
 
         function saveImage(data){
             var image = vm.img;
+
             vm.project.id = data.id;
-            if(!image && !image.lastModifiedDate) {return;}
+            if(!image && !image.lastModifiedDate) {
+                return;
+            }
             Resources.IntProjectFile.saveFile({data :image, id: vm.project.id},function () {
                 vm.project.img = image.name;
                 saveProject(function () {

@@ -1,13 +1,15 @@
 (function(){
     "use strict";
 
-    angular.module("reviewsModule").controller("AddReviewController", AddReviewController);
-    AddReviewController.$inject = ["$scope", "$state", "jobPositions", "ImageService", "Resources"];
+    angular.module("reviewsModule").controller("ReviewFormController", ReviewFormController);
+    ReviewFormController.$inject = ["$scope", "$state", "ImageService", "Resources"];
 
-    function AddReviewController($scope,  $state, jobPositions,  ImageService, Resources){
+    function ReviewFormController($scope,  $state, ImageService, Resources){
         var vm = this;
-        vm.jobPositions = jobPositions;
-        activate();
+
+        vm.$onInit = function () {
+            activate();
+        };
         
         vm.addReview = function (visible) {
             vm.dataLoading =true;
@@ -30,15 +32,17 @@
 
         function saveReview(succesHandler){
             var action = vm.review.id ? "$update": "$save";
+
             vm.review[action](function(data){succesHandler(data)});
         }
 
 
         function uploadImage(imageUrl, photo, review) {
             var imageBase64 = imageUrl;
-            vm.review.id  = review.id;
             var file = ImageService.base64ToFile(imageBase64, photo);   
-          
+            
+            vm.review.id  = review.id;
+
             Resources.ReviewFile.saveFile({data: file, id: vm.review.id },function () {
                 vm.review.img = file.name;
                 saveReview(function () {
@@ -56,11 +60,15 @@
         
         function activate(){
             vm.review = new  Resources.Reviews();
-            if(!$state.params.data  && $state.params.data.review) return;
+            if(!$state.params.data  && $state.params.data.review) {
+                return;
+            }
             vm.review = $state.params.data.review;
             vm.photo =  $state.params.data.previewImg ? ImageService.base64ToFile($state.params.data.previewImg.data, $state.params.data.previewImg) : null;
 
-            if(!vm.photo) getReviewImage();
+            if(!vm.photo) {
+                getReviewImage();
+            } 
         }
        
     }

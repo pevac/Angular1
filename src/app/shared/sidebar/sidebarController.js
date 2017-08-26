@@ -1,11 +1,12 @@
 (function(){
     angular.module("sidebarModule", []).controller("SidebarController", SidebarController);
 
-    SidebarController.$inject = ["$scope","$rootScope", "$state", "AUTH_EVENTS", "AuthService"];
+    SidebarController.$inject = ["$scope","$rootScope", "$state", "UserService", "AUTH_EVENTS", "AuthService"];
     
-    function SidebarController($scope,$rootScope, $state, AUTH_EVENTS, AuthService) {
+    function SidebarController($scope,$rootScope, $state,UserService, AUTH_EVENTS, AuthService) {
         var vm = this;
 
+        vm.currentUser = UserService.getUser();
         vm.logout = function(){
             AuthService.logout();
             $rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
@@ -17,10 +18,11 @@
         };
 
         vm.goTo = function(state){
-          if(state === "" || state === undefined || state === null) return;
+          if(state === "" || state === undefined || state === null) {
+            return;
+          }
           $state.go(state, {}, {});
         }
-
 
         vm.menu = [
           {

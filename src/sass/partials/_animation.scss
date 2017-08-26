@@ -1,0 +1,9 @@
+.view-change-animate{
+    &.ng-enter {
+      animation: fadeOut 6s;
+    }
+    &.ng-leave {
+        animation: fadeOut 6s;
+    }
+}
+

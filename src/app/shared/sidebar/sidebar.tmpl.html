@@ -11,19 +11,19 @@
 		</button>
 		<div class="account navbar-right">
 			<div class="user">
-				<span class="user-name" ng-bind="$parent.currentUser.userName"></span>
+				<span class="user-name" ng-bind="vm.currentUser.userName"></span>
 				<a class="logout-btn" ng-click="vm.logout()">log out</a>
 			</div>
 			<div class="photo">
-				<img  ng-src="{{$parent.currentUser.avatar}}" alt="">
+				<img  ng-src="{{vm.currentUser.avatar}}" alt="">
 			</div>
 		</div>
 	</div>
 
 	<div class="navbar-default sidebar"  >
 		<div class="sidebar-nav navbar-collapse collapse" uib-collapse="isNavCollapsed" >
-			<uib-accordion close-others="true" template-url="shared/sidebar/menu.tmpl.html">
-				<li  uib-accordion-group  ng-repeat="item in vm.menu" ng-class="{'active': isOpen}" is-open="isOpen"  template-url="shared/sidebar/submenu.tmpl.html">
+			<uib-accordion close-others="true" template-url="app/shared/sidebar/menu.tmpl.html">
+				<li  uib-accordion-group  ng-repeat="item in vm.menu" ng-class="{'active': isOpen}" is-open="isOpen"  template-url="app/shared/sidebar/submenu.tmpl.html">
 					<uib-accordion-heading >
 						<div ng-click="vm.goTo(item.state)">
 							<span class="{{item.class}}"></span>

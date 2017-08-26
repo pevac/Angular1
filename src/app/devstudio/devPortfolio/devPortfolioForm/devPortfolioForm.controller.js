@@ -1,13 +1,16 @@
 (function () {
     "use strict";
     
-    angular.module("devPortfolioModule").controller("AddDevPortfolioController", AddDevPortfolioController);
-    AddDevPortfolioController.$inject = ["$scope", "$timeout", "$state",  "ImageService", "Resources"];
+    angular.module("devPortfolioModule").controller("devPortfolioFormController", devPortfolioFormController);
+    devPortfolioFormController.$inject = ["$timeout", "$state",  "ImageService", "Resources"];
     
-    function AddDevPortfolioController($scope,  $timeout, $state,  ImageService, Resources) {
+    function devPortfolioFormController( $timeout, $state,  ImageService, Resources) {
         var vm = this;
         var isTop;
-        if (vm.project) {  isTop = vm.project.inTop; }
+        
+        if (vm.project) { 
+             isTop = vm.project.inTop;
+        }
 
         vm.dateOptions = {
             datepickerMode: "'month'",
@@ -25,6 +28,10 @@
             opened: false
         }
 
+        vm.$onInit = function () {
+            activate();
+        };
+
         vm.open1 = function () {
             vm.popup1.opened = true;
         };
@@ -36,6 +43,7 @@
         vm.goToEdit = function () {
            var previewImg;
            var mainImg;
+
            ImageService.fileToObject(vm.previewImg).then(function(data){
                previewImg = data;
                if(mainImg){
@@ -60,14 +68,13 @@
         vm.changeTop = function (project) {
             Resources.DevProjects.query(function (data) {
                 var _isCheckTop = isCheckTop(data);
+
                 if (!(project.id && (_isCheckTop && !project.inTop || !project.inTop && !_isCheckTop || project.inTop && _isCheckTop || isTop && project.inTop && !_isCheckTop))) {
                     vm.project.inTop = isTop;
                     alert("Кількість проектів з зафарбованою зіркою не більше 4");
                 } 
             });
         };
-
-        activate();
 
         function addFullImage(project) {
             vm.project.id = project.id;
@@ -131,10 +138,15 @@
                 isTop = vm.project.inTop;
 
                 vm.project.dateStart  = new Date(vm.project.dateStart);
-                if (vm.project.dateEnd) vm.project.dateEnd  = new Date(vm.project.dateEnd);
-
-                if(!vm.previewImg) setImage(vm.project.previewImg,  "previewImg");
-                if(!vm.mainImg) setImage(vm.project.mainImg,  "mainImg");
+                if (vm.project.dateEnd) {
+                    vm.project.dateEnd  = new Date(vm.project.dateEnd);
+                }
+                if(!vm.previewImg) {
+                    setImage(vm.project.previewImg,  "previewImg");
+                }
+                if(!vm.mainImg) {
+                    setImage(vm.project.mainImg,  "mainImg");
+                }
             }
         }
 

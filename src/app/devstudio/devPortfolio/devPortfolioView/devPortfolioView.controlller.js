@@ -11,7 +11,9 @@
             $state.go($state.params.previousState.name, { data: {project: vm.project, previewImg: $state.params.data.previewImg, mainImg: $state.params.data.mainImg} }, {} );
         };
         
-        activate();
+        vm.$onInit = function () {
+            activate();
+        };
        
         function activate() {
             if($state.params.data && $state.params.data.project){ 

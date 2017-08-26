@@ -4,6 +4,7 @@ const gulp = require("gulp");
 const argv = require("minimist")(process.argv.slice(2));
 const $ = require("gulp-load-plugins")();
 const combine = require("stream-combiner2").obj;
+const util = require("util");
 
 let RELEASE = !!argv.release;
 
@@ -25,7 +26,7 @@ module.exports =  (options) => {
             $.size({title: "templates"}),
             $.if(RELEASE, combine($.rev.manifest("templateCacheHtml.json"), gulp.dest("./manifest") ))
         ).on("error", (error) => {
-            options.reportError.call(this, error, options.taskName);
+            util.reportError.call(this, error, options.taskName);
         });
     }
 }

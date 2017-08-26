@@ -12,7 +12,7 @@ function listFiles() {
 
   var patterns = vendor
     .concat([
-      "./src/assets/lib/angular-mocks/angular-mocks.js",
+      "./node_modules/angular-mocks/angular-mocks.js",
       "./src/app/**/*.module.js",
       "./src/app/**/*.js",
       "./src/app/**/*.spec.js"

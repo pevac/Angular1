@@ -2,9 +2,9 @@
     "use strict";
 
     angular.module("loginModule").controller("LoginController",LoginController );
-    LoginController.$inject = ["$scope","$rootScope","AUTH_EVENTS","AuthService","Session", "UserService"];
+    LoginController.$inject = ["$scope","$rootScope","AUTH_EVENTS","AuthService","Session", "UserService", "IdleService"];
     
-    function LoginController($scope, $rootScope, AUTH_EVENTS, AuthService,  Session, UserService) {
+    function LoginController($scope, $rootScope, AUTH_EVENTS, AuthService,  Session, UserService, IdleService) {
         var vm = this;
        
         vm.loginStatus = {
@@ -26,11 +26,12 @@
                 id: 23,
                 role: "admin",
                 userName: "ivan1",
-                avatar: "img/admin.jpg"
+                avatar: "./assets/img/admin.jpg"
             };
             UserService.setUser(currentUser);
-
-            Session.create(2, 2, "admin");
+            IdleService.startTimer();
+            
+            Session.create(2, "7777",  2, "admin");
             $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
         };
     }

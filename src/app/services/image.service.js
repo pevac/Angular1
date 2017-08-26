@@ -16,7 +16,7 @@
             function bufferArrayResponceToFile(response, name){
                 var blob;
                 var arrayBufferView = new Uint8Array(response.data);
-                var type = response.headers('content-type') || 'image/WebP';
+                var type = response.headers("content-type") || "image/WebP";
                 blob = new Blob([arrayBufferView], { type: type });
                 blob.name = name;
                 return  blob;
@@ -24,7 +24,7 @@
 
             function base64ToBlob(base64, file){
                 var base64ImageContent = base64.replace(/^data:image\/(png|jpg|jpeg|gif);base64,/, "");
-                var mime = file.type || '';
+                var mime = file.type || "";
                 var sliceSize = file.size || 1024;
                 var byteChars = window.atob(base64ImageContent);
                 var byteArrays = [];

@@ -2,12 +2,10 @@
     "use strict";
 
     angular.module("intPortfolioModule").controller("IntPortfolioListController", IntPortfolioListController);
-    IntPortfolioListController.$inject = ["$scope", "$state", "projects"];
+    IntPortfolioListController.$inject = ["$scope", "$state"];
 
-    function IntPortfolioListController($scope,  $state, projects){
+    function IntPortfolioListController($scope,  $state){
         var vm = this;
-
-        vm.projects = projects;
 
         vm.goToEdit = function(project, stateToGo) {
             $state.go( stateToGo, { previousState : { name : $state.current.name }, data: {project: project} }, {} );

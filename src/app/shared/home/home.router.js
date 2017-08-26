@@ -8,10 +8,7 @@
         $stateProvider
             .state("home", {
                 url: "/app",
-                templateUrl: "shared/home/home.html",
-                controller: "HomeController",
-                controllerAs: "vm",
-                abstract: false,
+                component: "home",
                 data: {
                     authorizedRoles: [USER_ROLES.admin, USER_ROLES.expert]
                 },
@@ -22,6 +19,11 @@
                         return AuthResolver.resolve();
                     }
                 }
+            })
+            .state("home.modal", {
+                url: '/modal',
+                modal: true,
+                component: "modal"
             });
 
     }

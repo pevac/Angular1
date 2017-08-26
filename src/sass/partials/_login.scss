@@ -25,7 +25,7 @@
     .navbar-brand{
       height: $navbar-brand-height;
       min-width: $navbar-brand-width;
-      background: url("../img/logo.png") no-repeat center;
+      background: url("../assets/img/logo.png") no-repeat center;
       background-size: 80%;
       background-origin: border-box;
     }
@@ -68,11 +68,11 @@
   }
 
   .smile-icon{
-    background: url("../img/smile-icon.png") no-repeat center;
+    background: url("../assets/img/smile-icon.png") no-repeat center;
   }
 
   .lock-icon{
-    background: url("../img/lock-icon.png") no-repeat center;
+    background: url("../assets/img/lock-icon.png") no-repeat center;
     background-size: contain;
   }
 

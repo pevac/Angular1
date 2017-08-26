@@ -12,7 +12,7 @@ let RELEASE = !!argv.release;
 
 module.exports =  (options) => {
     return () => {
-        return combine( gulp.src(JSON.parse(fs.readFileSync('./vendor.json'))),
+        return combine( gulp.src(JSON.parse(fs.readFileSync('./vendor1.json'))),
             $.if(!RELEASE, $.sourcemaps.init()),
             $.concat("vendor.js"),
             $.if(RELEASE, combine($.uglify({ preserveComments: $.uglifySaveLicense }), $.rename({suffix:".min", extname:".js"}), $.rev())),

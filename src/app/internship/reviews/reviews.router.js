@@ -14,9 +14,7 @@
             })
             .state("home.reviews.list", {
                 url: "/list",
-                templateUrl:"internship/reviews/listreview/reviews.html",
-                controller: "ReviewListController",
-                controllerAs: "vm",
+                component: "reviewList",
                 resolve: {
                     /* @ngInject */
                     reviews:  function(Resources) {
@@ -26,9 +24,7 @@
             })
             .state("home.reviews.addreview", {
                 url: "/add",
-                templateUrl:"internship/reviews/reviewForm/reviewForm.tmpl.html",
-                controller: "AddReviewController",
-                controllerAs: "vm",
+                component: "reviewForm",
                 params : {
                     data: null
                 },
@@ -43,9 +39,7 @@
             })
             .state("home.reviews.editreview", {
                 url: "/edit",
-                templateUrl:"internship/reviews/reviewForm/reviewForm.tmpl.html",
-                controller: "AddReviewController",
-                controllerAs: "vm",
+                component: "reviewForm",
                 params : {
                     data: null
                 },
@@ -60,9 +54,7 @@
             })
             .state("home.reviews.view", {
                 url: "/view",
-                templateUrl:"internship/reviews/review/review.tmpl.html",
-                controller: "ReviewController",
-                controllerAs: "vm",
+                component: "review",
                 params : {
                     previousState: null,
                     data: null

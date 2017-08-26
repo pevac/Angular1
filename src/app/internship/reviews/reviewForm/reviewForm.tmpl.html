@@ -15,7 +15,7 @@
                 <div class="col-sm-9">
                     <input   type="text" name="fullName" ng-model="vm.review.name"  class="form-control" id="inputName" ng-maxlength="50" ng-required="true">
                     <div class="error" ng-if="reviewForm.$submitted || reviewForm.fullName.$touched" ng-messages="reviewForm.fullName.$error" role="alert">
-                        <div ng-messages-include="shared/messages/messages.tmpl.html"></div>
+                        <div ng-messages-include="app/shared/messages/messages.tmpl.html"></div>
                     </div>
                 </div>
             </div>
@@ -28,7 +28,7 @@
                         <option ng-repeat="jobPosition in vm.jobPositions"  ng-value="jobPosition.id">{{jobPosition.name}}</option>
                     </select>
                     <div class="error" ng-if="reviewForm.$submitted || reviewForm.jobPosition.$touched" ng-messages="reviewForm.jobPosition.$error" role="alert">
-                        <div ng-messages-include="shared/messages/messages.tmpl.html"></div>
+                        <div ng-messages-include="app/shared/messages/messages.tmpl.html"></div>
                     </div>
                 </div>
             </div>
@@ -45,7 +45,7 @@
         			</div>
                      <div class="error" ng-if="reviewForm.$submitted || reviewForm.$change  || reviewForm.photo.$touched" ng-messages="reviewForm.photo.$error" 
                         ng-messages-multiple  role="alert">
-                        <div ng-messages-include="shared/messages/messages.tmpl.html"></div>
+                        <div ng-messages-include="app/shared/messages/messages.tmpl.html"></div>
                     </div>
                 </div>
             </div>
@@ -54,7 +54,7 @@
                 <div class="col-sm-9">
                     <trix-editor  angular-trix name="description" ng-model="vm.review.description" class="trix-content" ng-maxlength="250"  ng-required="true"></trix-editor>
                     <div class="error" ng-if="reviewForm.$submitted || reviewForm.description.$touched" ng-messages="reviewForm.description.$error" role="alert">
-                        <div ng-messages-include="shared/messages/messages.tmpl.html"></div>
+                        <div ng-messages-include="app/shared/messages/messages.tmpl.html"></div>
                     </div>
                 </div>
             </div>

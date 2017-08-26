@@ -41,7 +41,7 @@ angular.module("dictionariesModule").config(RouterConfig1);
         $stateProvider
             .state("home.dictionares", {
                 url: "/dictionares",
-                templateUrl:"dictionaries/dictionaries.tmpl.html",
+                templateUrl:"app/dictionaries/dictionaries.tmpl.html",
                 controller: "DictionariesController",
                 controllerAs: "vm",
                 resolve: {

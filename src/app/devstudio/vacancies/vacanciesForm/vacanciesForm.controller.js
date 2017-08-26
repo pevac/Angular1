@@ -1,18 +1,16 @@
 (function(){
     "use strict";
 
-    angular.module("vacancyModule").controller("AddVacancyController", AddVacancyController);
-    AddVacancyController.$inject = ["$scope",  "$state",  "projects", "jobPositions", "workingTimes",  "Resources"];
+    angular.module("vacancyModule").controller("VacancyFormController", VacancyFormController);
+    VacancyFormController.$inject = ["$scope",  "$state", "Resources"];
     
     /* @ngInject */
-    function AddVacancyController($scope,  $state,   projects, jobPositions, workingTimes, Resources){
+    function VacancyFormController($scope,  $state, Resources){
         var vm = this;
 
-        vm.workingTimes = workingTimes;
-        vm.jobPositions = jobPositions;
-        vm.projects = projects;
-
-        activate();
+        vm.$onInit = function () {
+            activate();
+        };
 
         vm.dateOptions = {
             datepickerMode: "'month'",
@@ -32,6 +30,7 @@
 
         vm.addVacancy = function (open) {
             var action = vm.vacancy.id ? "$update" : "$save";
+            
             vm.dataLoading =true;
             vm.vacancy.open = open;
             vm.vacancy[action](

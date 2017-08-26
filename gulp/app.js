@@ -5,16 +5,13 @@ const argv = require("minimist")(process.argv.slice(2));
 const $ = require("gulp-load-plugins")();
 const combine = require("stream-combiner2").obj;
 const path = require("path");
-
+const util = require("util");
 
 let RELEASE = !!argv.release;
 
 module.exports =  (options) => {
     return () => {
         return combine( gulp.src(options.path.src.app),
-         $.babel({
-                presets: ["es2015"]
-            }),
             $.cached("eslint"),
             $.eslint(),
             $.eslint.format(),
@@ -26,7 +23,6 @@ module.exports =  (options) => {
             $.eslint.failAfterError(),
             $.remember("eslint"),
             $.if(!RELEASE, $.sourcemaps.init()),
-           
             $.angularFilesort(),
             $.concat("app.js"),
             $.if(!RELEASE, $.sourcemaps.write("app")),

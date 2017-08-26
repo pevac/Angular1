@@ -14,9 +14,7 @@
             })
             .state("home.devportfolio.list", {
                 url: "/list",
-                templateUrl:"devstudio/devPortfolio/devPortfolioList/devPortfolioList.tmpl.html",
-                controller: "DevPortfolioController",
-                controllerAs: 'vm',
+                component: "devPortfolioList",
                 resolve: {
                     /* @ngInject */
                     projects:  function(Resources) {
@@ -26,9 +24,7 @@
             })
             .state("home.devportfolio.addportfolio", {
                 url: "/add",
-                controller: "AddDevPortfolioController",
-                controllerAs: 'vm',
-                templateUrl:"devstudio/devPortfolio/devPortfolioForm/devPortfolioForm.tmpl.html",
+                component: "devPortfolioForm",
                 params: {
                     data: null
                 },
@@ -37,9 +33,7 @@
             })
             .state("home.devportfolio.editportfolio", {
                 url: "/edit",
-                templateUrl:"devstudio/devPortfolio/devPortfolioForm/devPortfolioForm.tmpl.html",
-                controller: "AddDevPortfolioController",
-                controllerAs: 'vm',
+                component: "devPortfolioForm",
                 params : {
                     data: null
                 },
@@ -48,9 +42,7 @@
             })
             .state("home.devportfolio.viewportfolio", {
                 url: "/view",
-                templateUrl:"devstudio/devPortfolio/devPortfolioView/devPortfolioView.tmpl.html",
-                controller: "ViewDevPortfolioController",
-                controllerAs: 'vm',
+                component: "viewDevPortfolio",
                 params : {
                     previousState: null,
                     data: null
@@ -74,9 +66,13 @@
                 if($stateParams.data) {
                     stateParams = angular.copy($stateParams);
                     $sessionStorage.stateParams = stateParams;
-                } else {
+                } 
+                else {
                     for(var key in $sessionStorage.$default().stateParams){
-                        $stateParams[key] = $sessionStorage.$default().stateParams[key];
+                        if($sessionStorage.$default().stateParams[key]) {
+                            $stateParams[key] = {};
+                            $stateParams[key] = $sessionStorage.$default().stateParams[key];
+                        }
                     }
                     
                 }

@@ -19,7 +19,7 @@
                 <div class="col-sm-9">
                     <input  id="inputName"  type="text" name="name" class="form-control"  ng-model="vm.project.name"   ng-maxlength="50" ng-required="true">
                     <div class="error" ng-if="portfolioForm.$submitted || portfolioForm.name.$touched" ng-messages="portfolioForm.name.$error" role="alert">
-                        <div ng-messages-include="shared/messages/messages.tmpl.html" ></div>
+                        <div ng-messages-include="app/shared/messages/messages.tmpl.html" ></div>
                     </div>
                 </div>
             </div>
@@ -28,7 +28,7 @@
                 <div class="col-sm-9">
                     <input  id="inputCustomer"  type="text" name="customer" class="form-control"   ng-model="vm.project.customer"  ng-maxlength="60" ng-required="true">
                     <div class="error" ng-if="portfolioForm.$submitted || portfolioForm.customer.$touched" ng-messages="portfolioForm.customer.$error" role="alert">
-                        <div ng-messages-include="shared/messages/messages.tmpl.html" ></div>
+                        <div ng-messages-include="app/shared/messages/messages.tmpl.html" ></div>
                     </div>
                 </div>
             </div>
@@ -41,7 +41,7 @@
                     <div  class="img-container" ngf-background="vm.previewImg"></div>
                     <div class="error" ng-if="portfolioForm.$submitted || portfolioForm.$change  || portfolioForm.previewImg.$touched" ng-messages="portfolioForm.previewImg.$error" 
                         ng-messages-multiple  role="alert">
-                        <div ng-messages-include="shared/messages/messages.tmpl.html"></div>
+                        <div ng-messages-include="app/shared/messages/messages.tmpl.html"></div>
                     </div>
                 </div>
             </div>
@@ -54,7 +54,7 @@
                     <div   class="img-container" ngf-background="vm.mainImg"></div>
                     <div class="error" ng-if="portfolioForm.$submitted || portfolioForm.$change  || portfolioForm.mainImg.$touched" ng-messages="portfolioForm.mainImg.$error" 
                          ng-messages-multiple role="alert">
-                        <div ng-messages-include="shared/messages/messages.tmpl.html"></div>
+                        <div ng-messages-include="app/shared/messages/messages.tmpl.html"></div>
                     </div>
                 </div>
             </div>
@@ -63,7 +63,7 @@
                 <div class="col-sm-9">
                     <trix-editor  name="description" class="trix-content"  angular-trix ng-model="vm.project.description"  ng-maxlength="250" ng-required="true"></trix-editor>
                     <div class="error" ng-if="portfolioForm.$submitted || portfolioForm.cusdescriptiontomer.$touched" ng-messages="portfolioForm.description.$error" role="alert">
-                        <div ng-messages-include="shared/messages/messages.tmpl.html"></div>
+                        <div ng-messages-include="app/shared/messages/messages.tmpl.html"></div>
                     </div>
                 </div>
             </div>
@@ -78,7 +78,7 @@
                             <button type="button" class="btn btn-default btn-calendar" ng-click="vm.open2()"><i class="glyphicon glyphicon-calendar"></i></button>
                         </span>
                         <div class="error" ng-if="portfolioForm.$submitted || portfolioForm.dateStart.$touched" ng-messages="portfolioForm.dateStart.$error" role="alert">
-                            <div ng-messages-include="shared/messages/messages.tmpl.html"></div>
+                            <div ng-messages-include="app/shared/messages/messages.tmpl.html"></div>
                         </div>
                     </p>
                 </div>
@@ -94,7 +94,7 @@
                             <button type="button" class="btn btn-default btn-calendar" ng-click="vm.open1()"><i class="glyphicon glyphicon-calendar"></i></button>
                         </span>
                         <div class="error" ng-if="portfolioForm.$submitted || portfolioForm.dateEnd.$touched" ng-messages="portfolioForm.dateEnd.$error" role="alert">
-                            <div ng-messages-include="shared/messages/messages.tmpl.html"></div>
+                            <div ng-messages-include="app/shared/messages/messages.tmpl.html"></div>
                         </div>
                     </p>
                 </div>

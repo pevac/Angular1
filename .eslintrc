@@ -1,8 +1,10 @@
 {
   "extends": "eslint:recommended",
   "plugins": ["angular"],
-  "ecmaVersion": 6,
+  "ecmaVersion": 5,
   "env": {
+    "es6": true,
+    "node": true,
     "browser": true,
     "jasmine": true
   },
@@ -14,10 +16,7 @@
     "Uint8Array": true
   },
   "rules": {
-        "no-unused-vars": ["error", {
-          "vars": "all",
-          "args": "none"
-        }],
-        "no-console": "off"
-    }
+    "no-unused-vars": 0,
+    "no-console": 0
+  }
 }

@@ -17,8 +17,8 @@
             expert: "expert"
         });
     
-    InitLogin.$inject = ["$rootScope", "AUTH_EVENTS","AuthService","$location"];
-    function InitLogin($rootScope, AUTH_EVENTS, AuthService, $location) {
+    InitLogin.$inject = ["$rootScope", "AUTH_EVENTS","$location", "AuthService", "$transitions"];
+    function InitLogin($rootScope, AUTH_EVENTS,  $location, AuthService, $transitions) {
         // enumerate routes that don't need authentication
         var routesThatDontRequireAuth = ["/login"];
         var routesApp = "/app";
@@ -39,36 +39,45 @@
         $rootScope.$on(AUTH_EVENTS.notAuthenticated, function(){
             $location.path("/login");
         });
+
         $rootScope.$on(AUTH_EVENTS.notAuthorized, function(){
-            alert("Ви маєте недостатньо прав.")
-        });
-        $rootScope.$on(AUTH_EVENTS.logoutSuccess, function(){
             $location.path("/login");
-        });
-        $rootScope.$on(AUTH_EVENTS.sessionTimeout, function(){
-            $location.path("/login");
-        });
-        $rootScope.$on(AUTH_EVENTS.loginSuccess, function(){
-            !routeClean($location.url()) ? $location.path(nextRoute) : $location.path("/app");
         });
 
-        $rootScope.$on("$stateChangeStart", function (event, next) {
-            var authorizedRoles = next.data.authorizedRoles;
-            if (!routeClean($location.url()) && !AuthService.isAuthorized(authorizedRoles)) {
+        $rootScope.$on(AUTH_EVENTS.sessionTimeout, function(){
+            AuthService.logout();
+        });
+
+        $rootScope.$on(AUTH_EVENTS.logoutSuccess, function(){
+            AuthService.logout();
+            $location.path("/login");
+        });
+
+        $rootScope.$on(AUTH_EVENTS.loginSuccess, function(event, next){
+            if(routeClean($location.url())) {
+                $location.path("/app");
+            }
+        });
+
+        $transitions.onStart({}, function(trans) {
+            var AuthenticationService = trans.injector().get("AuthService");
+            var authorizedRoles =trans.$to().data.authorizedRoles;
+
+            if (!routeClean($location.url()) && !AuthenticationService.isAuthorized(authorizedRoles)) {
                 event.preventDefault();
-                if (AuthService.isAuthenticated()) {
+                if (AuthenticationService.isAuthenticated()) {
                     // user is not allowed
                     $rootScope.$broadcast(AUTH_EVENTS.notAuthorized);
                 } else {
                     // user is not logged in
                     $rootScope.$broadcast(AUTH_EVENTS.notAuthenticated);
                 }
-            }else if(routeContainAppRoute($location.url()) && AuthService.isAuthorized(authorizedRoles)){
-                nextRoute = $location.url();
+            }else if(routeContainAppRoute($location.url()) && AuthenticationService.isAuthorized(authorizedRoles)){
                 $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
             }
-
+            
         });
+
     }
 
     RequestProvider.$inject = ["$httpProvider"];

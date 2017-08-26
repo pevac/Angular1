@@ -14,9 +14,7 @@
             })
             .state("home.ordercustomer.list", {
                 url: "/list",
-                templateUrl:"devstudio/customersOrder/ordersList/ordersList.tmpl.html",
-                controller: "OrderCustomerController",
-                controllerAs: "vm",
+                component: "orderList",
                 resolve: {
                     /* @ngInject */
                     customers:  function(Resources) {
@@ -25,10 +23,8 @@
                 }
             })
             .state("home.ordercustomer.view", {
-                url: "/view",
-                templateUrl:"devstudio/customersOrder/orderViewer/orderViewer.tpml.html",
-                controller: "ViewCustomerController",
-                controllerAs: "vm",
+                url: "/list",
+                component: "orderViewer",
                 params: {
                     data: null
                 },
@@ -47,7 +43,9 @@
                             $sessionStorage.stateParams = { data: $stateParams.data};
                         } else {
                             for(var key in $sessionStorage.$default().stateParams){
-                                $stateParams[key] = $sessionStorage.$default().stateParams[key];
+                                if($sessionStorage.$default().stateParams[key]) {
+                                    $stateParams[key] = $sessionStorage.$default().stateParams[key];
+                                }
                             }
                         }
                 }],

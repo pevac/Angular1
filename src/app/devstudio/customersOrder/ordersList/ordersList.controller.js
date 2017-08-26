@@ -2,14 +2,15 @@
     "use strict";
 
     angular.module("orderCustomerModule").controller("OrderCustomerController", OrderCustomerController);
-    OrderCustomerController.$inject = ["$scope", "$state",  "FileSaver", "Blob", "$templateCache", "$compile", "$timeout",  "customers"];
+    OrderCustomerController.$inject = ["$scope", "$state",  "FileSaver", "Blob", "$templateCache", "$compile", "$timeout"];
     
-    function OrderCustomerController($scope, $state,  FileSaver, Blob, $templateCache, $compile, $timeout,  customers){
+    function OrderCustomerController($scope, $state,  FileSaver, Blob, $templateCache, $compile, $timeout){
         var vm = this;
         vm.itemsByPage = 10;
 
-        vm.customers = customers;
-        vm.customerCollection = [].concat(vm.customers);
+        this.$onInit  = function() {
+            vm.customerCollection = [].concat(vm.customers);
+        }
 
         vm.deleteCustomerOrder = function(order, index){
             var checkDelete = confirm("Видалити замовлення");
@@ -26,7 +27,7 @@
         vm.exportData = function () {
             if(!document.getElementById('fullOrderCustomersTable')) {
                 var el = document.createElement("div");
-                el.innerHTML = $templateCache.get("devstudio/customersOrder/orderTable/fullOrderCustomersTable.tmpl.html");
+                el.innerHTML = $templateCache.get("app/devstudio/customersOrder/orderTable/fullOrderCustomersTable.tmpl.html");
                 el.style = "display: none";
                 var compiled = $compile(el);
                 compiled($scope);

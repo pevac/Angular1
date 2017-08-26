@@ -8,9 +8,7 @@
         $stateProvider
             .state("login", {
                 url: "/login",
-                templateUrl: "login/login.tmpl.html",
-                controller: "LoginController",
-                controllerAs: "vm",
+                component: "login",
                 data: {
                     authorizedRoles: [USER_ROLES.admin, USER_ROLES.expert]
                 }
