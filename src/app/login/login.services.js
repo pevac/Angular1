@@ -3,28 +3,57 @@
     angular.module("loginModule")
         .factory("AuthService", AuthService )
         .service("Session", Session)
+        .factory("IdleService", IdleService)
         .factory("AuthInterceptor", AuthInterceptor)
         .factory("AuthResolver",AuthResolver)
         .factory('UserService', UserService)
-        .factory("IdleService", IdleService);
+        .factory("IdleResolver", IdleResolver);
 
-    AuthService.$inject = ["$http", "Session","UserService", "IdleService"];
-    function AuthService($http, Session, UserService, IdleService) {
+    AuthService.$inject = ["$http", "Session","UserService", "IdleService", "$q"];
+    function AuthService($http, Session, UserService, IdleService, $q) {
         var authService = {};
 
+        // authService.login = function (credentials) {
+        //     return $http
+        //         .post("http://localhost:8888/api/login", credentials)
+        //         .then(function (res) {
+        //             if(res.token) {
+        //                 $http.defaults.headers.common["X-CSRF-Token"] = res.token;
+        //                 Session.create(res.data.id, res.token, res.data.user.id, res.data.user.role);
+        //                 UserService.setUser(res.data.user);
+        //             }
+        //             return res;
+        //         });
+        // };
+
         authService.login = function (credentials) {
-            return $http
-                .post("http://localhost:8888/api/login", credentials)
-                .then(function (res) {
-                    if(res.token) {
-                        $http.defaults.headers.common["X-CSRF-Token"] = res.token;
-                        Session.create(res.data.id, res.token, res.data.user.id, res.data.user.role);
-                        UserService.setUser(res.data.user);
-                        IdleService.startTimer();
-                        return true;
-                    }
-                    return false;
-                });
+            var session = {token: "sfdfdsfdsf"};
+            session.data = {
+                id: 45,
+                user: {
+                    id: 23,
+                    role: "admin",
+                    userName: "ivan1",
+                    avatar: "./assets/img/admin.jpg"
+                }
+            };
+           
+            var deferred = $q.defer();
+            if (angular.isDefined(session)) {
+                if (session) {
+                    deferred.resolve(session);
+                } else {
+                    deferred.reject();
+                }
+            }
+            var res = deferred.promise.$$state.value;
+            if(res&&res.token) {
+                $http.defaults.headers.common["X-CSRF-Token"] = res.token;
+                Session.create(res.data.id, res.token, res.data.user.id, res.data.user.role);
+                UserService.setUser(res.data.user);
+                IdleService.startTimer();
+            }
+            return deferred.promise;
         };
 
         authService.logout = function () {
@@ -103,7 +132,6 @@
 
     AuthResolver.$inject = ["$q","$state", "UserService"];
     function AuthResolver( $q, $state, UserService) {
-
         return {
             resolve: function () {
                 var currentUser = UserService.getUser();
@@ -114,7 +142,27 @@
                             deferred.resolve(currentUser);
                         } else {
                             deferred.reject();
-                            $state.go('login');
+                            $state.go("login");
+                        }
+                    }
+                return deferred.promise;
+            }
+        };
+    }
+
+    IdleResolver.$inject = ["$q","$state", "UserService", "IdleService"];
+    function IdleResolver( $q, $state, UserService, IdleService) {
+        return {
+            resolve: function () {
+                var idle = IdleService.getIdle();
+               
+                var deferred = $q.defer();
+                    if (angular.isDefined(idle)) {
+                        if (!idle) {
+                            deferred.resolve(idle);
+                        } else {
+                            deferred.reject();
+                            $state.go("login");
                         }
                     }
                 return deferred.promise;
@@ -141,15 +189,19 @@
     
     }
 
-    IdleService.$inject = ["$rootScope", "$timeout", "$log", "AUTH_EVENTS"];
-    function IdleService($rootScope, $timeout, $log, AUTH_EVENTS) {
+    IdleService.$inject = ["$rootScope", "$timeout", "$log", "AUTH_EVENTS", "$sessionStorage"];
+    function IdleService($rootScope, $timeout, $log, AUTH_EVENTS, $sessionStorage) {
         var idleTimer = null;
+        var isIdle = false;
+
         var   startTimer = function () {
                 $log.log("Starting timer");
+                isIdle = true;
                 idleTimer = $timeout(timerExpiring, 50000);
         };
         var  stopTimer = function () {
                 if (idleTimer) {
+                    isIdle = false;
                     $timeout.cancel(idleTimer);
                 }
         };
@@ -162,11 +214,16 @@
                 $rootScope.$broadcast(AUTH_EVENTS.sessionTimeout);
                 $log.log("Timer expiring ..");
         };
+
+        var getIdle = function() {
+            return isIdle;
+        }
      
         return {
             startTimer: startTimer,
             stopTimer: stopTimer,
-            resetTimer: resetTimer
+            resetTimer: resetTimer,
+            getIdle: getIdle
         }
     }
 

@@ -5,7 +5,7 @@
      angular.module("resourceModule")
         .config(resourceProvider)
         .run(resourceRun)
-        .service("Resources", Resources)
+        .factory("Resources", Resources)
         .constant("serverResourcesConstant",function(){
             var rootUrl = "http://www.edu.bionic-university.com:2101/dev-studio/api/";
             return {

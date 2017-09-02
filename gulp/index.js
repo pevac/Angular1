@@ -7,87 +7,131 @@ const $ = require("gulp-load-plugins")();
 const task = require("./loader");
 const config = require("./config")
 
-task("sass:build", path.resolve("./gulp/styles"), {
-    path: config.path,
-    AUTOPREFIXER_BROWSERS: config.AUTOPREFIXER_BROWSERS
+task("sass:tmp", path.resolve("./gulp/styles"), {
+    src: config.src,
+    build: config.tmp
 });
-task("vendor:build", path.resolve("./gulp/vendor"), {
-    path: config.path
+task("templates:tmp", path.resolve("./gulp/templates"), {
+    src: config.src,
+    build: config.tmp
 });
-task("app:build", path.resolve("./gulp/app"), {
-    path: config.path
-});
-task("templates:build", path.resolve("./gulp/templates"), {
-    path: config.path
-});
-task("html:build", path.resolve("./gulp/html"), {
-    path: config.path
-});
-
 task("eslint", path.resolve("./gulp/eslint"), {
-    path: config.path
+    src: config.src
 });
-task("inject", path.resolve("./gulp/inject"), {
-    path: config.path
-});
-task("useref", path.resolve("./gulp/useref"), {
-    path: config.path
-});
-
 task("fonts:build", path.resolve("./gulp/fonts"), {
-    path: config.path
+    src: config.src,
+    build: config.build
 });
 task("image:build", path.resolve("./gulp/images"), {
-    path: config.path
+    src: config.src,
+    build: config.build
+});
+task("inject:tmp", path.resolve("./gulp/inject"), {
+    src: config.src,
+    build: config.tmp
+});
+task("useref:tmp", path.resolve("./gulp/useref"), {
+    src: config.tmp,
+    build: config.build
+});
+task("browser:sync:tmp", path.resolve("./gulp/server"), {
+    server: config.server.tmp
+});
+task("browser:sync:dist", path.resolve("./gulp/server"), {
+        server: config.server.dist
+});
+task("watch:tmp", path.resolve("./gulp/watch.tmp"), {
+    watch: config.watch
 });
 
-task("browser-sync", path.resolve("./gulp/server"), {
-    path: config.path
-});
+task("clean", path.resolve("./gulp/clean"), { clean: config.clean.file} );
+task("clear:cache", path.resolve("./gulp/clearCache"), {} );
 
-task("clean", path.resolve("./gulp/clean"), { clean: [config.path.clean.build, "./manifest", "dist"]} );
-task("clear:cache", path.resolve("./gulp/clearCache"), { clean: config.path.clean.build} );
-task("clean:war", path.resolve("./gulp/clean"), { clean: config.path.clean.war} );
-
-task("watch", path.resolve("./gulp/watch"), {
-    path: config.path
-});
-task("watch:inject", path.resolve("./gulp/watch.inject"), {
-    path: config.path
-});
-
-task("test", path.resolve("./gulp/unit-tests"), {singleRun: true});
-task("test:auto", path.resolve("./gulp/unit-tests"), {singleRun: false});
+task("test:single", path.resolve("./gulp/unit-tests"), {singleRun: true});
+task("test:single:auto", path.resolve("./gulp/unit-tests"), {singleRun: false});
+task("test:e2e", path.resolve("./gulp/e2e-tests"), {});
 
 task("war", path.resolve("./gulp/war"),  {
-    path: config.path
+    war: config.war
 });
 
-gulp.task("zip",["clean:war"], (cb) => {
+gulp.task("war:build",["clean"], (cb) => {
     sequence ( "build", "war", cb);
 });
 
+// task for unit tests
+gulp.task("test", (cb) => {
+    sequence ( "eslint", "test:single", cb);
+});
+gulp.task("test:auto", (cb) => {
+    sequence ( "watch:tmp", "test:single:auto", cb);
+});
+// end task for unit test
 
-gulp.task("build", ["clear:cache", "clean"],  (cb) => {
-    sequence (["sass:build","templates:build", "vendor:build", "app:build",  "fonts:build","image:build"],"html:build", cb);
+// task for protractor
+gulp.task("protractor", ["protractor:src"]);
+gulp.task("protractor:src",(cb) => {
+    sequence ( ["serve:e2e", "webdriver-update"], "test:e2e", cb);
+});
+gulp.task("protractor:dist",  (cb) => {
+    sequence ( ["serve:e2e-dist", "webdriver-update"], "test:e2e", cb);
+});
+gulp.task("webdriver-update", $.protractor.webdriver_update);
+gulp.task("webdriver-standalone", $.protractor.webdriver_standalone);
+// end task for protractor
+
+gulp.task("inject", (cb) => {
+    sequence (["sass:tmp", "eslint"],"inject:tmp", cb);
+});
+gulp.task("inject:build", (cb) => {
+    sequence (["clear:cache", "clean"], "inject", cb);
+});
+gulp.task("useref:build", (cb) => {
+    sequence ("inject:build", "templates:tmp", ["useref:tmp", "fonts:build","image:build"], cb);
 });
 
-gulp.task("build:inject", ["clear:cache", "clean"],  (cb) => {
-    sequence (["sass:build", "eslint"],"inject", cb);
+gulp.task("serve",  function (cb) {
+    sequence ("inject:build",  ["browser:sync:tmp","watch:tmp"], cb);
 });
-
-gulp.task("build:useref", ["clear:cache", "clean"],  (cb) => {
-    sequence (["build:inject", "templates:build"],"useref", cb);
+gulp.task("serve:dist", function (cb) {
+    sequence ("useref:build",  "browser:sync:dist", cb);
 });
-
-gulp.task("serve",  (cb) => {
-    sequence ("build",  ["browser-sync","watch"], cb);
+gulp.task("serve:e2e", function (cb) {
+    sequence ("inject:build",  "browser:sync:tmp", cb);
 });
-
-gulp.task("serve:inject",  (cb) => {
-    sequence ("build:inject",  ["browser-sync","watch:inject"], cb);
+gulp.task("serve:e2e-dist", function (cb) {
+    sequence ("useref:build",  "browser:sync:dist", cb);
 });
 
 gulp.task("default", ["serve"]);
 
- 
+
+// task("sass:build", path.resolve("./gulp/styles"), {
+//     src: config.src,
+//     build: config.build
+// });
+// task("vendor:build", path.resolve("./gulp/vendor"), {
+//     src: config.src,
+//     build: config.build
+// });
+// task("app:build", path.resolve("./gulp/app"), {
+//     src: config.src,
+//     build: config.build
+// });
+// task("templates:build", path.resolve("./gulp/templates"), {
+//     src: config.src,
+//     build: config.build
+// });
+// task("html:build", path.resolve("./gulp/html"), {
+//     src: config.src,
+//     build: config.build
+// });
+// task("watch", path.resolve("./gulp/watch"), {
+//     watch: config.watch
+// });
+// gulp.task("serve:dist:watch",  (cb) => {
+//     sequence ("build",  ["browser:sync","watch"], cb);
+// });
+// gulp.task("build", (cb) => {
+//     sequence ( ["clear:cache", "clean"], ["sass:build","templates:build", "vendor:build", "app:build",  "fonts:build","image:build"],"html:build", cb);
+// });

@@ -1,10 +1,10 @@
 (function(){
     "use strict";
     angular.module("homeModule").config(HomeRouterConfig);
-    HomeRouterConfig.$inject = ["$stateProvider", "$urlRouterProvider","USER_ROLES"];
+    HomeRouterConfig.$inject = ["$stateProvider", "USER_ROLES"];
     
     // Using @ngInject annotations
-    function HomeRouterConfig($stateProvider, $urlRouterProvider, USER_ROLES) {
+    function HomeRouterConfig($stateProvider,  USER_ROLES) {
         $stateProvider
             .state("home", {
                 url: "/app",
@@ -18,12 +18,24 @@
                     auth: function resolveAuthentication(AuthResolver) {
                         return AuthResolver.resolve();
                     }
+                    
                 }
             })
-            .state("home.modal", {
-                url: '/modal',
+            .state("home.timeout", {
+                url: "/timeout",
                 modal: true,
-                component: "modal"
+                component: "sessionTimeout",
+                resolve: {
+                     /* @ngInject */
+                     idle: function resolveIdle(IdleResolver) {
+                        return IdleResolver.resolve();
+                    }
+                }
+            })
+            .state("home.accessdenied", {
+                url: '/accessdenied',
+                modal: true,
+                component: "accessDenied"
             });
 
     }

@@ -2,38 +2,29 @@
     "use strict";
 
     angular.module("loginModule").controller("LoginController",LoginController );
-    LoginController.$inject = ["$scope","$rootScope","AUTH_EVENTS","AuthService","Session", "UserService", "IdleService"];
+    LoginController.$inject = ["$scope","$rootScope", "AUTH_EVENTS", "AuthService"];
     
-    function LoginController($scope, $rootScope, AUTH_EVENTS, AuthService,  Session, UserService, IdleService) {
+    function LoginController($scope, $rootScope,  AUTH_EVENTS, AuthService) {
         var vm = this;
        
-        vm.loginStatus = {
-            type: null,
-            message: ""
-        }
+        vm.loginStatus = null
 
-        // $scope.login = function (credentials) {
-        //     AuthService.login(credentials).then(function (user) {
-        //         $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
-        //     }, function (response) {
-        //         $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
-        //     });
-        // };
-
-        vm.login = function () {
-            vm.loginStatus.type = AUTH_EVENTS.loginSuccess;
-            var currentUser = {
-                id: 23,
-                role: "admin",
-                userName: "ivan1",
-                avatar: "./assets/img/admin.jpg"
-            };
-            UserService.setUser(currentUser);
-            IdleService.startTimer();
-            
-            Session.create(2, "7777",  2, "admin");
-            $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+        vm.login = function (credentials) {
+            AuthService.login(credentials).then(function (responce) {
+                vm.loginStatus = {
+                    type: AUTH_EVENTS.loginSuccess,
+                    message: "OK"
+                }
+                $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+            }, function (response) {
+                vm.loginStatus = {
+                    type: AUTH_EVENTS.loginFailed,
+                    message: "password or login incorrect"
+                }
+                $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
+            });
         };
+
     }
 })();
 

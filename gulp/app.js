@@ -11,7 +11,7 @@ let RELEASE = !!argv.release;
 
 module.exports =  (options) => {
     return () => {
-        return combine( gulp.src(options.path.src.app),
+        return combine( gulp.src(options.src.app),
             $.cached("eslint"),
             $.eslint(),
             $.eslint.format(),
@@ -27,9 +27,8 @@ module.exports =  (options) => {
             $.concat("app.js"),
             $.if(!RELEASE, $.sourcemaps.write("app")),
             $.if(RELEASE, combine($.ngAnnotate(), $.uglify(),  $.rename({suffix: ".min",extname: ".js"}), $.rev() )),
-            gulp.dest(options.path.build.app),
-            $.size({title: "app"}),
-            $.if(RELEASE, combine($.rev.manifest("app.json"), gulp.dest("./manifest") ))
+            gulp.dest(options.build.app),
+            $.size({title: "app"})
         ).on("error", function (error)  {
                 $.notify({
                     title: "Task Failed " + options.taskName,

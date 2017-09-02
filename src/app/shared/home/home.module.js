@@ -6,7 +6,7 @@
 
     angular.module("homeModule")
         .run(LocalDateTime);
-
+        
     LocalDateTime.$inject = ["$locale"];
     function LocalDateTime($locale) {
         $locale.DATETIME_FORMATS.MONTH = [

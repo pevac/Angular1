@@ -3,12 +3,12 @@
     angular.module("appModule")
         .config(RouterConfig);
 
-    RouterConfig.$inject = ["$urlRouterProvider"];
+    RouterConfig.$inject = ["$urlRouterProvider", "$stateProvider"];
     // Using @ngInject annotations
-    function RouterConfig( $urlRouterProvider) {
+    function RouterConfig( $urlRouterProvider, $stateProvider) {
 
         $urlRouterProvider.otherwise("/app");
-        $urlRouterProvider.when("", "/login");
+        $urlRouterProvider.when("", "/app");
         
         /* @ngInject */
         $urlRouterProvider.rule(function ($injector, $location) {
@@ -19,6 +19,7 @@
                 $location.replace().path(normalized);
             }
         });
+
     }
 
 

@@ -3,7 +3,6 @@
 const gulp = require("gulp");
 const argv = require("minimist")(process.argv.slice(2));
 const $ = require("gulp-load-plugins")();
-const browserSync = require("browser-sync");
 const combine = require("stream-combiner2").obj;
 const path = require("path");
 
@@ -11,7 +10,7 @@ let RELEASE = !!argv.release;
 
 module.exports =  (options) => {
     return () => {
-        return combine( gulp.src(options.path.src.app),
+        return combine( gulp.src(options.src.app),
             $.cached("eslint"),
             $.eslint(),
             $.eslint.format(),

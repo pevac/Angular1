@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin</title>
     <link rel="shortcut icon" href="assets/img/title.png" type="image/x-icon">
-    <!-- build:css({.tmp/serve,build}) css/main.css -->
+    <!-- build:css({.tmp/serve,src}) styles/main.css -->
     <!-- inject:css -->
     <!-- endinject -->
     <!-- endbuild -->
@@ -20,14 +20,14 @@
   <!-- endinject -->
   <!-- endbuild -->
 
-  <!-- build:js({.tmp/serve,.tmp/partials,build,src}) js/app.js -->
+  <!-- build:js({.tmp/serve,.tmp/partials,src}) js/app.js -->
   <!-- inject:app -->
   <!-- endinject -->
   <!-- inject:partials -->
   <!-- endinject -->
   <!-- endbuild -->
 
-  <!--removeIf(production)-->
+  <!--removeIf(visualizer)-->
     <script src="//unpkg.com/@uirouter/visualizer@4"></script>
     <script>
         var Visualizer = window['ui-router-visualizer'].Visualizer;
@@ -35,6 +35,6 @@
             var pluginInstance = $uiRouter.plugin(Visualizer);
         });
     </script>
-  <!--endRemoveIf(production)-->
+  <!--endRemoveIf(visualizer)-->
 </body>
 </html>

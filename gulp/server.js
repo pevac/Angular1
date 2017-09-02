@@ -3,35 +3,33 @@
 const browserSync = require("browser-sync").create();
 const spa         = require("browser-sync-spa");
 const isArray     = require("isarray");
-
-const config = require("./config");
-
+const proxyMiddleware = require("http-proxy-middleware");
 
 module.exports =  (options) => {
     return () => {
-        options.browser === undefined ? "default" : browser;
+        options.server.browser === undefined ? "default" : options.server.browser;
         
-        var routes = null;
-        if(config.path.server === config.path.src.root || 
-            (isArray(config.path.server) && config.path.server.indexOf(config.path.src.root) !== -1)) {
+        let routes = null;
+        if(options.server.path === "src" || 
+            (isArray(options.server.path) && options.server.path.indexOf("src") !== -1)) {
             routes = {
               "/node_modules": "node_modules"
             };
-            
         }
 
-        browserSync.init({
-            server: {
-                baseDir: config.path.server,
-                directory: true,
-                routes:{
-                    "/node_modules": "node_modules"
-                  }
-            },
+        let server = {
+            baseDir: options.server.path,
+            directory: true,
+            routes:routes
+        }
+
+        browserSync.instance = browserSync.init({
+            server: server,
             ui: {
                 port: 8081
             },
             port: 8080,
+            startPath: "/",
             open: true,
             injectChanges: true,
             ghostMode: false,
@@ -40,12 +38,14 @@ module.exports =  (options) => {
             logFileChanges: true
         });
 
-        browserSync.watch(config.path.watch.reload).on("change", browserSync.reload);
+        // server.middleware = proxyMiddleware("/api", {target: "http://www.edu.bionic-university.com:2101/dev-studio/api", changeOrigin: true});
+
+        browserSync.watch(options.server.watch).on("change", browserSync.reload);
 
         browserSync.use(spa({
             selector: "[ng-app]",
             history: {
-                index: config.path.server + '/index.html'
+                index: options.server.path + "/index.html"
             }
         }));
     }

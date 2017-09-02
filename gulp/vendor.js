@@ -12,14 +12,14 @@ let RELEASE = !!argv.release;
 
 module.exports =  (options) => {
     return () => {
-        return combine( gulp.src(JSON.parse(fs.readFileSync('./vendor1.json'))),
+        return combine( gulp.src(JSON.parse(fs.readFileSync(options.src.vendor))),
             $.if(!RELEASE, $.sourcemaps.init()),
             $.concat("vendor.js"),
             $.if(RELEASE, combine($.uglify({ preserveComments: $.uglifySaveLicense }), $.rename({suffix:".min", extname:".js"}), $.rev())),
             $.if(!RELEASE, $.sourcemaps.write("vendor")),
-            gulp.dest(options.path.build.vendor),
+            gulp.dest(options.build.vendor),
             $.size({title: "vendor"}),
-            $.if(RELEASE, combine($.rev.manifest("vendor.json"), gulp.dest("./manifest") ))
+            $.if(RELEASE, combine($.rev.manifest("vendor.json"), gulp.dest("./dist/manifest") ))
         )
     }
 }

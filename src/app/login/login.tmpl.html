@@ -1,7 +1,7 @@
 <div class="flex-container">
     <h1><span class="navbar-brand"></span></h1>
     <div class="form-block">
-        <!--<div ng-class="{ 'alert': vm.loginStatus, 'alert-success': vm.loginStatus.type == 'auth-login-success', 'alert-danger': vm.loginStatus.type === 'auth-login-failed' }" ng-if="vm.loginStatus" ng-bind="vm.loginStatus.message"></div>-->
+        <div ng-class="{ 'alert': vm.loginStatus, 'alert-success': vm.loginStatus.type == 'auth-login-success', 'alert-danger': vm.loginStatus.type === 'auth-login-failed' }" ng-if="vm.loginStatus" ng-bind="vm.loginStatus.message"></div>
         <h2>Hi! Please sign in)</h2>
         <form name="loginForm"   ng-submit="vm.login(credentials)" role="form" novalidate >
             <div class="form-group" ng-class="{ 'has-error': form.login.$submit && form.login.$error.required }">

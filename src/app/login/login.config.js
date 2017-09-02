@@ -17,13 +17,10 @@
             expert: "expert"
         });
     
-    InitLogin.$inject = ["$rootScope", "AUTH_EVENTS","$location", "AuthService", "$transitions"];
-    function InitLogin($rootScope, AUTH_EVENTS,  $location, AuthService, $transitions) {
+    InitLogin.$inject = ["$rootScope", "AUTH_EVENTS", "$state", "AuthService", "$transitions"];
+    function InitLogin($rootScope, AUTH_EVENTS,  $state, AuthService, $transitions) {
         // enumerate routes that don't need authentication
-        var routesThatDontRequireAuth = ["/login"];
-        var routesApp = "/app";
-        var nextRoute = "/app";
-
+        var routesThatDontRequireAuth = ["/login", "/accessdenied"];
         // check if current location matches route  
         var routeClean = function (route) {
             if (!angular.isArray(routesThatDontRequireAuth)) {
@@ -32,39 +29,33 @@
             return ( routesThatDontRequireAuth.indexOf(route) !== -1);
         };
 
-         var routeContainAppRoute = function (route) {
-            return ( route.indexOf(routesApp) !== -1);
-        };
-
         $rootScope.$on(AUTH_EVENTS.notAuthenticated, function(){
-            $location.path("/login");
+            AuthService.logout();
+            $state.go("login")
         });
 
         $rootScope.$on(AUTH_EVENTS.notAuthorized, function(){
-            $location.path("/login");
+            $state.go("accessdenied");
         });
 
         $rootScope.$on(AUTH_EVENTS.sessionTimeout, function(){
-            AuthService.logout();
+            $state.go("home.timeout");
         });
 
         $rootScope.$on(AUTH_EVENTS.logoutSuccess, function(){
             AuthService.logout();
-            $location.path("/login");
+            $state.go("login")
         });
 
-        $rootScope.$on(AUTH_EVENTS.loginSuccess, function(event, next){
-            if(routeClean($location.url())) {
-                $location.path("/app");
-            }
+        $rootScope.$on(AUTH_EVENTS.loginSuccess, function(){
+            $state.go("home")
         });
 
         $transitions.onStart({}, function(trans) {
             var AuthenticationService = trans.injector().get("AuthService");
             var authorizedRoles =trans.$to().data.authorizedRoles;
 
-            if (!routeClean($location.url()) && !AuthenticationService.isAuthorized(authorizedRoles)) {
-                event.preventDefault();
+            if (!routeClean(trans.$to().self.url) && !AuthenticationService.isAuthorized(authorizedRoles)) {
                 if (AuthenticationService.isAuthenticated()) {
                     // user is not allowed
                     $rootScope.$broadcast(AUTH_EVENTS.notAuthorized);
@@ -72,10 +63,7 @@
                     // user is not logged in
                     $rootScope.$broadcast(AUTH_EVENTS.notAuthenticated);
                 }
-            }else if(routeContainAppRoute($location.url()) && AuthenticationService.isAuthorized(authorizedRoles)){
-                $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
-            }
-            
+            } 
         });
 
     }

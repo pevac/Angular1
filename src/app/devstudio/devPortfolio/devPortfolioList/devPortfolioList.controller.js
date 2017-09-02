@@ -2,7 +2,7 @@
     "use strict";
 
     angular.module("devPortfolioModule").controller("DevPortfolioController", DevPortfolioController);
-    // DevPortfolioController.$inject = [ "$state",  "Resources"];
+    DevPortfolioController.$inject = [ "$state",  "Resources"];
 
     function DevPortfolioController( $state,  Resources){
         var vm = this;

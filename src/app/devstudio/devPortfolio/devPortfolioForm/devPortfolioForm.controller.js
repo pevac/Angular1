@@ -1,10 +1,10 @@
 (function () {
     "use strict";
     
-    angular.module("devPortfolioModule").controller("devPortfolioFormController", devPortfolioFormController);
-    devPortfolioFormController.$inject = ["$timeout", "$state",  "ImageService", "Resources"];
+    angular.module("devPortfolioModule").controller("DevPortfolioFormController", DevPortfolioFormController);
+    DevPortfolioFormController.$inject = ["$timeout", "$state",  "ImageService", "Resources"];
     
-    function devPortfolioFormController( $timeout, $state,  ImageService, Resources) {
+    function DevPortfolioFormController( $timeout, $state,  ImageService, Resources) {
         var vm = this;
         var isTop;
         
@@ -130,6 +130,7 @@
 
         function activate() {
             vm.project = new Resources.DevProjects();
+            console.log("controller");
             if ($state.params.data && $state.params.data.project) {
                 vm.project  =  $state.params.data.project;
                 vm.previewImg = $state.params.data.previewImg ? ImageService.base64ToFile($state.params.data.previewImg.data, $state.params.data.previewImg) : null;

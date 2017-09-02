@@ -12,7 +12,7 @@
                 data: {
                     authorizedRoles: [USER_ROLES.admin, USER_ROLES.expert]
                 }
-            })
+            });
             
     }
 })();
