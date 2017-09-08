@@ -1,3 +1,10 @@
+**/node_modules
+**/build
+**/dist
+**/npm-debug.*.log
+**/npm-debug.log
+**/debug.log
+data
 npm-debug.log
 debug.log
 
@@ -17,5 +24,3 @@ coverage
 .zip
 admin.war
 admin.zip
-
-
