@@ -62,7 +62,8 @@
             vm.dataLoading =true;
             vm.project.visible = visible;
             if (!vm.project.visible) { vm.project.inTop = false }
-            saveProject(addFullImage);
+            saveProject()
+                .then(addFullImage);
         };
 
         vm.changeTop = function (project) {
@@ -91,12 +92,11 @@
                 return;
             }
 
-            Resources.DevProjectFile.saveFile( {data: image, id:  vm.project.id},
+            return Resources.DevProjectFile.saveFile( {data: image, id:  vm.project.id},
                 function () {
                     vm.project[name] = image.name;
-                    saveProject(goToList).then(function () {
-                        console.log("image")
-                    });
+                    saveProject()
+                        .then(goToList);
                 }
             );
         }
@@ -108,9 +108,9 @@
             }, 500);
         }
 
-        function saveProject(succesHandler){
+        function saveProject(){
             var action = vm.project.id ? "$update": "$save";
-            return vm.project[action]( function(data){ succesHandler(data) } );
+            return vm.project[action]();
         }
 
         function isCheckTop(arg) {
