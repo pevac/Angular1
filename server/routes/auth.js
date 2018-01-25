@@ -30,9 +30,15 @@ module.exports = function(app, filePath){
                 };
 
                 let token = jwt.sign(payload, app.get("superSecret"), { });
+
+                let resUser = {
+                    id: user.id,
+                    username: user.username,
+                    role: user.role
+                }
                     
                 res.json({
-                        user: user,
+                        user: resUser,
                         success: true,
                         message: "Enjoy your token!",
                         token: token
