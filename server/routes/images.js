@@ -1,5 +1,4 @@
 var fs = require("fs-extra");
-const uniqid = require("uniqid");
 
 module.exports = function(app, filePath){
   app.get("/api/images/:id/\:name/", function(req, res, next) {

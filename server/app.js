@@ -5,8 +5,10 @@ const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const jwt    = require("jsonwebtoken");
 const moment = require("moment");
-var timeout = require("connect-timeout")
-const config = require("./config.js")
+const timeout = require("connect-timeout");
+const config = require("./config.js");
+const cors = require('cors');
+const methodOverride = require('method-override');
 
 const app = express();
 app.use(timeout("5s"))
@@ -17,6 +19,12 @@ app.use(bodyParser.json());
 app.use(haltOnTimedout)
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(haltOnTimedout)
+app.use(methodOverride());
+app.use(express.query());
+app.use(cors({
+    origin: '*',
+}));
+app.disable('x-powered-by');
 app.use(cookieParser());
 app.use(haltOnTimedout)
 // app.use(express.static(path.join(__dirname, "./server/data/images")));

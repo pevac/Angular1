@@ -1,5 +1,6 @@
 const fs = require("fs-extra");
 const uniqid = require("uniqid");
+const uuidv5 = require('uuid/v5');
 
 exports.get = (filePath) => {
                 return fs.readFile(filePath, "utf8").then(
@@ -29,7 +30,7 @@ exports.post = (filePath, body) => {
                         .then((data) => {
                                 let content  = JSON.parse(data);
                                 let item  = body;
-                                item.id = uniqid.time();
+                                item.id = uuidv5(uuidv5.URL, uuidv5.DNS);
                                 content.push(item);
                                 return fs.outputFile(filePath, JSON.stringify(content)).then(() => { return item; });
                                 

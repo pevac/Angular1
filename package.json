@@ -7,21 +7,25 @@
     "postinstall": "npm run client:install",
     "server": "nodemon ./server/bin/www",
     "start": "concurrently \"set PORT=3001 && npm run server\" \"npm run client\"",
-    "client": "cd client &&  npm run  start  && cd .."
+    "client": "cd client &&  npm run  start  && cd ..",
+    "test": "concurrently \"set PORT=3001 && npm run server\" \"npm run test\"",
+    "client:test": "cd client &&  npm run  test  && cd .."
   },
   "dependencies": {
     "body-parser": "~1.17.1",
     "connect-timeout": "^1.9.0",
     "cookie-parser": "~1.4.3",
+    "cors": "^2.8.4",
     "debug": "~2.6.3",
     "express": "~4.15.2",
     "fs": "^0.0.1-security",
     "fs-extra": "^4.0.1",
     "jsonwebtoken": "^7.4.3",
+    "method-override": "^2.3.10",
     "moment": "^2.18.1",
     "morgan": "~1.8.1",
     "odata-v4-parser": "^0.1.21",
-    "uniqid": "^4.1.1"
+    "uuid": "^3.1.0"
   },
   "devDependencies": {
     "concurrently": "^3.5.0",
