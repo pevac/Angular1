@@ -15,14 +15,12 @@
                     message: "OK"
                 }
                 $state.go("home");
-                $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
 
-            }, function (response) {
+            },function (responce) {
                 vm.loginStatus = {
                     type: AUTH_EVENTS.loginFailed,
                     message: "password or login incorrect"
                 }
-                $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
             });
         };
 

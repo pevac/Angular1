@@ -69,7 +69,6 @@ app.use(function(req, res, next) {
   let token =req.header("Authorization").split(" ")[1];
 
   jwt.verify(token, app.get("superSecret"), function(err, decoded) { 
-    console.log(decoded);     
     if (err) {
       return res.status(401).send({ success: false, message: "Failed to authenticate token." });    
     } 

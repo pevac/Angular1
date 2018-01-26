@@ -17,14 +17,10 @@
         authService.login = function (credentials) {
            return $auth.login(credentials)
               .then(function(response) {
-                  console.log(response);
                 UserService.setUser(response.data.user);
                 IdleService.startTimer();
-              })
-              .catch(function(response) {
-                // Handle errors here, such as displaying a notification
-                // for invalid email and/or password.
-              });
+                return response;
+               })
         };
 
         authService.logout = function () {

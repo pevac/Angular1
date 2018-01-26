@@ -33,10 +33,6 @@
             $state.go("login")
         });
 
-        // $rootScope.$on(AUTH_EVENTS.loginSuccess, function(){
-        //     $state.go("home")
-        // });
-
         $transitions.onStart({}, function(trans) {
             var AuthenticationService = trans.injector().get("AuthService");
             var authorizedRoles =trans.$to().data.authorizedRoles;
