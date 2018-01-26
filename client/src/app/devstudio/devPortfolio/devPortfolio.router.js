@@ -23,32 +23,35 @@
                 }
             })
             .state("home.devportfolio.addportfolio", {
-                url: "/add",
+                url: "/add/:id",
                 component: "devPortfolioForm",
                 params: {
-                    data: null
+                    data: null,
+                    id: null
                 },
-                onEnter: saveSessionStorage,
-                onExit: clearSessionStorage
+                // onEnter: saveSessionStorage,
+                // onExit: clearSessionStorage
             })
             .state("home.devportfolio.editportfolio", {
-                url: "/edit",
+                url: "/edit?id",
                 component: "devPortfolioForm",
                 params : {
-                    data: null
+                    data: null,
+                    id: null
                 },
-                onEnter: saveSessionStorage,
-                onExit: clearSessionStorage
+                // onEnter: saveSessionStorage,
+                // onExit: clearSessionStorage
             })
             .state("home.devportfolio.viewportfolio", {
-                url: "/view",
+                url: "/view/:id",
                 component: "viewDevPortfolio",
                 params : {
                     previousState: null,
-                    data: null
+                    data: null,
+                    id: null
                 },
-                onEnter: saveSessionStorage,
-                onExit: clearSessionStorage
+                // onEnter: saveSessionStorage,
+                // onExit: clearSessionStorage
             });
 
             clearSessionStorage.$inject = [ "$sessionStorage"];

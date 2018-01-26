@@ -8,7 +8,7 @@
         var vm = this;
         
         vm.goToEdit = function(project, stateToGo) {
-            $state.go( stateToGo, { previousState : { name : $state.current.name }, data: {project: project} }, {} );
+            $state.go(stateToGo, { id: window.decodeURIComponent(project.id), previousState : { name : $state.current.name }, data: {project: project} }, {} );
         };
 
         vm.publish = function(project){

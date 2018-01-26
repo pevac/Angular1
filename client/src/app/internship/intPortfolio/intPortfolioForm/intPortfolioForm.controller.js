@@ -52,7 +52,7 @@
         };
 
         function saveProject(succesHandler){
-            var action = vm.project.id ? "$update": "$save";
+            var action = vm.project.id ? "$update": "$create";
 
             vm.project[action](function(data){succesHandler(data)});
         }

@@ -29,7 +29,7 @@
         };
 
         vm.addVacancy = function (open) {
-            var action = vm.vacancy.id ? "$update" : "$save";
+            var action = vm.vacancy.id ? "$update" : "$create";
             
             vm.dataLoading =true;
             vm.vacancy.open = open;

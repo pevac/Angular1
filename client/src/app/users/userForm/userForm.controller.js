@@ -24,7 +24,7 @@
         };
 
         function saveUser(succesHandler){
-            var action = vm.user.id ? "$update": "$save";
+            var action = vm.user.id ? "$update": "$create";
             vm.user[action](function(data){succesHandler(data)});
         }
 

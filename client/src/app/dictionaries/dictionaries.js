@@ -13,12 +13,12 @@
        vm.workingtime = new Resources.WorkingTimes();
 
        vm.addWorkTimes = function () {
-            var action = vm.workingtime.id ? "$update" : "$save";
+            var action = vm.workingtime.id ? "$update" : "$create";
             vm.workingtime[action](function(){$state.reload()});
         }
 
         vm.addJobPosition = function () {
-            var action = vm.jobPosition.id ? "$update" : "$save";
+            var action = vm.jobPosition.id ? "$update" : "$create";
             vm.jobPosition[action](function(){ $state.reload()});
         }
 

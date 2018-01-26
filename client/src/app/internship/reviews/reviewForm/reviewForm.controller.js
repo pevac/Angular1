@@ -31,7 +31,7 @@
         };
 
         function saveReview(succesHandler){
-            var action = vm.review.id ? "$update": "$save";
+            var action = vm.review.id ? "$update": "$create";
 
             vm.review[action](function(data){succesHandler(data)});
         }

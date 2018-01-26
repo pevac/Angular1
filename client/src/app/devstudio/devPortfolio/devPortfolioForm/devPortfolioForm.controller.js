@@ -109,7 +109,7 @@
         }
 
         function saveProject(){
-            var action = vm.project.id ? "$update": "$save";
+            var action = vm.project.id ? "$update": "$create";
             return vm.project[action]();
         }
 
@@ -132,8 +132,9 @@
 
         function activate() {
             vm.project = new Resources.DevProjects();
-            if ($state.params.data && $state.params.data.project) {
-                vm.project  =  $state.params.data.project;
+            console.log($state);
+            if($state.params.id) {
+                vm.project['$get']({id:$state.params.id}).then(function (data) {
                 vm.previewImg = $state.params.data.previewImg ? ImageService.base64ToFile($state.params.data.previewImg.data, $state.params.data.previewImg) : null;
                 vm.mainImg =  $state.params.data.mainImg ? ImageService.base64ToFile($state.params.data.mainImg.data, $state.params.data.mainImg) : null;
 
@@ -149,7 +150,26 @@
                 if(!vm.mainImg) {
                     setImage(vm.project.mainImg,  "mainImg");
                 }
+                });
             }
+            // if ($state.params.data && $state.params.data.project) {
+            //     vm.project  =  $state.params.data.project;
+            //     vm.previewImg = $state.params.data.previewImg ? ImageService.base64ToFile($state.params.data.previewImg.data, $state.params.data.previewImg) : null;
+            //     vm.mainImg =  $state.params.data.mainImg ? ImageService.base64ToFile($state.params.data.mainImg.data, $state.params.data.mainImg) : null;
+
+            //     isTop = vm.project.inTop;
+
+            //     vm.project.dateStart  = new Date(vm.project.dateStart);
+            //     if (vm.project.dateEnd) {
+            //         vm.project.dateEnd  = new Date(vm.project.dateEnd);
+            //     }
+            //     if(!vm.previewImg) {
+            //         setImage(vm.project.previewImg,  "previewImg");
+            //     }
+            //     if(!vm.mainImg) {
+            //         setImage(vm.project.mainImg,  "mainImg");
+            //     }
+            // }
         }
 
 
