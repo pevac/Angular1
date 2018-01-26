@@ -14,7 +14,9 @@ module.exports = function(app, filePath){
 
   app.post("/api/vacancies/", function(req, res, next) {
     util.post(filePath, req.body)
-        .then( (data) => { res.json(data); })
+        .then( (data) => { 
+          res.json(data); 
+        })
   });
 
   app.put("/api/vacancies/:id", function(req, res, next) {
