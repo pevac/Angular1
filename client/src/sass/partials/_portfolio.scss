@@ -1,0 +1,170 @@
+.panel-container{
+  .row{
+    display: flex;
+    align-self: stretch;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .col-flex{
+    display: flex;
+  }
+}
+
+.form-container{
+  .col-flex{
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+
+.project-view {
+  padding: 10px 0 15px 0;
+  min-height: 370px;
+  width: 80%;
+  margin: 0 auto;
+  background: #f5bf02;
+
+  img {
+    width: 100%;
+  }
+
+  .preview {
+    padding: 0 40px 22px 40px;
+
+    h1 {
+      font-size: 28px;
+      text-transform: capitalize;
+      font-weight: 700;
+    }
+
+    .description  {
+      font-size: 18px;
+    }
+  }
+}
+
+.draft{
+  background: url("../assets/img/draft.png") center no-repeat;
+  display: block;
+  background-size: contain;
+  min-width: 50px;
+  height: 44px;
+}
+
+
+.intproject-view{
+  margin: 0 auto;
+
+  .row_flex{
+    display: flex;
+    justify-content: center;
+  }
+
+  .information{
+		padding: 40px 20px;
+		z-index: 2;
+		background-color: #e7e3e3;
+	}
+
+  .both{
+		clear: both;
+		margin-bottom: 20px;
+	}
+
+  h5{
+		font-size: 18px;
+		margin-bottom: 20px;
+		text-align: center;
+    font-weight: bold;
+	}
+	h6{
+		font-size: 16px;
+		line-height: 1.4;
+		
+	}
+	p{
+		font-size: 14px;
+		line-height: 1.6;
+	}
+
+	h6 img{
+		width: 40%;
+		display: inline-block;
+		float: left;
+	}
+
+	h6 span{
+		width: 60%;
+		display: inline-block;
+		padding-top: 20px;
+		padding-left: 20px;
+    font-weight: 800;
+		float: right;
+	}
+}
+
+
+
+.review-view{
+  margin: 0 auto;
+
+  .thumbnail:hover, .thumbnail:focus {
+    text-decoration: none;
+    border: none;
+  }
+
+  .thumbnail{
+    text-decoration: none;
+    border: none;
+  }
+
+  .review{
+		width: 280px;
+		margin: auto;
+		padding: 10px;
+		text-align: center;
+    color: black;
+    background-color: #ffffff;
+    box-shadow: 0px 0px 14px 0px #818382;
+
+    img {
+        width: 60px;
+        height: 60px;
+    }
+
+    h3{
+      font-size: 14px;
+      color: #fad846;
+    }
+    h4{
+      font-size: 14px;
+    }
+    p{
+      font-size: 14px;
+      color: #2a3b4b;
+      text-align: left;
+      padding-top: 10px;
+      padding-bottom: 50px;
+      
+    }
+  }
+
+  .row_flex{
+    display: flex;
+    justify-content: center;
+  }
+}
+
+
+.vacancies_view {
+  .search_container {
+    text-align: right;
+    position: relative;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    float:right;
+  }
+
+}

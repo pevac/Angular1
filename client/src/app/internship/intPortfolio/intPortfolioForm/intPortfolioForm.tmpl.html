@@ -1,0 +1,115 @@
+<div>
+    <div class="top-nav-container">
+        <h2 class="h2">Портфоліо</h2>
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                <a ui-sref="home.intportfolio.list" tooltip-placement="bottom" uib-tooltip="повернутися до списку проектів" tooltip-trigger="focus"><span   class="glyphicon glyphicon-arrow-left"></span></a>
+            </li>
+        </ul>
+    </div>
+    <div class="form-container ">
+        <form class="form-horizontal admin-form" enctype="multipart/form-data" name="intPortfolioForm" role="form"  novalidate>
+            <div class="form-group">
+                <input   type="hidden" name="id"  ng-model="project.id"   id="inpuId">
+            </div>
+            <div class="form-group">
+                <label for="inputProjectName" class="col-sm-3   control-label">Назва*</label>
+                <div class="col-sm-9">
+                    <input   type="text" name="projectName"  ng-model="vm.project.name"  class="form-control" id="inputProjectName" ng-maxlength="50" ng-required="true">
+                    <div class="error" ng-if="intPortfolioForm.$submitted || intPortfolioForm.projectName.$touched" ng-messages="intPortfolioForm.projectName.$error" role="alert">
+                        <div ng-messages-include="app/shared/messages/messages.tmpl.html"></div>
+                    </div>
+                </div>
+            </div>
+            <div ng-if="vm.dataLoading" class="loader"></div>
+            <div class="form-group">
+                <label for="inputCustomer" class="col-sm-3  control-label">Клієнт*</label>
+                <div class="col-sm-9">
+                    <input   type="text" name="customer"   ng-model="vm.project.client"  class="form-control" id="inputCustomer" ng-maxlength="50" ng-required="true">
+                    <div class="error" ng-if="intPortfolioForm.$submitted || intPortfolioForm.customer.$touched" ng-messages="intPortfolioForm.customer.$error" role="alert">
+                        <div ng-messages-include="app/shared/messages/messages.tmpl.html"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputImg" class="col-sm-3  control-label">Зображення сайту*</label>
+                <div class="col-sm-9">
+                    <input id="inputImg" type="file" name="img"  class="file"   ng-model="vm.img"  ngf-select 
+                        ngf-pattern="image/*" ngf-max-size="2Mb"  ngf-model-invalid="errorFile" ng-required="true">
+                    <span class="custom-file-control" >{{vm.img? vm.img.name: "Завантажити фото" }}</span>
+                    <div  class="img-container" ngf-background="vm.img"></div>
+                    <div class="error" ng-if="intPortfolioForm.$submitted || intPortfolioForm.$change  || intPortfolioForm.img.$touched" ng-messages="intPortfolioForm.img.$error" 
+                        ng-messages-multiple  role="alert">
+                        <div ng-messages-include="app/shared/messages/messages.tmpl.html"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputInfo" class="col-sm-3  control-label">Опис*</label>
+                <div class="col-sm-9">
+                    <textarea  id="inputInfo" resize-text-area   name="info" ng-model="vm.project.shortDescription"   class="form-control"   ng-maxlength="250" ng-required="true"></textarea>
+                    <div class="error" ng-if="intPortfolioForm.$submitted || intPortfolioForm.info.$touched" ng-messages="intPortfolioForm.info.$error" role="alert">
+                        <div ng-messages-include="app/shared/messages/messages.tmpl.html"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label  class="col-sm-3 control-label" >Детальна інформація*</label>
+                <div class="col-sm-9">
+                    <trix-editor  name="description"  angular-trix ng-model="vm.project.description" class="trix-content" ng-maxlength="250" ng-required="true"></trix-editor>
+                    <div class="error" ng-if="intPortfolioForm.$submitted || intPortfolioForm.description.$touched" ng-messages="intPortfolioForm.description.$error" role="alert">
+                        <div ng-messages-include="app/shared/messages/messages.tmpl.html"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputStartDate" class="col-sm-3  control-label">Дата початку*</label>
+                <div class="col-sm-9">
+                    <p class="input-group">
+                        <input id="inputStartDate" type="text" name="startDate"  class="form-control"  uib-datepicker-popup="{{vm.format}}"
+                               ng-model="vm.project.dateStart" uib-datepicker-popup   is-open="vm.popup2.opened" datepicker-options="vm.dateOptions"
+                               close-text="Закрити" clear-text="Очистити" current-text="Сьогодні"   ng-required="true"/>
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default btn-calendar" ng-click="vm.open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
+                        <div class="error" ng-if="intPortfolioForm.$submitted || intPortfolioForm.startDate.$touched" ng-messages="intPortfolioForm.startDate.$error" role="alert">
+                            <div ng-messages-include="app/shared/messages/messages.tmpl.html"></div>
+                        </div>
+                    </p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputDateEnd" class="col-sm-3  control-label">Дата кінця</label>
+                <div class="col-sm-9">
+                    <p class="input-group">
+                        <input id="inputDateEnd" type="text" name="endDate" class="form-control"  uib-datepicker-popup="{{vm.format}}"
+                               ng-model="vm.project.dateEnd" uib-datepicker-popup  is-open="vm.popup1.opened" datepicker-options="vm.dateOptions"
+                               close-text="Закрити" clear-text="Очистити" current-text="Сьогодні" ng-required="false" />
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default btn-calendar" ng-click="vm.open1()"><i
+                                    class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
+                        <div class="error" ng-if="intPortfolioForm.$submitted || intPortfolioForm.endDate.$touched" ng-messages="intPortfolioForm.endDate.$error" role="alert">
+                            <div ng-messages-include="app/shared/messages/messages.tmpl.html"></div>
+                        </div>
+                    </p>
+                </div>
+            </div>
+            <div class="form-group btn_container">
+                  <div class="row">
+                    <div class="col-md-4">
+                        <button type="submit"  ng-click="!intPortfolioForm.$invalid && vm.goToEdit()" class="btn btn-primary btn-save">Переглянути</button>
+                    </div>
+                    <div class="col-md-4">
+                        <button type="submit"  ng-click="!intPortfolioForm.$invalid && vm.addProject(false)" class="btn btn-primary btn-save">Зберегти чорновик</button>
+                    </div>
+                    <div class="col-md-4">
+                        <button  type="submit" ng-click="!intPortfolioForm.$invalid && vm.addProject(true)"  class="btn btn-primary btn-save">Опублікувати проект</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+

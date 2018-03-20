@@ -1,0 +1,96 @@
+<div class="add-vacancy">
+    <div class="top-nav-container">
+        <h2 class="h2">Вакансії</h2>
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                <a ui-sref="home.vacancies.list" tooltip-placement="bottom" uib-tooltip="повернутися до списку вакансій" tooltip-trigger="focus"><span  class="glyphicon glyphicon-arrow-left"></span></a>
+            </li>
+        </ul>
+    </div>
+    <div ng-if="vm.dataLoading" class="loader"></div>
+    <div class="form-container ">
+        <form class="form-horizontal admin-form" name="vacancyForm" role="form"  id="formValidate" novalidate>
+            <div class="form-group text-left">
+                <label for="inputJobPosition" class="col-sm-3   control-label">Позиція*</label>
+                <div class="col-sm-9">
+                    <span class="arrow"></span>
+                    <select id="inputJobPosition" name="jobPosition" ng-model="vm.vacancy.jobPosition.id"  class="form-control" ng-required="true">
+                        <option value="">none</option>
+                        <option ng-repeat="jobPosition in vm.jobPositions"  ng-value="jobPosition.id">{{jobPosition.name}}</option>
+                    </select>
+                    <div class="error" ng-if="vacancyForm.$submitted || vacancyForm.jobPosition.$touched" ng-messages="vacancyForm.jobPosition.$error" role="alert">
+                        <div ng-messages-include="app/shared/messages/messages.tmpl.html"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputProject" class="col-sm-3  control-label">Проект*</label>
+                <div class="col-sm-9">
+                    <span class="arrow"></span>
+                    <select id="inputProject" name="projectName" ng-model="vm.vacancy.project.id"   class="form-control" ng-required="true">
+                        <option value="">none</option>
+                        <option ng-repeat="project in vm.projects"   ng-value="project.id">{{project.name}}</option>
+                    </select>
+                    <div class="error" ng-if="vacancyForm.$submitted || vacancyForm.projectName.$touched" ng-messages="vacancyForm.projectName.$error" role="alert">
+                        <div ng-messages-include="app/shared/messages/messages.tmpl.html"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label  class="col-sm-3 control-label">Опис вакансії*</label>
+                <div class="col-sm-9">
+                    <trix-editor  name="description" angular-trix  ng-model="vm.vacancy.description" class="trix-content" ng-maxlength="250"  ng-required="true"></trix-editor>
+                     <div class="error" ng-if="vacancyForm.$submitted || vacancyForm.description.$touched" ng-messages="vacancyForm.description.$error" role="alert">
+                        <div ng-messages-include="app/shared/messages/messages.tmpl.html"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputEmployment" class="col-sm-3  control-label">Зайнятість*</label>
+                <div class="col-sm-9">
+                    <span class="arrow"></span>
+                    <select id="inputEmployment" name="workingTime" ng-model="vm.vacancy.workingTime.id"   class="form-control" ng-required="true">
+                        <option value="">none</option>
+                        <option ng-repeat="workingTime in vm.workingTimes"  ng-value="workingTime.id">{{workingTime.name}}</option>
+                    </select>
+                    <div class="error" ng-if="vacancyForm.$submitted || vacancyForm.workingTime.$touched" ng-messages="vacancyForm.workingTime.$error" role="alert">
+                        <div ng-messages-include="app/shared/messages/messages.tmpl.html"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputInfo" class="col-sm-3  control-label">Дод.інф-ція</label>
+                <div class="col-sm-9">
+                    <textarea  id="inputInfo" resize-text-area  name="info" ng-model="vm.vacancy.info"   class="form-control"   ng-maxlength="500"></textarea>
+                    <div class="error" ng-if="vacancyForm.$submitted || vacancyForm.workingTime.$touched" ng-messages="vacancyForm.workingTime.$error" role="alert">
+                        <div ng-messages-include="app/shared/messages/messages.tmpl.html"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputDate" class="col-sm-3  control-label">Дата публікації*</label>
+                <div class="col-sm-9">
+                    <p class="input-group">
+                        <input id="inputDate" type="text" name="date"  class="form-control"  uib-datepicker-popup="{{vm.format}}"
+                               ng-model="vm.vacancy.date" uib-datepicker-popup   is-open="vm.popup.opened" datepicker-options="vm.dateOptions"
+                               close-text="Закрити" clear-text="Очистити" current-text="Сьогодні"  ng-required="true"/>
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default btn-calendar" ng-click="vm.open()"><i class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
+                        <div class="error" ng-if="vacancyForm.$submitted || vacancyForm.date.$touched" ng-messages="vacancyForm.date.$error" role="alert">
+                            <div ng-messages-include="app/shared/messages/messages.tmpl.html"></div>
+                        </div>
+                    </p>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="text-center">
+                    <button type="submit" ng-click="!vacancyForm.$invalid && vm.addVacancy(true, vm.vacancy)"  id="sendBtn" class="btn btn-primary btn-save">Опублікувати</button>
+                    <button type="submit" ng-click="!vacancyForm.$invalid && vm.addVacancy(false, vm.vacancy)"  id="sendBtn1" class="btn btn-primary btn-save">Закрити вакансію</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+

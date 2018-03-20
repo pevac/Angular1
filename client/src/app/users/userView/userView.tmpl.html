@@ -1,0 +1,25 @@
+<div  class="project-view">
+     <div class="top-nav-container">
+        <h2 class="h2">Користувачі</h2>
+        <ul class="nav navbar-nav navbar-right">
+			<li>
+				<a ui-sref="home.users" tooltip-placement="bottom" uib-tooltip="повернутися до списку користувачів" tooltip-trigger="focus"><span class="glyphicon glyphicon-arrow-left"></span></a>
+			</li>
+		</ul>
+    </div>
+    <article class="description">
+        <h2 class="text-center" ng-bind="user.userName"></h2>
+        <div class="row">
+            <div class="col-sm-5">
+                <img ng-src="{{user.userPhoto}}" alt=""/>
+            </div>
+            <div class="col-sm-7">
+                <p ng-bind="user.description"></p>
+                <p ng-bind="user.description"></p>
+                <p ng-bind="user.description"></p>
+                <p ng-bind="user.description"></p>
+            </div>
+        </div>
+    </article>
+</div>
+        

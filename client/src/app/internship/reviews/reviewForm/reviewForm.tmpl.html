@@ -1,0 +1,76 @@
+<div class="add-review">
+    <div class="top-nav-container">
+        <h2 class="h2">Відгуки</h2>
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                <a ui-sref="home.reviews.list" tooltip-placement="bottom" uib-tooltip="повернутися до списку відгуків" tooltip-trigger="focus" ><span  class="glyphicon glyphicon-arrow-left"></span></a>
+            </li>
+        </ul>
+    </div>
+    <div ng-if="vm.dataLoading" class="loader"></div>
+    <div class="form-container">
+        <form id="formValidate" class="form-horizontal admin-form" name="reviewForm" role="form"  novalidate>
+            <div class="form-group">
+                <label for="inputName" class="col-sm-3  control-label">Ім'я*</label>
+                <div class="col-sm-9">
+                    <input   type="text" name="fullName" ng-model="vm.review.name"  class="form-control" id="inputName" ng-maxlength="50" ng-required="true">
+                    <div class="error" ng-if="reviewForm.$submitted || reviewForm.fullName.$touched" ng-messages="reviewForm.fullName.$error" role="alert">
+                        <div ng-messages-include="app/shared/messages/messages.tmpl.html"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group text-left">
+                <label for="inputJobPosition" class="col-sm-3   control-label">Позиція*</label>
+                <div class="col-sm-9">
+                    <span class="arrow"></span>
+                    <select id="inputJobPosition" name="jobPosition" ng-model="vm.review.jobPosition.id"  class="form-control" ng-required="true">
+                        <option value="">none</option>
+                        <option ng-repeat="jobPosition in vm.jobPositions"  ng-value="jobPosition.id">{{jobPosition.name}}</option>
+                    </select>
+                    <div class="error" ng-if="reviewForm.$submitted || reviewForm.jobPosition.$touched" ng-messages="reviewForm.jobPosition.$error" role="alert">
+                        <div ng-messages-include="app/shared/messages/messages.tmpl.html"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputPhoto" class="col-sm-3  control-label">Фото*</label>
+                <div class="col-sm-9">
+				    <div class="col-flex">
+		                <span class="custom-file-control" >{{vm.photo ? vm.photo.name : "Завантажити фото" }}</span>
+						<input id="inputPhoto" type="file" name="photo" class="file" ng-model="vm.photo" ngf-select
+                            ngf-pattern="image/*" ngf-max-size="4Mb"  ngf-model-invalid="errorFile" ng-required="true">
+					</div>
+					<div ngf-drop ng-model="vm.photo" ngf-pattern="image/*"  class="cropArea">
+            			<img-crop image="vm.photo  | ngfDataUrl"  result-image="vm.croppedDataUrl" ng-init="vm.croppedDataUrl=''"></img-crop>
+        			</div>
+                     <div class="error" ng-if="reviewForm.$submitted || reviewForm.$change  || reviewForm.photo.$touched" ng-messages="reviewForm.photo.$error" 
+                        ng-messages-multiple  role="alert">
+                        <div ng-messages-include="app/shared/messages/messages.tmpl.html"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label  class="col-sm-3 control-label">Відгук*</label>
+                <div class="col-sm-9">
+                    <trix-editor  angular-trix name="description" ng-model="vm.review.description" class="trix-content" ng-maxlength="250"  ng-required="true"></trix-editor>
+                    <div class="error" ng-if="reviewForm.$submitted || reviewForm.description.$touched" ng-messages="reviewForm.description.$error" role="alert">
+                        <div ng-messages-include="app/shared/messages/messages.tmpl.html"></div>
+                    </div>
+                </div>
+            </div>
+             <div class="form-group btn_container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <button type="submit"  ng-click="!reviewForm.$invalid && vm.goToEdit()" class="btn btn-primary btn-save">Переглянути</button>
+                    </div>
+                    <div class="col-md-4">
+                        <button type="submit"  ng-click="!reviewForm.$invalid && vm.addReview(false)" class="btn btn-primary btn-save">Зберегти чорновик</button>
+                    </div>
+                    <div class="col-md-4">
+                        <button  type="submit" ng-click="!reviewForm.$invalid && vm.addReview(true)"  class="btn btn-primary btn-save">Опублікувати відгук</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

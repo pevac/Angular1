@@ -1,0 +1,22 @@
+{
+  "extends": "eslint:recommended",
+  "plugins": ["angular"],
+  "ecmaVersion": 5,
+  "env": {
+    "es6": true,
+    "node": true,
+    "browser": true,
+    "jasmine": true
+  },
+  "globals": {
+    "angular": true,
+    "module": true,
+    "before": true,
+    "inject": true,
+    "Uint8Array": true
+  },
+  "rules": {
+    "no-unused-vars": 0,
+    "no-console": 0
+  }
+}

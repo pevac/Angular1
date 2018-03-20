@@ -1,0 +1,95 @@
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+
+
+    th {
+      font-size: 16px;
+    }
+
+    th, td {
+      padding: 5px 10px;
+      border: 1px solid;
+      text-align: center;
+      background-color: $light-base-color;
+    }
+
+    .collapse-padding{
+      padding: 0;
+    }
+
+    .tr-search td{
+      border: none;
+      background-color: $body-bg;
+      padding-right: 0;
+    }
+
+    .st-sort-ascent:before{
+      content: '\25B2';
+    }
+
+    .st-sort-descent:before{
+      content: '\25BC';
+    }
+
+    tfoot td{
+      border: none;
+      background-color: $body-bg;
+    }
+
+
+    .pagination>li>a, .pagination>li>a:focus{
+      color: $dark-base-color;
+      background-color: $light-base-color;
+      border: 1px solid $dark-base-color;
+      padding: 5px 22px;
+      font-size: 16px;
+    }
+
+    .pagination > .disabled > a, .pagination > .disabled > a:hover, .pagination > .disabled > a:focus {
+      color: $dark-base-color;
+      background-color: $light-base-color;
+      border: 1px solid $dark-base-color;
+      padding: 5px 22px;
+      font-size: 16px;
+    }
+
+    .pagination>li>a:hover {
+      background-color: $biruza-base-color;
+      color: white;
+      border: 1px solid $dark-base-color;
+    }
+
+    .pagination>li.active>a:hover,
+    .pagination>li.active>a,
+    .pagination > li.active > a:focus{
+      background-color: $blue-base-color;
+      color: white;
+      border: 1px solid $dark-base-color;
+    }
+
+    .pagination > li:first-child > a, .pagination > li:last-child > a{
+      border-radius: 0;
+    }
+
+  }
+
+.trbn{
+  width: 100%;
+}
+
+.bordernone td{
+  text-align: left;
+}
+
+.bordernone > tbody > tr > td, .bordernone > tfoot > tr > th, .bordernone > tfoot > tr > td{
+  border: 1px solid $light-base-color;
+  vertical-align: middle;
+}
+
+.bordernone .inptext{
+  width: 100%;
+}
+
+

@@ -1,0 +1,22 @@
+<div  class="project-view">
+     <div class="top-nav-container">
+        <h2 class="h2">Портфоліо</h2>
+        <ul class="nav navbar-nav navbar-right">
+			<li>
+				<a  ng-click="vm.goToEdit()" tooltip-placement="bottom" uib-tooltip="повернутися до списку проектів" tooltip-trigger="focus"><span class="glyphicon glyphicon-arrow-left"></span></a>
+			</li>
+		</ul>
+    </div>
+    <article class="preview">
+        <h1 class="text-center" ng-bind="vm.project.name"></h1>
+        <div class="row">
+            <div class="col-sm-3">
+                <img id="photo" ng-src="{{vm.imageUrl}}"  alt=""/>
+            </div>
+            <div class="col-sm-9">
+                <div class="description" ng-bind-html="vm.project.description"></div>
+            </div>
+        </div>
+    </article>
+</div>
+           

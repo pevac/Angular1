@@ -1,0 +1,33 @@
+<div id="fullOrderCustomersTable"  class="row">
+    <div class="col-md-12">
+        <div class="table_container text-left">
+            <h3>Інформація про замовника</h3>
+            <table>
+                <tr>
+                    <th>Назва компанії</th>
+                    <th>Сайт компанії</th>
+                    <th>Ім'я і Прізвище</th>
+                    <th>Посада в компанії</th>
+                    <th>Телефон</th>
+                    <th>E-mail</th>
+                    <th>Хто найчастіше є клієнтом компанії?</th>
+                    <th>Яку бізнес задачу/проблему Ви хочете вирішити за допомогою IT-проекту?</th>
+                    <th>Який результат ви очікуєте отримати?</th>
+                    <th>Ми розглядаємо вашу заявку як співпрацю в сфері розробки повноцінного IT-рішення (веб-додаток, мобільний додаток і т.д)</th>
+                </tr>
+                <tr ng-repeat="customerOrder in vm.customers">
+                    <td>{{customerOrder.company}}</td>
+                    <td>{{customerOrder.url}}</td>
+                    <td>{{customerOrder.fullName}}</td>
+                    <td>{{customerOrder.jobPosition}}</td>
+                    <td>{{customerOrder.phone}}</td>
+                    <td>{{customerOrder.mail}}</td>
+                    <td>{{customerOrder.clients}}</td>
+                    <td>{{customerOrder.objectives}}</td>
+                    <td>{{customerOrder.expectation}}</td>
+                    <td>{{customerOrder.prototypeRequered ? "з розробкою прототипу" : "без розробки прототипу"}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

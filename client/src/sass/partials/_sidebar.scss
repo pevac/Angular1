@@ -1,0 +1,248 @@
+.navbar{
+  border: none;
+  margin-bottom: 0;
+  border-radius: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.link-logout{
+  display: block;
+}
+
+.navbar-header{
+  background-color: $navbar-bg;
+  width: 100%;
+.brand-sect{
+  h1{
+    margin: 0;
+    background-color: $biruza-base-color;
+    float: left;
+    .navbar-brand{
+      height: $navbar-brand-height;
+      min-width: $navbar-brand-width;
+      background: url("../assets/img/logo.png") no-repeat center;
+      background-size: 80%;
+    }
+  }
+}
+
+  .account{
+    font-size: 16px;
+    height:$navbar-top-height;
+    vertical-align: middle;
+    padding:0 10px;
+    margin: 0;
+    display: flex;
+    align-items: center;
+
+    .user{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      vertical-align: middle;
+      padding-top: 5px;
+    }
+
+    .user-name{
+      display: block;
+      align-self: flex-end;
+      font-size: 20px;
+      margin: 0;
+      padding: 0;
+      line-height: 1;
+    }
+
+    .logout-btn{
+      font-size: 12px;
+      align-self: flex-end;
+      cursor: pointer;
+      margin: 0;
+      padding: 0;
+      text-decoration: none;
+      line-height: 1;
+
+      &:hover{
+        color: green;
+      }
+    }
+
+
+    .photo{
+      margin: 5px;
+      display: inline-block;
+      border-radius: 50%;
+      overflow: hidden;
+      height: $navbar-top-height - 10px;
+      width: $navbar-top-height - 10px; ;
+      img{
+        height: auto;
+        width: 100%;
+        display: inline-block;
+      }
+    }
+  }
+}
+
+
+.navbar-default.sidebar {
+  position: fixed;
+  margin-top: 2*$navbar-top-height;
+  width: 100%;
+  z-index: 100;
+  background-color: $sidebar-bg;
+
+    .panel{
+      border: none; 
+      border-radius: 0; 
+      background-color: $sidebar-bg; 
+      margin: 0;
+    }
+
+    .panel-heading{
+      border: none;
+      padding: 0;
+    }
+
+    .sidebar-nav{
+      padding: 50px 0 0 0;
+      margin: 0 0 25px 0;
+      border: none;
+      ul{
+        border: none;
+        float: none;
+      }
+    }
+
+    .nav > li> div > a {
+      position: relative;
+      display: block;
+      padding: 10px 15px;
+    }
+
+  .nav-main {
+    margin: 0;
+
+    li {
+      cursor: pointer;
+      a {
+        font-size: 16px;
+        color: $navbar-link-color;
+        position: relative;
+      }
+
+      span {
+        vertical-align: middle;
+        padding: 0 10px;
+        display: inline-block;
+      }
+
+      a .icon {
+        background-size: contain;
+        background-repeat: no-repeat;
+        width: 35px;
+        height: 35px;
+      }
+
+      .arrow {
+        background-size: contain;
+        background: url("../assets/img/arrow.png") no-repeat center;
+        width: 15px;
+        height: 25px;
+        margin-top: 5px;
+        float: right;
+        transform: rotate(180deg);
+      }
+
+      .home-icon {
+        background: url("../assets/img/home-icon.png");
+      }
+      .dev-studio-icon {
+        background: url("../assets/img/dev-studio-icon.png");
+      }
+      .internship-icon {
+        background: url("../assets/img/internship-icon.png");
+      }
+      .users-icon{
+        background: url("../assets/img/users-icon.png");
+      }
+      .dictionares-icon{
+        background: url("../assets/img/users-icon.png");
+      }
+
+      a:hover,
+      a:focus,
+      a:active{
+        text-decoration: none;
+        background-color:$navbar-li-main-bg-hover;
+      }
+    }
+
+    li.active>div>a,
+    li.active>div>a:hover
+    {
+      text-decoration: none;
+      background-color:$navbar-li-main-bg-hover;
+      & .arrow{
+        transform: rotate(0deg);
+      }
+    }
+
+ 
+
+    .nav-second{
+      margin: 0;
+      li{
+        padding: 0;
+        margin: 0;
+
+        a{
+          font-size: 13px;
+          color: $navbar-link-color;
+          padding: 10px 10px 10px 45px;
+        }
+
+        span{
+          display: inline-block;
+          margin-left: 9px;
+        }
+      }
+
+      li.active a,
+      li.active a:focus{
+        color: $navbar-link-color;
+        background-color: $navbar-li-main-bg-hover * 0.7;
+      }
+     
+      a:hover,
+      a:focus,
+      a:active{
+        color: $navbar-link-color;
+        background-color: $navbar-li-main-bg-hover * 0.7;
+      }
+    }
+
+  }
+}
+
+@media(max-width: 767px){
+  .brand-sect{
+    h1{
+      width: 100%;
+      .navbar-brand{
+        background-size: 80%;
+      }
+    }
+  }
+}
+
+@media(min-width: 768px){
+  .navbar-default.sidebar{
+    top:0;
+    bottom: 0;
+    margin-top: $navbar-top-height;
+    width: $sidebar-width;
+  }
+}
+
+

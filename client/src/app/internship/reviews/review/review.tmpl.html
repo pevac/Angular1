@@ -1,0 +1,23 @@
+<div class="review-view">
+    <div class="top-nav-container">
+        <h2 class="h2">ВІДГУКИ</h2>
+        <ul class="nav navbar-nav navbar-right">
+			<li>
+				<a  ng-click="vm.goToEdit()" tooltip-placement="bottom" uib-tooltip="повернутися до списку проектів" tooltip-trigger="focus"><span class="glyphicon glyphicon-arrow-left"></span></a>
+			</li>
+		</ul>
+    </div>
+    <div class="row row_flex">
+         	<div class="col-md-4">
+				<a class="thumbnail">
+					<div class="review">
+					    <img alt="" class="img-circle" ng-src="{{vm.imageUrl}}">
+					    <p><span class="span_visible" ng-bind-html="vm.review.description"></span></p>
+					    <h3>{{vm.review.name}}</h3>
+					    <h4>{{vm.review.jobPosition.name}}</h4>
+					</div>
+				</a>
+			</div>  
+    </div>
+</div>
+

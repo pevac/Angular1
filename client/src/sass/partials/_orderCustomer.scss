@@ -1,0 +1,33 @@
+.customers_statement {
+
+  .title_container {
+    text-align: right;
+    margin-top: 15px;
+    margin-bottom: 15px;
+
+    .dwl-table {
+      &:hover {
+        text-decoration: none;
+      }
+
+      span.icon-dowload {
+        display: inline-block;
+        &:after {
+          content: '';
+          display: inline-block;
+          width: 45px;
+          height: 55px;
+          background: url(../assets/img/icon-xls.png) no-repeat;
+          background-size: contain;
+        }
+      }
+    }
+  }
+}
+
+.viewOrder{
+  .table_container table th, .table_container table td{
+    text-align: left;
+    width: 50%;
+  }
+}

@@ -1,0 +1,42 @@
+$gray-base-color: #ebebeb;
+$dark-base-color: #2a2d33;
+$biruza-base-color: #8cb2d8;
+$blue-base-color: #0a6db1;
+$light-base-color: #ffffff;
+$brown-light-color: #656c7e;
+$black-base-color: #000000;
+// input
+
+$input-border-color:$gray-base-color;
+$input-border-focus-color:$blue-base-color;
+
+// common
+$body-bg:$gray-base-color;
+
+
+//navbar
+$navbar-top-height: 60px;
+$sidebar-width: 210px;
+$navbar-brand-width: $sidebar-width;
+$navbar-brand-height:$navbar-top-height;
+
+//nav background
+$navbar-bg: $light-base-color;
+$sidebar-bg:$dark-base-color;
+$sidebar-color: $light-base-color;
+
+//color nav
+$navbar-link-color:$light-base-color;
+$navbar-link-color-hover:  $light-base-color;
+
+$navbar-li-main-bg: $dark-base-color;
+$navbar-li-main-bg-hover: $brown-light-color;
+
+$navbar-li-second-bg: $dark-base-color;
+$navbar-li-second-bg-hover: $brown-light-color;
+
+$td-show-status-color: #f656a9;
+
+$icon-font-path: "../node_modules/bootstrap-sass/assets/fonts/bootstrap/";
+
+

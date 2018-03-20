@@ -1,0 +1,18 @@
+<div class="viewOrder customers_statement">
+    <div class="top-nav-container">
+        <h2 class="h2">Заявка</h2>
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                <a ui-sref="home.ordercustomer.list"  tooltip-placement="bottom" uib-tooltip="повернутися до списку замовлень" tooltip-trigger="focus" ><span class="glyphicon glyphicon-arrow-left"></span></a>
+            </li>
+        </ul>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="title_container">
+                <a class="dwl-table" ng-click="vm.exportData()"><span class="icon-dowload" tooltip-placement="left" uib-tooltip="завантажити таблицю" tooltip-trigger="focus"></span></a>
+            </div>
+        </div>
+    </div>
+    <ng-include   src="'app/devstudio/customersOrder/orderTable/orderCustomerTable.tmpl.html'"></ng-include>
+</div>

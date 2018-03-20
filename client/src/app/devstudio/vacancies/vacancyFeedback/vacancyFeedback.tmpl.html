@@ -1,0 +1,50 @@
+<div class="vacancies_view" >
+    <div class="top-nav-container">
+        <h2 class="h2">Відгуки на заявки</h2>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+        </div>
+        <div class="col-md-12">
+            <div class="table_container">
+                <table st-table="vacanciesCollection" st-safe-src="vacancies" >
+                    <thead>
+                        <tr class="tr-search">
+                            <td colspan="5">
+                                <div class="form-group admin-form">
+                                    <div class="input-group col-md-3 search_container">
+                                        <input st-search   type="search" class="form-control" />
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-search" type="button">
+                                                <span class="glyphicon glyphicon-search"></span>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th st-sort="dataRegist">Дата</th>
+                            <th st-sort="jobPosition">Посада</th>
+                            <th st-sort="project">Проект</th>
+                            <th>Кандидaт</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="vacancy in vacanciesCollection">
+                        <td>{{vacancy.data}}</td>
+                        <td>{{vacancy.jobPosition}}</td>
+                        <td>{{vacancy.project}}</td>
+                        <td>{{vacancy.mail}}</td>
+                    </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td class="text-center" st-pagination="" st-items-by-page="itemsByPage" st-template="app/shared/templates/pagination.tmpl.html"  colspan="4"></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

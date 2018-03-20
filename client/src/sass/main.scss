@@ -1,0 +1,21 @@
+
+// Core variables and mixins
+@import "./partials/variables";
+@import "../../node_modules/animate.css/animate";
+@import "../../node_modules/trix/dist/trix";
+@import "../../node_modules/ng-img-crop-npm/source/scss/ng-img-crop.scss";
+@import "../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+// added by me
+//------------------------------
+@import "./partials/common";
+@import "./partials/fonts";
+@import "./partials/sidebar";
+@import "./partials/forms";
+@import "./partials/login";
+@import "./partials/toolbar";
+@import "./partials/panel";
+@import "./partials/portfolio";
+@import "./partials/tables";
+@import "./partials/orderCustomer";
+@import "./partials/animation";
