@@ -26,7 +26,7 @@ task("test:single:auto", path.resolve("./gulp/unit-tests"), {singleRun: false});
 task("test:e2e", path.resolve("./gulp/e2e-tests"), {});
 
 gulp.task("war:build",["clean"], (cb) => {
-    sequence ( "build", "war", cb);
+    sequence ( "useref:build", "war", cb);
 });
 
 gulp.task("test", (cb) => {
