@@ -1,16 +1,11 @@
 "use strict";
 
-const gulp = require("gulp");
-const argv = require("minimist")(process.argv.slice(2));
-const $ = require("gulp-load-plugins")();
-const combine = require("stream-combiner2").obj;
-const util = require("util");
+module.exports =  (options, $) => {
+    const argv = $.minimist(process.argv.slice(2));
+    const RELEASE = !!argv.release;
 
-const RELEASE = !!argv.release;
-
-module.exports =  (options) => {
     return () => {
-       return combine(gulp.src(options.src.templates),
+       return $.combine($.gulp.src(options.src.templates),
             $.if(RELEASE || options.build.root == ".tmp", $.htmlmin({
                 removeComments: true,
                 collapseWhitespace: true,
@@ -21,11 +16,11 @@ module.exports =  (options) => {
                 module : options.build.templates.module, 
                 root : options.build.templates.rootPath
             }),
-            $.if(RELEASE, combine($.rename({suffix: ".min", extname: ".js" }), $.rev() )),
-            gulp.dest(options.build.templates.dir),
+            $.if(RELEASE, $.combine($.rename({suffix: ".min", extname: ".js" }), $.rev() )),
+            $.gulp.dest(options.build.templates.dir),
             $.size({title: "templates"})
         ).on("error", (error) => {
-            util.reportError.call(this, error, options.taskName);
+            $.util.reportError.call(this, error, options.taskName);
         });
     }
 }

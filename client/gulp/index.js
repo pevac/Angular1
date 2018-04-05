@@ -1,78 +1,76 @@
 "use strict";
 
+const taskDir = "gulp";
 const gulp = require("gulp");
 const sequence  = require("run-sequence");
-const path = require("path");
 const $ = require("gulp-load-plugins")();
-const task = require("./loader");
+const task = require("./loader")(gulp, taskDir);
 const config = require("./config")
 
-task("sass:tmp", path.resolve("./gulp/styles"), { src: config.src,  build: config.tmp });
-task("templates:tmp", path.resolve("./gulp/templates"), { src: config.src, build: config.tmp });
-task("eslint", path.resolve("./gulp/eslint"), { src: config.src });
-task("fonts:build", path.resolve("./gulp/fonts"), { src: config.src, build: config.build });
-task("image:build", path.resolve("./gulp/images"), { src: config.src, build: config.build });
-task("inject:tmp", path.resolve("./gulp/inject"), { src: config.src, build: config.tmp });
-task("useref:tmp", path.resolve("./gulp/useref"), { src: config.tmp, build: config.build });
-task("browser:sync:tmp", path.resolve("./gulp/server"), { server: config.server.tmp });
-task("browser:sync:dist", path.resolve("./gulp/server"), { server: config.server.dist });
-task("watch:tmp", path.resolve("./gulp/watch.tmp"), { watch: config.watch });
-task("war", path.resolve("./gulp/war"),  { war: config.war });
-task("clean", path.resolve("./gulp/clean"), { clean: config.clean.file} );
-task("clear:cache", path.resolve("./gulp/clearCache"), {} );
+task("styles:tmp",  { src: config.src,  build: config.tmp });
+task("templates:tmp",  { src: config.src, build: config.tmp });
+task("eslint",  { src: config.src });
+task("fonts:build",  { src: config.src, build: config.build });
+task("images:build",  { src: config.src, build: config.build });
+task("inject:tmp",  { src: config.src, build: config.tmp });
+task("useref:tmp",  { src: config.tmp, build: config.build });
+task("server:tmp",  { server: config.server.tmp });
+task("server:dist",  { server: config.server.dist });
+task("watch:tmp",  { watch: config.watch });
+task("clean",  { clean: config.clean.file} );
+task("clear.cache");
 
-task("test:single", path.resolve("./gulp/unit-tests"), {singleRun: true});
-task("test:single:auto", path.resolve("./gulp/unit-tests"), {singleRun: false});
-task("test:e2e", path.resolve("./gulp/e2e-tests"), {});
+task("war", { war: config.war });
+task("unit.tests:single", {singleRun: true});
+task("unit.tests:single:auto", {singleRun: false});
+task("e2e.tests");
 
 gulp.task("war:build",["clean"], (cb) => {
     sequence ( "useref:build", "war", cb);
 });
-
 gulp.task("test", (cb) => {
-    sequence ( "eslint", "test:single", cb);
+    sequence ( "eslint", "unit.test:single", cb);
 });
 gulp.task("test:auto", (cb) => {
-    sequence ( "watch:tmp", "test:single:auto", cb);
+    sequence ( "watch:tmp", "unit.test:single:auto", cb);
 });
-
 gulp.task("protractor", ["protractor:src"]);
 gulp.task("protractor:src",(cb) => {
-    sequence ( ["serve:e2e", "webdriver-update"], "test:e2e", cb);
+    sequence ( ["serve:e2e", "webdriver-update"], "e2e.tests", cb);
 });
 gulp.task("protractor:dist",  (cb) => {
-    sequence ( ["serve:e2e-dist", "webdriver-update"], "test:e2e", cb);
+    sequence ( ["serve:e2e-dist", "webdriver-update"], "e2e.tests", cb);
 });
 gulp.task("webdriver-update", $.protractor.webdriver_update);
 gulp.task("webdriver-standalone", $.protractor.webdriver_standalone);
 
 gulp.task("inject", (cb) => {
-    sequence (["sass:tmp", "eslint"],"inject:tmp", cb);
+    sequence (["styles:tmp", "eslint"],"inject:tmp", cb);
 });
 gulp.task("inject:build", (cb) => {
-    sequence (["clear:cache", "clean"], "inject", cb);
+    sequence (["clear.cache", "clean"], "inject", cb);
 });
 gulp.task("useref:build", (cb) => {
-    sequence ("inject:build", [ "templates:tmp", "fonts:build","image:build"],"useref:tmp", cb);
+    sequence ("inject:build", [ "templates:tmp", "fonts:build","images:build"],"useref:tmp", cb);
 });
 
 gulp.task("serve",  function (cb) {
-    sequence ("inject:build",  ["browser:sync:tmp","watch:tmp"], cb);
+    sequence ("inject:build",  ["server:tmp","watch:tmp"], cb);
 });
 gulp.task("serve:dist", function (cb) {
-    sequence ("useref:build",  "browser:sync:dist", cb);
+    sequence ("useref:build",  "server:dist", cb);
 });
 gulp.task("serve:e2e", function (cb) {
-    sequence ("inject:build",  "browser:sync:tmp", cb);
+    sequence ("inject:build",  "server:tmp", cb);
 });
 gulp.task("serve:e2e-dist", function (cb) {
-    sequence ("useref:build",  "browser:sync:dist", cb);
+    sequence ("useref:build",  "server:dist", cb);
 });
 
 gulp.task("default", ["serve"]);
 
 
-// task("sass:build", path.resolve("./gulp/styles"), {
+// task("styles:build", path.resolve("./gulp/styles"), {
 //     src: config.src,
 //     build: config.build
 // });
@@ -96,8 +94,8 @@ gulp.task("default", ["serve"]);
 //     watch: config.watch
 // });
 // gulp.task("serve:dist:watch",  (cb) => {
-//     sequence ("build",  ["browser:sync","watch"], cb);
+//     sequence ("build",  ["server:dist","watch"], cb);
 // });
 // gulp.task("build", (cb) => {
-//     sequence ( ["clear:cache", "clean"], ["sass:build","templates:build", "vendor:build", "app:build",  "fonts:build","image:build"],"html:build", cb);
+//     sequence ( ["clear.cache", "clean"], ["styles:build","templates:build", "vendor:build", "app:build",  "fonts:build","images:build"],"html:build", cb);
 // });

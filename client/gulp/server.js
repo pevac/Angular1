@@ -1,17 +1,13 @@
 "use strict";
 
-const browserSync = require("browser-sync").create();
-const spa         = require("browser-sync-spa");
-const isArray     = require("isarray");
-const proxyMiddleware = require("http-proxy-middleware");
-
-module.exports =  (options) => {
+module.exports =  (options, $) => {
     return () => {
+        const browserSync = $.browserSync.create();
         options.server.browser === undefined ? "default" : options.server.browser;
         
         let routes = null;
         if(options.server.path === "src" || 
-            (isArray(options.server.path) && options.server.path.indexOf("src") !== -1)) {
+            (Array.isArray(options.server.path) && options.server.path.indexOf("src") !== -1)) {
             routes = {
               "/node_modules": "node_modules"
             };
@@ -23,7 +19,7 @@ module.exports =  (options) => {
             routes:routes
         }
 
-        server.middleware = proxyMiddleware("/dev-studio/", {
+        server.middleware = $.httpProxyMiddleware("/dev-studio/", {
             target: "http://localhost:3001", 
             pathRewrite: {
                 "/dev-studio/api" : "/api",     // rewrite path
@@ -49,7 +45,7 @@ module.exports =  (options) => {
 
         browserSync.watch(options.server.watch).on("change", browserSync.reload);
 
-        browserSync.use(spa({
+        browserSync.use($.browserSyncSpa({
             selector: "[ng-app]",
             history: {
                 index: options.server.path + "/index.html"

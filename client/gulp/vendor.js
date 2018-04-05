@@ -1,23 +1,16 @@
 "use strict";
 
-const gulp = require("gulp");
-const fs = require("fs");
-const argv = require("minimist")(process.argv.slice(2));
-const $ = require("gulp-load-plugins")({
-    pattern: ["gulp-*", "uglify-save-license"]
-});
-const combine = require("stream-combiner2").obj;
-
-const RELEASE = !!argv.release;
-
-module.exports =  (options) => {
+module.exports =  (options, $) => {
+    const argv = $.minimist(process.argv.slice(2));
+    const RELEASE = !!argv.release;
+    
     return () => {
-        return combine( gulp.src(JSON.parse(fs.readFileSync(options.src.vendor))),
+        return $.combine( $.gulp.src(JSON.parse($.fs.readFileSync(options.src.vendor))),
             $.if(!RELEASE, $.sourcemaps.init()),
             $.concat("vendor.js"),
-            $.if(RELEASE, combine($.uglify({ preserveComments: $.uglifySaveLicense }), $.rename({suffix:".min", extname:".js"}), $.rev())),
+            $.if(RELEASE, $.combine($.uglify({ preserveComments: $.uglifySaveLicense }), $.rename({suffix:".min", extname:".js"}), $.rev())),
             $.if(!RELEASE, $.sourcemaps.write("vendor")),
-            gulp.dest(options.build.vendor),
+            $.gulp.dest(options.build.vendor),
             $.size({title: "vendor"}),
             $.if(RELEASE, combine($.rev.manifest("vendor.json"), gulp.dest("./dist/manifest") ))
         )

@@ -1,9 +1,7 @@
 "use strict";
 
-const del = require("del");
-
-module.exports =  (options) => {
+module.exports =  (options, $) => {
     return () => {
-        return del(options.clean);
+        return $.del(options.clean);
     }
 }
