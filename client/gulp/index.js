@@ -1,10 +1,7 @@
 "use strict";
 
-const taskDir = "gulp";
 const gulp = require("gulp");
-const sequence  = require("run-sequence");
-const $ = require("gulp-load-plugins")();
-const task = require("./loader")(gulp, taskDir);
+const task = require("./loader")(gulp);
 const config = require("./config")
 
 task("styles:tmp",  { src: config.src,  build: config.tmp });
@@ -19,55 +16,31 @@ task("server:dist",  { server: config.server.dist });
 task("watch:tmp",  { watch: config.watch });
 task("clean",  { clean: config.clean.file} );
 task("clear.cache");
-
 task("war", { war: config.war });
-task("unit.tests:single", {singleRun: true});
-task("unit.tests:single:auto", {singleRun: false});
+
+task("unit.tests:single", { singleRun: true });
+task("unit.tests:single:auto", { singleRun: false });
 task("e2e.tests");
+task("webdriver:update", { webdriver: "webdriver_update" });
+task("webdriver:standalone", { webdriver:"webdriver_standalone" });
 
-gulp.task("war:build",["clean"], (cb) => {
-    sequence ( "useref:build", "war", cb);
-});
-gulp.task("test", (cb) => {
-    sequence ( "eslint", "unit.test:single", cb);
-});
-gulp.task("test:auto", (cb) => {
-    sequence ( "watch:tmp", "unit.test:single:auto", cb);
-});
-gulp.task("protractor", ["protractor:src"]);
-gulp.task("protractor:src",(cb) => {
-    sequence ( ["serve:e2e", "webdriver-update"], "e2e.tests", cb);
-});
-gulp.task("protractor:dist",  (cb) => {
-    sequence ( ["serve:e2e-dist", "webdriver-update"], "e2e.tests", cb);
-});
-gulp.task("webdriver-update", $.protractor.webdriver_update);
-gulp.task("webdriver-standalone", $.protractor.webdriver_standalone);
+task("inject", gulp.series(gulp.parallel("styles:tmp", "eslint"),"inject:tmp"));
+task("inject:build", gulp.series(gulp.parallel("clear.cache", "clean"), "inject"));
+task("useref:build", gulp.series("inject:build", gulp.parallel("templates:tmp", "fonts:build","images:build"),"useref:tmp"));
+task("war:build", gulp.series("clean", "useref:build", "war"));
+task("test", gulp.series("eslint", "unit.tests:single"));
+task("test:auto", gulp.series("watch:tmp", "unit.tests:single:auto"));
 
-gulp.task("inject", (cb) => {
-    sequence (["styles:tmp", "eslint"],"inject:tmp", cb);
-});
-gulp.task("inject:build", (cb) => {
-    sequence (["clear.cache", "clean"], "inject", cb);
-});
-gulp.task("useref:build", (cb) => {
-    sequence ("inject:build", [ "templates:tmp", "fonts:build","images:build"],"useref:tmp", cb);
-});
+task("serve",  gulp.series ("inject:build",  gulp.parallel("server:tmp","watch:tmp")));
+task("serve:dist", gulp.series("useref:build",  "server:dist"));
+task("serve:e2e", gulp.series("inject:build",  "server:tmp"));
+task("serve:e2e:dist", gulp.series("useref:build",  "server:dist"));
 
-gulp.task("serve",  function (cb) {
-    sequence ("inject:build",  ["server:tmp","watch:tmp"], cb);
-});
-gulp.task("serve:dist", function (cb) {
-    sequence ("useref:build",  "server:dist", cb);
-});
-gulp.task("serve:e2e", function (cb) {
-    sequence ("inject:build",  "server:tmp", cb);
-});
-gulp.task("serve:e2e-dist", function (cb) {
-    sequence ("useref:build",  "server:dist", cb);
-});
+task("protractor:src", gulp.series( gulp.parallel("serve:e2e", "webdriver:update"), "e2e.tests"));
+task("protractor:dist", gulp.series( gulp.parallel("serve:e2e:dist", "webdriver:update"), "e2e.tests"));
+task("protractor", gulp.series("protractor:src"));
 
-gulp.task("default", ["serve"]);
+task("default", gulp.series("serve"));
 
 
 // task("styles:build", path.resolve("./gulp/styles"), {
