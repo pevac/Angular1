@@ -5,7 +5,7 @@ module.exports =  (options, $) => {
     const RELEASE = !!argv.release;
     const VISUALIZER = !!!argv.visualizer;
 
-    return () => {
+    return (done) => {
         const partialsInjectFile = $.gulp.src(`${options.src.templates.dir}/*.js`, { read: false });
         const partialsInjectOptions = {
             starttag: '<!-- inject:partials -->',

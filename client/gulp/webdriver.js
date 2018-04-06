@@ -1,7 +1,10 @@
 "use strict";
 
 module.exports =  (options, $) => {
-    return () => {
-        return $.protractor[options.webdriver];
+    return (done) => {
+        return new Promise(function(resolve, reject) {
+            $.protractor[options.webdriver];
+            resolve();
+          });
     }
 }

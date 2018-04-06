@@ -1,31 +1,26 @@
 "use strict";
 
 module.exports =  (options, $) => {
-    return () => {
-        $.watch([options.watch.html], (event, cb) => {
-            $.gulp.start("inject");
-        });
+    var bs = $.browserSync.get("admin");
 
-        $.watch([options.watch.app])
+    return (done) => {
+
+        $.gulp.watch([options.watch.html], $.gulp.series("inject"));
+        $.gulp.watch([options.watch.vendor], $.gulp.series("inject"));
+
+        $.gulp.watch([options.watch.app])
             .on("unlink", (filePath) => {
                 delete $.cached.caches["eslint"][$.path.resolve(filePath)];
                 $.remember.forget("eslint", $.path.resolve(filePath));
-                $.gulp.start("inject");
+                return $.gulp.series("inject")();
             })
             .on("add", (filePath) => {
-                $.gulp.start("inject");
+                return $.gulp.series("inject")();
             })
             .on("change", (filePath) => {
-                $.gulp.start("eslint");
+                return $.gulp.series("eslint")();
             });
 
-        $.watch([options.watch.vendor])
-            .on("change", (filePath) => {
-                $.gulp.start("inject");
-            });
-
-        $.watch([options.watch.styles], (event, cb) => {
-            $.gulp.start("styles:tmp");
-        })
+        $.gulp.watch([options.watch.styles], $.gulp.series("styles:tmp"));
     }
 }

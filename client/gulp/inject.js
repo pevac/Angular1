@@ -5,7 +5,7 @@ module.exports =  (options, $) => {
     const RELEASE = !!argv.release;
     const VISUALIZER = !!!argv.visualizer;
 
-    return () => {
+    return (done) => {
         const appScriptSources = $.combine($.gulp.src(options.src.app),
                             $.angularFilesort()).on("error", function (error) {
                                 error.taskName = options.taskName;

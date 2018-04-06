@@ -4,7 +4,7 @@ module.exports =  (options, $) => {
     const argv = $.minimist(process.argv.slice(2));
     const RELEASE = !!argv.release;
     
-    return () => {
+    return (done) => {
         return $.combine( $.gulp.src(JSON.parse($.fs.readFileSync(options.src.vendor))),
             $.if(!RELEASE, $.sourcemaps.init()),
             $.concat("vendor.js"),

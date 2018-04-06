@@ -1,8 +1,8 @@
 "use strict";
 
 module.exports =  (options, $) => {
-    return () => {
-        const browserSync = $.browserSync.create();
+    return (done) => {
+        const browserSync = $.browserSync.create("admin");
         options.server.browser === undefined ? "default" : options.server.browser;
         
         let routes = null;

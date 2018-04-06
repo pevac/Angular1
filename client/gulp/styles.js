@@ -4,7 +4,7 @@ module.exports =  (options, $) => {
     const argv = $.minimist(process.argv.slice(2));
     const RELEASE = !!argv.release;
 
-    return () => {
+    return (done) => {
         return $.combine( $.gulp.src(`${options.src.styles}/*.scss`),
             $.if(!RELEASE, $.sourcemaps.init()),
             $.sass(),

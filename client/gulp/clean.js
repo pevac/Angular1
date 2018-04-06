@@ -1,7 +1,7 @@
 "use strict";
 
 module.exports =  (options, $) => {
-    return () => {
+    return (done) => {
         return $.del(options.clean);
     }
 }

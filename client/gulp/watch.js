@@ -1,34 +1,21 @@
 "use strict";
 
 module.exports =  (options, $) => {
-    return () => {
-        $.watch([options.watch.html], (event, cb) => {
-            $.gulp.start("html:build");
-        });
+    return (done) => {
+        $.gulp.watch([options.watch.html], $.gulp.series("html:build"));
 
-        $.watch([options.watch.templates], (event, cb) => {
-            $.gulp.start("templates:build");
-        });
-        $.watch([options.watch.app], (event, cb) => {
-            $.gulp.start("app:build");
-        }).on("unlink", (filePath) => {
+        $.gulp.watch([options.watch.templates], $.gulp.series("templates:build"));
+        $.gulp.watch([options.watch.app], $.gulp.series("app:build"))
+        .on("unlink", (filePath) => {
             delete $.cached.caches["eslint"][$.path.resolve(filePath)];
             $.remember.forget("eslint",$.path.resolve(filePath));
         });
-        $.watch([options.watch.vendor], (event, cb) => {
-            $.gulp.start("vendor:build" );
-        });
+        $.gulp.watch([options.watch.vendor], $.gulp.series("vendor:build" ));
     
-        $.watch([options.watch.styles], (event, cb) => {
-            $.gulp.start("styles:build");
-        })
+        $.gulp.watch([options.watch.styles], $.gulp.series("styles:build"))
 
-        $.watch([options.watch.fonts], (event, cb) => {
-            $.gulp.start("fonts:build");
-        });
+        $.gulp.watch([options.watch.fonts],  $.gulp.series("fonts:build"));
 
-        $.watch([options.watch.img], (event, cb) => {
-            $.gulp.start("image:build");
-        });
+        $.gulp.watch([options.watch.img], $.gulp.series("image:build"));
     }
 }

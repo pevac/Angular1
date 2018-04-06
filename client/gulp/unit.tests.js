@@ -12,7 +12,7 @@ let pathSrcJs = [
   "./src/app/**/!(*.html|*.spec|*.mock).js"
 ];
 module.exports =  (options, $) => {
-    return   (done) => {
+    return  (done) => {
         let reporters = ["progress"];
         let preprocessors = {};
 

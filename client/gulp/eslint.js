@@ -1,7 +1,7 @@
 "use strict";
 
 module.exports =  (options, $) => {
-    return () => {
+    return (done) => {
         return $.combine( $.gulp.src(options.src.app),
             $.cached("eslint"),
             $.eslint(),
