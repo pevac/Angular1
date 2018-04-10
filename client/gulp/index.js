@@ -41,3 +41,5 @@ task("protractor:dist", gulp.series( gulp.parallel("serve:e2e:dist", "webdriver:
 task("protractor", ["protractor:src"]);
 
 task("default", ["serve"]);
+
+task("d", '' );
