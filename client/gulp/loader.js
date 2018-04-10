@@ -49,34 +49,6 @@ module.exports =  (gulp, taskDir = "gulp") => {
             return task(done);
         }
 
-        try {
-            if(arguments.length === 0 ){
-                throw  Error("Missing arguments");
-            }
-    
-            if( arguments[0] === null|| arguments[0] === undefined || !(isString(arguments[0]) && (arguments[0].trim() !== "")) ){
-                throw  Error("Missing task name");
-            }
-
-            if((arguments.length === 2) && (arguments[1] === null || arguments[1] === undefined || isString(arguments[1])) &&
-                !(isFunction(arguments[1]) || isArray(arguments[1]) || isObject(arguments[1]) )) {
-                throw  Error("Failed arguments");
-            }
-
-            if((arguments.length === 3) && (arguments[1] === null || arguments[1] === undefined || isString(arguments[1]))
-                && !(isFunction(arguments[1]) || isArray(arguments[1]) || isObject(arguments[1])) 
-                &&(arguments[2] === null || arguments[2] === undefined || isString(arguments[2])) 
-                &&!(isFunction(arguments[1]) || isArray(arguments[1])) )
-            {
-                throw  Error("Failed arguments");
-            }
-
-        } catch (e) {
-            console.error(e.message);
-            throw  Error(e.message);
-        }
-
-       
 
         if(arguments.length ===1){
             tasks.push(lazyLoadTask);

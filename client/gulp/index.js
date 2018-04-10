@@ -42,4 +42,4 @@ task("protractor", ["protractor:src"]);
 
 task("default", ["serve"]);
 
-task("d", '' );
+task("d",   [] );
