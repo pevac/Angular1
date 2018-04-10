@@ -1,6 +1,7 @@
 "use strict";
 
 module.exports =  (options, $) => {
+  const browserSync= require('browser-sync').get("admin")
   const argv = $.minimist(process.argv.slice(2));
   const RELEASE = !!argv.release;
 
@@ -17,7 +18,7 @@ module.exports =  (options, $) => {
           throw err;
         })
         .on("end", function () {
-          $.browserSync.exit();
+          browserSync.exit();
           done();
         });
     }

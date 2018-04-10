@@ -1,8 +1,6 @@
 "use strict";
 
 module.exports =  (options, $) => {
-    var bs = $.browserSync.get("admin");
-
     return (done) => {
 
         $.gulp.watch([options.watch.html], $.gulp.series("inject"));

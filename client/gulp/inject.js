@@ -2,6 +2,7 @@
 
 module.exports =  (options, $) => {
     const argv = $.minimist(process.argv.slice(2));
+    const fs = require("fs");
     const RELEASE = !!argv.release;
     const VISUALIZER = !!!argv.visualizer;
 
@@ -18,7 +19,7 @@ module.exports =  (options, $) => {
             relative : true
         };
 
-        const vendor = JSON.parse($.fs.readFileSync(options.src.vendor));
+        const vendor = JSON.parse(fs.readFileSync(options.src.vendor));
         const vendorScriptSources = $.combine($.gulp.src(vendor, {read: false}));
         const vendorInjectOptions = {
             starttag: "<!-- inject:vendor -->",

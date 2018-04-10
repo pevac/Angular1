@@ -2,7 +2,10 @@
 
 module.exports =  (options, $) => {
     return (done) => {
-        const browserSync = $.browserSync.create("admin");
+        const browserSyncSpa = require('browser-sync-spa');
+        const httpProxyMiddleware = require("http-proxy-middleware");
+        const browserSync = require('browser-sync').create("admin");
+
         options.server.browser === undefined ? "default" : options.server.browser;
         
         let routes = null;
@@ -19,14 +22,17 @@ module.exports =  (options, $) => {
             routes:routes
         }
 
-        server.middleware = $.httpProxyMiddleware("/dev-studio/", {
-            target: "http://localhost:3001", 
-            pathRewrite: {
-                "/dev-studio/api" : "/api",     // rewrite path
-                "/dev-studio/auth" : "/auth"           // remove base path
-            },
-            changeOrigin: true
-        });
+        server.middleware = 
+        [
+            httpProxyMiddleware("/dev-studio/", {
+                target: "http://localhost:3001", 
+                pathRewrite: {
+                    "/dev-studio/api" : "/api",     // rewrite path
+                    "/dev-studio/auth" : "/auth"           // remove base path
+                },
+                changeOrigin: true
+            })
+        ];
 
         browserSync.instance = browserSync.init({
             server: server,
@@ -45,11 +51,15 @@ module.exports =  (options, $) => {
 
         browserSync.watch(options.server.watch).on("change", browserSync.reload);
 
-        browserSync.use($.browserSyncSpa({
+        browserSync.use(browserSyncSpa({
             selector: "[ng-app]",
             history: {
                 index: options.server.path + "/index.html"
             }
         }));
+
+        process.on('exit', function() {
+            browserSync.exit();
+        });
     }
 }

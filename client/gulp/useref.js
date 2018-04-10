@@ -17,7 +17,7 @@ module.exports =  (options, $) => {
             $.inject(partialsInjectFile, partialsInjectOptions),
             $.useref(),
             $.removeCode({ visualizer: VISUALIZER, production: RELEASE }),
-            $.if("*.js", $.combine($.ngAnnotate(),$.uglify({ preserveComments: $.uglifySaveLicense }), $.rename({suffix: ".min", extname: ".js" }), $.rev())),
+            $.if("*.js", $.combine($.ngAnnotate(),$.uglify({ preserveComments: require("uglify-save-license") }), $.rename({suffix: ".min", extname: ".js" }), $.rev())),
             $.if("*.css", $.combine( 
                                     $.replace("../node_modules/bootstrap-sass/assets/fonts/bootstrap/", "../assets/fonts/bootstrap/"),
                                      $.cssnano(), 

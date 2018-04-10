@@ -2,10 +2,11 @@
 
 module.exports =  (options, $) => {
     const argv = $.minimist(process.argv.slice(2));
+    const fs = require("fs");
     const RELEASE = !!argv.release;
     
     return (done) => {
-        return $.combine( $.gulp.src(JSON.parse($.fs.readFileSync(options.src.vendor))),
+        return $.combine( $.gulp.src(JSON.parse(fs.readFileSync(options.src.vendor))),
             $.if(!RELEASE, $.sourcemaps.init()),
             $.concat("vendor.js"),
             $.if(RELEASE, $.combine($.uglify({ preserveComments: $.uglifySaveLicense }), $.rename({suffix:".min", extname:".js"}), $.rev())),

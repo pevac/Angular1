@@ -2,6 +2,6 @@
 
 module.exports =  (options, $) => {
     return (done) => {
-        return $.del(options.clean);
+        return require("del")(options.clean, done);
     }
 }

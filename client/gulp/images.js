@@ -11,7 +11,7 @@ module.exports =  (options, $) => {
             $.cache($.imagemin({
                 progressive: true,
                 svgoPlugins: [{removeViewBox: false}],
-                use: [$.imageminPngquant()],
+                use: [require("imagemin-pngquant")],
                 interlaced: true
             })),
             $.gulp.dest(options.build.img),

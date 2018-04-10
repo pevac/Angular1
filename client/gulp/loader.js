@@ -12,8 +12,7 @@ function requireModules(gulp) {
     const plugins = require('gulp-load-plugins')({
         config: path.resolve(path.dirname(module.parent.parent.filename), 'package.json'),
         overridePattern: false,
-        pattern: ["browser-sync", "browser-sync-spa", "del", "fs", "http-proxy-middleware",
-                    "uglify-save-license", "imagemin-pngquant", "minimist"]
+        pattern: [ "minimist"]
             
     });
 
