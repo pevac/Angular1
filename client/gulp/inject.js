@@ -36,7 +36,7 @@ module.exports =  (options, $) => {
             $.inject(appScriptSources, appInjectOptions),
             $.inject(vendorScriptSources, vendorInjectOptions),
             $.inject(otherSources, otherSourcesOptions),
-            $.removeCode({ visualizer: VISUALIZER }),
+            $.removeCode({ visualizer: VISUALIZER, release: RELEASE }),
             $.gulp.dest(options.build.index),
             $.size({title: "index"})
         ).on("error", (error) => {
