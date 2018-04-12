@@ -3,9 +3,11 @@
 module.exports =  (options, $) => {
     const argv = $.minimist(process.argv.slice(2));
     const RELEASE = !!argv.release;
+    const VISUALIZER = !!argv.visualizer;
 
     return (done) => {
        return $.combine($.gulp.src(options.src.templates),
+            $.removeCode({ visualizer: VISUALIZER, production: RELEASE }),
             $.if(RELEASE || options.build.root == ".tmp", $.htmlmin({
                 removeComments: true,
                 collapseWhitespace: true,
