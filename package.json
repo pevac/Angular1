@@ -8,6 +8,8 @@
     "server": "nodemon ./server/bin/www",
     "start": "concurrently \"set PORT=3001 && npm run server\" \"npm run client\"",
     "client": "cd client &&  npm run  start  && cd ..",
+     "client:build": "cd client &&  npm run  prod  && cd ..",
+     "build": "npm run build",
     "test": "concurrently \"set PORT=3001 && npm run server\" \"npm run test\"",
     "client:test": "cd client &&  npm run  test  && cd .."
   },
